@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRepository } from '@/domain/users';
-import { UserEntity } from '@rateme-io/shared';
+import { UserEntity } from '@rateme/domain';
 
 @Entity({ name: 'users' })
 export class UserRepositoryImpl extends UserRepository<UserRepositoryImpl> {

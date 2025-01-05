@@ -11,8 +11,12 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@rateme/domain": ["../domain/src"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@rateme/domain": [
+        "../domain/dist"
+      ]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -21,5 +25,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
 }
