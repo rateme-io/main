@@ -10,19 +10,22 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
     "paths": {
       "@/*": [
         "./src/*"
       ],
-      "@rateme/domain": [
-        "../domain/dist"
+      "@rateme/core/*": [
+        "../core/dist/*"
       ]
     },
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },

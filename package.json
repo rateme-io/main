@@ -4,6 +4,15 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "server:start": "cd packages/server && pnpm run start:dev",
+    "server:build": "cd packages/server && pnpm run build",
+    "server:db": "cd packages/server && docker compose up",
+    "client:start": "cd packages/client && pnpm run start",
+    "client:build": "cd packages/client && pnpm run build",
+    "core:build": "cd packages/core && pnpm run build",
+    "core:build:watch": "cd packages/core && pnpm run build:watch"
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^8.1.9"
