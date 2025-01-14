@@ -11,10 +11,4 @@ export abstract class TokenAbstractRepository extends Repository<TokenEntity> {
   abstract findById(id: string): Promise<TokenEntity | null>;
 
   abstract findBySessionId(sessionId: string): Promise<TokenEntity | null>;
-
-  abstract findByAccessToken(accessToken: string): Promise<TokenEntity | null>;
-
-  abstract findByRefreshToken(
-    refreshToken: string,
-  ): Promise<TokenEntity | null>;
 }

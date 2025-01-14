@@ -5,15 +5,19 @@ import {
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
 
 export abstract class TokenAuthAbstractService {
-  abstract login(command: TokenLoginCommand): Promise<SessionResponse>;
+  abstract login(command: TokenLoginCommand): Promise<TokenSessionResponse>;
 
-  abstract refresh(command: RefreshCommand): Promise<SessionResponse>;
+  abstract refresh(command: RefreshCommand): Promise<TokenSessionResponse>;
 
-  abstract register(command: RegisterCommand): Promise<SessionResponse>;
+  abstract register(command: RegisterCommand): Promise<TokenSessionResponse>;
 
-  abstract createSession(command: CreateSessionCommand): Promise<TokenEntity>;
+  abstract createSession(
+    command: CreateSessionCommand,
+  ): Promise<TokenSessionResponse>;
 
-  abstract createToken(command: CreateTokenCommand): Promise<TokenEntity>;
+  abstract createToken(
+    command: CreateTokenCommand,
+  ): Promise<TokenSessionResponse>;
 
   abstract checkSession(command: CheckSessionCommand): Promise<boolean>;
 }
@@ -26,6 +30,7 @@ export interface TokenLoginCommand {
 }
 
 export interface RefreshCommand {
+  sessionId: string;
   refreshToken: string;
 }
 
@@ -51,9 +56,12 @@ export interface CreateTokenCommand {
 }
 
 export interface CheckSessionCommand {
+  sessionId: string;
   accessToken: string;
 }
 
-export interface SessionResponse {
+export interface TokenSessionResponse {
   token: TokenEntity;
+  accessToken: string;
+  refreshToken: string;
 }

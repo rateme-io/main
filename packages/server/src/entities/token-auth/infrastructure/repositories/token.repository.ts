@@ -36,7 +36,7 @@ export class TokenRepository extends TokenAbstractRepository {
       where: {
         session: { id: sessionId },
       },
-      relations: ['session', 'user'],
+      relations: ['session', 'session.user'],
     });
 
     if (!tokenEntity) {

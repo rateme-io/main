@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "encryption-key": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\""
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -28,7 +29,6 @@
     "@nestjs/typeorm": "^10.0.2",
     "argon2": "^0.41.1",
     "date-fns": "^4.1.0",
-    "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.13.1",

@@ -40,6 +40,7 @@ export class AuthGuard implements CanActivate {
     }
 
     const isValid = await this.tokenAuthService.checkSession({
+      sessionId,
       accessToken: token,
     });
 

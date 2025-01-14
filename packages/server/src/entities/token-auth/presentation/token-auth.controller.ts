@@ -25,7 +25,6 @@ import {
   TokenLoginDto,
   TokenLoginDtoSchema,
 } from '@rateme/core/domain/dtos/token-auth/token-login.dto';
-import { TokenDtoService } from '@rateme/core/domain/dtos/token-auth/token.dto';
 import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-session.dto';
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
@@ -54,17 +53,19 @@ export class TokenAuthController {
     @Headers('user-agent') userAgent: string,
   ): Promise<TokenSessionDto> {
     try {
-      const { token } = await this.tokenAuthService.login({
-        email: body.email,
-        password: body.password,
-        ipAddress,
-        userAgent: userAgent ?? null,
-      });
+      const { token, refreshToken, accessToken } =
+        await this.tokenAuthService.login({
+          email: body.email,
+          password: body.password,
+          ipAddress,
+          userAgent: userAgent ?? null,
+        });
 
       return {
-        token: TokenDtoService.mapToDto(token),
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
+        refreshToken,
+        accessToken,
       };
     } catch (error) {
       if (
@@ -74,6 +75,8 @@ export class TokenAuthController {
       ) {
         throw new UnauthorizedException('Invalid email or password');
       }
+
+      console.error(error);
 
       throw new InternalServerErrorException();
     }
@@ -88,19 +91,21 @@ export class TokenAuthController {
     @Headers('user-agent') userAgent: string,
   ): Promise<TokenSessionDto> {
     try {
-      const { token } = await this.tokenAuthService.register({
-        email: body.email,
-        password: body.password,
-        name: body.name,
-        username: body.username,
-        userAgent: userAgent ?? null,
-        ipAddress,
-      });
+      const { token, refreshToken, accessToken } =
+        await this.tokenAuthService.register({
+          email: body.email,
+          password: body.password,
+          name: body.name,
+          username: body.username,
+          userAgent: userAgent ?? null,
+          ipAddress,
+        });
 
       return {
-        token: TokenDtoService.mapToDto(token),
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
+        refreshToken,
+        accessToken,
       };
     } catch (error) {
       if (
@@ -112,6 +117,8 @@ export class TokenAuthController {
         );
       }
 
+      console.error(error);
+
       throw new InternalServerErrorException();
     }
   }
@@ -119,19 +126,26 @@ export class TokenAuthController {
   @UseGuards(AuthGuard)
   @UsePipes(new ZodValidationPipe(TokenRefreshDtoSchema))
   @Post('/refresh')
-  async refresh(@Body() body: TokenRefreshDto): Promise<TokenSessionDto> {
+  async refresh(
+    @Body() body: TokenRefreshDto,
+    @Headers('session') sessionId: string,
+  ): Promise<TokenSessionDto> {
     try {
-      const { token } = await this.tokenAuthService.refresh({
-        refreshToken: body.refreshToken,
-      });
+      const { token, refreshToken, accessToken } =
+        await this.tokenAuthService.refresh({
+          refreshToken: body.refreshToken,
+          sessionId,
+        });
 
       return {
-        token: TokenDtoService.mapToDto(token),
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
+        refreshToken,
+        accessToken,
       };
     } catch (error) {
-      console.log(error);
+      console.error(error);
+
       throw new InternalServerErrorException();
     }
   }

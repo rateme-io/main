@@ -24,9 +24,9 @@ import {
   CreateTokenCommand,
   RefreshCommand,
   RegisterCommand,
-  SessionResponse,
   TokenAuthAbstractService,
   TokenLoginCommand,
+  TokenSessionResponse,
 } from './token-auth.abstract.service';
 import {
   PasswordAbstractRepository,
@@ -48,7 +48,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
     super();
   }
 
-  async login(command: TokenLoginCommand): Promise<SessionResponse> {
+  async login(command: TokenLoginCommand): Promise<TokenSessionResponse> {
     const user = await this.userRepository.findByEmail(command.email);
 
     if (!user) {
@@ -70,18 +70,14 @@ export class TokenAuthService extends TokenAuthAbstractService {
       throw new InvalidPassword();
     }
 
-    const token = await this.createSession({
+    return await this.createSession({
       user,
       ipAddress: command.ipAddress,
       userAgent: command.userAgent,
     });
-
-    return {
-      token,
-    };
   }
 
-  async register(command: RegisterCommand): Promise<SessionResponse> {
+  async register(command: RegisterCommand): Promise<TokenSessionResponse> {
     const user = await this.userRepository.findByEmail(command.email);
 
     if (user) {
@@ -111,18 +107,16 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
     await this.passwordRepository.create(passwordEntity);
 
-    const token = await this.createSession({
+    return await this.createSession({
       user: newUser,
       userAgent: command.userAgent,
       ipAddress: command.ipAddress,
     });
-
-    return {
-      token,
-    };
   }
 
-  async createSession(command: CreateSessionCommand): Promise<TokenEntity> {
+  async createSession(
+    command: CreateSessionCommand,
+  ): Promise<TokenSessionResponse> {
     const sessionEntity = SessionEntity.create({
       sessionId: this.cryptoService.generateHash(),
       userAgent: command.userAgent,
@@ -142,10 +136,21 @@ export class TokenAuthService extends TokenAuthAbstractService {
     });
   }
 
-  async createToken(command: CreateTokenCommand): Promise<TokenEntity> {
+  async createToken(
+    command: CreateTokenCommand,
+  ): Promise<TokenSessionResponse> {
+    const accessToken = this.cryptoService.generateHash();
+    const refreshToken = this.cryptoService.generateHash();
+
     const tokenEntity = TokenEntity.create({
-      accessToken: this.cryptoService.generateHash(),
-      refreshToken: this.cryptoService.generateHash(),
+      accessToken: this.cryptoService.encrypt(
+        accessToken,
+        this.configService.auth.encryptionKey,
+      ),
+      refreshToken: this.cryptoService.encrypt(
+        refreshToken,
+        this.configService.auth.encryptionKey,
+      ),
       session: command.session,
       accessTokenExpiresAt: this.dateService.addMinutes(
         new Date(),
@@ -159,15 +164,29 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
     await tokenEntity.validate();
 
-    return await this.tokenRepository.create(tokenEntity);
+    const token = await this.tokenRepository.create(tokenEntity);
+
+    return {
+      accessToken,
+      refreshToken,
+      token,
+    };
   }
 
-  async refresh(command: RefreshCommand): Promise<SessionResponse> {
-    const token = await this.tokenRepository.findByRefreshToken(
-      command.refreshToken,
-    );
+  async refresh(command: RefreshCommand): Promise<TokenSessionResponse> {
+    const token = await this.tokenRepository.findBySessionId(command.sessionId);
 
     if (!token) {
+      throw new UserNotFound();
+    }
+
+    if (
+      command.refreshToken !==
+      this.cryptoService.decrypt(
+        token.refreshToken,
+        this.configService.auth.encryptionKey,
+      )
+    ) {
       throw new UserNotFound();
     }
 
@@ -177,23 +196,27 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
     await this.tokenRepository.remove(token.id);
 
-    const newToken = await this.createToken({
+    return await this.createToken({
       session: token.session,
       ipAddress: token.session.ipAddress,
       userAgent: token.session.userAgent,
     });
-
-    return {
-      token: newToken,
-    };
   }
 
   async checkSession(command: CheckSessionCommand): Promise<boolean> {
-    const token = await this.tokenRepository.findByAccessToken(
-      command.accessToken,
-    );
+    const token = await this.tokenRepository.findBySessionId(command.sessionId);
 
     if (!token) {
+      return false;
+    }
+
+    if (
+      command.accessToken !==
+      this.cryptoService.decrypt(
+        token.accessToken,
+        this.configService.auth.encryptionKey,
+      )
+    ) {
       return false;
     }
 

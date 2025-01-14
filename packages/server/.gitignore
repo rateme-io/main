@@ -42,7 +42,6 @@ lerna-debug.log*
 .env.production.local
 .env.local
 .db.env
-private.key
 
 # temp directory
 .temp

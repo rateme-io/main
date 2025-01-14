@@ -56,6 +56,9 @@ export class ConfigService {
       .parse(this.configService.get('REFRESH_TOKEN_EXPIRES_IN'));
 
     return {
+      encryptionKey: zod
+        .string()
+        .parse(this.configService.get('ENCRYPTION_KEY')),
       accessToken: {
         expiresIn: DurationParser.parse(authTokenExpiresIn),
       },
