@@ -1,7 +1,5 @@
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { UserAbstractRepository } from '@/entities/user/domain';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
 import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
@@ -9,13 +7,13 @@ import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
 import { UserRepositoryEntity } from './user.repository.entity';
 
-@Injectable()
 export class UserRepository extends UserAbstractRepository {
-  constructor(
-    @InjectRepository(UserRepositoryEntity)
-    private readonly userEntity: Repository<UserRepositoryEntity>,
-  ) {
+  private readonly userEntity: Repository<UserRepositoryEntity>;
+
+  constructor(private readonly entityManager: EntityManager) {
     super();
+
+    this.userEntity = this.entityManager.getRepository(UserRepositoryEntity);
   }
 
   async create(user: UserEntity): Promise<UserEntity> {

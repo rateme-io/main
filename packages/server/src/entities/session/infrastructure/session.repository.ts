@@ -1,21 +1,21 @@
 import { SessionAbstractRepository } from '@/entities/session/domain';
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserAbstractRepository } from '@/entities/user/domain';
+import { EntityManager, Repository } from 'typeorm';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { SessionEntity } from '@rateme/core/domain/entities/session.entity';
 import { SessionRepositoryEntity } from './session.repository.entity';
 
-@Injectable()
 export class SessionRepository extends SessionAbstractRepository {
+  private readonly sessionEntity: Repository<SessionRepositoryEntity>;
+
   constructor(
-    @InjectRepository(SessionRepositoryEntity)
-    private readonly sessionEntity: Repository<SessionRepositoryEntity>,
-    @Inject(UserAbstractRepository)
+    private readonly entityManager: EntityManager,
     private readonly userRepository: UserRepository,
   ) {
     super();
+
+    this.sessionEntity = this.entityManager.getRepository(
+      SessionRepositoryEntity,
+    );
   }
 
   async create(session: SessionEntity): Promise<SessionEntity> {

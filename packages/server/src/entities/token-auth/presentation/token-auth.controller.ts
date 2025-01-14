@@ -151,6 +151,20 @@ export class TokenAuthController {
   }
 
   @UseGuards(AuthGuard)
+  @Post('/logout')
+  async logout(@Headers('session') sessionId: string): Promise<void> {
+    try {
+      await this.tokenAuthService.logout({
+        sessionId,
+      });
+    } catch (error) {
+      console.error(error);
+
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @UseGuards(AuthGuard)
   @Get('/me')
   async me() {
     return 'Hello';

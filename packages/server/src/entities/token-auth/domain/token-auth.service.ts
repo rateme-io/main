@@ -1,6 +1,4 @@
-import { UserAbstractRepository } from '@/entities/user/domain';
 import { CryptoService } from '@/core/crypto';
-import { SessionAbstractRepository } from '@/entities/session/domain';
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
 import {
   SessionEntity,
@@ -20,27 +18,23 @@ import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
 import {
   CheckSessionCommand,
-  CreateSessionCommand,
-  CreateTokenCommand,
+  LogoutCommand,
   RefreshCommand,
   RegisterCommand,
   TokenAuthAbstractService,
   TokenLoginCommand,
   TokenSessionResponse,
 } from './token-auth.abstract.service';
-import {
-  PasswordAbstractRepository,
-  TokenAbstractRepository,
-} from './repositories';
 import { DateService } from '@/core/date';
 import { ConfigService } from '@/core/config';
+import {
+  TokenAuthAbstractUnitOfWork,
+  TokenAuthUnitOfWorkContext,
+} from './token-auth.abstract.unit-of-work';
 
 export class TokenAuthService extends TokenAuthAbstractService {
   constructor(
-    private readonly userRepository: UserAbstractRepository,
-    private readonly passwordRepository: PasswordAbstractRepository,
-    private readonly sessionRepository: SessionAbstractRepository,
-    private readonly tokenRepository: TokenAbstractRepository,
+    private readonly tokenAuthUnitOfWork: TokenAuthAbstractUnitOfWork,
     private readonly cryptoService: CryptoService,
     private readonly dateService: DateService,
     private readonly configService: ConfigService,
@@ -49,73 +43,168 @@ export class TokenAuthService extends TokenAuthAbstractService {
   }
 
   async login(command: TokenLoginCommand): Promise<TokenSessionResponse> {
-    const user = await this.userRepository.findByEmail(command.email);
+    return this.tokenAuthUnitOfWork.start(async (context) => {
+      const user = await context.userRepository.findByEmail(command.email);
 
-    if (!user) {
-      throw new UserNotFound();
-    }
+      if (!user) {
+        throw new UserNotFound();
+      }
 
-    const password = await this.passwordRepository.findByUserId(user.id);
+      const password = await context.passwordRepository.findByUserId(user.id);
 
-    if (!password) {
-      throw new UserDoesntHavePassword();
-    }
+      if (!password) {
+        throw new UserDoesntHavePassword();
+      }
 
-    const isValidPassword = await this.cryptoService.verify(
-      password.hash.getValue(),
-      command.password,
-    );
+      const isValidPassword = await this.cryptoService.verify(
+        password.hash.getValue(),
+        command.password,
+      );
 
-    if (!isValidPassword) {
-      throw new InvalidPassword();
-    }
+      if (!isValidPassword) {
+        throw new InvalidPassword();
+      }
 
-    return await this.createSession({
-      user,
-      ipAddress: command.ipAddress,
-      userAgent: command.userAgent,
+      return await this.createSession(
+        {
+          user,
+          ipAddress: command.ipAddress,
+          userAgent: command.userAgent,
+        },
+        context,
+      );
     });
   }
 
   async register(command: RegisterCommand): Promise<TokenSessionResponse> {
-    const user = await this.userRepository.findByEmail(command.email);
+    return this.tokenAuthUnitOfWork.start(async (context) => {
+      const user = await context.userRepository.findByEmail(command.email);
 
-    if (user) {
-      throw new UserAlreadyExists();
-    }
+      if (user) {
+        throw new UserAlreadyExists();
+      }
 
-    const userEntity = UserEntity.create({
-      email: new EmailVo(command.email),
-      name: new NameVo(command.name),
-      username: new UsernameVo(command.username),
-      logoUrl: new LogoUrlVo(null),
-      isVerified: false,
+      const userEntity = UserEntity.create({
+        email: new EmailVo(command.email),
+        name: new NameVo(command.name),
+        username: new UsernameVo(command.username),
+        logoUrl: new LogoUrlVo(null),
+        isVerified: false,
+      });
+
+      await userEntity.validate();
+
+      const newUser = await context.userRepository.create(userEntity);
+
+      const passwordHash = await this.cryptoService.hash(command.password);
+
+      const passwordEntity = PasswordEntity.create({
+        hash: new PasswordVo(passwordHash),
+        user: newUser,
+      });
+
+      await passwordEntity.validate();
+
+      await context.passwordRepository.create(passwordEntity);
+
+      return await this.createSession(
+        {
+          user: newUser,
+          userAgent: command.userAgent,
+          ipAddress: command.ipAddress,
+        },
+        context,
+      );
     });
+  }
 
-    await userEntity.validate();
+  async logout(command: LogoutCommand): Promise<void> {
+    return this.tokenAuthUnitOfWork.start(
+      async ({ sessionRepository, tokenRepository }) => {
+        const session = await sessionRepository.findById(command.sessionId);
 
-    const newUser = await this.userRepository.create(userEntity);
+        if (!session) {
+          throw new UserNotFound();
+        }
 
-    const passwordHash = await this.cryptoService.hash(command.password);
+        session.isActive = false;
 
-    const passwordEntity = PasswordEntity.create({
-      hash: new PasswordVo(passwordHash),
-      user: newUser,
+        await sessionRepository.update(session);
+
+        const token = await tokenRepository.findBySessionId(command.sessionId);
+
+        if (token) {
+          await tokenRepository.remove(token.id);
+        }
+      },
+    );
+  }
+
+  async refresh(command: RefreshCommand): Promise<TokenSessionResponse> {
+    return this.tokenAuthUnitOfWork.start(async (context) => {
+      const token = await context.tokenRepository.findBySessionId(
+        command.sessionId,
+      );
+
+      if (!token) {
+        throw new UserNotFound();
+      }
+
+      if (
+        command.refreshToken !==
+        this.cryptoService.decrypt(
+          token.refreshToken,
+          this.configService.auth.encryptionKey,
+        )
+      ) {
+        throw new UserNotFound();
+      }
+
+      if (this.dateService.isAfter(new Date(), token.refreshTokenExpiresAt)) {
+        throw new UserNotFound();
+      }
+
+      await context.tokenRepository.remove(token.id);
+
+      return await this.createToken(
+        {
+          session: token.session,
+          ipAddress: token.session.ipAddress,
+          userAgent: token.session.userAgent,
+        },
+        context,
+      );
     });
+  }
 
-    await passwordEntity.validate();
+  async checkSession(command: CheckSessionCommand): Promise<boolean> {
+    return this.tokenAuthUnitOfWork.start(async ({ tokenRepository }) => {
+      const token = await tokenRepository.findBySessionId(command.sessionId);
 
-    await this.passwordRepository.create(passwordEntity);
+      if (!token) {
+        return false;
+      }
 
-    return await this.createSession({
-      user: newUser,
-      userAgent: command.userAgent,
-      ipAddress: command.ipAddress,
+      const decrypted = this.cryptoService.decrypt(
+        token.accessToken,
+        this.configService.auth.encryptionKey,
+      );
+
+      if (command.accessToken !== decrypted) {
+        return false;
+      }
+
+      if (this.dateService.isAfter(new Date(), token.accessTokenExpiresAt)) {
+        return false;
+      }
+
+      return true;
     });
   }
 
   async createSession(
     command: CreateSessionCommand,
+    context: TokenAuthUnitOfWorkContext,
   ): Promise<TokenSessionResponse> {
     const sessionEntity = SessionEntity.create({
       sessionId: this.cryptoService.generateHash(),
@@ -127,17 +216,21 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
     await sessionEntity.validate();
 
-    const session = await this.sessionRepository.create(sessionEntity);
+    const session = await context.sessionRepository.create(sessionEntity);
 
-    return await this.createToken({
-      session,
-      ipAddress: command.ipAddress,
-      userAgent: command.userAgent,
-    });
+    return await this.createToken(
+      {
+        session,
+        ipAddress: command.ipAddress,
+        userAgent: command.userAgent,
+      },
+      context,
+    );
   }
 
   async createToken(
     command: CreateTokenCommand,
+    { tokenRepository }: TokenAuthUnitOfWorkContext,
   ): Promise<TokenSessionResponse> {
     const accessToken = this.cryptoService.generateHash();
     const refreshToken = this.cryptoService.generateHash();
@@ -164,7 +257,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
     await tokenEntity.validate();
 
-    const token = await this.tokenRepository.create(tokenEntity);
+    const token = await tokenRepository.create(tokenEntity);
 
     return {
       accessToken,
@@ -172,58 +265,16 @@ export class TokenAuthService extends TokenAuthAbstractService {
       token,
     };
   }
+}
 
-  async refresh(command: RefreshCommand): Promise<TokenSessionResponse> {
-    const token = await this.tokenRepository.findBySessionId(command.sessionId);
+export interface CreateSessionCommand {
+  user: UserEntity;
+  ipAddress: string;
+  userAgent: string | null;
+}
 
-    if (!token) {
-      throw new UserNotFound();
-    }
-
-    if (
-      command.refreshToken !==
-      this.cryptoService.decrypt(
-        token.refreshToken,
-        this.configService.auth.encryptionKey,
-      )
-    ) {
-      throw new UserNotFound();
-    }
-
-    if (this.dateService.isAfter(new Date(), token.refreshTokenExpiresAt)) {
-      throw new UserNotFound();
-    }
-
-    await this.tokenRepository.remove(token.id);
-
-    return await this.createToken({
-      session: token.session,
-      ipAddress: token.session.ipAddress,
-      userAgent: token.session.userAgent,
-    });
-  }
-
-  async checkSession(command: CheckSessionCommand): Promise<boolean> {
-    const token = await this.tokenRepository.findBySessionId(command.sessionId);
-
-    if (!token) {
-      return false;
-    }
-
-    if (
-      command.accessToken !==
-      this.cryptoService.decrypt(
-        token.accessToken,
-        this.configService.auth.encryptionKey,
-      )
-    ) {
-      return false;
-    }
-
-    if (this.dateService.isAfter(new Date(), token.accessTokenExpiresAt)) {
-      return false;
-    }
-
-    return true;
-  }
+export interface CreateTokenCommand {
+  session: SessionEntity;
+  ipAddress: string;
+  userAgent: string | null;
 }

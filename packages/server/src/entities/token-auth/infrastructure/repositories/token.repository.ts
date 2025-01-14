@@ -1,21 +1,19 @@
-import { SessionAbstractRepository } from '@/entities/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
-import { InjectRepository } from '@nestjs/typeorm';
 import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
-import { Repository } from 'typeorm';
-import { Inject, Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
 import { TokenAbstractRepository } from '@/entities/token-auth/domain';
 import { TokenRepositoryEntity } from '../entities';
 
-@Injectable()
 export class TokenRepository extends TokenAbstractRepository {
+  private readonly tokenEntity: Repository<TokenRepositoryEntity>;
+
   constructor(
-    @InjectRepository(TokenRepositoryEntity)
-    private readonly tokenEntity: Repository<TokenRepositoryEntity>,
-    @Inject(SessionAbstractRepository)
+    private readonly entityManager: EntityManager,
     private readonly sessionRepository: SessionRepository,
   ) {
     super();
+
+    this.tokenEntity = this.entityManager.getRepository(TokenRepositoryEntity);
   }
 
   async findByAccessToken(token: string): Promise<TokenEntity | null> {

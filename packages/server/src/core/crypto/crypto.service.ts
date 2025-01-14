@@ -23,31 +23,37 @@ export class CryptoService {
   }
 
   encrypt(data: string, encryptionKey: string) {
-    const iv = randomBytes(IV_LENGTH);
-    const cipher = createCipheriv(
-      'aes-256-cbc',
-      Buffer.from(encryptionKey, 'hex'),
-      iv,
-    );
+    const key = Buffer.from(encryptionKey, 'hex');
 
-    let encrypted = cipher.update(data, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
+    if (key.length !== 32) {
+      throw new Error('Encryption key must be 256 bits (32 bytes) long');
+    }
+
+    const iv = randomBytes(IV_LENGTH);
+    const cipher = createCipheriv('aes-256-cbc', key, iv);
+
+    const encrypted = cipher.update(data, 'utf8', 'hex') + cipher.final('hex');
 
     return `${iv.toString('hex')}:${encrypted}`;
   }
 
   decrypt(data: string, encryptionKey: string) {
+    const key = Buffer.from(encryptionKey, 'hex');
+
+    if (key.length !== 32) {
+      throw new Error('Encryption key must be 256 bits (32 bytes) long');
+    }
+
     const [iv, encryptedText] = data.split(':');
     const decipher = createDecipheriv(
       'aes-256-cbc',
-      Buffer.from(encryptionKey, 'hex'),
+      key,
       Buffer.from(iv, 'hex'),
     );
 
-    let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-
-    return decrypted;
+    return (
+      decipher.update(encryptedText, 'hex', 'utf8') + decipher.final('utf8')
+    );
   }
 
   generateHash() {

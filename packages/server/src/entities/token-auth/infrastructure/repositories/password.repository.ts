@@ -1,22 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { UserAbstractRepository } from '@/entities/user/domain';
 import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { PasswordRepositoryEntity } from '../entities';
 import { PasswordAbstractRepository } from '@/entities/token-auth/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
 
-@Injectable()
 export class PasswordRepository extends PasswordAbstractRepository {
+  private readonly passwordEntity: Repository<PasswordRepositoryEntity>;
+
   constructor(
-    @Inject(UserAbstractRepository)
+    private readonly entityManager: EntityManager,
     private readonly userRepository: UserRepository,
-    @InjectRepository(PasswordRepositoryEntity)
-    private readonly passwordEntity: Repository<PasswordRepositoryEntity>,
   ) {
     super();
+
+    this.passwordEntity = this.entityManager.getRepository(
+      PasswordRepositoryEntity,
+    );
   }
 
   async findByUserId(userId: string): Promise<PasswordEntity | null> {

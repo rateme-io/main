@@ -1,8 +1,4 @@
-import {
-  SessionEntity,
-  TokenEntity,
-} from '@rateme/core/domain/entities/session.entity';
-import { UserEntity } from '@rateme/core/domain/entities/user.entity';
+import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
 
 export abstract class TokenAuthAbstractService {
   abstract login(command: TokenLoginCommand): Promise<TokenSessionResponse>;
@@ -11,13 +7,7 @@ export abstract class TokenAuthAbstractService {
 
   abstract register(command: RegisterCommand): Promise<TokenSessionResponse>;
 
-  abstract createSession(
-    command: CreateSessionCommand,
-  ): Promise<TokenSessionResponse>;
-
-  abstract createToken(
-    command: CreateTokenCommand,
-  ): Promise<TokenSessionResponse>;
+  abstract logout(command: LogoutCommand): Promise<void>;
 
   abstract checkSession(command: CheckSessionCommand): Promise<boolean>;
 }
@@ -43,16 +33,8 @@ export interface RegisterCommand {
   userAgent: string | null;
 }
 
-export interface CreateSessionCommand {
-  user: UserEntity;
-  ipAddress: string;
-  userAgent: string | null;
-}
-
-export interface CreateTokenCommand {
-  session: SessionEntity;
-  ipAddress: string;
-  userAgent: string | null;
+export interface LogoutCommand {
+  sessionId: string;
 }
 
 export interface CheckSessionCommand {
