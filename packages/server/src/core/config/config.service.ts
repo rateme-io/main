@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 import * as zod from 'zod';
+import * as fs from 'node:fs';
+import { DurationParser } from '@/core/parsers/duration.parser';
 
 export enum Env {
   Development = 'development',
@@ -11,6 +13,8 @@ export enum Env {
 @Injectable()
 export class ConfigService {
   constructor(private readonly configService: NestConfigService) {}
+
+  private _privateKey: string | null = null;
 
   get port(): number {
     return zod
@@ -28,6 +32,37 @@ export class ConfigService {
 
   get isDevelopment(): boolean {
     return this.env === Env.Development;
+  }
+
+  get privateKey(): string {
+    if (this._privateKey) {
+      return this._privateKey;
+    }
+
+    this._privateKey = fs.readFileSync('private.key', 'utf8');
+
+    return this._privateKey;
+  }
+
+  get auth() {
+    const authTokenExpiresIn = zod
+      .string()
+      .default('1h')
+      .parse(this.configService.get('ACCESS_TOKEN_EXPIRES_IN'));
+
+    const refreshTokenExpiresIn = zod
+      .string()
+      .default('7d')
+      .parse(this.configService.get('REFRESH_TOKEN_EXPIRES_IN'));
+
+    return {
+      accessToken: {
+        expiresIn: DurationParser.parse(authTokenExpiresIn),
+      },
+      refreshToken: {
+        expiresIn: DurationParser.parse(refreshTokenExpiresIn),
+      },
+    };
   }
 
   get db() {

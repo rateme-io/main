@@ -10,8 +10,8 @@ interface RepositoryConfig<A, R> {
   repository: Type<R>;
 }
 
-interface UseCaseConfig<Inject extends any[]> {
-  useCases: symbol[];
+interface ServiceConfig<Inject extends any[]> {
+  abstract: Abstract<unknown>;
   inject: Inject;
   serviceFactory: (...inject: CreateClasses<Inject>) => unknown;
 }
@@ -23,33 +23,33 @@ type CreateClasses<T extends any[]> = T extends [infer Head, ...infer Tail]
 export class EntityModule {
   static config = ({
     repositories = [],
-    useCases,
+    services,
     imports,
     providers,
     exports,
     controllers,
   }: {
     repositories?: RepositoryConfig<any, any>[];
-    useCases?: (
+    services?: (
       create: <Inject extends any[]>(
-        useCase: UseCaseConfig<Inject>,
-      ) => UseCaseConfig<Inject>,
-    ) => UseCaseConfig<any[]>[];
+        useCase: ServiceConfig<Inject>,
+      ) => ServiceConfig<Inject>,
+    ) => ServiceConfig<any[]>[];
     imports?: ModuleMetadata['imports'];
     providers?: ModuleMetadata['providers'];
     exports?: ModuleMetadata['exports'];
     controllers?: ModuleMetadata['controllers'];
   }): ModuleMetadata => {
-    const resolvedUseCases = useCases?.((useCase) => useCase) ?? [];
+    const resolvedServices = services?.((useCase) => useCase) ?? [];
 
     return {
       imports: createImports(repositories, imports),
       providers: [
         ...createRepositoryProviders(repositories),
-        ...createUseCaseProviders(resolvedUseCases),
+        ...createServiceProviders(resolvedServices),
         ...(providers ?? []),
       ],
-      exports: createExports(repositories, resolvedUseCases, exports),
+      exports: createExports(repositories, resolvedServices, exports),
       controllers: [...(controllers ?? [])],
     };
   };
@@ -78,26 +78,26 @@ const createRepositoryProviders = <A, R>(
   }));
 };
 
-const createUseCaseProviders = (
-  useCases: UseCaseConfig<any[]>[],
+const createServiceProviders = (
+  services: ServiceConfig<any[]>[],
 ): Provider[] => {
-  return useCases.flatMap(({ useCases, serviceFactory, inject }) => {
-    return useCases.map((useCase) => ({
-      provide: useCase,
-      inject,
+  return services.map(({ abstract, serviceFactory, inject }) => {
+    return {
+      provide: abstract,
       useFactory: serviceFactory,
-    }));
+      inject,
+    };
   });
 };
 
 const createExports = (
   repositories: RepositoryConfig<any, any>[],
-  useCases: UseCaseConfig<any[]>[],
+  useCases: ServiceConfig<any[]>[],
   additionalExports?: ModuleMetadata['exports'],
 ): ModuleMetadata['exports'] => {
   const exportsArray = [
     ...repositories.map(({ abstract }) => abstract),
-    ...useCases.flatMap(({ useCases }) => useCases),
+    ...useCases.map(({ abstract }) => abstract),
   ];
 
   if (additionalExports) {

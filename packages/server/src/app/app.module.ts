@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '@/core/database';
 import { ConfigModule } from '@/core/config';
-import { AuthModule } from '@/entities/auth/infrastructure';
 import { CryptoModule } from '@/core/crypto';
+import { DateModule } from '@/core/date';
+import { TokenAuthModule } from '@/entities/token-auth/infrastructure';
 
 @Module({
-  imports: [DatabaseModule, ConfigModule, CryptoModule, AuthModule],
+  imports: [
+    DatabaseModule,
+    ConfigModule,
+    CryptoModule,
+    DateModule,
+    TokenAuthModule,
+  ],
 })
 export class AppModule {}

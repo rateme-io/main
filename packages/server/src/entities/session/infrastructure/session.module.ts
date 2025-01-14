@@ -1,16 +1,9 @@
 import { Module } from '@nestjs/common';
 import { EntityModule } from '@/core/modules';
-import {
-  CreateSessionUseCaseSymbol,
-  RefreshSessionUseCaseSymbol,
-  RemoveSessionUseCaseSymbol,
-  SessionAbstractRepository,
-  SessionService,
-  TokenAbstractRepository,
-} from '@/entities/session/domain';
-import { SessionRepository, TokenRepository } from './repositories';
+import { SessionAbstractRepository } from '@/entities/session/domain';
 import { UserModule } from '@/entities/user/infrastructure';
-import { SessionRepositoryEntity, TokenRepositoryEntity } from './entities';
+import { SessionRepositoryEntity } from './session.repository.entity';
+import { SessionRepository } from './session.repository';
 
 @Module(
   EntityModule.config({
@@ -21,22 +14,6 @@ import { SessionRepositoryEntity, TokenRepositoryEntity } from './entities';
         abstract: SessionAbstractRepository,
         repository: SessionRepository,
       },
-      {
-        entity: TokenRepositoryEntity,
-        abstract: TokenAbstractRepository,
-        repository: TokenRepository,
-      },
-    ],
-    useCases: (create) => [
-      create({
-        useCases: [
-          CreateSessionUseCaseSymbol,
-          RefreshSessionUseCaseSymbol,
-          RemoveSessionUseCaseSymbol,
-        ],
-        inject: [SessionAbstractRepository, TokenAbstractRepository] as const,
-        serviceFactory: (...inject) => new SessionService(...inject),
-      }),
     ],
   }),
 )

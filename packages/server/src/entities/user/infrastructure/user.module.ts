@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { UserAbstractRepository } from '@/entities/user/domain';
-import { UserRepository } from './user.repository';
-import { UserRepositoryEntity } from './user.repository.entity';
 import { EntityModule } from '@/core/modules';
+import { UserRepositoryEntity } from './user.repository.entity';
+import { UserRepository } from './user.repository';
 
 @Module(
   EntityModule.config({

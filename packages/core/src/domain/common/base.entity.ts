@@ -1,4 +1,7 @@
-import { validateOrReject } from 'class-validator';
+import { BaseValueObject } from '@/domain/common/base.value-object';
+import { ZodError } from 'zod';
+import { ValidationError } from '@/domain/common/validation.error';
+import { validateClass } from '@/domain/common/zod-validator';
 
 export class BaseEntity {
   id: string;
@@ -7,9 +10,54 @@ export class BaseEntity {
 
   updatedAt: Date;
 
-  validate() {
-    return validateOrReject(this, {
-      whitelist: true,
-    });
+  async validate() {
+    try {
+      Object.getOwnPropertyNames(this).forEach((property) => {
+        try {
+
+          const field = Reflect.get(this, property);
+
+          if (field instanceof BaseValueObject) {
+            field.validate();
+          }
+
+        } catch (error) {
+          if (error instanceof ZodError) {
+            error.errors.forEach(subError => {
+              subError.path.unshift(property);
+            });
+
+            throw error;
+          }
+        }
+      });
+
+      return validateClass(this);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        throw new ValidationError(error.errors);
+      }
+    }
+  }
+}
+
+
+export type CreatEntityCommand<Entity extends BaseEntity> = Omit<
+  Entity,
+  'id' | 'createdAt' | 'updatedAt' | 'validate'
+> &
+  Partial<Pick<Entity, 'createdAt' | 'id' | 'updatedAt'>>;
+
+export const addBaseFields = <Entity extends BaseEntity>(entity: Entity, command: CreatEntityCommand<Entity>) => {
+  if(command.id) {
+    entity.id = command.id;
+  }
+
+  if(command.createdAt) {
+    entity.createdAt = command.createdAt;
+  }
+
+  if(command.updatedAt) {
+    entity.updatedAt = command.updatedAt;
   }
 }
