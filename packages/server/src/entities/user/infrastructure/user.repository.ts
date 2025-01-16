@@ -48,7 +48,7 @@ export class UserRepository extends UserAbstractRepository {
     return UserEntity.create({
       email: new EmailVo(entity.email),
       name: new NameVo(entity.name),
-      isVerified: entity.isVerified,
+      verifiedStatus: entity.verifiedStatus,
       username: new UsernameVo(entity.username),
       logoUrl: new LogoUrlVo(entity.logoUrl),
       id: entity.id,
@@ -61,7 +61,7 @@ export class UserRepository extends UserAbstractRepository {
     return UserRepositoryEntity.create({
       email: entity.email.getValue(),
       name: entity.name.getValue(),
-      isVerified: entity.isVerified,
+      verifiedStatus: entity.verifiedStatus,
       username: entity.username.getValue(),
       logoUrl: entity.logoUrl.getValue(),
       createdAt: entity.createdAt,

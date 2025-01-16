@@ -1,7 +1,11 @@
 import { CryptoService } from '@/core/crypto';
-import { UserEntity } from '@rateme/core/domain/entities/user.entity';
+import {
+  UserEntity,
+  UserVerifiedStatus,
+} from '@rateme/core/domain/entities/user.entity';
 import {
   SessionEntity,
+  SessionStatus,
   TokenEntity,
 } from '@rateme/core/domain/entities/session.entity';
 import {
@@ -89,7 +93,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
         name: new NameVo(command.name),
         username: new UsernameVo(command.username),
         logoUrl: new LogoUrlVo(null),
-        isVerified: false,
+        verifiedStatus: UserVerifiedStatus.pending,
       });
 
       await userEntity.validate();
@@ -127,7 +131,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
           throw new UserNotFound();
         }
 
-        session.isActive = false;
+        session.status = SessionStatus.inactive;
 
         await sessionRepository.update(session);
 
@@ -210,7 +214,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
       sessionId: this.cryptoService.generateHash(),
       userAgent: command.userAgent,
       ipAddress: command.ipAddress,
-      isActive: true,
+      status: SessionStatus.active,
       user: command.user,
     });
 

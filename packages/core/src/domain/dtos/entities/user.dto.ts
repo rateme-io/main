@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { EmailVo } from '@/domain/value-objects/email.vo';
 import { UsernameVo } from '@/domain/value-objects/username.vo';
 import { LogoUrlVo } from '@/domain/value-objects/logo-url.vo';
-import { UserEntity } from '@/domain/entities/user.entity';
+import { UserEntity, UserVerifiedStatus } from '@/domain/entities/user.entity';
 
 export class UserDtoService {
   static schema = z.object({
@@ -10,7 +10,7 @@ export class UserDtoService {
     email: EmailVo.schema,
     username: UsernameVo.schema,
     logoUrl: LogoUrlVo.schema,
-    isVerified: z.boolean(),
+    verifiedStatus: z.nativeEnum(UserVerifiedStatus),
     createdAt: z.date(),
     updatedAt: z.date(),
   });
@@ -21,7 +21,7 @@ export class UserDtoService {
       email: user.email.getValue(),
       username: user.username.getValue(),
       logoUrl: user.logoUrl.getValue(),
-      isVerified: user.isVerified,
+      verifiedStatus: user.verifiedStatus,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     })

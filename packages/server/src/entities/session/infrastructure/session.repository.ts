@@ -71,7 +71,7 @@ export class SessionRepository extends SessionAbstractRepository {
     return SessionEntity.create({
       userAgent: entity.userAgent,
       ipAddress: entity.ipAddress,
-      isActive: entity.isActive,
+      status: entity.status,
       sessionId: entity.sessionId,
       user: this.userRepository.toDomain(entity.user),
       id: entity.id,
@@ -84,7 +84,7 @@ export class SessionRepository extends SessionAbstractRepository {
     return SessionRepositoryEntity.create({
       userAgent: entity.userAgent,
       ipAddress: entity.ipAddress,
-      isActive: entity.isActive,
+      status: entity.status,
       sessionId: entity.sessionId,
       user: this.userRepository.toPersistence(entity.user),
       id: entity.id,

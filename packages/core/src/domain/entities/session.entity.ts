@@ -3,6 +3,10 @@ import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { z } from 'zod';
 
+export enum SessionStatus {
+  active = 'active',
+  inactive = 'inactive',
+}
 
 export class SessionEntity extends BaseEntity {
   @ZodValidator(z.string())
@@ -10,8 +14,8 @@ export class SessionEntity extends BaseEntity {
 
   user: UserEntity;
 
-  @ZodValidator(z.boolean())
-  isActive: boolean;
+  @ZodValidator(z.nativeEnum(SessionStatus))
+  status: SessionStatus;
 
   @ZodValidator(z.string().ip())
   ipAddress: string;
@@ -24,16 +28,15 @@ export class SessionEntity extends BaseEntity {
 
     session.sessionId = command.sessionId;
     session.user = command.user;
-    session.isActive = command.isActive;
+    session.status = command.status;
     session.ipAddress = command.ipAddress;
     session.userAgent = command.userAgent;
 
-    addBaseFields(session, command)
+    addBaseFields(session, command);
 
     return session;
   }
 }
-
 
 export class TokenEntity extends BaseEntity {
   @ZodValidator(z.string())
@@ -48,7 +51,7 @@ export class TokenEntity extends BaseEntity {
   @ZodValidator(z.date())
   refreshTokenExpiresAt: Date;
 
-  session: SessionEntity
+  session: SessionEntity;
 
   static create(command: CreatEntityCommand<TokenEntity>) {
     const token = new TokenEntity();
@@ -59,7 +62,7 @@ export class TokenEntity extends BaseEntity {
     token.refreshTokenExpiresAt = command.refreshTokenExpiresAt;
     token.session = command.session;
 
-    addBaseFields(token, command)
+    addBaseFields(token, command);
 
     return token;
   }

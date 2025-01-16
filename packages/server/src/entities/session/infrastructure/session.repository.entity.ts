@@ -5,6 +5,7 @@ import {
   CreateRepoEntityCommand,
 } from '@/core/repository';
 import { UserRepositoryEntity } from '@/entities/user/infrastructure';
+import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
 
 @Entity({ name: 'sessions' })
 export class SessionRepositoryEntity extends BaseEntity {
@@ -15,8 +16,13 @@ export class SessionRepositoryEntity extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserRepositoryEntity;
 
-  @Column({ type: 'boolean', name: 'is_active', default: true })
-  isActive: boolean;
+  @Column({
+    type: 'enum',
+    name: 'status',
+    enum: SessionStatus,
+    default: SessionStatus.active,
+  })
+  status: SessionStatus;
 
   @Column({ type: 'varchar', name: 'ip_address' })
   ipAddress: string;
@@ -29,7 +35,7 @@ export class SessionRepositoryEntity extends BaseEntity {
 
     session.sessionId = command.sessionId;
     session.user = command.user;
-    session.isActive = command.isActive;
+    session.status = command.status;
     session.ipAddress = command.ipAddress;
     session.userAgent = command.userAgent;
 

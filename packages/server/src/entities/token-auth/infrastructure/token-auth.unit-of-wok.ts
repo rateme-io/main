@@ -3,36 +3,33 @@ import {
   TokenAuthUnitOfWorkContext,
 } from '@/entities/token-auth/domain';
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { DataSource, EntityManager } from 'typeorm';
 import { PasswordRepository, TokenRepository } from './repositories';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { SessionRepository } from '@/entities/session/infrastructure';
+import { TypeormUnitOfWork } from '@/core/unit-of-work';
 
 @Injectable()
-export class TokenAuthUnitOfWork implements TokenAuthAbstractUnitOfWork {
-  constructor(private readonly dataSource: DataSource) {}
+export class TokenAuthUnitOfWork
+  extends TypeormUnitOfWork<TokenAuthUnitOfWorkContext>
+  implements TokenAuthAbstractUnitOfWork
+{
+  constructor(dataSource: DataSource) {
+    super(dataSource);
+  }
 
-  async start<T>(
-    callback: (context: TokenAuthUnitOfWorkContext) => Promise<T>,
-  ): Promise<T> {
-    return this.dataSource.manager.transaction(async (entityManager) => {
-      const userRepository = new UserRepository(entityManager);
-      const sessionRepository = new SessionRepository(
-        entityManager,
-        userRepository,
-      );
+  createContext(entityManager: EntityManager): TokenAuthUnitOfWorkContext {
+    const userRepository = new UserRepository(entityManager);
+    const sessionRepository = new SessionRepository(
+      entityManager,
+      userRepository,
+    );
 
-      const context: TokenAuthUnitOfWorkContext = {
-        userRepository,
-        passwordRepository: new PasswordRepository(
-          entityManager,
-          userRepository,
-        ),
-        sessionRepository,
-        tokenRepository: new TokenRepository(entityManager, sessionRepository),
-      };
-
-      return callback(context);
-    });
+    return {
+      userRepository,
+      passwordRepository: new PasswordRepository(entityManager, userRepository),
+      sessionRepository,
+      tokenRepository: new TokenRepository(entityManager, sessionRepository),
+    };
   }
 }

@@ -4,6 +4,7 @@ import {
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
+import { UserVerifiedStatus } from '@rateme/core/domain/entities/user.entity';
 
 @Entity({ name: 'users' })
 export class UserRepositoryEntity extends BaseEntity {
@@ -16,8 +17,13 @@ export class UserRepositoryEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 50, name: 'name' })
   name: string;
 
-  @Column({ type: 'boolean', name: 'is_verified', default: false })
-  isVerified: boolean;
+  @Column({
+    type: 'enum',
+    name: 'verified_status',
+    enum: UserVerifiedStatus,
+    default: UserVerifiedStatus.pending,
+  })
+  verifiedStatus: UserVerifiedStatus;
 
   @Column({ type: 'varchar', length: 255, nullable: true, name: 'logo_url' })
   logoUrl: string | null;
@@ -28,7 +34,7 @@ export class UserRepositoryEntity extends BaseEntity {
     user.email = command.email;
     user.username = command.username;
     user.name = command.name;
-    user.isVerified = command.isVerified;
+    user.verifiedStatus = command.verifiedStatus;
     user.logoUrl = command.logoUrl;
 
     addBaseFields(user, command);

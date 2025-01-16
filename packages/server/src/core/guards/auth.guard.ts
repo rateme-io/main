@@ -10,6 +10,7 @@ import {
   TokenAuthAbstractUnitOfWork,
 } from '@/entities/token-auth/domain';
 import { TokenAuthUnitOfWork } from '@/entities/token-auth/infrastructure/token-auth.unit-of-wok';
+import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,7 +33,7 @@ export class AuthGuard implements CanActivate {
 
       const session = await sessionRepository.findById(sessionId);
 
-      if (!session || session.isActive) {
+      if (!session || session.status === SessionStatus.inactive) {
         throw new UnauthorizedException();
       }
 

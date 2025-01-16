@@ -6,6 +6,11 @@ import { LogoUrlVo } from '@/domain/value-objects/logo-url.vo';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { z } from 'zod';
 
+export enum UserVerifiedStatus {
+  pending = 'pending',
+  verified = 'verified',
+}
+
 export class UserEntity extends BaseEntity {
   email: EmailVo;
 
@@ -15,8 +20,8 @@ export class UserEntity extends BaseEntity {
 
   logoUrl: LogoUrlVo;
 
-  @ZodValidator(z.boolean())
-  isVerified: boolean;
+  @ZodValidator(z.nativeEnum(UserVerifiedStatus))
+  verifiedStatus: UserVerifiedStatus;
 
   static create(command: CreatEntityCommand<UserEntity>) {
     const user = new UserEntity();
@@ -24,7 +29,7 @@ export class UserEntity extends BaseEntity {
     user.email = command.email;
     user.username = command.username;
     user.name = command.name;
-    user.isVerified = command.isVerified;
+    user.verifiedStatus = command.verifiedStatus;
     user.logoUrl = command.logoUrl;
 
     addBaseFields(user, command);
