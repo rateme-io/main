@@ -3,7 +3,7 @@ import { DatabaseModule } from '@/core/database';
 import { ConfigModule } from '@/core/config';
 import { CryptoModule } from '@/core/crypto';
 import { DateModule } from '@/core/date';
-import { TokenAuthModule } from '@/entities/token-auth/infrastructure';
+import { TokenAuthModule } from '@/aggregates/token-auth/infrastructure';
 
 @Module({
   imports: [

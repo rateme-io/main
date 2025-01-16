@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TokenAuthController } from '@/entities/token-auth/presentation';
+import { TokenAuthController } from '@/aggregates/token-auth/presentation';
 import {
   TokenAuthAbstractService,
   TokenAuthAbstractUnitOfWork,
   TokenAuthService,
-} from '@/entities/token-auth/domain';
+} from '@/aggregates/token-auth/domain';
 import { CryptoService } from '@/core/crypto';
 import { EntityModule } from '@/core/modules';
 import { DateService } from '@/core/date';

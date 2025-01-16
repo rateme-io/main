@@ -1,7 +1,7 @@
 import {
   TokenAuthAbstractUnitOfWork,
   TokenAuthUnitOfWorkContext,
-} from '@/entities/token-auth/domain';
+} from '@/aggregates/token-auth/domain';
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 import { PasswordRepository, TokenRepository } from './repositories';

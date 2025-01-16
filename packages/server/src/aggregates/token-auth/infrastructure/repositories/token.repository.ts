@@ -1,7 +1,7 @@
 import { SessionRepository } from '@/entities/session/infrastructure';
 import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
 import { EntityManager, Repository } from 'typeorm';
-import { TokenAbstractRepository } from '@/entities/token-auth/domain';
+import { TokenAbstractRepository } from '@/aggregates/token-auth/domain';
 import { TokenRepositoryEntity } from '../entities';
 
 export class TokenRepository extends TokenAbstractRepository {

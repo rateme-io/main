@@ -28,15 +28,16 @@ import {
 import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-session.dto';
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
-import { TokenAuthAbstractService } from '@/entities/token-auth/domain/token-auth.abstract.service';
+
+import { AuthGuard } from '@/core/guards/auth.guard';
 import {
   FailedToCreateSession,
   InvalidPassword,
+  TokenAuthAbstractService,
   TokenAuthService,
   UserAlreadyExists,
   UserNotFound,
-} from '@/entities/token-auth/domain';
-import { AuthGuard } from '@/core/guards/auth.guard';
+} from '../domain';
 
 @Controller('/auth/token')
 export class TokenAuthController {
@@ -165,8 +166,8 @@ export class TokenAuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('/me')
-  async me() {
+  @Get('/hello')
+  async hello() {
     return 'Hello';
   }
 }

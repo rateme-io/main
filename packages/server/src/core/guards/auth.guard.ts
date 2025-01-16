@@ -1,15 +1,15 @@
 import {
+  TokenAuthAbstractService,
+  TokenAuthAbstractUnitOfWork,
+} from '@/aggregates/token-auth/domain';
+import { TokenAuthUnitOfWork } from '@/aggregates/token-auth/infrastructure';
+import {
   CanActivate,
   ExecutionContext,
   Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import {
-  TokenAuthAbstractService,
-  TokenAuthAbstractUnitOfWork,
-} from '@/entities/token-auth/domain';
-import { TokenAuthUnitOfWork } from '@/entities/token-auth/infrastructure/token-auth.unit-of-wok';
 import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
 
 @Injectable()
