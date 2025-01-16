@@ -1,0 +1,4 @@
+import { Repository } from '@/core/repository';
+import { {{ entityName:PascalCase }}Entity } from '@rateme/core/domain/entities/{{entityName:KebabCase}}.entity';
+
+export abstract class {{ entityName:PascalCase }}AbstractRepository extends Repository<{{ entityName:PascalCase }}Entity> {}

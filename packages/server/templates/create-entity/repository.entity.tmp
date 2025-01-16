@@ -1,0 +1,22 @@
+import {
+  addBaseFields,
+  BaseEntity,
+  CreateRepoEntityCommand,
+} from '@/core/repository';
+import { Entity } from 'typeorm';
+
+@Entity({ name: '{{ tableName }}' })
+export class {{ entityName:PascalCase }}RepositoryEntity extends BaseEntity {
+
+  // columns
+
+  static create(command: CreateRepoEntityCommand<{{ entityName:PascalCase }}RepositoryEntity>) {
+    const entity = new {{ entityName }}RepositoryEntity();
+
+    // other fields
+
+    addBaseFields(entity, command);
+
+    return entity;
+  }
+}

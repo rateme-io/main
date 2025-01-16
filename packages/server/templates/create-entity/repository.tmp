@@ -1,0 +1,30 @@
+import { {{ entityName }}AbstractRepository } from '@/entities/{{ entityName:KebabCase }}/domain';
+import { {{ entityName }}Entity } from '@rateme/core/domain/entities/{{ entityName:KebabCase }}.entity';
+import { {{ entityName }}RepositoryEntity } from './{{ entityName:KebabCase }}.repository.entity';
+import { EntityManager } from 'typeorm';
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
+
+export class {{ entityName:PascalCase }}Repository
+  extends TypeormRepository<{{ entityName:PascalCase }}Entity, {{ entityName:PascalCase }}RepositoryEntity>
+  implements {{ entityName:PascalCase }}AbstractRepository
+{
+  constructor(
+    entityManager: EntityManager,
+  ) {
+    super(entityManager, {{ entityName:PascalCase }}RepositoryEntity);
+  }
+
+  // other methods
+
+  toDomain(entity: {{ entityName:PascalCase }}RepositoryEntity): {{ entityName:PascalCase }}Entity {
+    return {{ entityName:PascalCase }}Entity.create({
+      // other fields
+    });
+  }
+
+  toPersistence(entity: {{ entityName:PascalCase }}Entity): {{ entityName:PascalCase }}RepositoryEntity {
+    return {{ entityName:PascalCase }}RepositoryEntity.create({
+      // other fields
+    });
+  }
+}

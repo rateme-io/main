@@ -1,0 +1,20 @@
+{
+  "dirName": "{{ entityName:KebabCase }}",
+  "files": [
+    {
+      "name": "/domain/{{ entityName:KebabCase }}.abstract.repository.ts",
+      "template": "./abstract.repository.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/infrastructure/{{ entityName:KebabCase }}.repository.entity.ts",
+      "template": "./repository.entity.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/infrastructure/{{ entityName:KebabCase }}.repository.ts",
+      "template": "./repository.tmp",
+      "indexFile": true
+    }
+  ]
+}
