@@ -1,4 +1,4 @@
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { UserAbstractRepository } from '@/entities/user/domain';
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
 import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
@@ -6,26 +6,26 @@ import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
 import { UserRepositoryEntity } from './user.repository.entity';
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
 
-export class UserRepository extends UserAbstractRepository {
-  private readonly userEntity: Repository<UserRepositoryEntity>;
-
-  constructor(private readonly entityManager: EntityManager) {
-    super();
-
-    this.userEntity = this.entityManager.getRepository(UserRepositoryEntity);
+export class UserRepository
+  extends TypeormRepository<UserEntity, UserRepositoryEntity>
+  implements UserAbstractRepository
+{
+  constructor(entityManager: EntityManager) {
+    super(entityManager, UserRepositoryEntity);
   }
 
   async create(user: UserEntity): Promise<UserEntity> {
     const entity = this.toPersistence(user);
 
-    const newUser = await this.userEntity.save(entity);
+    const newUser = await this.repository.save(entity);
 
     return this.toDomain(newUser);
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
-    const user = await this.userEntity.findOneBy({ email });
+    const user = await this.repository.findOneBy({ email });
 
     if (!user) {
       return null;
@@ -35,7 +35,7 @@ export class UserRepository extends UserAbstractRepository {
   }
 
   async findById(id: string): Promise<UserEntity | null> {
-    const user = await this.userEntity.findOneBy({ id });
+    const user = await this.repository.findOneBy({ id });
 
     if (!user) {
       return null;

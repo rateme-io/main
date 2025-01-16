@@ -13,6 +13,12 @@ export abstract class BaseEntity {
 
   @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
   updatedAt: Date;
+
+  static create(entity: CreateRepoEntityCommand<BaseEntity>): BaseEntity {
+    throw new Error(
+      `Method not implemented.\n${JSON.stringify(entity, null, 2)}`,
+    );
+  }
 }
 
 export type CreateRepoEntityCommand<Entity extends BaseEntity> = Omit<

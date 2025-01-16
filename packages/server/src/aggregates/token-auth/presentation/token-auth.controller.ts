@@ -36,6 +36,7 @@ import {
   TokenAuthAbstractService,
   TokenAuthService,
   UserAlreadyExists,
+  UserDoesntHavePassword,
   UserNotFound,
 } from '../domain';
 
@@ -75,6 +76,10 @@ export class TokenAuthController {
         error instanceof FailedToCreateSession
       ) {
         throw new UnauthorizedException('Invalid email or password');
+      }
+
+      if (error instanceof UserDoesntHavePassword) {
+        throw new UnauthorizedException('User does not have password');
       }
 
       console.error(error);

@@ -1,35 +1,31 @@
 import { SessionAbstractRepository } from '@/entities/session/domain';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { SessionEntity } from '@rateme/core/domain/entities/session.entity';
 import { SessionRepositoryEntity } from './session.repository.entity';
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
 
-export class SessionRepository extends SessionAbstractRepository {
-  private readonly sessionEntity: Repository<SessionRepositoryEntity>;
-
+export class SessionRepository
+  extends TypeormRepository<SessionEntity, SessionRepositoryEntity>
+  implements SessionAbstractRepository
+{
   constructor(
-    private readonly entityManager: EntityManager,
+    entityManager: EntityManager,
     private readonly userRepository: UserRepository,
   ) {
-    super();
-
-    this.sessionEntity = this.entityManager.getRepository(
-      SessionRepositoryEntity,
-    );
+    super(entityManager, SessionRepositoryEntity);
   }
 
   async create(session: SessionEntity): Promise<SessionEntity> {
-    const newSession = await this.sessionEntity.save(
-      this.toPersistence(session),
-    );
+    const newSession = await this.repository.save(this.toPersistence(session));
 
     return this.toDomain(newSession);
   }
 
   async update(session: SessionEntity): Promise<SessionEntity> {
-    await this.sessionEntity.update(session.id, this.toPersistence(session));
+    await this.repository.update(session.id, this.toPersistence(session));
 
-    const newSession = await this.sessionEntity.findOne({
+    const newSession = await this.repository.findOne({
       where: { id: session.id },
       relations: ['user'],
     });
@@ -38,11 +34,11 @@ export class SessionRepository extends SessionAbstractRepository {
   }
 
   async remove(id: string): Promise<void> {
-    await this.sessionEntity.delete(id);
+    await this.repository.delete(id);
   }
 
   async findAllByUserId(userId: string): Promise<SessionEntity[]> {
-    const sessions = await this.sessionEntity.find({
+    const sessions = await this.repository.find({
       where: {
         user: {
           id: userId,
@@ -55,7 +51,7 @@ export class SessionRepository extends SessionAbstractRepository {
   }
 
   async findById(id: string): Promise<SessionEntity | null> {
-    const session = await this.sessionEntity.findOne({
+    const session = await this.repository.findOne({
       where: { id },
       relations: ['user'],
     });
