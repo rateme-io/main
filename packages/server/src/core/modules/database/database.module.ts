@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigService } from '@/core/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigService } from '@/core/modules/config';
 
 @Global()
 @Module({
@@ -18,6 +18,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         entities: [
           'dist/entities/**/infrastructure/*.repository.entity.{ts,js}',
           'dist/entities/**/infrastructure/entities/*.repository.entity.{ts,js}',
+          'dist/aggregates/**/infrastructure/*.repository.entity.{ts,js}',
+          'dist/aggregates/**/infrastructure/entities/*.repository.entity.{ts,js}',
         ],
         migrations: ['dist/app/migrations/*.{ts,js}'],
         migrationsTableName: 'migrations',

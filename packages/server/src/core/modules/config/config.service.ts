@@ -23,9 +23,9 @@ export class ConfigService {
       .parse(Number(this.configService.get('PORT')));
   }
 
-  get env(): string {
+  get env(): Env {
     return zod
-      .string()
+      .nativeEnum(Env)
       .default(Env.Development)
       .parse(this.configService.get('ENV'));
   }

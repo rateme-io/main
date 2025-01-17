@@ -1,16 +1,18 @@
+import { ConfigModule } from '@/core/modules/config';
+import { DatabaseModule } from '@/core/modules/database';
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@/core/database';
-import { ConfigModule } from '@/core/config';
-import { CryptoModule } from '@/core/crypto';
-import { DateModule } from '@/core/date';
+import { CryptoModule } from '@/core/modules/crypto';
+import { DateModule } from '@/core/modules/date';
+import { CookieModule } from '@/core/modules/cookie';
 import { TokenAuthModule } from '@/aggregates/token-auth/infrastructure';
 
 @Module({
   imports: [
-    DatabaseModule,
     ConfigModule,
+    DatabaseModule,
     CryptoModule,
     DateModule,
+    CookieModule,
     TokenAuthModule,
   ],
 })

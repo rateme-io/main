@@ -5,11 +5,11 @@ import {
   TokenAuthAbstractUnitOfWork,
   TokenAuthService,
 } from '@/aggregates/token-auth/domain';
-import { CryptoService } from '@/core/crypto';
-import { EntityModule } from '@/core/modules';
-import { DateService } from '@/core/date';
-import { ConfigService } from '@/core/config';
+import { CryptoService } from '@/core/modules/crypto';
+import { DateService } from '@/core/modules/date';
 import { TokenAuthUnitOfWork } from './token-auth.unit-of-wok';
+import { ConfigService } from '@/core/modules/config';
+import { EntityModule } from '@/core/modules/module-config';
 
 @Module(
   EntityModule.config({

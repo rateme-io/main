@@ -6,7 +6,7 @@ import {
   createHash,
   randomBytes,
 } from 'crypto';
-import { ConfigService } from '@/core/config';
+import { ConfigService } from '@/core/modules/config';
 
 const IV_LENGTH = 16;
 

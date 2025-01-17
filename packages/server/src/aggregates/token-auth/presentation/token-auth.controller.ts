@@ -4,22 +4,19 @@ import {
   Get,
   Headers,
   Inject,
-  InternalServerErrorException,
   Ip,
   Post,
+  Req,
+  Res,
   UnauthorizedException,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-
+import { Request, Response } from 'express';
 import {
   TokenRegisterDto,
   TokenRegisterDtoSchema,
 } from '@rateme/core/domain/dtos/token-auth/token-register.dto';
-import {
-  TokenRefreshDto,
-  TokenRefreshDtoSchema,
-} from '@rateme/core/domain/dtos/token-auth/token-refresh.dto';
 import { ZodValidationPipe } from '@/core/pipes';
 import {
   TokenLoginDto,
@@ -39,17 +36,21 @@ import {
   UserDoesntHavePassword,
   UserNotFound,
 } from '../domain';
+import { CookieService } from '@/core/modules/cookie';
 
 @Controller('/auth/token')
 export class TokenAuthController {
   constructor(
     @Inject(TokenAuthAbstractService)
     private readonly tokenAuthService: TokenAuthService,
+    @Inject(CookieService)
+    private readonly cookieService: CookieService,
   ) {}
 
   @UsePipes(new ZodValidationPipe(TokenLoginDtoSchema))
   @Post('/login')
   async login(
+    @Res({ passthrough: true }) response: Response,
     @Body() body: TokenLoginDto,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent: string,
@@ -63,11 +64,13 @@ export class TokenAuthController {
           userAgent: userAgent ?? null,
         });
 
+      this.cookieService.setRefreshToken(response, refreshToken);
+      this.cookieService.setAccessToken(response, accessToken);
+      this.cookieService.setSessionId(response, token.session.id);
+
       return {
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
-        refreshToken,
-        accessToken,
       };
     } catch (error) {
       if (
@@ -82,15 +85,14 @@ export class TokenAuthController {
         throw new UnauthorizedException('User does not have password');
       }
 
-      console.error(error);
-
-      throw new InternalServerErrorException();
+      throw error;
     }
   }
 
   @UsePipes(new ZodValidationPipe(TokenRegisterDtoSchema))
   @Post('/register')
   async register(
+    @Res({ passthrough: true }) response: Response,
     @Body()
     body: TokenRegisterDto,
     @Ip() ipAddress: string,
@@ -107,11 +109,13 @@ export class TokenAuthController {
           ipAddress,
         });
 
+      this.cookieService.setRefreshToken(response, refreshToken);
+      this.cookieService.setAccessToken(response, accessToken);
+      this.cookieService.setSessionId(response, token.session.id);
+
       return {
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
-        refreshToken,
-        accessToken,
       };
     } catch (error) {
       if (
@@ -123,50 +127,68 @@ export class TokenAuthController {
         );
       }
 
-      console.error(error);
-
-      throw new InternalServerErrorException();
+      throw error;
     }
   }
 
-  @UseGuards(AuthGuard)
-  @UsePipes(new ZodValidationPipe(TokenRefreshDtoSchema))
   @Post('/refresh')
   async refresh(
-    @Body() body: TokenRefreshDto,
-    @Headers('session') sessionId: string,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
   ): Promise<TokenSessionDto> {
     try {
+      const usersRefreshToken = this.cookieService.getRefreshToken(request);
+      const sessionId = this.cookieService.getSessionId(request);
+
+      if (!usersRefreshToken || !sessionId) {
+        throw new UnauthorizedException();
+      }
+
       const { token, refreshToken, accessToken } =
         await this.tokenAuthService.refresh({
-          refreshToken: body.refreshToken,
+          refreshToken: usersRefreshToken,
           sessionId,
         });
+
+      this.cookieService.setRefreshToken(response, refreshToken);
+      this.cookieService.setAccessToken(response, accessToken);
+      this.cookieService.setSessionId(response, token.session.id);
 
       return {
         user: UserDtoService.mapToDto(token.session.user),
         session: SessionDtoService.mapToDto(token.session),
-        refreshToken,
-        accessToken,
       };
     } catch (error) {
-      console.error(error);
+      if (error instanceof UserNotFound) {
+        throw new UnauthorizedException('User not found');
+      }
 
-      throw new InternalServerErrorException();
+      throw error;
     }
   }
 
   @UseGuards(AuthGuard)
   @Post('/logout')
-  async logout(@Headers('session') sessionId: string): Promise<void> {
+  async logout(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<void> {
     try {
+      const sessionId = this.cookieService.getSessionId(request);
+
+      if (sessionId === null) {
+        throw new UnauthorizedException();
+      }
+
       await this.tokenAuthService.logout({
         sessionId,
       });
-    } catch (error) {
-      console.error(error);
 
-      throw new InternalServerErrorException();
+      this.cookieService.clearAccessToken(response);
+      this.cookieService.clearRefreshToken(response);
+      this.cookieService.clearSessionId(response);
+    } catch (error) {
+      throw error;
     }
   }
 

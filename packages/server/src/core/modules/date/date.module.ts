@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { DateService } from '@/core/date/date.service';
+import { DateService } from './date.service';
 
 @Global()
 @Module({

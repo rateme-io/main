@@ -11,6 +11,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
+import { CookieService } from '@/core/modules/cookie';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -19,15 +20,17 @@ export class AuthGuard implements CanActivate {
     private readonly tokenAuthUnitOfWork: TokenAuthUnitOfWork,
     @Inject(TokenAuthAbstractService)
     private readonly tokenAuthService: TokenAuthAbstractService,
+    @Inject(CookieService)
+    private readonly cookieService: CookieService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     return this.tokenAuthUnitOfWork.start(async ({ sessionRepository }) => {
       const request = context.switchToHttp().getRequest();
 
-      const sessionId = request.headers['session'];
+      const sessionId = this.cookieService.getSessionId(request);
 
-      if (!sessionId || typeof sessionId !== 'string') {
+      if (!sessionId) {
         throw new UnauthorizedException();
       }
 
@@ -37,9 +40,9 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException();
       }
 
-      const token = request.headers['authorization'];
+      const token = this.cookieService.getAccessToken(request);
 
-      if (!token || typeof token !== 'string') {
+      if (!token) {
         throw new UnauthorizedException();
       }
 

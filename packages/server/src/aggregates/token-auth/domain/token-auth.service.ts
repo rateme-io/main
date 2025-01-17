@@ -1,4 +1,4 @@
-import { CryptoService } from '@/core/crypto';
+import { CryptoService } from '@/core/modules/crypto';
 import {
   UserEntity,
   UserVerifiedStatus,
@@ -29,8 +29,8 @@ import {
   TokenLoginCommand,
   TokenSessionResponse,
 } from './token-auth.abstract.service';
-import { DateService } from '@/core/date';
-import { ConfigService } from '@/core/config';
+import { DateService } from '@/core/modules/date';
+import { ConfigService } from '@/core/modules/config';
 import {
   TokenAuthAbstractUnitOfWork,
   TokenAuthUnitOfWorkContext,
