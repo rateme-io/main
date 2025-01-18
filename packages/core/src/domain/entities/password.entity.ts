@@ -8,14 +8,14 @@ export class PasswordEntity extends BaseEntity {
   user: UserEntity;
 
   static create(command: CreatEntityCommand<PasswordEntity>) {
-    const password = new PasswordEntity();
+    const entity = new PasswordEntity();
 
-    password.hash = command.hash;
-    password.user = command.user;
+    entity.hash = command.hash;
+    entity.user = command.user;
 
-    addBaseFields(password, command);
+    addBaseFields(entity, command);
 
-    return password;
+    return entity;
 
   }
 }

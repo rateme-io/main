@@ -1,0 +1,16 @@
+import {
+  {{ aggregateName:PascalCase }}AbstractService,
+} from './{{ aggregateName:KebabCase }}.abstract.service';
+import {
+  {{ aggregateName:PascalCase }}AbstractUnitOfWork,
+} from './{{ aggregateName:KebabCase }}.abstract.unit-of-work';
+
+export class {{ aggregateName:PascalCase }}Service extends {{ aggregateName:PascalCase }}AbstractService {
+  constructor(
+    private readonly {{ aggregateName:camelCase }}UnitOfWork: {{ aggregateName:PascalCase }}AbstractUnitOfWork,
+  ) {
+    super();
+  }
+
+  // methods
+}

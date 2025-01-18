@@ -26,7 +26,7 @@ import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-session.dto';
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
 
-import { AuthGuard } from '@/core/guards/auth.guard';
+import { AuthGuard } from '@/core/modules/auth';
 import {
   FailedToCreateSession,
   InvalidPassword,

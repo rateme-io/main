@@ -1,0 +1,18 @@
+import {
+  Controller,
+  Inject,
+} from '@nestjs/common';
+import {
+  {{ aggregateName:PascalCase }}AbstractService,
+  {{ aggregateName:PascalCase }}Service,
+} from '../domain';
+
+@Controller('{{ pathName }}')
+export class {{ aggregateName:PascalCase }}Controller {
+  constructor(
+    @Inject({{ aggregateName:PascalCase }}AbstractService)
+    private readonly {{ aggregateName:SnakeCase }}Service: {{ aggregateName:PascalCase }}Service,
+  ) {}
+
+  // methods
+}

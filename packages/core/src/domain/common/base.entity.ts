@@ -45,7 +45,6 @@ export class BaseEntity {
   }
 }
 
-
 export type CreatEntityCommand<Entity extends BaseEntity> = Omit<
   Entity,
   'id' | 'createdAt' | 'updatedAt' | 'validate'

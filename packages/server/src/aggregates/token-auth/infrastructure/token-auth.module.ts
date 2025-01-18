@@ -17,6 +17,7 @@ import { EntityModule } from '@/core/modules/module-config';
     providers: [
       { provide: TokenAuthAbstractUnitOfWork, useClass: TokenAuthUnitOfWork },
     ],
+    exports: [TokenAuthAbstractUnitOfWork],
     services: (create) => [
       create({
         abstract: TokenAuthAbstractService,

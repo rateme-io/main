@@ -1,0 +1,28 @@
+import { Module } from '@nestjs/common';
+import { {{ aggregateName:PascalCase }}Controller } from '@/aggregates/{{ aggregateName:KebabCase }}/presentation';
+import {
+  {{ aggregateName:PascalCase }}AbstractService,
+  {{ aggregateName:PascalCase }}AbstractUnitOfWork,
+  {{ aggregateName:PascalCase }}Service,
+} from '@/aggregates/{{ aggregateName:KebabCase }}/domain';
+import { {{ aggregateName:PascalCase }}UnitOfWork } from './{{ aggregateName:KebabCase }}.unit-of-work';
+import { EntityModule } from '@/core/modules/module-config';
+
+@Module(
+  EntityModule.config({
+    controllers: [{{ aggregateName:PascalCase }}Controller],
+    providers: [
+      { provide: {{ aggregateName:PascalCase }}AbstractUnitOfWork, useClass: {{ aggregateName:PascalCase }}UnitOfWork },
+    ],
+    services: (create) => [
+      create({
+        abstract: {{ aggregateName:PascalCase }}AbstractService,
+        inject: [
+          {{ aggregateName:PascalCase }}AbstractUnitOfWork,
+        ] as const,
+        serviceFactory: (...inject) => new {{ aggregateName:PascalCase }}Service(...inject),
+      }),
+    ],
+  }),
+)
+export class {{ aggregateName:PascalCase }}Module {}

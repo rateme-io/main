@@ -2,12 +2,15 @@ import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { z } from 'zod';
+import { NameVo } from '@/domain/value-objects/name.vo';
 
 export class CollectionEntity extends BaseEntity {
-  user: UserEntity;
+  user?: UserEntity;
 
-  @ZodValidator(z.string().min(1).max(255))
-  name: string;
+  @ZodValidator(z.string())
+  userId: string;
+
+  name: NameVo;
 
   @ZodValidator(z.object({}))
   jsonSchema: object;
@@ -22,6 +25,7 @@ export class CollectionEntity extends BaseEntity {
     entity.name = command.name;
     entity.version = command.version;
     entity.user = command.user;
+    entity.userId = command.userId;
 
     addBaseFields(entity, command);
 

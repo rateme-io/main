@@ -1,0 +1,35 @@
+{
+  "dirName": "{{ aggregateName:KebabCase }}",
+  "files": [
+    {
+      "name": "/domain/{{ aggregateName:KebabCase }}.abstract.service.ts",
+      "template": "./abstract.service.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/domain/{{ aggregateName:KebabCase }}.service.ts",
+      "template": "./service.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/domain/{{ aggregateName:KebabCase }}.abstract.unit-of-work.ts",
+      "template": "./abstract.unit-of-work.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/infrastructure/{{ aggregateName:KebabCase }}.unit-of-work.ts",
+      "template": "./unit-of-work.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/infrastructure/{{ aggregateName:KebabCase }}.module.ts",
+      "template": "./module.tmp",
+      "indexFile": true
+    },
+    {
+      "name": "/presentation/{{ aggregateName:KebabCase }}.controller.ts",
+      "template": "./controller.tmp",
+      "indexFile": true
+    }
+  ]
+}

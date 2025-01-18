@@ -5,6 +5,7 @@ import { CollectionItemAbstractRepository } from '@/entities/collection-item/dom
 import { EntityManager } from 'typeorm';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { CollectionRepository } from '@/entities/collection/infrastructure';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 
 export class CollectionItemRepository
   extends TypeormRepository<
@@ -21,11 +22,38 @@ export class CollectionItemRepository
     super(entityManager, CollectionItemRepositoryEntity);
   }
 
+  async create(entity: CollectionItemEntity): Promise<CollectionItemEntity> {
+    const collectionItem = this.toPersistence(entity);
+
+    const newCollectionItem = await this.repository.save(collectionItem);
+
+    return this.toDomain(newCollectionItem);
+  }
+
+  async findByCollectionId(
+    collectionId: string,
+  ): Promise<CollectionItemEntity[]> {
+    const collectionItems = await this.repository.find({
+      where: { collection: { id: collectionId } },
+      relations: ['collection', 'user'],
+    });
+
+    console.log(collectionItems);
+
+    return collectionItems.map((collectionItem) =>
+      this.toDomain(collectionItem),
+    );
+  }
+
   toDomain(entity: CollectionItemRepositoryEntity): CollectionItemEntity {
     return CollectionItemEntity.create({
-      collection: this.collectionRepository.toDomain(entity.collection),
-      user: this.userRepository.toDomain(entity.user),
-      name: entity.name,
+      collection:
+        entity.collection &&
+        this.collectionRepository.toDomain(entity.collection),
+      collectionId: entity.collectionId,
+      user: entity.user && this.userRepository.toDomain(entity.user),
+      userId: entity.userId,
+      name: new NameVo(entity.name),
       createdAt: entity.createdAt,
       id: entity.id,
       updatedAt: entity.updatedAt,
@@ -35,9 +63,13 @@ export class CollectionItemRepository
 
   toPersistence(entity: CollectionItemEntity): CollectionItemRepositoryEntity {
     return CollectionItemRepositoryEntity.create({
-      collection: this.collectionRepository.toPersistence(entity.collection),
-      user: this.userRepository.toPersistence(entity.user),
-      name: entity.name,
+      collection:
+        entity.collection &&
+        this.collectionRepository.toPersistence(entity.collection),
+      user: entity.user && this.userRepository.toPersistence(entity.user),
+      collectionId: entity.collectionId,
+      userId: entity.userId,
+      name: entity.name.getValue(),
       createdAt: entity.createdAt,
       id: entity.id,
       updatedAt: entity.updatedAt,

@@ -10,7 +10,10 @@ import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 export class CollectionRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user: UserRepositoryEntity;
+  user?: UserRepositoryEntity;
+
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId: string;
 
   @Column({ name: 'name', type: 'varchar', length: 255 })
   name: string;
@@ -28,6 +31,7 @@ export class CollectionRepositoryEntity extends BaseEntity {
     entity.name = command.name;
     entity.version = command.version;
     entity.user = command.user;
+    entity.userId = command.userId;
 
     addBaseFields(entity, command);
 

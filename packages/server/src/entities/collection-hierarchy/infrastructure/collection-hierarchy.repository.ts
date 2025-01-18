@@ -25,9 +25,13 @@ export class CollectionHierarchyRepository
     entity: CollectionHierarchyRepositoryEntity,
   ): CollectionHierarchyEntity {
     return CollectionHierarchyEntity.create({
-      parent: this.collectionRepository.toDomain(entity.parent),
-      child: this.collectionRepository.toDomain(entity.child),
-      user: this.userRepository.toDomain(entity.user),
+      parent:
+        entity.parent && this.collectionRepository.toDomain(entity.parent),
+      parentId: entity.parentId,
+      child: entity.child && this.collectionRepository.toDomain(entity.child),
+      childId: entity.childId,
+      user: entity.user && this.userRepository.toDomain(entity.user),
+      userId: entity.userId,
       id: entity.id,
       updatedAt: entity.updatedAt,
       createdAt: entity.createdAt,
@@ -38,9 +42,14 @@ export class CollectionHierarchyRepository
     entity: CollectionHierarchyEntity,
   ): CollectionHierarchyRepositoryEntity {
     return CollectionHierarchyRepositoryEntity.create({
-      parent: this.collectionRepository.toPersistence(entity.parent),
-      child: this.collectionRepository.toPersistence(entity.child),
-      user: this.userRepository.toPersistence(entity.user),
+      parent:
+        entity.parent && this.collectionRepository.toPersistence(entity.parent),
+      parentId: entity.parentId,
+      child:
+        entity.child && this.collectionRepository.toPersistence(entity.child),
+      childId: entity.childId,
+      user: entity.user && this.userRepository.toPersistence(entity.user),
+      userId: entity.userId,
       id: entity.id,
       updatedAt: entity.updatedAt,
       createdAt: entity.createdAt,

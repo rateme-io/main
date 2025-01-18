@@ -11,11 +11,17 @@ import { CollectionRepositoryEntity } from '@/entities/collection/infrastructure
 export class CollectionItemRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user: UserRepositoryEntity;
+  user?: UserRepositoryEntity;
+
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'collection_id' })
-  collection: CollectionRepositoryEntity;
+  collection?: CollectionRepositoryEntity;
+
+  @Column({ name: 'collection_id', type: 'uuid' })
+  collectionId: string;
 
   @Column({ name: 'name', type: 'varchar', length: 255 })
   name: string;
@@ -29,7 +35,9 @@ export class CollectionItemRepositoryEntity extends BaseEntity {
     const entity = new CollectionItemRepositoryEntity();
 
     entity.user = command.user;
+    entity.userId = command.userId;
     entity.collection = command.collection;
+    entity.collectionId = command.collectionId;
     entity.name = command.name;
     entity.jsonFields = command.jsonFields;
 
