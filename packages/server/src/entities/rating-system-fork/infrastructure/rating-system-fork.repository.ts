@@ -25,9 +25,9 @@ export class RatingSystemForkRepository
 
   toDomain(entity: RatingSystemForkRepositoryEntity): RatingSystemForkEntity {
     return RatingSystemForkEntity.create({
-      user: this.userRepository.toDomain(entity.user),
-      forked: this.ratingSystemRepository.toDomain(entity.forked),
-      original: this.ratingSystemRepository.toDomain(entity.original),
+      userId: entity.userId,
+      forkedId: entity.forkedId,
+      originalId: entity.originalId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,
@@ -38,9 +38,9 @@ export class RatingSystemForkRepository
     entity: RatingSystemForkEntity,
   ): RatingSystemForkRepositoryEntity {
     return RatingSystemForkRepositoryEntity.create({
-      user: this.userRepository.toPersistence(entity.user),
-      forked: this.ratingSystemRepository.toPersistence(entity.forked),
-      original: this.ratingSystemRepository.toPersistence(entity.original),
+      userId: entity.userId,
+      forkedId: entity.forkedId,
+      originalId: entity.originalId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,

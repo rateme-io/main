@@ -1,3 +1,4 @@
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
 import { CollectionEntity } from '@rateme/core/domain/entities/collection.entity';
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
@@ -22,7 +23,7 @@ export abstract class CollectionAbstractService {
 
 export interface CreateCollectionCommand {
   user: UserEntity;
-  jsonSchema: object;
+  jsonSchema: JsonInterface;
   name: string;
 }
 
@@ -30,7 +31,7 @@ export interface CreateCollectionItemCommand {
   user: UserEntity;
   collectionId: string;
   name: string;
-  jsonFields: object;
+  jsonFields: JsonInterface;
 }
 
 export interface GetCollectionsCommand {

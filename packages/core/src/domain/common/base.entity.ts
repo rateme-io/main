@@ -14,7 +14,6 @@ export class BaseEntity {
     try {
       Object.getOwnPropertyNames(this).forEach((property) => {
         try {
-
           const field = Reflect.get(this, property);
 
           if (field instanceof BaseValueObject) {

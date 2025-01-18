@@ -6,6 +6,7 @@ import { EntityManager } from 'typeorm';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { CollectionRepository } from '@/entities/collection/infrastructure';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
 
 export class CollectionItemRepository
   extends TypeormRepository<
@@ -47,33 +48,25 @@ export class CollectionItemRepository
 
   toDomain(entity: CollectionItemRepositoryEntity): CollectionItemEntity {
     return CollectionItemEntity.create({
-      collection:
-        entity.collection &&
-        this.collectionRepository.toDomain(entity.collection),
       collectionId: entity.collectionId,
-      user: entity.user && this.userRepository.toDomain(entity.user),
       userId: entity.userId,
       name: new NameVo(entity.name),
       createdAt: entity.createdAt,
       id: entity.id,
       updatedAt: entity.updatedAt,
-      jsonFields: entity.jsonFields,
+      jsonFields: new JsonVo(entity.jsonFields),
     });
   }
 
   toPersistence(entity: CollectionItemEntity): CollectionItemRepositoryEntity {
     return CollectionItemRepositoryEntity.create({
-      collection:
-        entity.collection &&
-        this.collectionRepository.toPersistence(entity.collection),
-      user: entity.user && this.userRepository.toPersistence(entity.user),
       collectionId: entity.collectionId,
       userId: entity.userId,
       name: entity.name.getValue(),
       createdAt: entity.createdAt,
       id: entity.id,
       updatedAt: entity.updatedAt,
-      jsonFields: entity.jsonFields,
+      jsonFields: entity.jsonFields.getValue(),
     });
   }
 }

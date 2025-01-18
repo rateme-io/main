@@ -8,7 +8,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { CollectionAbstractService, CollectionService } from '../domain';
+import { CollectionAbstractService } from '../domain';
 import { ZodValidationPipe } from '@/core/pipes';
 import {
   CreateCollectionDto,
@@ -35,16 +35,20 @@ import { AuthGuard, AuthService } from '@/core/modules/auth';
 export class CollectionController {
   constructor(
     @Inject(CollectionAbstractService)
-    private readonly collectionService: CollectionService,
+    private readonly collectionService: CollectionAbstractService,
     @Inject(AuthService)
     private readonly authService: AuthService,
   ) {}
 
   @UseGuards(AuthGuard)
   @Get('/list')
-  async list(): Promise<CollectionListResponseDto> {
+  async list(@Req() request: Request): Promise<CollectionListResponseDto> {
     try {
-      const collections = await this.collectionService.getCollections();
+      const session = await this.authService.getSession(request);
+
+      const collections = await this.collectionService.getCollections({
+        user: session.user,
+      });
 
       return {
         list: collections.map((collection) => ({

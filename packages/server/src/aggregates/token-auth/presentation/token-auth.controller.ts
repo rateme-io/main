@@ -31,7 +31,6 @@ import {
   FailedToCreateSession,
   InvalidPassword,
   TokenAuthAbstractService,
-  TokenAuthService,
   UserAlreadyExists,
   UserDoesntHavePassword,
   UserNotFound,
@@ -42,7 +41,7 @@ import { CookieService } from '@/core/modules/cookie';
 export class TokenAuthController {
   constructor(
     @Inject(TokenAuthAbstractService)
-    private readonly tokenAuthService: TokenAuthService,
+    private readonly tokenAuthService: TokenAuthAbstractService,
     @Inject(CookieService)
     private readonly cookieService: CookieService,
   ) {}

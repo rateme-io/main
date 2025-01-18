@@ -5,7 +5,7 @@ import { EntityManager } from 'typeorm';
 import { UserRepository } from '@/entities/user/infrastructure';
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
-import { undefined } from 'zod';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
 
 export class CollectionRepository
   extends TypeormRepository<CollectionEntity, CollectionRepositoryEntity>
@@ -50,10 +50,9 @@ export class CollectionRepository
   toDomain(entity: CollectionRepositoryEntity): CollectionEntity {
     return CollectionEntity.create({
       name: new NameVo(entity.name),
-      user: entity.user && this.userRepository.toDomain(entity.user),
       userId: entity.userId,
       version: entity.version,
-      jsonSchema: entity.jsonSchema,
+      jsonSchema: new JsonVo(entity.jsonSchema),
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,
@@ -63,10 +62,9 @@ export class CollectionRepository
   toPersistence(entity: CollectionEntity): CollectionRepositoryEntity {
     return CollectionRepositoryEntity.create({
       name: entity.name.getValue(),
-      user: entity.user && this.userRepository.toPersistence(entity.user),
       userId: entity.userId,
       version: entity.version,
-      jsonSchema: entity.jsonSchema,
+      jsonSchema: entity.jsonSchema.getValue(),
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,

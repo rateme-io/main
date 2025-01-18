@@ -1,3 +1,4 @@
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import {
   addBaseFields,
   BaseEntity,
@@ -10,16 +11,19 @@ import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 export class RatingSystemRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
+
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId: string;
 
   @Column({ name: 'version', type: 'integer' })
   version: number;
 
   @Column({ name: 'json_schema', type: 'jsonb' })
-  jsonSchema: object;
+  jsonSchema: JsonInterface;
 
   @Column({ name: 'json_formula', type: 'jsonb' })
-  jsonFormula: object;
+  jsonFormula: JsonInterface;
 
   static create(
     command: CreateRepoEntityCommand<RatingSystemRepositoryEntity>,
@@ -29,7 +33,7 @@ export class RatingSystemRepositoryEntity extends BaseEntity {
     entity.jsonFormula = command.jsonFormula;
     entity.jsonSchema = command.jsonSchema;
     entity.version = command.version;
-    entity.user = command.user;
+    entity.userId = command.userId;
 
     addBaseFields(entity, command);
 

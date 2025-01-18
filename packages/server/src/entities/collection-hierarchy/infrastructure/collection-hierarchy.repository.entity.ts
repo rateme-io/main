@@ -11,21 +11,21 @@ import { CollectionRepositoryEntity } from '@/entities/collection/infrastructure
 export class CollectionHierarchyRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user?: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
 
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'parent_collection_id' })
-  parent?: CollectionRepositoryEntity;
+  parent: Promise<CollectionRepositoryEntity>;
 
   @Column({ name: 'parent_collection_id', type: 'uuid' })
   parentId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'child_collection_id' })
-  child?: CollectionRepositoryEntity;
+  child: Promise<CollectionRepositoryEntity>;
 
   @Column({ name: 'child_collection_id', type: 'uuid' })
   childId: string;
@@ -35,11 +35,8 @@ export class CollectionHierarchyRepositoryEntity extends BaseEntity {
   ) {
     const entity = new CollectionHierarchyRepositoryEntity();
 
-    entity.user = command.user;
     entity.userId = command.userId;
-    entity.parent = command.parent;
     entity.parentId = command.parentId;
-    entity.child = command.child;
     entity.childId = command.childId;
 
     addBaseFields(entity, command);

@@ -11,21 +11,21 @@ import { CollectionRepositoryEntity } from '@/entities/collection/infrastructure
 export class CollectionForkRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user?: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
 
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'original_collection_id' })
-  original?: CollectionRepositoryEntity;
+  original: Promise<CollectionRepositoryEntity>;
 
   @Column({ name: 'original_collection_id', type: 'uuid' })
   originalId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'forked_collection_id' })
-  forked?: CollectionRepositoryEntity;
+  forked: Promise<CollectionRepositoryEntity>;
 
   @Column({ name: 'forked_collection_id', type: 'uuid' })
   forkedId: string;
@@ -35,9 +35,9 @@ export class CollectionForkRepositoryEntity extends BaseEntity {
   ) {
     const entity = new CollectionForkRepositoryEntity();
 
-    entity.user = command.user;
-    entity.original = command.original;
-    entity.forked = command.forked;
+    entity.userId = command.userId;
+    entity.originalId = command.originalId;
+    entity.forkedId = command.forkedId;
 
     addBaseFields(entity, command);
 

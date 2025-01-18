@@ -1,3 +1,4 @@
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import {
   addBaseFields,
   BaseEntity,
@@ -11,14 +12,14 @@ import { CollectionRepositoryEntity } from '@/entities/collection/infrastructure
 export class CollectionItemRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user?: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
 
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'collection_id' })
-  collection?: CollectionRepositoryEntity;
+  collection: Promise<CollectionRepositoryEntity>;
 
   @Column({ name: 'collection_id', type: 'uuid' })
   collectionId: string;
@@ -27,16 +28,14 @@ export class CollectionItemRepositoryEntity extends BaseEntity {
   name: string;
 
   @Column({ name: 'json_schema', type: 'jsonb' })
-  jsonFields: object;
+  jsonFields: JsonInterface;
 
   static create(
     command: CreateRepoEntityCommand<CollectionItemRepositoryEntity>,
   ) {
     const entity = new CollectionItemRepositoryEntity();
 
-    entity.user = command.user;
     entity.userId = command.userId;
-    entity.collection = command.collection;
     entity.collectionId = command.collectionId;
     entity.name = command.name;
     entity.jsonFields = command.jsonFields;

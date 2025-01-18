@@ -23,13 +23,8 @@ export class CollectionForkRepository
 
   toDomain(entity: CollectionForkRepositoryEntity): CollectionForkEntity {
     return CollectionForkEntity.create({
-      forked:
-        entity.forked && this.collectionRepository.toDomain(entity.forked),
       forkedId: entity.forkedId,
-      original:
-        entity.original && this.collectionRepository.toDomain(entity.original),
       originalId: entity.originalId,
-      user: entity.user && this.userRepository.toDomain(entity.user),
       userId: entity.userId,
       id: entity.id,
       updatedAt: entity.updatedAt,
@@ -39,14 +34,8 @@ export class CollectionForkRepository
 
   toPersistence(entity: CollectionForkEntity): CollectionForkRepositoryEntity {
     return CollectionForkRepositoryEntity.create({
-      forked:
-        entity.forked && this.collectionRepository.toPersistence(entity.forked),
       forkedId: entity.forkedId,
-      original:
-        entity.original &&
-        this.collectionRepository.toPersistence(entity.original),
       originalId: entity.originalId,
-      user: entity.user && this.userRepository.toPersistence(entity.user),
       userId: entity.userId,
       id: entity.id,
       updatedAt: entity.updatedAt,

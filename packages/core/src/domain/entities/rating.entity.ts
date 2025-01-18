@@ -1,27 +1,27 @@
 import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
-import { UserEntity } from '@/domain/entities/user.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
-import { CollectionEntity } from '@/domain/entities/collection.entity';
-import { RatingSystemEntity } from '@/domain/entities/rating-system.entity';
 import { z } from 'zod';
+import { JsonVo } from '@/domain/value-objects/json.vo';
 
 export class RatingEntity extends BaseEntity {
-  user: UserEntity;
+  @ZodValidator(z.string())
+  userId: string;
 
-  collection: CollectionEntity;
+  @ZodValidator(z.string())
+  collectionId: string;
 
-  ratingSystem: RatingSystemEntity;
+  @ZodValidator(z.string())
+  ratingSystemId: string;
 
-  @ZodValidator(z.object({}))
-  jsonRates: object;
+  jsonRates: JsonVo;
 
   static create(command: CreatEntityCommand<RatingEntity>) {
     const entity = new RatingEntity();
 
     entity.jsonRates = command.jsonRates;
-    entity.user = command.user;
-    entity.collection = command.collection;
-    entity.ratingSystem = command.ratingSystem;
+    entity.userId = command.userId;
+    entity.collectionId = command.collectionId;
+    entity.ratingSystemId = command.ratingSystemId;
 
     addBaseFields(entity, command);
 

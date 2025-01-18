@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { NameVo } from '@/domain/value-objects/name.vo';
 import { CollectionEntity } from '@/domain/entities/collection.entity';
+import { JsonVo } from '@/domain/value-objects/json.vo';
 
 export class CollectionDtoService {
   static schema = z.object({
@@ -8,7 +9,7 @@ export class CollectionDtoService {
     createdAt: z.date(),
     updatedAt: z.date(),
     name: NameVo.schema,
-    jsonSchema: z.record(z.any()),
+    jsonSchema: JsonVo.schema,
     version: z.number(),
   });
 

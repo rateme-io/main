@@ -23,9 +23,13 @@ export abstract class BaseEntity {
 
 export type CreateRepoEntityCommand<Entity extends BaseEntity> = Omit<
   Entity,
-  'id' | 'createdAt' | 'updatedAt'
+  'id' | 'createdAt' | 'updatedAt' | PromiseFields<Entity>
 > &
   Partial<Pick<Entity, 'createdAt' | 'id' | 'updatedAt'>>;
+
+type PromiseFields<T> = {
+  [K in keyof T]: T[K] extends Promise<any> ? K : never;
+}[keyof T];
 
 export const addBaseFields = <Entity extends BaseEntity>(
   entity: Entity,

@@ -1,3 +1,4 @@
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import {
   addBaseFields,
   BaseEntity,
@@ -12,29 +13,38 @@ import { RatingSystemRepositoryEntity } from '@/entities/rating-system/infrastru
 export class RatingRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
+
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId: string;
 
   @ManyToOne(() => CollectionRepositoryEntity, (collection) => collection.id)
   @JoinColumn({ name: 'collection_id' })
-  collection: CollectionRepositoryEntity;
+  collection: Promise<CollectionRepositoryEntity>;
+
+  @Column({ name: 'collection_id', type: 'uuid' })
+  collectionId: string;
 
   @ManyToOne(
     () => RatingSystemRepositoryEntity,
     (ratingSystem) => ratingSystem.id,
   )
   @JoinColumn({ name: 'rating_system_id' })
-  ratingSystem: RatingSystemRepositoryEntity;
+  ratingSystem: Promise<RatingSystemRepositoryEntity>;
+
+  @Column({ name: 'rating_system_id', type: 'uuid' })
+  ratingSystemId: string;
 
   @Column({ name: 'json_rates', type: 'jsonb' })
-  jsonRates: object;
+  jsonRates: JsonInterface;
 
   static create(command: CreateRepoEntityCommand<RatingRepositoryEntity>) {
     const entity = new RatingRepositoryEntity();
 
     entity.jsonRates = command.jsonRates;
-    entity.user = command.user;
-    entity.collection = command.collection;
-    entity.ratingSystem = command.ratingSystem;
+    entity.userId = command.userId;
+    entity.collectionId = command.collectionId;
+    entity.ratingSystemId = command.ratingSystemId;
 
     addBaseFields(entity, command);
 

@@ -4,6 +4,7 @@ import { RatingSystemRepositoryEntity } from './rating-system.repository.entity'
 import { EntityManager } from 'typeorm';
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
 import { UserRepository } from '@/entities/user/infrastructure';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
 
 export class RatingSystemRepository
   extends TypeormRepository<RatingSystemEntity, RatingSystemRepositoryEntity>
@@ -20,10 +21,10 @@ export class RatingSystemRepository
 
   toDomain(entity: RatingSystemRepositoryEntity): RatingSystemEntity {
     return RatingSystemEntity.create({
-      user: this.userRepository.toDomain(entity.user),
+      userId: entity.userId,
       version: entity.version,
-      jsonFormula: entity.jsonFormula,
-      jsonSchema: entity.jsonSchema,
+      jsonFormula: new JsonVo(entity.jsonFormula),
+      jsonSchema: new JsonVo(entity.jsonSchema),
       updatedAt: entity.updatedAt,
       createdAt: entity.createdAt,
       id: entity.id,
@@ -32,10 +33,10 @@ export class RatingSystemRepository
 
   toPersistence(entity: RatingSystemEntity): RatingSystemRepositoryEntity {
     return RatingSystemRepositoryEntity.create({
-      user: this.userRepository.toPersistence(entity.user),
+      userId: entity.userId,
       version: entity.version,
-      jsonFormula: entity.jsonFormula,
-      jsonSchema: entity.jsonSchema,
+      jsonFormula: entity.jsonFormula.getValue(),
+      jsonSchema: entity.jsonSchema.getValue(),
       updatedAt: entity.updatedAt,
       createdAt: entity.createdAt,
       id: entity.id,

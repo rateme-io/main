@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import Ajv from 'ajv';
 
 @Injectable()
 export class JsonSchemaService {
   private readonly ajv = new Ajv({ allErrors: true, strict: true });
 
-  validateSchema(schema: object) {
+  validateSchema(schema: JsonInterface) {
     try {
       this.ajv.compile(schema);
 
@@ -15,7 +16,7 @@ export class JsonSchemaService {
     }
   }
 
-  validateData(schema: object, data: object) {
+  validateData(schema: JsonInterface, data: JsonInterface) {
     const validate = this.ajv.compile(schema);
 
     const result = validate(data);

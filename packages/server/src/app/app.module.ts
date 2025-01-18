@@ -8,6 +8,7 @@ import { TokenAuthModule } from '@/aggregates/token-auth/infrastructure';
 import { CollectionModule } from '@/aggregates/collection/infrastructure';
 import { AuthModule } from '@/core/modules/auth';
 import { JsonSchemaModule } from '@/core/modules/json-schema';
+import { RatingSystemModule } from '@/aggregates/rating-system/infrastructure';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { JsonSchemaModule } from '@/core/modules/json-schema';
     JsonSchemaModule,
     // aggregates
     CollectionModule,
+    RatingSystemModule,
   ],
 })
 export class AppModule {}

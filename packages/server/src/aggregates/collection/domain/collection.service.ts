@@ -15,6 +15,7 @@ import {
   InvalidJsonFieldsError,
   InvalidJsonSchemaError,
 } from '@/aggregates/collection/domain/errors';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
 
 export class CollectionService extends CollectionAbstractService {
   constructor(
@@ -43,7 +44,7 @@ export class CollectionService extends CollectionAbstractService {
       const entity = CollectionEntity.create({
         userId: command.user.id,
         name: new NameVo(command.name),
-        jsonSchema: command.jsonSchema,
+        jsonSchema: new JsonVo(command.jsonSchema),
         version: 1,
       });
 
@@ -83,7 +84,7 @@ export class CollectionService extends CollectionAbstractService {
         }
 
         const { isValid } = this.jsonSchemaService.validateData(
-          collection.jsonSchema,
+          collection.jsonSchema.getValue(),
           command.jsonFields,
         );
 
@@ -94,7 +95,7 @@ export class CollectionService extends CollectionAbstractService {
         const entity = CollectionItemEntity.create({
           collectionId: command.collectionId,
           userId: command.user.id,
-          jsonFields: command.jsonFields,
+          jsonFields: new JsonVo(command.jsonFields),
           name: new NameVo(command.name),
         });
 

@@ -4,14 +4,13 @@ import {
 } from '@nestjs/common';
 import {
   {{ aggregateName:PascalCase }}AbstractService,
-  {{ aggregateName:PascalCase }}Service,
 } from '../domain';
 
 @Controller('{{ pathName }}')
 export class {{ aggregateName:PascalCase }}Controller {
   constructor(
     @Inject({{ aggregateName:PascalCase }}AbstractService)
-    private readonly {{ aggregateName:SnakeCase }}Service: {{ aggregateName:PascalCase }}Service,
+    private readonly {{ aggregateName:CamelCase }}Service: {{ aggregateName:PascalCase }}AbstractService,
   ) {}
 
   // methods

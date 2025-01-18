@@ -3,7 +3,7 @@ import {
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 import { RatingSystemRepositoryEntity } from '@/entities/rating-system/infrastructure';
 
@@ -11,30 +11,39 @@ import { RatingSystemRepositoryEntity } from '@/entities/rating-system/infrastru
 export class RatingSystemHierarchyRepositoryEntity extends BaseEntity {
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user: UserRepositoryEntity;
+  user: Promise<UserRepositoryEntity>;
+
+  @Column({ name: 'user_id', type: 'uuid' })
+  userId: string;
 
   @ManyToOne(
     () => RatingSystemRepositoryEntity,
     (ratingSystem) => ratingSystem.id,
   )
   @JoinColumn({ name: 'parent_rating_system_id' })
-  parent: RatingSystemRepositoryEntity;
+  parent: Promise<RatingSystemRepositoryEntity>;
+
+  @Column({ name: 'parent_rating_system_id', type: 'uuid' })
+  parentId: string;
 
   @ManyToOne(
     () => RatingSystemRepositoryEntity,
     (ratingSystem) => ratingSystem.id,
   )
   @JoinColumn({ name: 'child_rating_system_id' })
-  child: RatingSystemRepositoryEntity;
+  child: Promise<RatingSystemRepositoryEntity>;
+
+  @Column({ name: 'child_rating_system_id', type: 'uuid' })
+  childId: string;
 
   static create(
     command: CreateRepoEntityCommand<RatingSystemHierarchyRepositoryEntity>,
   ) {
     const entity = new RatingSystemHierarchyRepositoryEntity();
 
-    entity.user = command.user;
-    entity.parent = command.parent;
-    entity.child = command.child;
+    entity.userId = command.userId;
+    entity.parentId = command.parentId;
+    entity.childId = command.childId;
 
     addBaseFields(entity, command);
 

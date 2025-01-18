@@ -27,9 +27,9 @@ export class RatingSystemHierarchyRepository
     entity: RatingSystemHierarchyRepositoryEntity,
   ): RatingSystemHierarchyEntity {
     return RatingSystemHierarchyEntity.create({
-      user: this.userRepository.toDomain(entity.user),
-      parent: this.ratingSystemRepository.toDomain(entity.parent),
-      child: this.ratingSystemRepository.toDomain(entity.child),
+      userId: entity.userId,
+      parentId: entity.parentId,
+      childId: entity.childId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,
@@ -40,9 +40,9 @@ export class RatingSystemHierarchyRepository
     entity: RatingSystemHierarchyEntity,
   ): RatingSystemHierarchyRepositoryEntity {
     return RatingSystemHierarchyRepositoryEntity.create({
-      user: this.userRepository.toPersistence(entity.user),
-      parent: this.ratingSystemRepository.toPersistence(entity.parent),
-      child: this.ratingSystemRepository.toPersistence(entity.child),
+      userId: entity.userId,
+      parentId: entity.parentId,
+      childId: entity.childId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,
