@@ -9,6 +9,12 @@ import { CollectionAbstractUnitOfWork } from './collection.abstract.unit-of-work
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { JsonSchemaService } from '@/core/modules/json-schema';
 import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
+import {
+  CollectionNotFoundError,
+  FailedToCreateCollectionError,
+  InvalidJsonFieldsError,
+  InvalidJsonSchemaError,
+} from '@/aggregates/collection/domain/errors';
 
 export class CollectionService extends CollectionAbstractService {
   constructor(
@@ -31,7 +37,7 @@ export class CollectionService extends CollectionAbstractService {
       const isValid = this.jsonSchemaService.validateSchema(command.jsonSchema);
 
       if (!isValid) {
-        throw new Error('Invalid JSON schema');
+        throw new InvalidJsonSchemaError();
       }
 
       const entity = CollectionEntity.create({
@@ -44,7 +50,7 @@ export class CollectionService extends CollectionAbstractService {
       const newCollection = await collectionRepository.create(entity);
 
       if (!newCollection) {
-        throw new Error('Failed to create collection');
+        throw new FailedToCreateCollectionError();
       }
 
       return newCollection;
@@ -73,16 +79,16 @@ export class CollectionService extends CollectionAbstractService {
         );
 
         if (!collection) {
-          throw new Error('Collection not found');
+          throw new CollectionNotFoundError();
         }
 
-        const isValid = this.jsonSchemaService.validateData(
+        const { isValid } = this.jsonSchemaService.validateData(
           collection.jsonSchema,
           command.jsonFields,
         );
 
         if (!isValid) {
-          throw new Error('Invalid JSON data');
+          throw new InvalidJsonFieldsError();
         }
 
         const entity = CollectionItemEntity.create({

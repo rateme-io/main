@@ -20,10 +20,9 @@ export class JsonSchemaService {
 
     const result = validate(data);
 
-    if (validate.errors) {
-      console.log(validate.errors);
-    }
-
-    return result;
+    return {
+      isValid: result,
+      errors: validate.errors,
+    };
   }
 }

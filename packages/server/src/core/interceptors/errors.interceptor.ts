@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   CallHandler,
   ExecutionContext,
   HttpException,
@@ -8,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { BaseError } from '@/core/error/error';
 
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {
@@ -23,6 +25,10 @@ export class ErrorsInterceptor implements NestInterceptor {
 
         if (error instanceof HttpException) {
           return throwError(() => error);
+        }
+
+        if (error instanceof BaseError) {
+          return throwError(() => new BadRequestException(error.message));
         }
 
         console.error(`Unhandled Error: ${method} ${url} - ${duration}ms`);
