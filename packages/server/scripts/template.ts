@@ -37,13 +37,9 @@ const cli = async () => {
     return fileDescriptor;
   });
 
-  console.log('Files:\n');
-
-  files.forEach((file) => {
-    console.log(`● ${file.name}`);
-    console.log(`  - Template: ${file.template}`);
-    console.log(`  - Variables: ${[...variables].join(', ')}`);
-  });
+  extractVariables(JSON.stringify(config)).forEach((variable) =>
+    variables.add(variable.name),
+  );
 
   console.log(`\nVariables: ${[...variables].join(', ')}`);
 
@@ -59,16 +55,52 @@ const cli = async () => {
     values.set(variable, value);
   }
 
+  console.log('\nValues:');
+  console.table([...values].map(([key, value]) => ({ name: key, value })));
+
   const fileStructure = generateFs({
     files: files,
     values: values,
   });
+
+  console.log('\nFile Structure:');
+
+  printFs(fileStructure);
 
   createFs({
     structure: fileStructure,
     values,
     rootDir: path.join(rootPath, insertVariables(config.dirName, values)),
   });
+};
+
+const printFs = (structure: Structure, level = 0) => {
+  for (const [key, value] of structure) {
+    if (value instanceof Map) {
+      if (level === 0) {
+        console.log(key);
+      } else {
+        console.log(' '.repeat(level * 2) + key);
+      }
+
+      printFs(value, level + 1);
+    } else {
+      if (level === 0) {
+        console.log(key);
+      } else {
+        console.log(' '.repeat(level * 2) + key);
+        console.log(' '.repeat(level * 2) + 'indexFile: ' + value.indexFile);
+
+        console.log(
+          ' '.repeat(level * 2) +
+            'variables: ' +
+            [...new Set(value.variables.map((v) => v.name)).values()].join(
+              ', ',
+            ),
+        );
+      }
+    }
+  }
 };
 
 const readFile = (file: File, template: string): FileDescriptor => {
