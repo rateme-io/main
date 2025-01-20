@@ -1,14 +1,17 @@
+import { Inject, Injectable } from '@nestjs/common';
+
 import { RatingEntity } from '@rateme/core/domain/entities/rating.entity';
+import { RatingSystemEntity } from '@rateme/core/domain/entities/rating-system.entity';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
+
+import { JsonSchemaService } from '@/core/modules/json-schema';
+
 import {
   CreateRatingCommand,
   CreateRatingSystemCommand,
   RatingSystemAbstractService,
 } from '../domain';
-import { RatingSystemEntity } from '@rateme/core/domain/entities/rating-system.entity';
-import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
-import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
-import { JsonSchemaService } from '@/core/modules/json-schema';
-import { Inject, Injectable } from '@nestjs/common';
 import { RatingSystemUnitOfWork } from './rating-system.unit-of-work';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Provider, Type } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 import { Abstract } from '@nestjs/common/interfaces/abstract.interface';
 import { ModuleMetadata } from '@nestjs/common/interfaces/modules/module-metadata.interface';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
 interface RepositoryConfig<A, R> {
   entity: EntityClassOrSchema;
@@ -11,7 +11,7 @@ interface RepositoryConfig<A, R> {
 }
 
 interface ServiceConfig {
-  abstract: Abstract<any>;
+  abstract: Abstract<unknown>;
   realisation: Type;
 }
 
@@ -24,7 +24,7 @@ export class EntityModule {
     exports = [],
     controllers,
   }: {
-    repositories?: RepositoryConfig<any, any>[];
+    repositories?: RepositoryConfig<unknown, unknown>[];
     services?: ServiceConfig[];
     imports?: ModuleMetadata['imports'];
     providers?: ModuleMetadata['providers'];
@@ -45,7 +45,7 @@ export class EntityModule {
 }
 
 const createImports = (
-  repositories: RepositoryConfig<any, any>[],
+  repositories: RepositoryConfig<unknown, unknown>[],
   additionalImports: ModuleMetadata['imports'] = [],
 ): ModuleMetadata['imports'] => {
   return [

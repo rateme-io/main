@@ -1,5 +1,6 @@
-import { Repository } from '@/core/repository';
 import { CollectionEntity } from '@rateme/core/domain/entities/collection.entity';
+
+import { Repository } from '@/core/repository';
 
 export abstract class CollectionAbstractRepository extends Repository<CollectionEntity> {
   abstract create(entity: CollectionEntity): Promise<CollectionEntity>;

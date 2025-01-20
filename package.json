@@ -11,10 +11,11 @@
     "client:start": "cd packages/client && pnpm run start",
     "client:build": "cd packages/client && pnpm run build",
     "core:build": "cd packages/core && pnpm run build",
-    "core:build:watch": "cd packages/core && pnpm run build:watch"
+    "core:build:watch": "cd packages/core && pnpm run build:watch",
+    "prepare": "husky"
   },
-  "dependencies": {},
   "devDependencies": {
+    "husky": "^9.1.7",
     "lerna": "^8.1.9"
   }
 }

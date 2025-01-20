@@ -1,15 +1,17 @@
+import { Injectable } from '@nestjs/common';
+import { DataSource, EntityManager } from 'typeorm';
+
 import {
   PasswordAbstractRepository,
   TokenAbstractRepository,
 } from '@/aggregates/token-auth/domain';
-import { Injectable } from '@nestjs/common';
-import { DataSource, EntityManager } from 'typeorm';
-import { PasswordRepository, TokenRepository } from './repositories';
-import { UserRepository } from '@/entities/user/infrastructure';
-import { SessionRepository } from '@/entities/session/infrastructure';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
-import { UserAbstractRepository } from '@/entities/user/domain';
 import { SessionAbstractRepository } from '@/entities/session/domain';
+import { SessionRepository } from '@/entities/session/infrastructure';
+import { UserAbstractRepository } from '@/entities/user/domain';
+import { UserRepository } from '@/entities/user/infrastructure';
+
+import { PasswordRepository, TokenRepository } from './repositories';
 
 export interface TokenAuthUnitOfWorkContext {
   userRepository: UserAbstractRepository;

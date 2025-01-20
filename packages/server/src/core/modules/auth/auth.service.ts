@@ -4,11 +4,13 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { SessionAbstractRepository } from '@/entities/session/domain';
-import { TokenAuthAbstractService } from '@/aggregates/token-auth/domain';
 import { Request } from 'express';
+
 import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
+
+import { TokenAuthAbstractService } from '@/aggregates/token-auth/domain';
 import { CookieService } from '@/core/modules/cookie';
+import { SessionAbstractRepository } from '@/entities/session/domain';
 
 @Injectable()
 export class AuthService {

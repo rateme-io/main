@@ -1,7 +1,9 @@
+import * as fs from 'node:fs';
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 import * as zod from 'zod';
-import * as fs from 'node:fs';
+
 import { DurationParser } from '@/core/parsers/duration.parser';
 
 export enum Env {

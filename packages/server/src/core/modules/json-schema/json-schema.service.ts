@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 import Ajv from 'ajv';
+
+import { JsonInterface } from '@rateme/core/domain/common/json.interface';
 
 @Injectable()
 export class JsonSchemaService {

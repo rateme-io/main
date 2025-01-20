@@ -1,9 +1,12 @@
+import { EntityManager, Repository } from 'typeorm';
+
 import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
-import { EntityManager, Repository } from 'typeorm';
-import { PasswordRepositoryEntity } from '../entities';
+
 import { PasswordAbstractRepository } from '@/aggregates/token-auth/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
+
+import { PasswordRepositoryEntity } from '../entities';
 
 export class PasswordRepository extends PasswordAbstractRepository {
   private readonly passwordEntity: Repository<PasswordRepositoryEntity>;

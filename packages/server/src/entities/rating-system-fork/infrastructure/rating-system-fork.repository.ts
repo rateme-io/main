@@ -1,10 +1,13 @@
-import { RatingSystemForkAbstractRepository } from '@/entities/rating-system-fork/domain';
-import { RatingSystemForkEntity } from '@rateme/core/domain/entities/rating-system-fork.entity';
-import { RatingSystemForkRepositoryEntity } from './rating-system-fork.repository.entity';
 import { EntityManager } from 'typeorm';
+
+import { RatingSystemForkEntity } from '@rateme/core/domain/entities/rating-system-fork.entity';
+
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
 import { RatingSystemRepository } from '@/entities/rating-system/infrastructure';
+import { RatingSystemForkAbstractRepository } from '@/entities/rating-system-fork/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
+
+import { RatingSystemForkRepositoryEntity } from './rating-system-fork.repository.entity';
 
 export class RatingSystemForkRepository
   extends TypeormRepository<

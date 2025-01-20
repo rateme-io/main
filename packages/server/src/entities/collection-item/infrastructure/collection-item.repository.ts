@@ -1,12 +1,15 @@
-import { TypeormRepository } from '@/core/repository/typeorm.repository';
-import { CollectionItemRepositoryEntity } from './collection-item.repository.entity';
-import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
-import { CollectionItemAbstractRepository } from '@/entities/collection-item/domain';
 import { EntityManager } from 'typeorm';
-import { UserRepository } from '@/entities/user/infrastructure';
-import { CollectionRepository } from '@/entities/collection/infrastructure';
-import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
+
+import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
 import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
+
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
+import { CollectionRepository } from '@/entities/collection/infrastructure';
+import { CollectionItemAbstractRepository } from '@/entities/collection-item/domain';
+import { UserRepository } from '@/entities/user/infrastructure';
+
+import { CollectionItemRepositoryEntity } from './collection-item.repository.entity';
 
 export class CollectionItemRepository
   extends TypeormRepository<

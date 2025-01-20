@@ -1,2 +1,2 @@
-export * from './token-auth.abstract.service';
 export * from './repositories';
+export * from './token-auth.abstract.service';

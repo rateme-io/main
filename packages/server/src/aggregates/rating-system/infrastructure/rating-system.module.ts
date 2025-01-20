@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { RatingSystemController } from '@/aggregates/rating-system/presentation';
+
 import { RatingSystemAbstractService } from '@/aggregates/rating-system/domain';
-import { RatingSystemUnitOfWork } from './rating-system.unit-of-work';
+import { RatingSystemController } from '@/aggregates/rating-system/presentation';
 import { EntityModule } from '@/core/modules/module-config';
+
 import { RatingSystemService } from './rating-system.service';
+import { RatingSystemUnitOfWork } from './rating-system.unit-of-work';
 
 @Module(
   EntityModule.config({

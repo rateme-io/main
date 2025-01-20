@@ -13,22 +13,24 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import {
-  TokenRegisterDto,
-  TokenRegisterDtoSchema,
-} from '@rateme/core/domain/dtos/token-auth/token-register.dto';
-import { ZodValidationPipe } from '@/core/pipes';
+
+import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
+import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import {
   TokenLoginDto,
   TokenLoginDtoSchema,
 } from '@rateme/core/domain/dtos/token-auth/token-login.dto';
-import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
+import {
+  TokenRegisterDto,
+  TokenRegisterDtoSchema,
+} from '@rateme/core/domain/dtos/token-auth/token-register.dto';
 import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-session.dto';
-import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
 
 import { AuthGuard } from '@/core/modules/auth';
-import { TokenAuthAbstractService } from '../domain';
 import { CookieService } from '@/core/modules/cookie';
+import { ZodValidationPipe } from '@/core/pipes';
+
+import { TokenAuthAbstractService } from '../domain';
 
 @Controller('/auth/token')
 export class TokenAuthController {

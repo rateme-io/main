@@ -1,11 +1,12 @@
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 import { CollectionRepositoryEntity } from '@/entities/collection/infrastructure';
+import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 
 @Entity({ name: 'collection_hierarchy' })
 export class CollectionHierarchyRepositoryEntity extends BaseEntity {

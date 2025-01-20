@@ -1,5 +1,6 @@
-import { Repository } from '@/core/repository';
 import { SessionEntity } from '@rateme/core/domain/entities/session.entity';
+
+import { Repository } from '@/core/repository';
 
 export abstract class SessionAbstractRepository extends Repository<SessionEntity> {
   abstract create(session: SessionEntity): Promise<SessionEntity>;

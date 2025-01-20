@@ -1,12 +1,15 @@
 import { EntityManager } from 'typeorm';
-import { UserAbstractRepository } from '@/entities/user/domain';
+
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
 import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
+import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
-import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
-import { UserRepositoryEntity } from './user.repository.entity';
+
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
+import { UserAbstractRepository } from '@/entities/user/domain';
+
+import { UserRepositoryEntity } from './user.repository.entity';
 
 export class UserRepository
   extends TypeormRepository<UserEntity, UserRepositoryEntity>

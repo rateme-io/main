@@ -1,6 +1,6 @@
 import { JsonInterface } from '@rateme/core/domain/common/json.interface';
-import { RatingSystemEntity } from '@rateme/core/domain/entities/rating-system.entity';
 import { RatingEntity } from '@rateme/core/domain/entities/rating.entity';
+import { RatingSystemEntity } from '@rateme/core/domain/entities/rating-system.entity';
 
 export abstract class RatingSystemAbstractService {
   abstract getRatingSystems(): Promise<RatingSystemEntity[]>;

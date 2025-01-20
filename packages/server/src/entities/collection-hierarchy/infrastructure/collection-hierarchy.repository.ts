@@ -1,10 +1,13 @@
 import { EntityManager } from 'typeorm';
-import { UserRepository } from '@/entities/user/infrastructure';
+
+import { CollectionHierarchyEntity } from '@rateme/core/domain/entities/collection-hierarchy.entity';
+
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
 import { CollectionRepository } from '@/entities/collection/infrastructure';
 import { CollectionHierarchyAbstractRepository } from '@/entities/collection-hierarchy/domain';
+import { UserRepository } from '@/entities/user/infrastructure';
+
 import { CollectionHierarchyRepositoryEntity } from './collection-hierarchy.repository.entity';
-import { CollectionHierarchyEntity } from '@rateme/core/domain/entities/collection-hierarchy.entity';
-import { TypeormRepository } from '@/core/repository/typeorm.repository';
 
 export class CollectionHierarchyRepository
   extends TypeormRepository<

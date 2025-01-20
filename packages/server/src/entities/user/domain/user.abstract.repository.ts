@@ -1,4 +1,5 @@
 import { UserEntity } from '@rateme/core/domain/entities/user.entity';
+
 import { Repository } from '@/core/repository';
 
 export abstract class UserAbstractRepository extends Repository<UserEntity> {

@@ -1,15 +1,18 @@
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+
 import { CollectionEntity } from '@rateme/core/domain/entities/collection.entity';
+import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
+import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
+
+import { JsonSchemaService } from '@/core/modules/json-schema';
+
 import {
   CollectionAbstractService,
   CreateCollectionCommand,
   CreateCollectionItemCommand,
   GetCollectionItemsCommand,
 } from '../domain';
-import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
-import { JsonSchemaService } from '@/core/modules/json-schema';
-import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
-import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CollectionUnitOfWork } from './collection.unit-of-work';
 
 @Injectable()

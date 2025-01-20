@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TokenAuthController } from '@/aggregates/token-auth/presentation';
+
 import { TokenAuthAbstractService } from '@/aggregates/token-auth/domain';
-import { TokenAuthUnitOfWork } from './token-auth.unit-of-wok';
+import { TokenAuthController } from '@/aggregates/token-auth/presentation';
 import { EntityModule } from '@/core/modules/module-config';
+
 import { TokenAuthService } from './token-auth.service';
+import { TokenAuthUnitOfWork } from './token-auth.unit-of-wok';
 
 @Module(
   EntityModule.config({

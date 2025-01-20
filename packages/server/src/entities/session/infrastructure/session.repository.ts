@@ -1,9 +1,12 @@
-import { SessionAbstractRepository } from '@/entities/session/domain';
 import { EntityManager } from 'typeorm';
-import { UserRepository } from '@/entities/user/infrastructure';
+
 import { SessionEntity } from '@rateme/core/domain/entities/session.entity';
-import { SessionRepositoryEntity } from './session.repository.entity';
+
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
+import { SessionAbstractRepository } from '@/entities/session/domain';
+import { UserRepository } from '@/entities/user/infrastructure';
+
+import { SessionRepositoryEntity } from './session.repository.entity';
 
 export class SessionRepository
   extends TypeormRepository<SessionEntity, SessionRepositoryEntity>

@@ -1,10 +1,13 @@
 import { EntityManager } from 'typeorm';
-import { UserRepository } from '@/entities/user/infrastructure';
-import { CollectionForkAbstractRepository } from '@/entities/collection-fork/domain';
-import { CollectionForkRepositoryEntity } from './collection-fork.repository.entity';
+
 import { CollectionForkEntity } from '@rateme/core/domain/entities/collection-fork.entity';
-import { CollectionRepository } from '@/entities/collection/infrastructure';
+
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
+import { CollectionRepository } from '@/entities/collection/infrastructure';
+import { CollectionForkAbstractRepository } from '@/entities/collection-fork/domain';
+import { UserRepository } from '@/entities/user/infrastructure';
+
+import { CollectionForkRepositoryEntity } from './collection-fork.repository.entity';
 
 export class CollectionForkRepository
   extends TypeormRepository<

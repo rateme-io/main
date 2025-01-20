@@ -1,19 +1,25 @@
-import { CryptoService } from '@/core/modules/crypto';
-import {
-  UserEntity,
-  UserVerifiedStatus,
-} from '@rateme/core/domain/entities/user.entity';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+
+import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
 import {
   SessionEntity,
   SessionStatus,
   TokenEntity,
 } from '@rateme/core/domain/entities/session.entity';
-import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
-import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
+import {
+  UserEntity,
+  UserVerifiedStatus,
+} from '@rateme/core/domain/entities/user.entity';
 import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
 import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
-import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
+import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
+
+import { ConfigService } from '@/core/modules/config';
+import { CryptoService } from '@/core/modules/crypto';
+import { DateService } from '@/core/modules/date';
+
 import {
   CheckSessionCommand,
   LogoutCommand,
@@ -23,9 +29,6 @@ import {
   TokenLoginCommand,
   TokenSessionResponse,
 } from '../domain';
-import { DateService } from '@/core/modules/date';
-import { ConfigService } from '@/core/modules/config';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import {
   TokenAuthUnitOfWork,
   TokenAuthUnitOfWorkContext,

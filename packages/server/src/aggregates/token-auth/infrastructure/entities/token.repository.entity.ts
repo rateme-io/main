@@ -1,10 +1,11 @@
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
 import { SessionRepositoryEntity } from '@/entities/session/infrastructure';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity({ name: 'tokens' })
 export class TokenRepositoryEntity extends BaseEntity {

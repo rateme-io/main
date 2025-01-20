@@ -1,11 +1,13 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
+import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
 import { UserRepositoryEntity } from '@/entities/user/infrastructure';
-import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
 
 @Entity({ name: 'sessions' })
 export class SessionRepositoryEntity extends BaseEntity {

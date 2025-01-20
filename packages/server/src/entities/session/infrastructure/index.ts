@@ -1,2 +1,2 @@
-export * from './session.repository.entity';
 export * from './session.repository';
+export * from './session.repository.entity';

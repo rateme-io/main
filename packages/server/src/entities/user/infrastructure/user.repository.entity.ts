@@ -1,10 +1,12 @@
 import { Column, Entity } from 'typeorm';
+
+import { UserVerifiedStatus } from '@rateme/core/domain/entities/user.entity';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
-import { UserVerifiedStatus } from '@rateme/core/domain/entities/user.entity';
 
 @Entity({ name: 'users' })
 export class UserRepositoryEntity extends BaseEntity {

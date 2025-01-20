@@ -1,9 +1,12 @@
-import { RatingAbstractRepository } from '@/entities/rating/domain';
-import { RatingEntity } from '@rateme/core/domain/entities/rating.entity';
-import { RatingRepositoryEntity } from './rating.repository.entity';
 import { EntityManager } from 'typeorm';
-import { TypeormRepository } from '@/core/repository/typeorm.repository';
+
+import { RatingEntity } from '@rateme/core/domain/entities/rating.entity';
 import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
+
+import { TypeormRepository } from '@/core/repository/typeorm.repository';
+import { RatingAbstractRepository } from '@/entities/rating/domain';
+
+import { RatingRepositoryEntity } from './rating.repository.entity';
 
 export class RatingRepository
   extends TypeormRepository<RatingEntity, RatingRepositoryEntity>

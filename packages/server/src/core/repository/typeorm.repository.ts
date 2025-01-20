@@ -1,7 +1,8 @@
-import { Repository as BaseRepository } from '@/core/repository/repository';
 import { EntityManager, Repository } from 'typeorm';
-import { ObjectLiteral } from 'typeorm/common/ObjectLiteral';
 import { EntityTarget } from 'typeorm/common/EntityTarget';
+import { ObjectLiteral } from 'typeorm/common/ObjectLiteral';
+
+import { Repository as BaseRepository } from '@/core/repository/repository';
 
 export abstract class TypeormRepository<
   Entity,

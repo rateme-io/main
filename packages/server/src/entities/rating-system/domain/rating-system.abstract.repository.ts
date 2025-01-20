@@ -1,5 +1,6 @@
-import { Repository } from '@/core/repository';
 import { RatingSystemEntity } from '@rateme/core/domain/entities/rating-system.entity';
+
+import { Repository } from '@/core/repository';
 
 export abstract class RatingSystemAbstractRepository extends Repository<RatingSystemEntity> {
   abstract findAll(): Promise<RatingSystemEntity[]>;

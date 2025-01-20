@@ -1,4 +1,5 @@
 import { Global, Module } from '@nestjs/common';
+
 import { JsonSchemaService } from './json-schema.service';
 
 @Global()

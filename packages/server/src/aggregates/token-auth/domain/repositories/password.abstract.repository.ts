@@ -1,5 +1,6 @@
-import { Repository } from '@/core/repository';
 import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
+
+import { Repository } from '@/core/repository';
 
 export abstract class PasswordAbstractRepository extends Repository<PasswordEntity> {
   abstract create(password: PasswordEntity): Promise<PasswordEntity>;

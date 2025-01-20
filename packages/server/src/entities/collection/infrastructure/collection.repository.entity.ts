@@ -1,10 +1,12 @@
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
 import { JsonInterface } from '@rateme/core/domain/common/json.interface';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 
 @Entity({ name: 'collections' })

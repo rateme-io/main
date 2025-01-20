@@ -1,11 +1,12 @@
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
 import {
   addBaseFields,
   BaseEntity,
   CreateRepoEntityCommand,
 } from '@/core/repository';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 import { RatingSystemRepositoryEntity } from '@/entities/rating-system/infrastructure';
+import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 
 @Entity({ name: 'rating-system-forks' })
 export class RatingSystemForkRepositoryEntity extends BaseEntity {
