@@ -16,11 +16,13 @@ export abstract class RatingSystemAbstractService {
 
 export interface CreateRatingSystemCommand {
   name: string;
+  userId: string;
   jsonSchema: JsonInterface;
   jsonFormula: JsonInterface;
 }
 
 export interface CreateRatingCommand {
+  collectionId: string;
   ratingSystemId: string;
   userId: string;
   jsonRates: JsonInterface;

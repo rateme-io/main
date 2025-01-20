@@ -3,25 +3,27 @@ import { RatingEntity } from '@rateme/core/domain/entities/rating.entity';
 import { RatingRepositoryEntity } from './rating.repository.entity';
 import { EntityManager } from 'typeorm';
 import { TypeormRepository } from '@/core/repository/typeorm.repository';
-import { CollectionRepository } from '@/entities/collection/infrastructure';
-import { UserRepository } from '@/entities/user/infrastructure';
-import { RatingSystemRepository } from '@/entities/rating-system/infrastructure';
 import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
 
 export class RatingRepository
   extends TypeormRepository<RatingEntity, RatingRepositoryEntity>
   implements RatingAbstractRepository
 {
-  constructor(
-    entityManager: EntityManager,
-    private readonly collectionRepository: CollectionRepository,
-    private readonly userRepository: UserRepository,
-    private readonly ratingSystemRepository: RatingSystemRepository,
-  ) {
+  constructor(entityManager: EntityManager) {
     super(entityManager, RatingRepositoryEntity);
   }
 
-  // other methods
+  async findAll(): Promise<RatingEntity[]> {
+    const entities = await this.repository.find();
+
+    return entities.map((entity) => this.toDomain(entity));
+  }
+
+  async create(entity: RatingEntity): Promise<RatingEntity> {
+    const newEntity = await this.repository.save(this.toPersistence(entity));
+
+    return this.toDomain(newEntity);
+  }
 
   toDomain(entity: RatingRepositoryEntity): RatingEntity {
     return RatingEntity.create({

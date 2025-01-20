@@ -36,7 +36,6 @@ export class CollectionItemRepository
   ): Promise<CollectionItemEntity[]> {
     const collectionItems = await this.repository.find({
       where: { collection: { id: collectionId } },
-      relations: ['collection', 'user'],
     });
 
     console.log(collectionItems);

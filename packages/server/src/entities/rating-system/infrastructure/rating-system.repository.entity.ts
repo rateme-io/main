@@ -9,6 +9,9 @@ import { UserRepositoryEntity } from '@/entities/user/infrastructure';
 
 @Entity({ name: 'rating-systems' })
 export class RatingSystemRepositoryEntity extends BaseEntity {
+  @Column({ name: 'name', type: 'varchar' })
+  name: string;
+
   @ManyToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: Promise<UserRepositoryEntity>;
@@ -30,6 +33,7 @@ export class RatingSystemRepositoryEntity extends BaseEntity {
   ) {
     const entity = new RatingSystemRepositoryEntity();
 
+    entity.name = command.name;
     entity.jsonFormula = command.jsonFormula;
     entity.jsonSchema = command.jsonSchema;
     entity.version = command.version;

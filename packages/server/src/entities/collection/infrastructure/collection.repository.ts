@@ -29,7 +29,6 @@ export class CollectionRepository
   async findById(id: string): Promise<CollectionEntity | null> {
     const collection = await this.repository.findOne({
       where: { id },
-      relations: ['user'],
     });
 
     if (!collection) {
@@ -40,9 +39,7 @@ export class CollectionRepository
   }
 
   async findAll(): Promise<CollectionEntity[]> {
-    const collections = await this.repository.find({
-      relations: ['user'],
-    });
+    const collections = await this.repository.find();
 
     return collections.map((collection) => this.toDomain(collection));
   }

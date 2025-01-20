@@ -11,9 +11,7 @@ export class PasswordRepositoryEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255, unique: true, name: 'hash' })
   hash: string;
 
-  @OneToOne(() => UserRepositoryEntity, (user) => user.id, {
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => UserRepositoryEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: UserRepositoryEntity;
 
