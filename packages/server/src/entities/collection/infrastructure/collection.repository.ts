@@ -18,7 +18,7 @@ export class CollectionRepository
     super(entityManager, CollectionRepositoryEntity);
   }
 
-  async create(entity: CollectionEntity): Promise<CollectionEntity | null> {
+  async create(entity: CollectionEntity): Promise<CollectionEntity> {
     const collection = this.toPersistence(entity);
 
     const newCollection = await this.repository.save(collection);

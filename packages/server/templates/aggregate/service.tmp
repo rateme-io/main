@@ -1,13 +1,16 @@
 import {
   {{ aggregateName:PascalCase }}AbstractService,
-} from './{{ aggregateName:KebabCase }}.abstract.service';
+} from '../domain';
 import {
-  {{ aggregateName:PascalCase }}AbstractUnitOfWork,
-} from './{{ aggregateName:KebabCase }}.abstract.unit-of-work';
+  {{ aggregateName:PascalCase }}UnitOfWork,
+} from './{{ aggregateName:KebabCase }}.unit-of-work';
+import { Injectable, Inject } from '@nestjs/common';
 
+@Injectable()
 export class {{ aggregateName:PascalCase }}Service extends {{ aggregateName:PascalCase }}AbstractService {
   constructor(
-    private readonly {{ aggregateName:camelCase }}UnitOfWork: {{ aggregateName:PascalCase }}AbstractUnitOfWork,
+    @Inject({{ aggregateName:PascalCase }}UnitOfWork)
+    private readonly {{ aggregateName:camelCase }}UnitOfWork: {{ aggregateName:PascalCase }}UnitOfWork,
   ) {
     super();
   }

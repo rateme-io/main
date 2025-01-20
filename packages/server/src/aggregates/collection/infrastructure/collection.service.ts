@@ -4,22 +4,20 @@ import {
   CreateCollectionCommand,
   CreateCollectionItemCommand,
   GetCollectionItemsCommand,
-} from './collection.abstract.service';
-import { CollectionAbstractUnitOfWork } from './collection.abstract.unit-of-work';
+} from '../domain';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { JsonSchemaService } from '@/core/modules/json-schema';
 import { CollectionItemEntity } from '@rateme/core/domain/entities/collection-item.entity';
-import {
-  CollectionNotFoundError,
-  FailedToCreateCollectionError,
-  InvalidJsonFieldsError,
-  InvalidJsonSchemaError,
-} from '@/aggregates/collection/domain/errors';
 import { JsonVo } from '@rateme/core/domain/value-objects/json.vo';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { CollectionUnitOfWork } from './collection.unit-of-work';
 
+@Injectable()
 export class CollectionService extends CollectionAbstractService {
   constructor(
-    private readonly collectionUnitOfWork: CollectionAbstractUnitOfWork,
+    @Inject(CollectionUnitOfWork)
+    private readonly collectionUnitOfWork: CollectionUnitOfWork,
+    @Inject(JsonSchemaService)
     private readonly jsonSchemaService: JsonSchemaService,
   ) {
     super();
@@ -38,7 +36,7 @@ export class CollectionService extends CollectionAbstractService {
       const isValid = this.jsonSchemaService.validateSchema(command.jsonSchema);
 
       if (!isValid) {
-        throw new InvalidJsonSchemaError();
+        throw new BadRequestException('Invalid JSON schema');
       }
 
       const entity = CollectionEntity.create({
@@ -48,13 +46,7 @@ export class CollectionService extends CollectionAbstractService {
         version: 1,
       });
 
-      const newCollection = await collectionRepository.create(entity);
-
-      if (!newCollection) {
-        throw new FailedToCreateCollectionError();
-      }
-
-      return newCollection;
+      return await collectionRepository.create(entity);
     });
   }
 
@@ -80,7 +72,7 @@ export class CollectionService extends CollectionAbstractService {
         );
 
         if (!collection) {
-          throw new CollectionNotFoundError();
+          throw new BadRequestException('Collection not found');
         }
 
         const { isValid } = this.jsonSchemaService.validateData(
@@ -89,7 +81,7 @@ export class CollectionService extends CollectionAbstractService {
         );
 
         if (!isValid) {
-          throw new InvalidJsonFieldsError();
+          throw new BadRequestException('Invalid JSON fields');
         }
 
         const entity = CollectionItemEntity.create({

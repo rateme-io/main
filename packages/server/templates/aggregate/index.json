@@ -7,13 +7,8 @@
       "indexFile": true
     },
     {
-      "name": "/domain/{{ aggregateName:KebabCase }}.service.ts",
+      "name": "/infrastructure/{{ aggregateName:KebabCase }}.service.ts",
       "template": "./service.tmp",
-      "indexFile": true
-    },
-    {
-      "name": "/domain/{{ aggregateName:KebabCase }}.abstract.unit-of-work.ts",
-      "template": "./abstract.unit-of-work.tmp",
       "indexFile": true
     },
     {

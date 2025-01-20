@@ -1,7 +1,0 @@
-import { UnitOfWork } from '@/core/unit-of-work';
-
-export abstract class {{ aggregateName:PascalCase }}AbstractUnitOfWork extends UnitOfWork<{{ aggregateName:PascalCase }}UnitOfWorkContext> {}
-
-export interface {{ aggregateName:PascalCase }}UnitOfWorkContext {
-  // repositories
-}

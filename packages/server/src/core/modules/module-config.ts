@@ -10,46 +10,35 @@ interface RepositoryConfig<A, R> {
   repository: Type<R>;
 }
 
-interface ServiceConfig<Inject extends any[]> {
-  abstract: Abstract<unknown>;
-  inject: Inject;
-  serviceFactory: (...inject: CreateClasses<Inject>) => unknown;
+interface ServiceConfig {
+  abstract: Abstract<any>;
+  realisation: Type;
 }
-
-type CreateClasses<T extends any[]> = T extends [infer Head, ...infer Tail]
-  ? [Head extends Abstract<infer H> ? H : never, ...CreateClasses<Tail>]
-  : [];
 
 export class EntityModule {
   static config = ({
     repositories = [],
-    services,
+    services = [],
     imports,
     providers,
-    exports,
+    exports = [],
     controllers,
   }: {
     repositories?: RepositoryConfig<any, any>[];
-    services?: (
-      create: <Inject extends any[]>(
-        useCase: ServiceConfig<Inject>,
-      ) => ServiceConfig<Inject>,
-    ) => ServiceConfig<any[]>[];
+    services?: ServiceConfig[];
     imports?: ModuleMetadata['imports'];
     providers?: ModuleMetadata['providers'];
     exports?: ModuleMetadata['exports'];
     controllers?: ModuleMetadata['controllers'];
   }): ModuleMetadata => {
-    const resolvedServices = services?.((useCase) => useCase) ?? [];
-
     return {
       imports: createImports(repositories, imports),
       providers: [
         ...createRepositoryProviders(repositories),
-        ...createServiceProviders(resolvedServices),
+        ...createServiceProviders(services ?? []),
         ...(providers ?? []),
       ],
-      exports: createExports(repositories, resolvedServices, exports),
+      exports: [...services.map(({ abstract }) => abstract), ...exports],
       controllers: [...(controllers ?? [])],
     };
   };
@@ -57,16 +46,12 @@ export class EntityModule {
 
 const createImports = (
   repositories: RepositoryConfig<any, any>[],
-  additionalImports?: ModuleMetadata['imports'],
+  additionalImports: ModuleMetadata['imports'] = [],
 ): ModuleMetadata['imports'] => {
-  if (additionalImports) {
-    return [
-      ...additionalImports,
-      TypeOrmModule.forFeature(repositories.map(({ entity }) => entity)),
-    ];
-  } else {
-    return [TypeOrmModule.forFeature(repositories.map(({ entity }) => entity))];
-  }
+  return [
+    ...additionalImports,
+    TypeOrmModule.forFeature(repositories.map(({ entity }) => entity)),
+  ];
 };
 
 const createRepositoryProviders = <A, R>(
@@ -78,31 +63,11 @@ const createRepositoryProviders = <A, R>(
   }));
 };
 
-const createServiceProviders = (
-  services: ServiceConfig<any[]>[],
-): Provider[] => {
-  return services.map(({ abstract, serviceFactory, inject }) => {
+const createServiceProviders = (services: ServiceConfig[]): Provider[] => {
+  return services.map(({ abstract, realisation }) => {
     return {
       provide: abstract,
-      useFactory: serviceFactory,
-      inject,
+      useClass: realisation,
     };
   });
-};
-
-const createExports = (
-  repositories: RepositoryConfig<any, any>[],
-  useCases: ServiceConfig<any[]>[],
-  additionalExports?: ModuleMetadata['exports'],
-): ModuleMetadata['exports'] => {
-  const exportsArray = [
-    ...repositories.map(({ abstract }) => abstract),
-    ...useCases.map(({ abstract }) => abstract),
-  ];
-
-  if (additionalExports) {
-    return [...exportsArray, ...additionalExports];
-  } else {
-    return exportsArray;
-  }
 };

@@ -27,14 +27,7 @@ import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-sessi
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
 
 import { AuthGuard } from '@/core/modules/auth';
-import {
-  FailedToCreateSession,
-  InvalidPassword,
-  TokenAuthAbstractService,
-  UserAlreadyExists,
-  UserDoesntHavePassword,
-  UserNotFound,
-} from '../domain';
+import { TokenAuthAbstractService } from '../domain';
 import { CookieService } from '@/core/modules/cookie';
 
 @Controller('/auth/token')
@@ -54,38 +47,22 @@ export class TokenAuthController {
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent: string,
   ): Promise<TokenSessionDto> {
-    try {
-      const { token, refreshToken, accessToken } =
-        await this.tokenAuthService.login({
-          email: body.email,
-          password: body.password,
-          ipAddress,
-          userAgent: userAgent ?? null,
-        });
+    const { token, refreshToken, accessToken } =
+      await this.tokenAuthService.login({
+        email: body.email,
+        password: body.password,
+        ipAddress,
+        userAgent: userAgent ?? null,
+      });
 
-      this.cookieService.setRefreshToken(response, refreshToken);
-      this.cookieService.setAccessToken(response, accessToken);
-      this.cookieService.setSessionId(response, token.session.id);
+    this.cookieService.setRefreshToken(response, refreshToken);
+    this.cookieService.setAccessToken(response, accessToken);
+    this.cookieService.setSessionId(response, token.session.id);
 
-      return {
-        user: UserDtoService.mapToDto(token.session.user),
-        session: SessionDtoService.mapToDto(token.session),
-      };
-    } catch (error) {
-      if (
-        error instanceof UserNotFound ||
-        error instanceof InvalidPassword ||
-        error instanceof FailedToCreateSession
-      ) {
-        throw new UnauthorizedException('Invalid email or password');
-      }
-
-      if (error instanceof UserDoesntHavePassword) {
-        throw new UnauthorizedException('User does not have password');
-      }
-
-      throw error;
-    }
+    return {
+      user: UserDtoService.mapToDto(token.session.user),
+      session: SessionDtoService.mapToDto(token.session),
+    };
   }
 
   @UsePipes(new ZodValidationPipe(TokenRegisterDtoSchema))
@@ -97,37 +74,24 @@ export class TokenAuthController {
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent: string,
   ): Promise<TokenSessionDto> {
-    try {
-      const { token, refreshToken, accessToken } =
-        await this.tokenAuthService.register({
-          email: body.email,
-          password: body.password,
-          name: body.name,
-          username: body.username,
-          userAgent: userAgent ?? null,
-          ipAddress,
-        });
+    const { token, refreshToken, accessToken } =
+      await this.tokenAuthService.register({
+        email: body.email,
+        password: body.password,
+        name: body.name,
+        username: body.username,
+        userAgent: userAgent ?? null,
+        ipAddress,
+      });
 
-      this.cookieService.setRefreshToken(response, refreshToken);
-      this.cookieService.setAccessToken(response, accessToken);
-      this.cookieService.setSessionId(response, token.session.id);
+    this.cookieService.setRefreshToken(response, refreshToken);
+    this.cookieService.setAccessToken(response, accessToken);
+    this.cookieService.setSessionId(response, token.session.id);
 
-      return {
-        user: UserDtoService.mapToDto(token.session.user),
-        session: SessionDtoService.mapToDto(token.session),
-      };
-    } catch (error) {
-      if (
-        error instanceof UserAlreadyExists ||
-        error instanceof FailedToCreateSession
-      ) {
-        throw new UnauthorizedException(
-          'Cannot create user with this credentials',
-        );
-      }
-
-      throw error;
-    }
+    return {
+      user: UserDtoService.mapToDto(token.session.user),
+      session: SessionDtoService.mapToDto(token.session),
+    };
   }
 
   @Post('/refresh')
@@ -135,35 +99,27 @@ export class TokenAuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<TokenSessionDto> {
-    try {
-      const usersRefreshToken = this.cookieService.getRefreshToken(request);
-      const sessionId = this.cookieService.getSessionId(request);
+    const usersRefreshToken = this.cookieService.getRefreshToken(request);
+    const sessionId = this.cookieService.getSessionId(request);
 
-      if (!usersRefreshToken || !sessionId) {
-        throw new UnauthorizedException();
-      }
-
-      const { token, refreshToken, accessToken } =
-        await this.tokenAuthService.refresh({
-          refreshToken: usersRefreshToken,
-          sessionId,
-        });
-
-      this.cookieService.setRefreshToken(response, refreshToken);
-      this.cookieService.setAccessToken(response, accessToken);
-      this.cookieService.setSessionId(response, token.session.id);
-
-      return {
-        user: UserDtoService.mapToDto(token.session.user),
-        session: SessionDtoService.mapToDto(token.session),
-      };
-    } catch (error) {
-      if (error instanceof UserNotFound) {
-        throw new UnauthorizedException('User not found');
-      }
-
-      throw error;
+    if (!usersRefreshToken || !sessionId) {
+      throw new UnauthorizedException();
     }
+
+    const { token, refreshToken, accessToken } =
+      await this.tokenAuthService.refresh({
+        refreshToken: usersRefreshToken,
+        sessionId,
+      });
+
+    this.cookieService.setRefreshToken(response, refreshToken);
+    this.cookieService.setAccessToken(response, accessToken);
+    this.cookieService.setSessionId(response, token.session.id);
+
+    return {
+      user: UserDtoService.mapToDto(token.session.user),
+      session: SessionDtoService.mapToDto(token.session),
+    };
   }
 
   @UseGuards(AuthGuard)
@@ -172,23 +128,19 @@ export class TokenAuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
-    try {
-      const sessionId = this.cookieService.getSessionId(request);
+    const sessionId = this.cookieService.getSessionId(request);
 
-      if (sessionId === null) {
-        throw new UnauthorizedException();
-      }
-
-      await this.tokenAuthService.logout({
-        sessionId,
-      });
-
-      this.cookieService.clearAccessToken(response);
-      this.cookieService.clearRefreshToken(response);
-      this.cookieService.clearSessionId(response);
-    } catch (error) {
-      throw error;
+    if (sessionId === null) {
+      throw new UnauthorizedException();
     }
+
+    await this.tokenAuthService.logout({
+      sessionId,
+    });
+
+    this.cookieService.clearAccessToken(response);
+    this.cookieService.clearRefreshToken(response);
+    this.cookieService.clearSessionId(response);
   }
 
   @UseGuards(AuthGuard)

@@ -43,22 +43,18 @@ export class CollectionController {
   @UseGuards(AuthGuard)
   @Get('/list')
   async list(@Req() request: Request): Promise<CollectionListResponseDto> {
-    try {
-      const session = await this.authService.getSession(request);
+    const session = await this.authService.getSession(request);
 
-      const collections = await this.collectionService.getCollections({
-        user: session.user,
-      });
+    const collections = await this.collectionService.getCollections({
+      user: session.user,
+    });
 
-      return {
-        list: collections.map((collection) => ({
-          name: collection.name.getValue(),
-          id: collection.id,
-        })),
-      };
-    } catch (error) {
-      throw error;
-    }
+    return {
+      list: collections.map((collection) => ({
+        name: collection.name.getValue(),
+        id: collection.id,
+      })),
+    };
   }
 
   @UsePipes(new ZodValidationPipe(CreateCollectionDtoSchema))
@@ -68,19 +64,15 @@ export class CollectionController {
     @Body() body: CreateCollectionDto,
     @Req() request: Request,
   ): Promise<CollectionDto> {
-    try {
-      const session = await this.authService.getSession(request);
+    const session = await this.authService.getSession(request);
 
-      const collection = await this.collectionService.createCollection({
-        user: session.user,
-        name: body.name,
-        jsonSchema: body.jsonSchema,
-      });
+    const collection = await this.collectionService.createCollection({
+      user: session.user,
+      name: body.name,
+      jsonSchema: body.jsonSchema,
+    });
 
-      return CollectionDtoService.mapToDto(collection);
-    } catch (error) {
-      throw error;
-    }
+    return CollectionDtoService.mapToDto(collection);
   }
 
   @UseGuards(AuthGuard)
@@ -88,23 +80,19 @@ export class CollectionController {
   async itemList(
     @Req() request: Request,
   ): Promise<CollectionItemListResponseDto> {
-    try {
-      const session = await this.authService.getSession(request);
+    const session = await this.authService.getSession(request);
 
-      const collectionItems = await this.collectionService.getCollectionItems({
-        user: session.user,
-        collectionId: request.query.collectionId as string,
-      });
+    const collectionItems = await this.collectionService.getCollectionItems({
+      user: session.user,
+      collectionId: request.query.collectionId as string,
+    });
 
-      return {
-        list: collectionItems.map((collectionItem) => ({
-          name: collectionItem.name.getValue(),
-          id: collectionItem.id,
-        })),
-      };
-    } catch (error) {
-      throw error;
-    }
+    return {
+      list: collectionItems.map((collectionItem) => ({
+        name: collectionItem.name.getValue(),
+        id: collectionItem.id,
+      })),
+    };
   }
 
   @UsePipes(new ZodValidationPipe(CreateCollectionItemDtoSchema))
@@ -114,19 +102,15 @@ export class CollectionController {
     @Body() body: CreateCollectionItemDto,
     @Req() request: Request,
   ): Promise<CollectionItemDto> {
-    try {
-      const session = await this.authService.getSession(request);
+    const session = await this.authService.getSession(request);
 
-      const collectionItem = await this.collectionService.createCollectionItem({
-        user: session.user,
-        name: body.name,
-        jsonFields: body.jsonFields,
-        collectionId: body.collectionId,
-      });
+    const collectionItem = await this.collectionService.createCollectionItem({
+      user: session.user,
+      name: body.name,
+      jsonFields: body.jsonFields,
+      collectionId: body.collectionId,
+    });
 
-      return CollectionItemDtoService.mapToDto(collectionItem);
-    } catch (error) {
-      throw error;
-    }
+    return CollectionItemDtoService.mapToDto(collectionItem);
   }
 }

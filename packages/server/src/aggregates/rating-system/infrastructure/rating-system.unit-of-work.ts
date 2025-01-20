@@ -1,18 +1,18 @@
-import {
-  RatingSystemAbstractUnitOfWork,
-  RatingSystemUnitOfWorkContext,
-} from '@/aggregates/rating-system/domain';
 import { Injectable } from '@nestjs/common';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
 import { DataSource, EntityManager } from 'typeorm';
 import { RatingSystemRepository } from '@/entities/rating-system/infrastructure';
 import { RatingRepository } from '@/entities/rating/infrastructure';
+import { RatingSystemAbstractRepository } from '@/entities/rating-system/domain';
+import { RatingAbstractRepository } from '@/entities/rating/domain';
+
+export interface RatingSystemUnitOfWorkContext {
+  ratingSystemRepository: RatingSystemAbstractRepository;
+  ratingRepository: RatingAbstractRepository;
+}
 
 @Injectable()
-export class RatingSystemUnitOfWork
-  extends TypeormUnitOfWork<RatingSystemUnitOfWorkContext>
-  implements RatingSystemAbstractUnitOfWork
-{
+export class RatingSystemUnitOfWork extends TypeormUnitOfWork<RatingSystemUnitOfWorkContext> {
   constructor(dataSource: DataSource) {
     super(dataSource);
   }

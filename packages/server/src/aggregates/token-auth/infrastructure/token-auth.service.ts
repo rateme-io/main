@@ -8,12 +8,6 @@ import {
   SessionStatus,
   TokenEntity,
 } from '@rateme/core/domain/entities/session.entity';
-import {
-  InvalidPassword,
-  UserAlreadyExists,
-  UserDoesntHavePassword,
-  UserNotFound,
-} from './errors';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
@@ -28,19 +22,25 @@ import {
   TokenAuthAbstractService,
   TokenLoginCommand,
   TokenSessionResponse,
-} from './token-auth.abstract.service';
+} from '../domain';
 import { DateService } from '@/core/modules/date';
 import { ConfigService } from '@/core/modules/config';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import {
-  TokenAuthAbstractUnitOfWork,
+  TokenAuthUnitOfWork,
   TokenAuthUnitOfWorkContext,
-} from './token-auth.abstract.unit-of-work';
+} from './token-auth.unit-of-wok';
 
+@Injectable()
 export class TokenAuthService extends TokenAuthAbstractService {
   constructor(
-    private readonly tokenAuthUnitOfWork: TokenAuthAbstractUnitOfWork,
+    @Inject(TokenAuthUnitOfWork)
+    private readonly tokenAuthUnitOfWork: TokenAuthUnitOfWork,
+    @Inject(CryptoService)
     private readonly cryptoService: CryptoService,
+    @Inject(DateService)
     private readonly dateService: DateService,
+    @Inject(ConfigService)
     private readonly configService: ConfigService,
   ) {
     super();
@@ -51,13 +51,13 @@ export class TokenAuthService extends TokenAuthAbstractService {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (!user) {
-        throw new UserNotFound();
+        throw new BadRequestException('User not found');
       }
 
       const password = await context.passwordRepository.findByUserId(user.id);
 
       if (!password) {
-        throw new UserDoesntHavePassword();
+        throw new BadRequestException('User not found');
       }
 
       const isValidPassword = await this.cryptoService.verify(
@@ -66,7 +66,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
       );
 
       if (!isValidPassword) {
-        throw new InvalidPassword();
+        throw new BadRequestException('Wrong credentials');
       }
 
       return await this.createSession(
@@ -85,7 +85,9 @@ export class TokenAuthService extends TokenAuthAbstractService {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (user) {
-        throw new UserAlreadyExists();
+        throw new BadRequestException(
+          'Cannot create user with this credentials',
+        );
       }
 
       const userEntity = UserEntity.create({
@@ -128,7 +130,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
         const session = await sessionRepository.findById(command.sessionId);
 
         if (!session) {
-          throw new UserNotFound();
+          throw new BadRequestException('Session not found');
         }
 
         session.status = SessionStatus.inactive;
@@ -151,7 +153,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
       );
 
       if (!token) {
-        throw new UserNotFound();
+        throw new BadRequestException('Token not found');
       }
 
       if (
@@ -161,11 +163,11 @@ export class TokenAuthService extends TokenAuthAbstractService {
           this.configService.auth.encryptionKey,
         )
       ) {
-        throw new UserNotFound();
+        throw new BadRequestException('Invalid token');
       }
 
       if (this.dateService.isAfter(new Date(), token.refreshTokenExpiresAt)) {
-        throw new UserNotFound();
+        throw new BadRequestException('Token expired');
       }
 
       await context.tokenRepository.remove(token.id);

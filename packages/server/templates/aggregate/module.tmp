@@ -3,25 +3,20 @@ import { {{ aggregateName:PascalCase }}Controller } from '@/aggregates/{{ aggreg
 import {
   {{ aggregateName:PascalCase }}AbstractService,
   {{ aggregateName:PascalCase }}AbstractUnitOfWork,
-  {{ aggregateName:PascalCase }}Service,
 } from '@/aggregates/{{ aggregateName:KebabCase }}/domain';
 import { {{ aggregateName:PascalCase }}UnitOfWork } from './{{ aggregateName:KebabCase }}.unit-of-work';
+import { {{ aggregateName:PascalCase }}Service } from './{{ aggregateName:KebabCase }}.service';
 import { EntityModule } from '@/core/modules/module-config';
 
 @Module(
   EntityModule.config({
     controllers: [{{ aggregateName:PascalCase }}Controller],
-    providers: [
-      { provide: {{ aggregateName:PascalCase }}AbstractUnitOfWork, useClass: {{ aggregateName:PascalCase }}UnitOfWork },
-    ],
-    services: (create) => [
-      create({
+    providers: [{{ aggregateName:PascalCase }}UnitOfWork }],
+    services: [
+      {
         abstract: {{ aggregateName:PascalCase }}AbstractService,
-        inject: [
-          {{ aggregateName:PascalCase }}AbstractUnitOfWork,
-        ] as const,
-        serviceFactory: (...inject) => new {{ aggregateName:PascalCase }}Service(...inject),
-      }),
+        realisation: {{ aggregateName:PascalCase }}Service,
+      },
     ],
   }),
 )
