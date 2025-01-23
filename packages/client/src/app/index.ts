@@ -1,3 +1,1 @@
-export const App = () => {
-  return 'Hello World!';
-}
+export * from './app.tsx';
