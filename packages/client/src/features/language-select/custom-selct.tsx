@@ -1,4 +1,5 @@
-import { Portal, Select as ChakraSelect } from '@chakra-ui/react';
+import { Portal } from '@chakra-ui/react/portal';
+import { Select as ChakraSelect } from '@chakra-ui/react/select';
 import { forwardRef, RefObject } from 'react';
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {

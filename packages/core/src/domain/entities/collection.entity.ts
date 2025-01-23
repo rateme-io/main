@@ -1,8 +1,9 @@
+import { z } from 'zod';
+
 import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { ZodValidator } from '@/domain/common/zod-validator';
-import { z } from 'zod';
-import { NameVo } from '@/domain/value-objects/name.vo';
 import { JsonVo } from '@/domain/value-objects/json.vo';
+import { NameVo } from '@/domain/value-objects/name.vo';
 
 export class CollectionEntity extends BaseEntity {
   @ZodValidator(z.string())

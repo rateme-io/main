@@ -1,62 +1,93 @@
-import { Dialog as ChakraDialog, Portal } from "@chakra-ui/react"
-import { CloseButton } from "./close-button"
-import * as React from "react"
+import {
+  DialogActionTrigger,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  IconButton,
+  Portal,
+} from '@chakra-ui/react';
+import { reatomComponent } from '@reatom/npm-react';
+import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
+import { IoClose } from 'react-icons/io5';
 
-interface DialogContentProps extends ChakraDialog.ContentProps {
-  portalled?: boolean
-  portalRef?: React.RefObject<HTMLElement>
-  backdrop?: boolean
-}
+import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
+import { Button } from '@/shared/ui/button.tsx';
 
-export const DialogContent = React.forwardRef<
-  HTMLDivElement,
-  DialogContentProps
->(function DialogContent(props, ref) {
-  const {
+export type DialogProps = PropsWithChildren<{
+  disclosure: DisclosureAtom;
+  title: ReactNode;
+  submitLabel?: ReactNode;
+  cancelLabel?: ReactNode;
+  onSubmit?: (event: FormEvent<HTMLElement>) => void;
+  onClose?: () => void;
+}>;
+
+export const Dialog = reatomComponent<DialogProps>(
+  ({
+    ctx,
+    disclosure,
     children,
-    portalled = true,
-    portalRef,
-    backdrop = true,
-    ...rest
-  } = props
+    title,
+    cancelLabel,
+    submitLabel,
+    onSubmit,
+    onClose,
+  }) => {
+    const isOpened = ctx.spy(disclosure.$isOpened);
 
-  return (
-    <Portal disabled={!portalled} container={portalRef}>
-      {backdrop && <ChakraDialog.Backdrop />}
-      <ChakraDialog.Positioner>
-        <ChakraDialog.Content ref={ref} {...rest} asChild={false}>
-          {children}
-        </ChakraDialog.Content>
-      </ChakraDialog.Positioner>
-    </Portal>
-  )
-})
-
-export const DialogCloseTrigger = React.forwardRef<
-  HTMLButtonElement,
-  ChakraDialog.CloseTriggerProps
->(function DialogCloseTrigger(props, ref) {
-  return (
-    <ChakraDialog.CloseTrigger
-      position="absolute"
-      top="2"
-      insetEnd="2"
-      {...props}
-      asChild
-    >
-      <CloseButton size="sm" ref={ref}>
-        {props.children}
-      </CloseButton>
-    </ChakraDialog.CloseTrigger>
-  )
-})
-
-export const DialogRoot = ChakraDialog.Root
-export const DialogFooter = ChakraDialog.Footer
-export const DialogHeader = ChakraDialog.Header
-export const DialogBody = ChakraDialog.Body
-export const DialogBackdrop = ChakraDialog.Backdrop
-export const DialogTitle = ChakraDialog.Title
-export const DialogDescription = ChakraDialog.Description
-export const DialogTrigger = ChakraDialog.Trigger
-export const DialogActionTrigger = ChakraDialog.ActionTrigger
+    return (
+      <Portal>
+        <DialogRoot
+          open={isOpened}
+          onOpenChange={({ open }) => {
+            if (!open) {
+              onClose?.();
+              disclosure.close(ctx);
+            }
+          }}
+          size={'sm'}
+          scrollBehavior={'outside'}
+        >
+          <DialogBackdrop />
+          <DialogContent
+            as={'form'}
+            // @ts-expect-error noValidate is a valid form prop
+            noValidate={true}
+            onSubmit={(event) => {
+              event.preventDefault();
+              onSubmit?.(event);
+            }}
+          >
+            <DialogCloseTrigger asChild>
+              <IconButton
+                variant={'ghost'}
+                position={'absolute'}
+                top={2}
+                right={2}
+              >
+                <IoClose />
+              </IconButton>
+            </DialogCloseTrigger>
+            <DialogHeader>
+              <DialogTitle>{title}</DialogTitle>
+            </DialogHeader>
+            <DialogBody>{children}</DialogBody>
+            <DialogFooter>
+              {cancelLabel && (
+                <DialogActionTrigger asChild>
+                  <Button variant="outline">cancelLabel</Button>
+                </DialogActionTrigger>
+              )}
+              {submitLabel && <Button type={'submit'}>{submitLabel}</Button>}
+            </DialogFooter>
+          </DialogContent>
+        </DialogRoot>
+      </Portal>
+    );
+  },
+);

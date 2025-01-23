@@ -17,7 +17,12 @@ async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
   }
   app.useGlobalInterceptors(new ErrorsInterceptor());
+  app.enableCors({
+    origin: [process.env.WEB_CLIENT_URL ?? 'http://localhost:3000'],
+    credentials: true,
+  });
   await app.listen(process.env.PORT ?? 3000);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
 bootstrap();

@@ -6,7 +6,7 @@
         "src/*"
       ],
       "@rateme/core/*": [
-        "../core/src/*"
+        "../core/dist/*"
       ],
     }
   },

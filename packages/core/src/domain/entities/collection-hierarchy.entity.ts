@@ -1,6 +1,7 @@
+import { z } from 'zod';
+
 import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { ZodValidator } from '@/domain/common/zod-validator';
-import { z } from 'zod';
 
 export class CollectionHierarchyEntity extends BaseEntity {
   @ZodValidator(z.string())

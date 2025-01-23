@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { NameVo } from '@/domain/value-objects/name.vo';
+
 import { JsonVo } from '@/domain/value-objects/json.vo';
+import { NameVo } from '@/domain/value-objects/name.vo';
 
 export const CreateCollectionItemDtoSchema = z.object({
   name: NameVo.schema,
@@ -8,4 +9,6 @@ export const CreateCollectionItemDtoSchema = z.object({
   collectionId: z.string(),
 });
 
-export type CreateCollectionItemDto = z.infer<typeof CreateCollectionItemDtoSchema>
+export type CreateCollectionItemDto = z.infer<
+  typeof CreateCollectionItemDtoSchema
+>;

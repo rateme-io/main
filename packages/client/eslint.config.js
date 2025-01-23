@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import reatom from '@reatom/eslint-plugin';
 import pluginLingui from 'eslint-plugin-lingui';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -60,6 +61,16 @@ export default tseslint.config(
           ],
         },
       ],
+    },
+  },
+  //  reatom
+  {
+    plugins: {
+      '@reatom': reatom,
+    },
+    rules: {
+      '@reatom/async-rule': 'error',
+      '@reatom/unit-naming-rule': 'error',
     },
   },
 );

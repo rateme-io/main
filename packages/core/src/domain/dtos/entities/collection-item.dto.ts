@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { CollectionItemEntity } from '@/domain/entities/collection-item.entity';
 import { JsonVo } from '@/domain/value-objects/json.vo';
 
@@ -10,7 +11,7 @@ export class CollectionItemDtoService {
     name: z.string(),
     jsonFields: JsonVo.schema,
     collectionId: z.string(),
-  })
+  });
 
   static mapToDto(entity: CollectionItemEntity): CollectionItemDto {
     return {
@@ -20,8 +21,8 @@ export class CollectionItemDtoService {
       name: entity.name.getValue(),
       jsonFields: entity.jsonFields,
       collectionId: entity.collectionId,
-    }
+    };
   }
 }
 
-export type CollectionItemDto = z.infer<typeof CollectionItemDtoService.schema>
+export type CollectionItemDto = z.infer<typeof CollectionItemDtoService.schema>;

@@ -1,5 +1,6 @@
-import { BaseValueObject } from '@/domain/common/base.value-object';
 import { ZodError } from 'zod';
+
+import { BaseValueObject } from '@/domain/common/base.value-object';
 import { ValidationError } from '@/domain/common/validation.error';
 import { validateClass } from '@/domain/common/zod-validator';
 
@@ -19,10 +20,9 @@ export class BaseEntity {
           if (field instanceof BaseValueObject) {
             field.validate();
           }
-
         } catch (error) {
           if (error instanceof ZodError) {
-            error.errors.forEach(subError => {
+            error.errors.forEach((subError) => {
               subError.path.unshift(property);
             });
 
@@ -39,7 +39,7 @@ export class BaseEntity {
     }
   }
 
-  static create(entity: CreatEntityCommand<BaseEntity>): BaseEntity {
+  static create(_entity: CreatEntityCommand<BaseEntity>): BaseEntity {
     throw new Error('Method not implemented.');
   }
 }
@@ -50,7 +50,10 @@ export type CreatEntityCommand<Entity extends BaseEntity> = Omit<
 > &
   Partial<Pick<Entity, 'createdAt' | 'id' | 'updatedAt'>>;
 
-export const addBaseFields = <Entity extends BaseEntity>(entity: Entity, command: CreatEntityCommand<Entity>) => {
+export const addBaseFields = <Entity extends BaseEntity>(
+  entity: Entity,
+  command: CreatEntityCommand<Entity>,
+) => {
   if (command.id) {
     entity.id = command.id;
   }

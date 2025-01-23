@@ -3,7 +3,7 @@ import { z } from 'zod';
 const schemas = new Map<unknown, Map<string, z.ZodTypeAny>>();
 
 export function ZodValidator(schema: z.ZodTypeAny) {
-  return function(target: any, propertyKey: string) {
+  return function (target: object, propertyKey: string) {
     if (!schemas.has(target.constructor)) {
       schemas.set(target.constructor, new Map());
     }

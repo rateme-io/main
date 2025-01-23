@@ -9,11 +9,12 @@ export const RatingListItemResponseDtoSchema = z.object({
   updatedAt: z.date(),
 });
 
-export type RatingListItemResponseDto = z.infer<typeof RatingListItemResponseDtoSchema>
-
+export type RatingListItemResponseDto = z.infer<
+  typeof RatingListItemResponseDtoSchema
+>;
 
 export const RatingListResponseDtoSchema = z.object({
   list: z.array(RatingListItemResponseDtoSchema),
 });
 
-export type RatingListResponseDto = z.infer<typeof RatingListResponseDtoSchema>
+export type RatingListResponseDto = z.infer<typeof RatingListResponseDtoSchema>;

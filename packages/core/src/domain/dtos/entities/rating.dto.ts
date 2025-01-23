@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { JsonVo } from '@/domain/value-objects/json.vo';
+
 import { RatingEntity } from '@/domain/entities/rating.entity';
+import { JsonVo } from '@/domain/value-objects/json.vo';
 
 export class RatingDtoService {
   static schema = z.object({
@@ -11,7 +12,7 @@ export class RatingDtoService {
     jsonRates: JsonVo.schema,
     createdAt: z.date(),
     updatedAt: z.date(),
-  })
+  });
 
   static mapToDto(entity: RatingEntity): RatingDto {
     return {
@@ -22,8 +23,8 @@ export class RatingDtoService {
       jsonRates: entity.jsonRates.getValue(),
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-    }
+    };
   }
 }
 
-export type RatingDto = z.infer<typeof RatingDtoService.schema>
+export type RatingDto = z.infer<typeof RatingDtoService.schema>;

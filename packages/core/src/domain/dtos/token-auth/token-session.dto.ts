@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { UserDtoService } from '@/domain/dtos/entities/user.dto';
+
 import { SessionDtoService } from '@/domain/dtos/entities/session.dto';
+import { UserDtoService } from '@/domain/dtos/entities/user.dto';
 
 export const TokenSessionDtoSchema = z.object({
   user: UserDtoService.schema,

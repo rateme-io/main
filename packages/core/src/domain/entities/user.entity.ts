@@ -1,10 +1,11 @@
-import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
-import { EmailVo } from '@/domain/value-objects/email.vo';
-import { UsernameVo } from '@/domain/value-objects/username.vo';
-import { NameVo } from '@/domain/value-objects/name.vo';
-import { LogoUrlVo } from '@/domain/value-objects/logo-url.vo';
-import { ZodValidator } from '@/domain/common/zod-validator';
 import { z } from 'zod';
+
+import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
+import { ZodValidator } from '@/domain/common/zod-validator';
+import { EmailVo } from '@/domain/value-objects/email.vo';
+import { LogoUrlVo } from '@/domain/value-objects/logo-url.vo';
+import { NameVo } from '@/domain/value-objects/name.vo';
+import { UsernameVo } from '@/domain/value-objects/username.vo';
 
 export enum UserVerifiedStatus {
   pending = 'pending',

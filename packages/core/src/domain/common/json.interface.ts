@@ -1,4 +1,3 @@
-
 export type JsonInterface = {
   [key: string]: JsonValue | JsonInterface | JsonInterface[];
 };

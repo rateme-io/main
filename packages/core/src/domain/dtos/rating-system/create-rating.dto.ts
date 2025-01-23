@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { JsonVo } from '@/domain/value-objects/json.vo';
 
 export const CreateRatingDtoSchema = z.object({

@@ -1,28 +1,24 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react/box';
+import { Flex } from '@chakra-ui/react/flex';
 import { Trans } from '@lingui/react/macro';
-import { useAtom } from '@reatom/npm-react';
-import { FunctionComponent } from 'react';
+import { reatomComponent } from '@reatom/npm-react';
 
 import { LanguageSelect } from '@/features/language-select';
 import { LoginDialog } from '@/features/login-dialog/login-dialog.tsx';
+import { Search } from '@/features/search';
+import { disclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
 import { Button } from '@/shared/ui/button.tsx';
-import { Link } from '@/shared/ui/link';
+import { Link } from '@/shared/ui/link.tsx';
 import { BigLogo } from '@/shared/ui/logo';
+import { PageLayout } from '@/shared/ui/page-layout.tsx';
 
-export type HeaderProps = {};
+const loginDisclosure = disclosureAtom({ defaultIsOpened: false });
 
-export const Header: FunctionComponent<HeaderProps> = () => {
-  const [isOpened, setIsOpened] = useAtom(true);
-
+export const Header = reatomComponent(({ ctx }) => {
   return (
     <>
       <Box as={'header'} borderBottomWidth={1}>
-        <Box
-          width={'100%'}
-          maxWidth={'8xl'}
-          paddingInline={6}
-          marginInline={'auto'}
-        >
+        <PageLayout>
           <Flex
             paddingBlock={2}
             alignItems={'center'}
@@ -33,6 +29,8 @@ export const Header: FunctionComponent<HeaderProps> = () => {
               <Link routerProps={{ to: '/' }}>
                 <BigLogo />
               </Link>
+
+              <Search />
             </Flex>
 
             <Flex alignItems={'center'} gap={2}>
@@ -40,22 +38,17 @@ export const Header: FunctionComponent<HeaderProps> = () => {
               <Button
                 variant={'ghost'}
                 onClick={() => {
-                  setIsOpened(true);
+                  loginDisclosure.open(ctx);
                 }}
               >
                 <Trans>Sign In</Trans>
               </Button>
             </Flex>
           </Flex>
-        </Box>
+        </PageLayout>
       </Box>
 
-      <LoginDialog
-        isOpened={isOpened}
-        onClose={() => {
-          setIsOpened(false);
-        }}
-      />
+      <LoginDialog disclosure={loginDisclosure} />
     </>
   );
-};
+}, 'Header');

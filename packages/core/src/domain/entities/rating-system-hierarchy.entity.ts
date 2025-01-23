@@ -1,5 +1,6 @@
-import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { z } from 'zod';
+
+import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { ZodValidator } from '@/domain/common/zod-validator';
 
 export class RatingSystemHierarchyEntity extends BaseEntity {

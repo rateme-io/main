@@ -1,32 +1,28 @@
-import { action, atom } from '@reatom/framework';
+import { action } from '@reatom/framework';
 
+import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
 
-export const $email = atom('');
+import { login } from '@/entities/session';
+import { fieldAtom } from '@/shared/atoms/field.atom.ts';
+import { formAtom } from '@/shared/atoms/form.atom.ts';
 
-export const $password = atom('');
-
-export const $passwordComplexity = atom((ctx) => {
-  const password = ctx.get($password);
-  const result = PasswordVo.schema.safeParse(password);
-
-  const errors = result.error?.errors ?? [];
-  const totalRules = 6;
-  const passedRules = totalRules - errors.length;
-
-  const level = Math.floor((passedRules / totalRules) * 4);
-
-  return {
-    level,
-    errors: errors.map((error) => error.message),
-  };
+export const emailField = fieldAtom({
+  defaultValue: '',
+  schema: EmailVo.schema,
 });
 
-export const submit = action((ctx) => {
-  console.log(ctx.get($email), ctx.get($password));
+export const passwordField = fieldAtom({
+  defaultValue: '',
+  schema: PasswordVo.simpleSchema,
 });
 
-export const reset = action((ctx) => {
-  $email(ctx, '');
-  $password(ctx, '');
+export const loginForm = formAtom({
+  fields: {
+    email: emailField,
+    password: passwordField,
+  },
+  onSubmit: action(async (ctx, { email, password }) => {
+    login(ctx, { type: 'token', dto: { email, password } });
+  }, 'loginForm.onSubmit'),
 });

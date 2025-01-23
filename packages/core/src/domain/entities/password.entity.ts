@@ -1,6 +1,6 @@
 import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
-import { PasswordVo } from '@/domain/value-objects/password.vo';
 import { UserEntity } from '@/domain/entities/user.entity';
+import { PasswordVo } from '@/domain/value-objects/password.vo';
 
 export class PasswordEntity extends BaseEntity {
   hash: PasswordVo;
@@ -16,6 +16,5 @@ export class PasswordEntity extends BaseEntity {
     addBaseFields(entity, command);
 
     return entity;
-
   }
 }

@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import { NameVo } from '@/domain/value-objects/name.vo';
+
 import { CollectionEntity } from '@/domain/entities/collection.entity';
 import { JsonVo } from '@/domain/value-objects/json.vo';
+import { NameVo } from '@/domain/value-objects/name.vo';
 
 export class CollectionDtoService {
   static schema = z.object({
@@ -25,4 +26,4 @@ export class CollectionDtoService {
   }
 }
 
-export type CollectionDto = z.infer<typeof CollectionDtoService.schema>
+export type CollectionDto = z.infer<typeof CollectionDtoService.schema>;

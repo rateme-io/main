@@ -1,6 +1,6 @@
 import { z } from 'zod';
+
 import { SessionEntity } from '@/domain/entities/session.entity';
-import { UserDtoService } from './user.dto';
 
 export type SessionDto = z.infer<typeof SessionDtoService.schema>;
 

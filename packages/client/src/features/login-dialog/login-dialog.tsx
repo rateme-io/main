@@ -1,127 +1,83 @@
-import { Box, Input, Stack } from '@chakra-ui/react';
+import { Flex, Input, Stack, Text } from '@chakra-ui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent } from '@reatom/npm-react';
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent } from 'react';
 
-import { Button } from '@/shared/ui/button';
-import {
-  DialogBackdrop,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from '@/shared/ui/dialog';
+import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
+import { Dialog } from '@/shared/ui/dialog.tsx';
 import { Field } from '@/shared/ui/field';
-import {
-  PasswordInput,
-  PasswordStrengthMeter,
-} from '@/shared/ui/password-input';
+import { PasswordInput } from '@/shared/ui/password-input';
 
-import {
-  $email,
-  $password,
-  $passwordComplexity,
-  reset,
-  submit,
-} from './model.ts';
+import { emailField, loginForm, passwordField } from './model.ts';
 
 export type LoginDialogProps = {
-  isOpened: boolean;
-  onClose: () => void;
+  disclosure: DisclosureAtom;
 };
 
 export const LoginDialog = reatomComponent<LoginDialogProps>(
-  ({ isOpened, onClose, ctx }) => {
-    useEffect(() => () => reset(ctx), [ctx]);
-
+  ({ disclosure, ctx }) => {
     return (
-      <DialogRoot
-        open={isOpened}
-        onOpenChange={({ open }) => {
-          if (!open) {
-            onClose();
-          }
-        }}
+      <Dialog
+        disclosure={disclosure}
+        onClose={() => loginForm.reset(ctx)}
+        onSubmit={() => loginForm.submit(ctx)}
+        title={
+          <Text>
+            <Trans>Authorisation</Trans>
+          </Text>
+        }
+        submitLabel={<Trans>Submit</Trans>}
       >
-        <DialogBackdrop />
-        <DialogTrigger />
-        <DialogContent
-          as={'form'}
-          maxWidth={'300px'}
-          portalled
-          onSubmit={(event) => {
-            event.preventDefault();
+        <Flex flexDirection={'column'} gap={4}>
+          <EmailField />
 
-            submit(ctx);
-          }}
-        >
-          <DialogCloseTrigger />
-          <DialogHeader>
-            <DialogTitle>
-              <Trans>Sign in</Trans>
-            </DialogTitle>
-          </DialogHeader>
-          <DialogBody>
-            <Box display={'flex'} flexDirection={'column'} gap={5}>
-              <EmailField />
-
-              <PasswordField />
-            </Box>
-          </DialogBody>
-          <DialogFooter>
-            <Button type={'submit'}>
-              <Trans>Sign in</Trans>
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </DialogRoot>
+          <PasswordField />
+        </Flex>
+      </Dialog>
     );
   },
+  'LoginDialog',
 );
 
 const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
   return (
-    <Field label={t`Email`} required>
+    <Field
+      label={t`Email`}
+      invalid={!!ctx.spy(emailField.$error)}
+      errorText={ctx.spy(emailField.$error) && <Trans>Wrong email</Trans>}
+      required
+    >
       <Input
+        formNoValidate
         type={'email'}
         placeholder={t`Enter your email`}
-        value={ctx.spy($email)}
+        value={ctx.spy(emailField.$value)}
         onChange={(e) => {
-          $email(ctx, e.currentTarget.value);
+          emailField.$value(ctx, e.currentTarget.value);
         }}
       />
     </Field>
   );
-});
+}, 'EmailField');
 
 const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
-  const complexity = ctx.spy($passwordComplexity);
-
   return (
     <Field
       label={t`Password`}
-      helperText={
-        <Box as={'ul'}>
-          {complexity.errors.map((error) => (
-            <li key={error}>- {error}</li>
-          ))}
-        </Box>
-      }
+      invalid={!!ctx.spy(passwordField.$error)}
+      errorText={ctx.spy(passwordField.$error) && <Trans>Wrong password</Trans>}
       required
     >
       <Stack width={'100%'}>
         <PasswordInput
           placeholder={t`Enter your password`}
-          value={ctx.spy($password)}
-          onChange={(event) => $password(ctx, event.currentTarget.value)}
+          value={ctx.spy(passwordField.$value)}
+          onChange={(event) =>
+            passwordField.$value(ctx, event.currentTarget.value)
+          }
         />
-        <PasswordStrengthMeter value={complexity.level} />
       </Stack>
     </Field>
   );
-});
+}, 'PasswordField');

@@ -1,7 +1,7 @@
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react/link';
 import { Link as RouterLink, LinkComponentProps } from '@tanstack/react-router';
 import { FunctionComponent, PropsWithChildren } from 'react';
 

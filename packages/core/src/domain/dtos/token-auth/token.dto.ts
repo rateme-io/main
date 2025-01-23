@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { TokenEntity } from '@/domain/entities/session.entity';
 
 export class TokenDtoService {
@@ -22,4 +23,3 @@ export class TokenDtoService {
 }
 
 export type TokenDto = z.infer<typeof TokenDtoService.schema>;
-

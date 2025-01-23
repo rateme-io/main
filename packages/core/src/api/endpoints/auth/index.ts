@@ -1,1 +1,1 @@
-export * from './auth.endpoint'
+export * from './auth.endpoint';

@@ -1,19 +1,10 @@
-import type {
-  ButtonProps,
-  GroupProps,
-  InputProps,
-  StackProps,
-} from '@chakra-ui/react';
+import type { ButtonProps, GroupProps, InputProps } from '@chakra-ui/react';
 import {
-  Box,
-  HStack,
   IconButton,
   Input,
   mergeRefs,
-  Stack,
   useControllableState,
 } from '@chakra-ui/react';
-import { t } from '@lingui/core/macro';
 import * as React from 'react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
 
@@ -97,52 +88,3 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-
-interface PasswordStrengthMeterProps extends StackProps {
-  max?: number;
-  value: number;
-}
-
-export const PasswordStrengthMeter = React.forwardRef<
-  HTMLDivElement,
-  PasswordStrengthMeterProps
->(function PasswordStrengthMeter(props, ref) {
-  const { max = 4, value, ...rest } = props;
-
-  const percent = (value / max) * 100;
-  const { label, colorPalette } = getColorPalette(percent);
-
-  return (
-    <Stack align="flex-end" gap="1" ref={ref} {...rest}>
-      <HStack width="full" ref={ref} {...rest}>
-        {Array.from({ length: max }).map((_, index) => (
-          <Box
-            key={index}
-            height="1"
-            flex="1"
-            rounded="sm"
-            data-selected={index < value ? '' : undefined}
-            layerStyle="fill.subtle"
-            colorPalette="gray"
-            _selected={{
-              colorPalette,
-              layerStyle: 'fill.solid',
-            }}
-          />
-        ))}
-      </HStack>
-      {label && <HStack textStyle="xs">{label}</HStack>}
-    </Stack>
-  );
-});
-
-function getColorPalette(percent: number) {
-  switch (true) {
-    case percent < 33:
-      return { label: t`Low`, colorPalette: 'red' };
-    case percent < 66:
-      return { label: t`Medium`, colorPalette: 'orange' };
-    default:
-      return { label: t`High`, colorPalette: 'green' };
-  }
-}

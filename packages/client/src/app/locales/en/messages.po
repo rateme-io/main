@@ -13,39 +13,70 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/login-dialog/login-dialog.tsx:89
+#: src/shared/ui/password-strength-meter.tsx:52
+msgid "At least 12 characters long"
+msgstr "At least 12 characters long"
+
+#: src/shared/ui/password-strength-meter.tsx:55
+msgid "At least one digit"
+msgstr "At least one digit"
+
+#: src/shared/ui/password-strength-meter.tsx:54
+msgid "At least one lowercase letter"
+msgstr "At least one lowercase letter"
+
+#: src/shared/ui/password-strength-meter.tsx:56
+msgid "At least one special character"
+msgstr "At least one special character"
+
+#: src/shared/ui/password-strength-meter.tsx:53
+msgid "At least one uppercase letter"
+msgstr "At least one uppercase letter"
+
+#: src/shared/ui/password-strength-meter.tsx:57
+msgid "At least two special characters"
+msgstr "At least two special characters"
+
+#: src/features/login-dialog/login-dialog.tsx:27
+msgid "Authorisation"
+msgstr "Authorisation"
+
+#: src/features/login-dialog/login-dialog.tsx:46
 msgid "Email"
 msgstr "Email"
 
-#: src/features/login-dialog/login-dialog.tsx:92
+#: src/features/login-dialog/login-dialog.tsx:54
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/features/login-dialog/login-dialog.tsx:119
+#: src/features/login-dialog/login-dialog.tsx:74
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/shared/ui/password-input.tsx:146
-msgid "High"
-msgstr "High"
+#: src/shared/ui/password-strength-meter.tsx:58
+msgid "No more than 2 consecutive characters"
+msgstr "No more than 2 consecutive characters"
 
-#: src/shared/ui/password-input.tsx:142
-msgid "Low"
-msgstr "Low"
+#: src/shared/ui/password-strength-meter.tsx:59
+msgid "Not a common password"
+msgstr "Not a common password"
 
-#: src/shared/ui/password-input.tsx:144
-msgid "Medium"
-msgstr "Medium"
-
-#: src/features/login-dialog/login-dialog.tsx:107
+#: src/features/login-dialog/login-dialog.tsx:67
 msgid "Password"
 msgstr "Password"
 
-#: src/features/login-dialog/login-dialog.tsx:66
-#: src/features/login-dialog/login-dialog.tsx:78
-msgid "Sign in"
-msgstr "Sign in"
-
-#: src/widgets/header/header.tsx:46
+#: src/widgets/header/header.tsx:44
 msgid "Sign In"
 msgstr "Sign In"
+
+#: src/features/login-dialog/login-dialog.tsx:30
+msgid "Submit"
+msgstr "Submit"
+
+#: src/features/login-dialog/login-dialog.tsx:48
+msgid "Wrong email"
+msgstr "Wrong email"
+
+#: src/features/login-dialog/login-dialog.tsx:69
+msgid "Wrong password"
+msgstr "Wrong password"

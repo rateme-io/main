@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import { NameVo } from '@/domain/value-objects/name.vo';
-import { JsonVo } from '@/domain/value-objects/json.vo';
+
 import { RatingSystemEntity } from '@/domain/entities/rating-system.entity';
+import { JsonVo } from '@/domain/value-objects/json.vo';
+import { NameVo } from '@/domain/value-objects/name.vo';
 
 export class RatingSystemDtoService {
   static schema = z.object({
@@ -12,8 +13,8 @@ export class RatingSystemDtoService {
     jsonFormula: JsonVo.schema,
     jsonSchema: JsonVo.schema,
     userId: z.string(),
-    version: z.number()
-  })
+    version: z.number(),
+  });
 
   static mapToDto(entity: RatingSystemEntity): RatingSystemDto {
     return {
@@ -25,7 +26,7 @@ export class RatingSystemDtoService {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       id: entity.id,
-    }
+    };
   }
 }
 

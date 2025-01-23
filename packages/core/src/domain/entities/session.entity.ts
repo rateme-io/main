@@ -1,7 +1,9 @@
-import { UserEntity } from './user.entity';
+import { z } from 'zod';
+
 import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
 import { ZodValidator } from '@/domain/common/zod-validator';
-import { z } from 'zod';
+
+import { UserEntity } from './user.entity';
 
 export enum SessionStatus {
   active = 'active',
