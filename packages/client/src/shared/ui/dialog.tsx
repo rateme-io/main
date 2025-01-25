@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react/dialog';
 import { Portal } from '@chakra-ui/react/portal';
 import { reatomComponent } from '@reatom/npm-react';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
@@ -81,22 +81,13 @@ export const Dialog = reatomComponent<DialogProps>(
               </DialogHeader>
               <DialogBody as={'main'}>{children}</DialogBody>
               <DialogFooter as={'footer'}>
-                {footer ? (
-                  footer(formId)
-                ) : (
-                  <>
-                    {cancelLabel && (
-                      <DialogActionTrigger asChild>
-                        <Button variant="outline">cancelLabel</Button>
-                      </DialogActionTrigger>
-                    )}
-                    {submitLabel && (
-                      <Button form={formId} type={'submit'} loading={isLoading}>
-                        {submitLabel}
-                      </Button>
-                    )}
-                  </>
-                )}
+                <Footer
+                  footer={footer}
+                  cancelLabel={cancelLabel}
+                  submitLabel={submitLabel}
+                  isLoading={isLoading}
+                  formId={formId}
+                />
               </DialogFooter>
             </DialogContent>
           </DialogPositioner>
@@ -106,3 +97,30 @@ export const Dialog = reatomComponent<DialogProps>(
   },
   'Dialog',
 );
+
+const Footer: FunctionComponent<{
+  footer: DialogProps['footer'];
+  cancelLabel: DialogProps['cancelLabel'];
+  submitLabel: DialogProps['submitLabel'];
+  isLoading: DialogProps['isLoading'];
+  formId: DialogProps['formId'];
+}> = ({ cancelLabel, submitLabel, footer, formId, isLoading }) => {
+  if (footer) {
+    return footer(formId);
+  }
+
+  return (
+    <>
+      {cancelLabel && (
+        <DialogActionTrigger asChild>
+          <Button variant="outline">cancelLabel</Button>
+        </DialogActionTrigger>
+      )}
+      {submitLabel && (
+        <Button form={formId} type={'submit'} loading={isLoading}>
+          {submitLabel}
+        </Button>
+      )}
+    </>
+  );
+};

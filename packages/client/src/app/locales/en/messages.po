@@ -37,8 +37,8 @@ msgstr "At least one uppercase letter"
 msgid "At least two special characters"
 msgstr "At least two special characters"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:19
-#: src/widgets/login-dialog/ui/mobile.tsx:20
+#: src/widgets/login-dialog/ui/tablet.tsx:31
+#: src/widgets/login-dialog/ui/mobile.tsx:32
 msgid "Authorisation"
 msgstr "Authorisation"
 
@@ -67,15 +67,15 @@ msgstr "Create rating system"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/login-dialog/ui/common.tsx:20
+#: src/widgets/login-dialog/ui/common.tsx:25
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/login-dialog/ui/common.tsx:28
+#: src/widgets/login-dialog/ui/common.tsx:34
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/widgets/login-dialog/ui/common.tsx:49
+#: src/widgets/login-dialog/ui/common.tsx:65
 msgid "Enter your password"
 msgstr "Enter your password"
 
@@ -92,7 +92,7 @@ msgstr "No more than 2 consecutive characters"
 msgid "Not a common password"
 msgstr "Not a common password"
 
-#: src/widgets/login-dialog/ui/common.tsx:42
+#: src/widgets/login-dialog/ui/common.tsx:55
 msgid "Password"
 msgstr "Password"
 
@@ -116,16 +116,16 @@ msgstr "Rating systems"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/widgets/header/ui/tablet.tsx:52
+#: src/widgets/header/ui/tablet.tsx:62
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:22
-#: src/widgets/login-dialog/ui/mobile.tsx:43
+#: src/widgets/login-dialog/ui/tablet.tsx:34
+#: src/widgets/login-dialog/ui/mobile.tsx:55
 msgid "Submit"
 msgstr "Submit"
 
-#: src/widgets/login-dialog/ui/common.tsx:66
+#: src/widgets/login-dialog/ui/common.tsx:84
 msgid "User with this email does not exist"
 msgstr "User with this email does not exist"
 
@@ -133,14 +133,14 @@ msgstr "User with this email does not exist"
 msgid "What do you want to create?"
 msgstr "What do you want to create?"
 
-#: src/widgets/login-dialog/ui/common.tsx:64
+#: src/widgets/login-dialog/ui/common.tsx:82
 msgid "Wrong credentials"
 msgstr "Wrong credentials"
 
-#: src/widgets/login-dialog/ui/common.tsx:22
+#: src/widgets/login-dialog/ui/common.tsx:27
 msgid "Wrong email"
 msgstr "Wrong email"
 
-#: src/widgets/login-dialog/ui/common.tsx:44
+#: src/widgets/login-dialog/ui/common.tsx:58
 msgid "Wrong password"
 msgstr "Wrong password"

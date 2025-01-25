@@ -37,8 +37,8 @@ msgstr "Минимум одна заглавная буква"
 msgid "At least two special characters"
 msgstr "Минимум два специальных символа"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:19
-#: src/widgets/login-dialog/ui/mobile.tsx:20
+#: src/widgets/login-dialog/ui/tablet.tsx:31
+#: src/widgets/login-dialog/ui/mobile.tsx:32
 msgid "Authorisation"
 msgstr "Авторизация"
 
@@ -67,15 +67,15 @@ msgstr "Создать систему оценивания"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/login-dialog/ui/common.tsx:20
+#: src/widgets/login-dialog/ui/common.tsx:25
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/login-dialog/ui/common.tsx:28
+#: src/widgets/login-dialog/ui/common.tsx:34
 msgid "Enter your email"
 msgstr "Введите ваш email"
 
-#: src/widgets/login-dialog/ui/common.tsx:49
+#: src/widgets/login-dialog/ui/common.tsx:65
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
@@ -92,7 +92,7 @@ msgstr "Не более двух одинаковых символов подр�
 msgid "Not a common password"
 msgstr "Не должен быть распространённым паролем"
 
-#: src/widgets/login-dialog/ui/common.tsx:42
+#: src/widgets/login-dialog/ui/common.tsx:55
 msgid "Password"
 msgstr "Пароль"
 
@@ -116,16 +116,16 @@ msgstr "Системы оценивания"
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/widgets/header/ui/tablet.tsx:52
+#: src/widgets/header/ui/tablet.tsx:62
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:22
-#: src/widgets/login-dialog/ui/mobile.tsx:43
+#: src/widgets/login-dialog/ui/tablet.tsx:34
+#: src/widgets/login-dialog/ui/mobile.tsx:55
 msgid "Submit"
 msgstr "Отправить"
 
-#: src/widgets/login-dialog/ui/common.tsx:66
+#: src/widgets/login-dialog/ui/common.tsx:84
 msgid "User with this email does not exist"
 msgstr "Пользователь с таким email не существует"
 
@@ -133,14 +133,14 @@ msgstr "Пользователь с таким email не существует"
 msgid "What do you want to create?"
 msgstr "Что вы хотите создать?"
 
-#: src/widgets/login-dialog/ui/common.tsx:64
+#: src/widgets/login-dialog/ui/common.tsx:82
 msgid "Wrong credentials"
 msgstr "Неправильные учётные данные"
 
-#: src/widgets/login-dialog/ui/common.tsx:22
+#: src/widgets/login-dialog/ui/common.tsx:27
 msgid "Wrong email"
 msgstr "Неправильный email"
 
-#: src/widgets/login-dialog/ui/common.tsx:44
+#: src/widgets/login-dialog/ui/common.tsx:58
 msgid "Wrong password"
 msgstr "Неправильный пароль"
