@@ -16,6 +16,7 @@ import { Request, Response } from 'express';
 
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
 import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
+import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 import {
   TokenLoginDto,
   TokenLoginDtoSchema,
@@ -24,7 +25,6 @@ import {
   TokenRegisterDto,
   TokenRegisterDtoSchema,
 } from '@rateme/core/domain/dtos/token-auth/token-register.dto';
-import { TokenSessionDto } from '@rateme/core/domain/dtos/token-auth/token-session.dto';
 
 import { AuthGuard } from '@/core/modules/auth';
 import { CookieService } from '@/core/modules/cookie';
@@ -48,7 +48,7 @@ export class TokenAuthController {
     @Body() body: TokenLoginDto,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent: string,
-  ): Promise<TokenSessionDto> {
+  ): Promise<SessionResponseDto> {
     const { token, refreshToken, accessToken } =
       await this.tokenAuthService.login({
         email: body.email,
@@ -75,7 +75,7 @@ export class TokenAuthController {
     body: TokenRegisterDto,
     @Ip() ipAddress: string,
     @Headers('user-agent') userAgent: string,
-  ): Promise<TokenSessionDto> {
+  ): Promise<SessionResponseDto> {
     const { token, refreshToken, accessToken } =
       await this.tokenAuthService.register({
         email: body.email,
@@ -100,7 +100,7 @@ export class TokenAuthController {
   async refresh(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
-  ): Promise<TokenSessionDto> {
+  ): Promise<SessionResponseDto> {
     const usersRefreshToken = this.cookieService.getRefreshToken(request);
     const sessionId = this.cookieService.getSessionId(request);
 

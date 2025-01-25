@@ -9,9 +9,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vite.dev/config/
 export default defineConfig({
   resolve: {
-    alias: {
-      '@rateme/core': path.resolve(__dirname, '../core/dist'),
-    },
+    alias: [
+      {
+        find: '@rateme/core',
+        replacement: path.resolve(__dirname, '../core/dist'),
+      },
+    ],
   },
   plugins: [
     tsconfigPaths(),

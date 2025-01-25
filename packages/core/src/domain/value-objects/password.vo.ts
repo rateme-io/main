@@ -1,6 +1,6 @@
 import { RefinementCtx, z, ZodType } from 'zod';
 
-import { BaseValueObject } from '@/domain/common';
+import { BaseValueObject } from '@/domain/common/base.value-object';
 
 export class PasswordVo extends BaseValueObject<string> {
   constructor(password: string) {

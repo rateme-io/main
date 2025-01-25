@@ -1,17 +1,24 @@
+import { ButtonProps } from '@chakra-ui/react';
 import { Portal } from '@chakra-ui/react/portal';
 import { Select as ChakraSelect } from '@chakra-ui/react/select';
 import { forwardRef, RefObject } from 'react';
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean;
+  buttonProps?: ButtonProps;
 }
 
 export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   function SelectTrigger(props, ref) {
-    const { children, ...rest } = props;
+    const { children, buttonProps, ...rest } = props;
     return (
       <ChakraSelect.Control {...rest}>
-        <ChakraSelect.Trigger ref={ref} cursor={'pointer'} border={'none'}>
+        <ChakraSelect.Trigger
+          {...buttonProps}
+          ref={ref}
+          cursor={'pointer'}
+          border={'none'}
+        >
           {children}
         </ChakraSelect.Trigger>
       </ChakraSelect.Control>

@@ -6,7 +6,12 @@ import { InputGroup } from '@/shared/ui/input-group';
 
 export const Search = reatomComponent(() => {
   return (
-    <InputGroup flex="1" width={'md'} startElement={<LuSearch />}>
+    <InputGroup
+      flex="1"
+      maxWidth={'lg'}
+      width={'100%'}
+      startElement={<LuSearch />}
+    >
       <Input />
     </InputGroup>
   );

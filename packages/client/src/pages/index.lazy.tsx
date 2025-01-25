@@ -1,9 +1,9 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
-  return <div></div>;
+  return <div>Hello "/"!</div>
 }

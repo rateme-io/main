@@ -2,4 +2,4 @@ import { Image } from '@chakra-ui/react';
 
 import SmallSvg from '/small-logo.svg?url';
 
-export const SmallLogo = () => <Image src={SmallSvg} />;
+export const SmallLogo = () => <Image src={SmallSvg} marginInline={2} />;

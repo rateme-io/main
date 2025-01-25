@@ -1,13 +1,16 @@
 import { Box } from '@chakra-ui/react';
+import { reatomComponent } from '@reatom/npm-react';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { FunctionComponent } from 'react';
 
+import { AppOverlay } from '@/shared/ui/app-overlay.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { Header } from '@/widgets/header';
 
-const Root: FunctionComponent = () => {
+const Root = reatomComponent(() => {
   return (
     <Box>
+      <AppOverlay />
+
       <Header />
       <main>
         <PageLayout>
@@ -16,7 +19,7 @@ const Root: FunctionComponent = () => {
       </main>
     </Box>
   );
-};
+}, 'Root');
 
 export const Route = createRootRoute({
   component: Root,

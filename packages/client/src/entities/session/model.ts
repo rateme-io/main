@@ -1,5 +1,6 @@
 import { atom, reatomAsync } from '@reatom/framework';
 
+import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 import { TokenLoginDto } from '@rateme/core/domain/dtos/token-auth/token-login.dto';
 import {
   SessionEntity,
@@ -11,7 +12,7 @@ import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 
-import { tokenAuthApi } from './api.ts';
+import { sessionApi, tokenAuthApi } from './api.ts';
 
 export const $safeSession = atom<SessionEntity | null>(null, '$safeSession');
 
@@ -25,39 +26,73 @@ export const $session = atom((ctx) => {
   return unsafeSession;
 }, '$session');
 
-export const login = reatomAsync(async (ctx, command: LoginCommand) => {
+export const loginAction = reatomAsync(async (ctx, command: LoginCommand) => {
   switch (command.type) {
     case 'token': {
-      const result = await ctx.schedule(
-        async () =>
-          await ctx.schedule(() => tokenAuthApi.login(ctx, command.dto)),
+      const result = await ctx.schedule(() =>
+        tokenAuthApi.login(ctx, command.dto),
       );
 
       if (result.data) {
-        $safeSession(
-          ctx,
-          SessionEntity.create({
-            ...result.data.session,
-            ipAddress: 'ip-address',
-            userAgent: 'user-agent',
-            status: SessionStatus.active,
-            user: UserEntity.create({
-              ...result.data.user,
-              email: new EmailVo(result.data.user.email),
-              name: new NameVo(result.data.user.name),
-              username: new UsernameVo(result.data.user.username),
-              logoUrl: new LogoUrlVo(result.data.user.logoUrl),
-            }),
-          }),
-        );
+        $safeSession(ctx, mapDtoToDomain(result.data));
       }
 
       return result;
     }
   }
-}, 'login');
+}, 'loginAction');
 
 export type LoginCommand = {
   type: 'token';
   dto: TokenLoginDto;
+};
+
+export const loadMeAction = reatomAsync(async (ctx) => {
+  const result = await ctx.schedule((ctx) => sessionApi.me(ctx));
+
+  if (result.data) {
+    const session = mapDtoToDomain(result.data);
+
+    $safeSession(ctx, session);
+
+    return session;
+  }
+
+  const tokenRefreshResult = await ctx.schedule((ctx) =>
+    tokenAuthApi.refresh(ctx),
+  );
+
+  if (tokenRefreshResult.data) {
+    const session = mapDtoToDomain(tokenRefreshResult.data);
+
+    $safeSession(ctx, session);
+
+    return session;
+  }
+
+  return null;
+}, 'loadMeAction');
+
+export const logoutAction = reatomAsync(async (ctx) => {
+  document.cookie = '';
+
+  $safeSession(ctx, null);
+
+  await ctx.schedule((ctx) => tokenAuthApi.logout(ctx));
+}, 'logoutAction');
+
+export const mapDtoToDomain = (dto: SessionResponseDto) => {
+  return SessionEntity.create({
+    ...dto.session,
+    ipAddress: 'ip-address',
+    userAgent: 'user-agent',
+    status: SessionStatus.active,
+    user: UserEntity.create({
+      ...dto.user,
+      email: new EmailVo(dto.user.email),
+      name: new NameVo(dto.user.name),
+      username: new UsernameVo(dto.user.username),
+      logoUrl: new LogoUrlVo(dto.user.logoUrl),
+    }),
+  });
 };

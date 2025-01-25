@@ -26,13 +26,19 @@ export const LanguageSelect = reatomComponent(({ ctx }) => {
 
   return (
     <SelectRoot
+      width={'40px'}
+      marginInline={2}
       collection={languageCollection}
-      defaultValue={[defaultLocale]}
+      defaultValue={[locale.currentLocale ?? defaultLocale]}
       onValueChange={(value) => {
         return locale.changeLocale(value.value[0] as Locales);
       }}
     >
-      <SelectTrigger display={'flex'} alignItems={'center'}>
+      <SelectTrigger
+        display={'flex'}
+        alignItems={'center'}
+        buttonProps={{ padding: 0 }}
+      >
         <IconButton as={'span'} variant={'ghost'}>
           <MdTranslate />
         </IconButton>
@@ -48,4 +54,4 @@ export const LanguageSelect = reatomComponent(({ ctx }) => {
       </SelectContent>
     </SelectRoot>
   );
-});
+}, 'LanguageSelect');

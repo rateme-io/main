@@ -16,9 +16,27 @@ import { Route as rootRoute } from './../../pages/__root';
 
 // Create Virtual Routes
 
+const RatingSystemsLazyImport = createFileRoute('/rating-systems')();
+const CollectionsLazyImport = createFileRoute('/collections')();
 const IndexLazyImport = createFileRoute('/')();
 
 // Create/Update Routes
+
+const RatingSystemsLazyRoute = RatingSystemsLazyImport.update({
+  id: '/rating-systems',
+  path: '/rating-systems',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./../../pages/rating-systems.lazy').then((d) => d.Route),
+);
+
+const CollectionsLazyRoute = CollectionsLazyImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./../../pages/collections.lazy').then((d) => d.Route),
+);
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -37,6 +55,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport;
       parentRoute: typeof rootRoute;
     };
+    '/collections': {
+      id: '/collections';
+      path: '/collections';
+      fullPath: '/collections';
+      preLoaderRoute: typeof CollectionsLazyImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/rating-systems': {
+      id: '/rating-systems';
+      path: '/rating-systems';
+      fullPath: '/rating-systems';
+      preLoaderRoute: typeof RatingSystemsLazyImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -44,32 +76,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/';
+  fullPaths: '/' | '/collections' | '/rating-systems';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/';
-  id: '__root__' | '/';
+  to: '/' | '/collections' | '/rating-systems';
+  id: '__root__' | '/' | '/collections' | '/rating-systems';
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute;
+  CollectionsLazyRoute: typeof CollectionsLazyRoute;
+  RatingSystemsLazyRoute: typeof RatingSystemsLazyRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  CollectionsLazyRoute: CollectionsLazyRoute,
+  RatingSystemsLazyRoute: RatingSystemsLazyRoute,
 };
 
 export const routeTree = rootRoute
@@ -82,11 +124,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/collections",
+        "/rating-systems"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/collections": {
+      "filePath": "collections.lazy.tsx"
+    },
+    "/rating-systems": {
+      "filePath": "rating-systems.lazy.tsx"
     }
   }
 }

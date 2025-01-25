@@ -9,7 +9,7 @@ export abstract class TokenAuthAbstractService {
 
   abstract logout(command: LogoutCommand): Promise<void>;
 
-  abstract checkSession(command: CheckSessionCommand): Promise<boolean>;
+  abstract checkSession(command: CheckSessionCommand): Promise<void>;
 }
 
 export interface TokenLoginCommand {

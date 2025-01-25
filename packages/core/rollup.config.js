@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const inputFiles = Object.fromEntries(
-  globSync('src/**/*.ts').map(file => [
+  globSync('src/**/*.ts').map((file) => [
     path.relative(
       'src',
       file.slice(0, file.length - path.extname(file).length),
@@ -27,28 +27,34 @@ const inputFiles = Object.fromEntries(
 export default [
   {
     input: inputFiles,
-    output: [{
-      dir: 'dist',
-      format: 'esm',
-      sourcemap: true,
-      preserveModules: true,
-      entryFileNames: '[name].mjs',
-    }, {
-      dir: 'dist',
-      format: 'cjs',
-      sourcemap: true,
-      preserveModules: true,
-      entryFileNames: '[name].cjs',
-    }],
+    output: [
+      {
+        dir: 'dist',
+        format: 'esm',
+        sourcemap: true,
+        preserveModules: true,
+        entryFileNames: '[name].mjs',
+      },
+      {
+        dir: 'dist',
+        format: 'cjs',
+        sourcemap: true,
+        preserveModules: true,
+        entryFileNames: '[name].cjs.js',
+      },
+    ],
     plugins: [
       alias({
-        entries: [
-          { find: '@/', replacement: path.resolve(__dirname, 'src') },
-        ],
+        entries: [{ find: '@/', replacement: path.resolve(__dirname, 'src') }],
       }),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.json', declaration: true, declarationDir: 'dist', rootDir: 'src' }),
+      typescript({
+        tsconfig: './tsconfig.json',
+        declaration: true,
+        declarationDir: 'dist',
+        rootDir: 'src',
+      }),
       terser(),
     ],
     external: Object.keys({

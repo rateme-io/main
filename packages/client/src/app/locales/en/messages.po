@@ -37,21 +37,52 @@ msgstr "At least one uppercase letter"
 msgid "At least two special characters"
 msgstr "At least two special characters"
 
-#: src/features/login-dialog/login-dialog.tsx:27
+#: src/widgets/login-dialog/ui/tablet.tsx:19
+#: src/widgets/login-dialog/ui/mobile.tsx:20
 msgid "Authorisation"
 msgstr "Authorisation"
 
-#: src/features/login-dialog/login-dialog.tsx:46
+#: src/widgets/header/ui/menu/tablet.tsx:15
+#: src/widgets/header/ui/menu/mobile.tsx:57
+msgid "Collections"
+msgstr "Collections"
+
+#: src/widgets/header/ui/menu/mobile.tsx:76
+#: src/widgets/header/ui/create-menu/tablet.tsx:45
+msgid "Create collection"
+msgstr "Create collection"
+
+#: src/widgets/header/ui/menu/mobile.tsx:66
+#: src/widgets/header/ui/create-menu/tablet.tsx:32
+msgid "Create collection item"
+msgstr "Create collection item"
+
+#: src/widgets/header/ui/menu/mobile.tsx:80
+#: src/widgets/header/ui/create-menu/tablet.tsx:50
+msgid "Create rating system"
+msgstr "Create rating system"
+
+#: src/widgets/header/ui/menu/tablet.tsx:12
+#: src/widgets/header/ui/menu/mobile.tsx:54
+msgid "Discover"
+msgstr "Discover"
+
+#: src/widgets/login-dialog/ui/common.tsx:20
 msgid "Email"
 msgstr "Email"
 
-#: src/features/login-dialog/login-dialog.tsx:54
+#: src/widgets/login-dialog/ui/common.tsx:28
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/features/login-dialog/login-dialog.tsx:74
+#: src/widgets/login-dialog/ui/common.tsx:49
 msgid "Enter your password"
 msgstr "Enter your password"
+
+#: src/features/avatar/ui/tablet.tsx:53
+#: src/features/avatar/ui/mobile.tsx:47
+msgid "Logout"
+msgstr "Logout"
 
 #: src/shared/ui/password-strength-meter.tsx:58
 msgid "No more than 2 consecutive characters"
@@ -61,22 +92,55 @@ msgstr "No more than 2 consecutive characters"
 msgid "Not a common password"
 msgstr "Not a common password"
 
-#: src/features/login-dialog/login-dialog.tsx:67
+#: src/widgets/login-dialog/ui/common.tsx:42
 msgid "Password"
 msgstr "Password"
 
-#: src/widgets/header/header.tsx:44
+#: src/features/avatar/ui/tablet.tsx:36
+#: src/features/avatar/ui/mobile.tsx:30
+msgid "Profile"
+msgstr "Profile"
+
+#: src/widgets/header/ui/menu/mobile.tsx:70
+#: src/widgets/header/ui/create-menu/tablet.tsx:37
+msgid "Rate collection item"
+msgstr "Rate collection item"
+
+#: src/widgets/header/ui/menu/tablet.tsx:18
+#: src/widgets/header/ui/menu/mobile.tsx:60
+msgid "Rating systems"
+msgstr "Rating systems"
+
+#: src/features/avatar/ui/tablet.tsx:42
+#: src/features/avatar/ui/mobile.tsx:36
+msgid "Settings"
+msgstr "Settings"
+
+#: src/widgets/header/ui/tablet.tsx:52
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/features/login-dialog/login-dialog.tsx:30
+#: src/widgets/login-dialog/ui/tablet.tsx:22
+#: src/widgets/login-dialog/ui/mobile.tsx:43
 msgid "Submit"
 msgstr "Submit"
 
-#: src/features/login-dialog/login-dialog.tsx:48
+#: src/widgets/login-dialog/ui/common.tsx:66
+msgid "User with this email does not exist"
+msgstr "User with this email does not exist"
+
+#: src/widgets/header/ui/create-menu/tablet.tsx:27
+msgid "What do you want to create?"
+msgstr "What do you want to create?"
+
+#: src/widgets/login-dialog/ui/common.tsx:64
+msgid "Wrong credentials"
+msgstr "Wrong credentials"
+
+#: src/widgets/login-dialog/ui/common.tsx:22
 msgid "Wrong email"
 msgstr "Wrong email"
 
-#: src/features/login-dialog/login-dialog.tsx:69
+#: src/widgets/login-dialog/ui/common.tsx:44
 msgid "Wrong password"
 msgstr "Wrong password"

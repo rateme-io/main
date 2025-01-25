@@ -1,16 +1,29 @@
-import { Endpoint } from '@/api/common/endpoint';
+import { Endpoint, EndpointMethodOptions } from '@/api/common/endpoint';
+import { SessionResponseDto } from '@/domain/dtos/session/session-response.dto';
 import {
   TokenLoginDto,
   TokenLoginDtoSchema,
 } from '@/domain/dtos/token-auth/token-login.dto';
-import { TokenSessionDto } from '@/domain/dtos/token-auth/token-session.dto';
 
 export class TokenAuthEndpoint extends Endpoint {
-  async login(dto: TokenLoginDto) {
+  async login(dto: TokenLoginDto, options: EndpointMethodOptions) {
     TokenLoginDtoSchema.parse(dto);
 
-    return this.httpService.post<TokenSessionDto>('/auth/token/login', {
+    return this.httpService.post<SessionResponseDto>('/auth/token/login', {
       data: dto,
+      signal: options.signal,
+    });
+  }
+
+  async refresh(options: EndpointMethodOptions) {
+    return this.httpService.post<SessionResponseDto>('/auth/token/refresh', {
+      signal: options.signal,
+    });
+  }
+
+  async logout(options: EndpointMethodOptions) {
+    return this.httpService.post<void>('/auth/token/logout', {
+      signal: options.signal,
     });
   }
 }

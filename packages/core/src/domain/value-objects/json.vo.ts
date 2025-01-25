@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { BaseValueObject } from '@/domain/common';
+import { BaseValueObject } from '@/domain/common/base.value-object';
 import { JsonInterface } from '@/domain/common/json.interface';
 
 export class JsonVo extends BaseValueObject<JsonInterface> {

@@ -2,31 +2,29 @@
   "name": "@rateme/core",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/api/index.cjs",
-  "module": "./dist/api/index.mjs",
-  "types": "./dist/api/index.d.ts",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
     "build": "rimraf dist && rollup -c",
-    "build:watch": "nodemon --watch src --ext ts --exec pnpm run build",
-    "precommit": "pnpm run lint",
+    "start": "nodemon --watch src --ext ts --exec pnpm run build",
+    "precommit": "pnpm run format && pnpm run lint",
     "fix": "pnpm run format:fix && pnpm run lint:fix",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "format": "prettier \"src/**/*.ts\"",
+    "format": "prettier \"src/**/*.ts\" --debug-check",
     "format:fix": "prettier --write \"src/**/*.ts\""
   },
-  "type": "module",
   "exports": {
     "./api/*": {
       "import": "./dist/api/*.mjs",
-      "require": "./dist/api/*.cjs"
+      "require": "./dist/api/*.cjs.js",
+      "types": "./dist/api/*.d.ts"
     },
     "./domain/*": {
       "import": "./dist/domain/*.mjs",
-      "require": "./dist/domain/*.cjs"
+      "require": "./dist/domain/*.cjs.js",
+      "types": "./dist/domain/*.d.ts"
     },
     "./package.json": "./package.json"
   },
@@ -34,6 +32,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",

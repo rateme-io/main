@@ -1,4 +1,8 @@
-import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
+import {
+  addBaseFields,
+  BaseEntity,
+  CreatEntityCommand,
+} from '@/domain/common/base.entity';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { PasswordVo } from '@/domain/value-objects/password.vo';
 

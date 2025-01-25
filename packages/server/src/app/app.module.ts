@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { CollectionModule } from '@/aggregates/collection/infrastructure';
 import { RatingSystemModule } from '@/aggregates/rating-system/infrastructure';
+import { SessionModule } from '@/aggregates/session/infrastructure';
 import { TokenAuthModule } from '@/aggregates/token-auth/infrastructure';
 import { AuthModule } from '@/core/modules/auth';
 import { ConfigModule } from '@/core/modules/config';
@@ -26,6 +27,7 @@ import { JsonSchemaModule } from '@/core/modules/json-schema';
     // aggregates
     CollectionModule,
     RatingSystemModule,
+    SessionModule,
   ],
 })
 export class AppModule {}

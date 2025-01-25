@@ -11,11 +11,12 @@
     "client:start": "cd packages/client && pnpm run start",
     "client:build": "cd packages/client && pnpm run build",
     "core:build": "cd packages/core && pnpm run build",
-    "core:build:watch": "cd packages/core && pnpm run build:watch",
+    "core:start": "cd packages/core && pnpm run start",
     "prepare": "husky"
   },
   "devDependencies": {
     "husky": "^9.1.7",
     "lerna": "^8.1.9"
-  }
+  },
+  "packageManager": "pnpm@10.0.0"
 }

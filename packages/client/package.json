@@ -7,10 +7,10 @@
     "start": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "precommit": "pnpm run locale && pnpm run format:fix && pnpm run lint:fix",
+    "precommit": "pnpm run locale && pnpm run format && pnpm run lint",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
-    "format": "prettier \"src/**/*.ts\"",
+    "format": "prettier \"src/**/*.ts\" --debug-check",
     "format:fix": "prettier --write \"src/**/*.ts\"",
     "locale": "pnpm run locale:extract && pnpm run locale:compile",
     "locale:extract": "lingui extract",
@@ -18,7 +18,7 @@
     "chakra:snippet": "chakra snippet add --outdir ./src/shared/ui"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.4.0",
+    "@chakra-ui/react": "^3.5.0",
     "@emotion/react": "^11.14.0",
     "@khmilevoi/use-event": "^1.1.4",
     "@lingui/core": "^5.1.2",
@@ -28,6 +28,7 @@
     "@tanstack/react-router": "^1.97.3",
     "axios": "^1.7.9",
     "chakra-react-select": "^6.0.1",
+    "motion": "^12.0.5",
     "next-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -35,7 +36,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^3.4.0",
+    "@chakra-ui/cli": "^3.5.0",
     "@eslint/js": "^9.17.0",
     "@lingui/cli": "^5.1.2",
     "@lingui/vite-plugin": "^5.1.2",

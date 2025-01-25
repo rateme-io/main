@@ -21,6 +21,10 @@ export const formAtom = <Form extends BaseForm>({
     '$values',
   );
 
+  const $isLoading = atom(false, '$isLoading');
+
+  const $formError = atom<string | null>(null, '$formError');
+
   const validate = action((ctx) => {
     return fieldsArray.reduce(
       (isValid, field) => field.validate(ctx) === null && isValid,
@@ -33,19 +37,39 @@ export const formAtom = <Form extends BaseForm>({
   }, 'reset');
 
   const submit = action(async (ctx) => {
-    const isValid = validate(ctx);
+    try {
+      const isValid = validate(ctx);
 
-    if (!isValid) {
-      return;
+      if (!isValid) {
+        return;
+      }
+
+      $formError(ctx, null);
+
+      const values = ctx.get($values);
+
+      $isLoading(ctx, true);
+
+      await ctx.schedule((ctx) => onSubmit(ctx, values as ValidFields<Form>));
+
+      $isLoading(ctx, false);
+
+      return true;
+    } catch (error) {
+      $isLoading(ctx, false);
+
+      if (error instanceof Error) {
+        $formError(ctx, error.message);
+      }
+
+      return false;
     }
-
-    const values = ctx.get($values);
-
-    await ctx.schedule((ctx) => onSubmit(ctx, values as ValidFields<Form>));
   }, 'submit');
 
   return {
     $values,
+    $isLoading,
+    $formError,
     validate,
     reset,
     submit,

@@ -1,3 +1,4 @@
+import { IconButton } from '@chakra-ui/react';
 import {
   DialogActionTrigger,
   DialogBackdrop,
@@ -6,13 +7,13 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogPositioner,
   DialogRoot,
   DialogTitle,
-  IconButton,
-  Portal,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react/dialog';
+import { Portal } from '@chakra-ui/react/portal';
 import { reatomComponent } from '@reatom/npm-react';
-import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
@@ -23,8 +24,11 @@ export type DialogProps = PropsWithChildren<{
   title: ReactNode;
   submitLabel?: ReactNode;
   cancelLabel?: ReactNode;
-  onSubmit?: (event: FormEvent<HTMLElement>) => void;
   onClose?: () => void;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
+  isLoading?: boolean;
+  formId?: string;
+  footer?: (formId?: string) => ReactNode;
 }>;
 
 export const Dialog = reatomComponent<DialogProps>(
@@ -35,8 +39,11 @@ export const Dialog = reatomComponent<DialogProps>(
     title,
     cancelLabel,
     submitLabel,
-    onSubmit,
     onClose,
+    size,
+    isLoading,
+    formId,
+    footer,
   }) => {
     const isOpened = ctx.spy(disclosure.$isOpened);
 
@@ -50,44 +57,49 @@ export const Dialog = reatomComponent<DialogProps>(
               disclosure.close(ctx);
             }
           }}
-          size={'sm'}
+          size={size}
           scrollBehavior={'outside'}
         >
           <DialogBackdrop />
-          <DialogContent
-            as={'form'}
-            // @ts-expect-error noValidate is a valid form prop
-            noValidate={true}
-            onSubmit={(event) => {
-              event.preventDefault();
-              onSubmit?.(event);
-            }}
-          >
-            <DialogCloseTrigger asChild>
-              <IconButton
-                variant={'ghost'}
-                position={'absolute'}
-                top={2}
-                right={2}
-              >
-                <IoClose />
-              </IconButton>
-            </DialogCloseTrigger>
-            <DialogHeader>
-              <DialogTitle>{title}</DialogTitle>
-            </DialogHeader>
-            <DialogBody>{children}</DialogBody>
-            <DialogFooter>
-              {cancelLabel && (
-                <DialogActionTrigger asChild>
-                  <Button variant="outline">cancelLabel</Button>
-                </DialogActionTrigger>
-              )}
-              {submitLabel && <Button type={'submit'}>{submitLabel}</Button>}
-            </DialogFooter>
-          </DialogContent>
+          <DialogPositioner>
+            <DialogContent>
+              <DialogCloseTrigger asChild>
+                <IconButton
+                  variant={'ghost'}
+                  position={'absolute'}
+                  top={2}
+                  right={2}
+                >
+                  <IoClose />
+                </IconButton>
+              </DialogCloseTrigger>
+              <DialogHeader as={'header'}>
+                <DialogTitle>{title}</DialogTitle>
+              </DialogHeader>
+              <DialogBody as={'main'}>{children}</DialogBody>
+              <DialogFooter as={'footer'}>
+                {footer ? (
+                  footer(formId)
+                ) : (
+                  <>
+                    {cancelLabel && (
+                      <DialogActionTrigger asChild>
+                        <Button variant="outline">cancelLabel</Button>
+                      </DialogActionTrigger>
+                    )}
+                    {submitLabel && (
+                      <Button form={formId} type={'submit'} loading={isLoading}>
+                        {submitLabel}
+                      </Button>
+                    )}
+                  </>
+                )}
+              </DialogFooter>
+            </DialogContent>
+          </DialogPositioner>
         </DialogRoot>
       </Portal>
     );
   },
+  'Dialog',
 );

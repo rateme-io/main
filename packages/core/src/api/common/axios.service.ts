@@ -2,6 +2,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 
 import {
   HttpService,
+  HttpServiceError,
   HttpServiceOptions,
   HttpServiceRequest,
   HttpServiceResponse,
@@ -22,6 +23,7 @@ export class AxiosService implements HttpService {
         data: options.data,
         params: options.params,
         headers: options.headers,
+        signal: options.signal,
       });
 
       return {
@@ -38,14 +40,24 @@ export class AxiosService implements HttpService {
           status: error.response?.status,
           statusText: error.response?.statusText,
           headers: { ...(error.response?.headers ?? {}) },
-          error: error.cause ?? new Error('Unknown error', { cause: error }),
+          error: new HttpServiceError({
+            status: error.response?.status ?? 0,
+            type: error.response?.data?.type ?? 'UNKNOWN',
+            message: error.response?.data?.message ?? 'Unknown error',
+            statusText: error.response?.statusText ?? 'Unknown error',
+          }),
         };
       }
 
       return {
         data: null,
         headers: {},
-        error: new Error('Unknown error', { cause: error }),
+        error: new HttpServiceError({
+          status: 0,
+          type: 'UNKNOWN',
+          message: 'Unknown error',
+          statusText: 'Unknown error',
+        }),
       };
     }
   }

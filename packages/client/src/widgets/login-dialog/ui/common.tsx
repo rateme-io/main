@@ -1,46 +1,20 @@
-import { Flex, Input, Stack, Text } from '@chakra-ui/react';
+import { Input, Stack } from '@chakra-ui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent } from '@reatom/npm-react';
 import { FunctionComponent } from 'react';
 
-import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
-import { Dialog } from '@/shared/ui/dialog.tsx';
-import { Field } from '@/shared/ui/field';
-import { PasswordInput } from '@/shared/ui/password-input';
+import {
+  userNotFoundError,
+  wrongCredentialsError,
+} from '@rateme/core/domain/dtos/token-auth/errors';
 
-import { emailField, loginForm, passwordField } from './model.ts';
+import { Field } from '@/shared/ui/field.tsx';
+import { PasswordInput } from '@/shared/ui/password-input.tsx';
 
-export type LoginDialogProps = {
-  disclosure: DisclosureAtom;
-};
+import { emailField, passwordField } from '../model.ts';
 
-export const LoginDialog = reatomComponent<LoginDialogProps>(
-  ({ disclosure, ctx }) => {
-    return (
-      <Dialog
-        disclosure={disclosure}
-        onClose={() => loginForm.reset(ctx)}
-        onSubmit={() => loginForm.submit(ctx)}
-        title={
-          <Text>
-            <Trans>Authorisation</Trans>
-          </Text>
-        }
-        submitLabel={<Trans>Submit</Trans>}
-      >
-        <Flex flexDirection={'column'} gap={4}>
-          <EmailField />
-
-          <PasswordField />
-        </Flex>
-      </Dialog>
-    );
-  },
-  'LoginDialog',
-);
-
-const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
+export const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
   return (
     <Field
       label={t`Email`}
@@ -52,6 +26,7 @@ const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
         formNoValidate
         type={'email'}
         placeholder={t`Enter your email`}
+        autoComplete={'email'}
         value={ctx.spy(emailField.$value)}
         onChange={(e) => {
           emailField.$value(ctx, e.currentTarget.value);
@@ -61,7 +36,7 @@ const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
   );
 }, 'EmailField');
 
-const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
+export const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
   return (
     <Field
       label={t`Password`}
@@ -73,6 +48,7 @@ const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
         <PasswordInput
           placeholder={t`Enter your password`}
           value={ctx.spy(passwordField.$value)}
+          autoComplete={'current-password'}
           onChange={(event) =>
             passwordField.$value(ctx, event.currentTarget.value)
           }
@@ -81,3 +57,14 @@ const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
     </Field>
   );
 }, 'PasswordField');
+
+export const FormError: FunctionComponent<{ error: string }> = ({ error }) => {
+  switch (error) {
+    case wrongCredentialsError.type:
+      return <Trans>Wrong credentials</Trans>;
+    case userNotFoundError.type:
+      return <Trans>User with this email does not exist</Trans>;
+  }
+
+  return null;
+};

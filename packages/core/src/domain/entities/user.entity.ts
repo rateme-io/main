@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
-import { addBaseFields, BaseEntity, CreatEntityCommand } from '@/domain/common';
+import {
+  addBaseFields,
+  BaseEntity,
+  CreatEntityCommand,
+} from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { EmailVo } from '@/domain/value-objects/email.vo';
 import { LogoUrlVo } from '@/domain/value-objects/logo-url.vo';

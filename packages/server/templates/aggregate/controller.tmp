@@ -5,13 +5,22 @@ import {
 import {
   {{ aggregateName:PascalCase }}AbstractService,
 } from '../domain';
+import {Request} from 'express'
+import { AuthService } from '@/core/modules/auth';
 
 @Controller('{{ pathName }}')
 export class {{ aggregateName:PascalCase }}Controller {
   constructor(
     @Inject({{ aggregateName:PascalCase }}AbstractService)
     private readonly {{ aggregateName:CamelCase }}Service: {{ aggregateName:PascalCase }}AbstractService,
+    @Inject(AuthService)
+    private readonly authService: AuthService,
   ) {}
+
+  @Get('/health')
+  async getMe(@Req() request: Request) {
+    const session = await this.authService.getSession(request);
+  }
 
   // methods
 }

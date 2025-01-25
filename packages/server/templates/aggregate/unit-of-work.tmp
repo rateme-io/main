@@ -1,15 +1,14 @@
-import {
-  {{ aggregateName:PascalCase }}AbstractUnitOfWork,
-  {{ aggregateName:PascalCase }}UnitOfWorkContext,
-} from '@/aggregates/{{ aggregateName:KebabCase }}/domain';
 import { Injectable } from '@nestjs/common';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
 import { DataSource, EntityManager } from 'typeorm';
 
+export interface {{ aggregateName:PascalCase }}UnitOfWorkContext {
+  // repositories
+}
+
 @Injectable()
 export class {{ aggregateName:PascalCase }}UnitOfWork
   extends TypeormUnitOfWork<{{ aggregateName:PascalCase }}UnitOfWorkContext>
-  implements {{ aggregateName:PascalCase }}AbstractUnitOfWork
 {
   constructor(dataSource: DataSource) {
     super(dataSource);

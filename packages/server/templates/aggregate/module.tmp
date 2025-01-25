@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { {{ aggregateName:PascalCase }}Controller } from '@/aggregates/{{ aggregateName:KebabCase }}/presentation';
 import {
   {{ aggregateName:PascalCase }}AbstractService,
-  {{ aggregateName:PascalCase }}AbstractUnitOfWork,
 } from '@/aggregates/{{ aggregateName:KebabCase }}/domain';
 import { {{ aggregateName:PascalCase }}UnitOfWork } from './{{ aggregateName:KebabCase }}.unit-of-work';
 import { {{ aggregateName:PascalCase }}Service } from './{{ aggregateName:KebabCase }}.service';
@@ -11,7 +10,7 @@ import { EntityModule } from '@/core/modules/module-config';
 @Module(
   EntityModule.config({
     controllers: [{{ aggregateName:PascalCase }}Controller],
-    providers: [{{ aggregateName:PascalCase }}UnitOfWork }],
+    providers: [{{ aggregateName:PascalCase }}UnitOfWork],
     services: [
       {
         abstract: {{ aggregateName:PascalCase }}AbstractService,

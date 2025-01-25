@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { BaseValueObject } from '@/domain/common';
+import { BaseValueObject } from '@/domain/common/base.value-object';
 
 export class EmailVo extends BaseValueObject<string> {
   constructor(email: z.infer<typeof EmailVo.schema>) {

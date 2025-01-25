@@ -48,10 +48,12 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    return await this.tokenAuthService.checkSession({
+    await this.tokenAuthService.checkSession({
       sessionId: session.id,
       accessToken,
     });
+
+    return true;
   }
 }
 

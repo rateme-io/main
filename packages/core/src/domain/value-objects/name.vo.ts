@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { BaseValueObject } from '@/domain/common';
+import { BaseValueObject } from '@/domain/common/base.value-object';
 
 export class NameVo extends BaseValueObject<string> {
   constructor(name: z.infer<typeof NameVo.schema>) {

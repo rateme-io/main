@@ -11,3 +11,7 @@ export abstract class Endpoint {
 export interface EndpointConfig {
   httpService: HttpService;
 }
+
+export interface EndpointMethodOptions {
+  signal: AbortSignal;
+}
