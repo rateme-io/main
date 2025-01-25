@@ -23,5 +23,7 @@ const Root = reatomComponent(() => {
 
 export const Route = createRootRoute({
   component: Root,
-  errorComponent: () => <div>error</div>,
+  errorComponent: ({ error }) => {
+    return <div>error: {error.message}</div>;
+  },
 });

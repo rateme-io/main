@@ -53,6 +53,7 @@ export const AsyncFormDialog = reatomComponent(
 
             if (isSubmitted) {
               disclosure.close(ctx);
+              form.reset(ctx);
             }
           }}
         >

@@ -27,7 +27,13 @@ export const TabletHeader = reatomComponent(({ ctx }) => {
             justifyContent={'space-between'}
             gap={2}
           >
-            <Flex alignItems={'center'} as={'nav'} gap={8}>
+            <Flex
+              alignItems={'center'}
+              as={'nav'}
+              gap={8}
+              flex={1}
+              containerType={'inline-size'}
+            >
               <Link to={'/'}>
                 <BigLogo />
               </Link>
@@ -40,8 +46,12 @@ export const TabletHeader = reatomComponent(({ ctx }) => {
             </Flex>
 
             <Flex alignItems={'center'} gap={2}>
-              <CreateMenu />
+              <StatusGuard status={'authorized'}>
+                <CreateMenu />
+              </StatusGuard>
+
               <LanguageSelect />
+
               <StatusGuard status={'unauthorized'}>
                 <Button
                   variant={'ghost'}

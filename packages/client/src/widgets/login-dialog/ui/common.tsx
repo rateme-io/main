@@ -1,8 +1,8 @@
 import { Input, Stack } from '@chakra-ui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
-import { FunctionComponent } from 'react';
+import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { FunctionComponent, RefObject, useEffect } from 'react';
 
 import {
   userNotFoundError,
@@ -12,51 +12,69 @@ import {
 import { Field } from '@/shared/ui/field.tsx';
 import { PasswordInput } from '@/shared/ui/password-input.tsx';
 
-import { emailField, passwordField } from '../model.ts';
+import { emailField, loginForm, passwordField } from '../model.ts';
 
-export const EmailField: FunctionComponent = reatomComponent(({ ctx }) => {
-  return (
-    <Field
-      label={t`Email`}
-      invalid={!!ctx.spy(emailField.$error)}
-      errorText={ctx.spy(emailField.$error) && <Trans>Wrong email</Trans>}
-      required
-    >
-      <Input
-        formNoValidate
-        type={'email'}
-        placeholder={t`Enter your email`}
-        autoComplete={'email'}
-        value={ctx.spy(emailField.$value)}
-        onChange={(e) => {
-          emailField.$value(ctx, e.currentTarget.value);
-        }}
-      />
-    </Field>
-  );
-}, 'EmailField');
+export type EmailFieldProps = {
+  inputRef?: RefObject<HTMLInputElement>;
+};
 
-export const PasswordField: FunctionComponent = reatomComponent(({ ctx }) => {
-  return (
-    <Field
-      label={t`Password`}
-      invalid={!!ctx.spy(passwordField.$error)}
-      errorText={ctx.spy(passwordField.$error) && <Trans>Wrong password</Trans>}
-      required
-    >
-      <Stack width={'100%'}>
-        <PasswordInput
-          placeholder={t`Enter your password`}
-          value={ctx.spy(passwordField.$value)}
-          autoComplete={'current-password'}
-          onChange={(event) =>
-            passwordField.$value(ctx, event.currentTarget.value)
-          }
+export const EmailField = reatomComponent<EmailFieldProps>(
+  ({ ctx, inputRef }) => {
+    return (
+      <Field
+        label={t`Email`}
+        invalid={!!ctx.spy(emailField.$error)}
+        errorText={ctx.spy(emailField.$error) && <Trans>Wrong email</Trans>}
+        required
+      >
+        <Input
+          ref={inputRef}
+          formNoValidate
+          type={'email'}
+          placeholder={t`Enter your email`}
+          autoComplete={'email'}
+          value={ctx.spy(emailField.$value)}
+          onChange={(e) => {
+            emailField.$value(ctx, e.currentTarget.value);
+          }}
         />
-      </Stack>
-    </Field>
-  );
-}, 'PasswordField');
+      </Field>
+    );
+  },
+  'EmailField',
+);
+
+export type PasswordFieldProps = {
+  inputRef?: RefObject<HTMLInputElement>;
+};
+
+export const PasswordField = reatomComponent<PasswordFieldProps>(
+  ({ ctx, inputRef }) => {
+    return (
+      <Field
+        label={t`Password`}
+        invalid={!!ctx.spy(passwordField.$error)}
+        errorText={
+          ctx.spy(passwordField.$error) && <Trans>Wrong password</Trans>
+        }
+        required
+      >
+        <Stack width={'100%'}>
+          <PasswordInput
+            ref={inputRef}
+            placeholder={t`Enter your password`}
+            value={ctx.spy(passwordField.$value)}
+            autoComplete={'current-password'}
+            onChange={(event) =>
+              passwordField.$value(ctx, event.currentTarget.value)
+            }
+          />
+        </Stack>
+      </Field>
+    );
+  },
+  'PasswordField',
+);
 
 export const FormError: FunctionComponent<{ error: string }> = ({ error }) => {
   switch (error) {
@@ -67,4 +85,23 @@ export const FormError: FunctionComponent<{ error: string }> = ({ error }) => {
   }
 
   return null;
+};
+
+export const useHandleErrors = ({
+  emailFieldRef,
+  passwordFieldRef,
+}: {
+  passwordFieldRef: RefObject<HTMLInputElement>;
+  emailFieldRef: RefObject<HTMLInputElement>;
+}) => {
+  const [error] = useAtom(loginForm.$formError);
+
+  useEffect(() => {
+    switch (error) {
+      case wrongCredentialsError.type:
+        return passwordFieldRef.current?.focus();
+      case userNotFoundError.type:
+        return emailFieldRef.current?.focus();
+    }
+  }, [emailFieldRef, error, passwordFieldRef]);
 };

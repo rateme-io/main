@@ -7,6 +7,8 @@ import { SmallLogo } from '@/shared/ui/logo';
 export const AppOverlay = reatomComponent(({ ctx }) => {
   const application = ctx.spy($application);
 
+  console.log('application', application.status);
+
   return (
     <AnimatePresence>
       {application.status === 'initializing' && (

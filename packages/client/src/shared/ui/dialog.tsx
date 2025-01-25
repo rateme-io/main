@@ -28,6 +28,7 @@ export type DialogProps = PropsWithChildren<{
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
   isLoading?: boolean;
   formId?: string;
+  initialFocusEl?: () => HTMLElement | null;
   footer?: (formId?: string) => ReactNode;
 }>;
 
@@ -44,6 +45,7 @@ export const Dialog = reatomComponent<DialogProps>(
     isLoading,
     formId,
     footer,
+    initialFocusEl,
   }) => {
     const isOpened = ctx.spy(disclosure.$isOpened);
 
@@ -57,6 +59,7 @@ export const Dialog = reatomComponent<DialogProps>(
               disclosure.close(ctx);
             }
           }}
+          initialFocusEl={initialFocusEl}
           size={size}
           scrollBehavior={'outside'}
         >

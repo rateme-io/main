@@ -41,7 +41,7 @@ export const applicationEffect = atom((ctx) => {
   const session = ctx.spy($safeSession);
   const application = ctx.spy($application);
 
-  if (session === null) {
+  if (session === null && application.status === 'authorized') {
     $application(ctx, {
       status: 'unauthorized',
       session: null,
@@ -53,10 +53,12 @@ export const applicationEffect = atom((ctx) => {
     return;
   }
 
-  $application(ctx, {
-    status: 'authorized',
-    session,
-  });
+  if (session !== null) {
+    $application(ctx, {
+      status: 'authorized',
+      session,
+    });
+  }
 }, 'applicationEffect');
 
 export type Application = {
