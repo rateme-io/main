@@ -1,18 +1,25 @@
 import { action, atom } from '@reatom/framework';
 import { ZodType } from 'zod';
 
-export const fieldAtom = <Value, ValidValue extends Value>({
+export const fieldAtom = <Value, ValidValue extends Value = Value>({
   defaultValue,
   schema,
+  name,
 }: {
   defaultValue: Value;
-  schema: ZodType<ValidValue>;
+  schema?: ZodType<ValidValue>;
+  name: string;
 }) => {
-  const $value = atom(defaultValue, '$value');
+  const $value = atom(defaultValue, `${name}.$value`);
 
-  const $error = atom<string | null>(null, '$error');
+  const $error = atom<string | null>(null, `${name}.$error`);
 
   const validate = action((ctx) => {
+    if (!schema) {
+      $error(ctx, null);
+      return null;
+    }
+
     const value = ctx.get($value);
     const result = schema.safeParse(value);
 
@@ -23,12 +30,12 @@ export const fieldAtom = <Value, ValidValue extends Value>({
 
     $error(ctx, result.error.errors[0].message);
     return value as ValidValue;
-  }, 'validate');
+  }, `${name}.validate`);
 
   const reset = action((ctx) => {
     $value(ctx, defaultValue);
     $error(ctx, null);
-  }, 'reset');
+  }, `${name}.reset`);
 
   return {
     $error,

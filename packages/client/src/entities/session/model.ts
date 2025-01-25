@@ -1,7 +1,8 @@
-import { atom, reatomAsync } from '@reatom/framework';
+import { action, atom, reatomAsync } from '@reatom/framework';
 
 import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 import { TokenLoginDto } from '@rateme/core/domain/dtos/token-auth/token-login.dto';
+import { TokenRegisterDto } from '@rateme/core/domain/dtos/token-auth/token-register.dto.js';
 import {
   SessionEntity,
   SessionStatus,
@@ -47,6 +48,30 @@ export type LoginCommand = {
   dto: TokenLoginDto;
 };
 
+export const registerAction = reatomAsync(
+  async (ctx, command: RegisterCommand) => {
+    switch (command.type) {
+      case 'token': {
+        const result = await ctx.schedule(() =>
+          tokenAuthApi.register(ctx, command.dto),
+        );
+
+        if (result.data) {
+          $safeSession(ctx, mapDtoToDomain(result.data));
+        }
+
+        return result;
+      }
+    }
+  },
+  'registerAction',
+);
+
+export type RegisterCommand = {
+  type: 'token';
+  dto: TokenRegisterDto;
+};
+
 export const loadMeAction = reatomAsync(async (ctx) => {
   const result = await ctx.schedule((ctx) => sessionApi.me(ctx));
 
@@ -73,12 +98,14 @@ export const loadMeAction = reatomAsync(async (ctx) => {
   return null;
 }, 'loadMeAction');
 
-export const logoutAction = reatomAsync(async (ctx) => {
+export const logoutAction = action(async (ctx) => {
   document.cookie = '';
 
-  $safeSession(ctx, null);
-
   await ctx.schedule((ctx) => tokenAuthApi.logout(ctx));
+
+  await ctx.schedule((ctx) => {
+    $safeSession(ctx, null);
+  });
 }, 'logoutAction');
 
 export const mapDtoToDomain = (dto: SessionResponseDto) => {

@@ -16,7 +16,7 @@ import { loginDisclosure } from '@/widgets/login-dialog';
 import { CreateMenu } from './create-menu';
 import { Menu } from './menu';
 
-export const TabletHeader = reatomComponent(({ ctx }) => {
+export const DesktopHeader = reatomComponent(({ ctx }) => {
   return (
     <>
       <Box as={'header'} boxShadow={'xs'} height={'60px'}>
@@ -71,4 +71,4 @@ export const TabletHeader = reatomComponent(({ ctx }) => {
       </Box>
     </>
   );
-}, 'TabletHeader');
+}, 'DesktopHeader');

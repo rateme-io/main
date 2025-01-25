@@ -1,31 +1,29 @@
 import { Link as ChakraLink } from '@chakra-ui/react';
 import { createLink, LinkComponent } from '@tanstack/react-router';
-import * as React from 'react';
-import { forwardRef } from 'react';
+import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-interface ChakraLinkProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof ChakraLink>, 'href'> {}
+type ChakraLinkProps = Omit<
+  ComponentPropsWithoutRef<typeof ChakraLink>,
+  'href'
+>;
 
-const ChakraLinkComponent = React.forwardRef<
-  HTMLAnchorElement,
-  ChakraLinkProps
->((props, ref) => {
-  return <ChakraLink ref={ref} {...props} />;
-});
+const ChakraLinkComponent = forwardRef<HTMLAnchorElement, ChakraLinkProps>(
+  (props, ref) => {
+    return <ChakraLink ref={ref} {...props} />;
+  },
+);
+ChakraLinkComponent.displayName = 'ChakraLinkComponent';
 
 const CreatedLinkComponent = createLink(ChakraLinkComponent);
 
-export const Link: LinkComponent<typeof ChakraLinkComponent> = forwardRef(
-  (props, ref) => {
-    return (
-      <CreatedLinkComponent
-        textDecoration={'none'}
-        _hover={{ textDecoration: 'none' }}
-        _focus={{ textDecoration: 'none' }}
-        preload={'intent'}
-        {...props}
-        ref={ref}
-      />
-    );
-  },
-);
+export const Link: LinkComponent<typeof ChakraLinkComponent> = (props) => {
+  return (
+    <CreatedLinkComponent
+      textDecoration={'underline'}
+      _hover={{ textDecoration: 'none' }}
+      _focus={{ textDecoration: 'none' }}
+      preload={'intent'}
+      {...props}
+    />
+  );
+};

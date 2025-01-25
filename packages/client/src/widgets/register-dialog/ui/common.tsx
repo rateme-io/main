@@ -8,14 +8,18 @@ import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/error
 
 import { ButtonLink } from '@/shared/ui/button-link.tsx';
 import { Field } from '@/shared/ui/field.tsx';
+import { InputGroup } from '@/shared/ui/input-group.tsx';
 import { PasswordInput } from '@/shared/ui/password-input.tsx';
-import { registerDisclosure } from '@/widgets/register-dialog';
+import { PasswordStrengthMeter } from '@/shared/ui/password-strength-meter.tsx';
+import { loginDisclosure } from '@/widgets/login-dialog';
 
 import {
   emailField,
-  loginDisclosure,
-  loginForm,
+  nameField,
   passwordField,
+  registerDisclosure,
+  registerForm,
+  usernameField,
 } from '../model.ts';
 
 export type EmailFieldProps = {
@@ -63,16 +67,17 @@ export const PasswordField = reatomComponent<PasswordFieldProps>(
         }
         required
       >
-        <Stack width={'100%'}>
+        <Stack width={'100%'} gap={3}>
           <PasswordInput
             ref={inputRef}
             placeholder={t`Enter your password`}
             value={ctx.spy(passwordField.$value)}
-            autoComplete={'current-password'}
+            autoComplete={'new-password'}
             onChange={(event) =>
               passwordField.$value(ctx, event.currentTarget.value)
             }
           />
+          <PasswordStrengthMeter password={ctx.spy(passwordField.$value)} />
         </Stack>
       </Field>
     );
@@ -80,20 +85,58 @@ export const PasswordField = reatomComponent<PasswordFieldProps>(
   'PasswordField',
 );
 
-export const RegisterLink = reatomComponent(({ ctx }) => {
+export const NameField = reatomComponent(({ ctx }) => {
+  return (
+    <Field
+      label={t`Full name`}
+      required
+      invalid={!!ctx.spy(nameField.$error)}
+      errorText={ctx.spy(nameField.$error) && t`Wrong full name`}
+    >
+      <Input
+        placeholder={t`Enter your full name`}
+        value={ctx.spy(nameField.$value)}
+        autoComplete={'name'}
+        onChange={(e) => nameField.$value(ctx, e.currentTarget.value)}
+      />
+    </Field>
+  );
+}, 'NameField');
+
+export const UsernameField = reatomComponent(({ ctx }) => {
+  return (
+    <Field
+      label={t`Username`}
+      required
+      invalid={!!ctx.spy(usernameField.$error)}
+      errorText={ctx.spy(usernameField.$error) && t`Wrong username`}
+    >
+      <InputGroup startElement={'@'} width={'100%'}>
+        <Input
+          placeholder={t`Enter your username`}
+          autoComplete={'username'}
+          value={ctx.spy(usernameField.$value)}
+          onChange={(e) => usernameField.$value(ctx, e.currentTarget.value)}
+        />
+      </InputGroup>
+    </Field>
+  );
+}, 'UsernameField');
+
+export const SignInLink = reatomComponent(({ ctx }) => {
   return (
     <ButtonLink
       onClick={() => {
-        loginDisclosure.close(ctx);
+        registerDisclosure.close(ctx);
         requestAnimationFrame(() => {
-          registerDisclosure.open(ctx);
+          loginDisclosure.open(ctx);
         });
       }}
     >
-      <Trans>No account? Register</Trans>
+      <Trans>Have an account? Sign in</Trans>
     </ButtonLink>
   );
-}, 'RegisterLink');
+}, 'SignInLink');
 
 export const FormError: FunctionComponent<{ error: string }> = ({ error }) => {
   switch (error) {
@@ -109,7 +152,7 @@ export const useHandleErrors = ({
 }: {
   emailFieldRef: RefObject<HTMLInputElement>;
 }) => {
-  const [error] = useAtom(loginForm.$formError);
+  const [error] = useAtom(registerForm.$formError);
 
   useEffect(() => {
     switch (error) {

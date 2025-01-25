@@ -1,23 +1,24 @@
-import { Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent } from '@reatom/npm-react';
 import { useRef } from 'react';
 
 import { AsyncFormDialog } from '@/shared/ui/async-form-dialog.tsx';
+import { CapsLockWarn } from '@/shared/ui/caps-lock-warn.tsx';
 
 import { loginDisclosure, loginForm } from '../model';
 import {
   EmailField,
   FormError,
   PasswordField,
+  RegisterLink,
   useHandleErrors,
 } from './common';
 
-export const TabletLoginDialog = reatomComponent(() => {
+export const DesktopLoginDialog = reatomComponent(() => {
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
-  const passwordFieldRef = useRef<HTMLInputElement | null>(null);
 
-  useHandleErrors({ passwordFieldRef, emailFieldRef });
+  useHandleErrors({ emailFieldRef });
 
   return (
     <AsyncFormDialog
@@ -31,11 +32,17 @@ export const TabletLoginDialog = reatomComponent(() => {
           <Trans>Authorisation</Trans>
         </Text>
       }
-      submitLabel={<Trans>Submit</Trans>}
+      submitLabel={<Trans>Sign in</Trans>}
     >
+      <Flex justifyContent={'space-between'} alignItems={'center'}>
+        <RegisterLink />
+
+        <CapsLockWarn />
+      </Flex>
+
       <EmailField inputRef={emailFieldRef} />
 
-      <PasswordField inputRef={passwordFieldRef} />
+      <PasswordField />
     </AsyncFormDialog>
   );
-}, 'TabletLoginDialog');
+}, 'DesktopLoginDialog');

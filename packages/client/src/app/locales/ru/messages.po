@@ -25,7 +25,7 @@ msgstr "Минимум одна цифра"
 msgid "At least one lowercase letter"
 msgstr "Минимум одна строчная буква"
 
-#: src/shared/ui/password-strength-meter.tsx:56
+#: src/shared/ui/password-strength-meter.tsx:58
 msgid "At least one special character"
 msgstr "Минимум один специальный символ"
 
@@ -33,114 +33,159 @@ msgstr "Минимум один специальный символ"
 msgid "At least one uppercase letter"
 msgstr "Минимум одна заглавная буква"
 
-#: src/shared/ui/password-strength-meter.tsx:57
-msgid "At least two special characters"
-msgstr "Минимум два специальных символа"
-
-#: src/widgets/login-dialog/ui/tablet.tsx:31
+#: src/widgets/register-dialog/ui/mobile.tsx:34
 #: src/widgets/login-dialog/ui/mobile.tsx:32
+#: src/widgets/login-dialog/ui/desktop.tsx:32
 msgid "Authorisation"
 msgstr "Авторизация"
 
-#: src/widgets/header/ui/menu/tablet.tsx:15
+#: src/shared/ui/caps-lock-warn.tsx:16
+msgid "Caps Lock"
+msgstr "Caps Lock"
+
 #: src/widgets/header/ui/menu/mobile.tsx:57
+#: src/widgets/header/ui/menu/desktop.tsx:15
 msgid "Collections"
 msgstr "Коллекции"
 
+#: src/widgets/register-dialog/ui/mobile.tsx:63
+#: src/widgets/register-dialog/ui/desktop.tsx:37
+msgid "Create account"
+msgstr "Создать аккаунт"
+
 #: src/widgets/header/ui/menu/mobile.tsx:76
-#: src/widgets/header/ui/create-menu/tablet.tsx:45
+#: src/widgets/header/ui/create-menu/desktop.tsx:45
 msgid "Create collection"
 msgstr "Создать коллекцию"
 
 #: src/widgets/header/ui/menu/mobile.tsx:66
-#: src/widgets/header/ui/create-menu/tablet.tsx:32
+#: src/widgets/header/ui/create-menu/desktop.tsx:32
 msgid "Create collection item"
 msgstr "Создать элемент коллекции"
 
 #: src/widgets/header/ui/menu/mobile.tsx:80
-#: src/widgets/header/ui/create-menu/tablet.tsx:50
+#: src/widgets/header/ui/create-menu/desktop.tsx:50
 msgid "Create rating system"
 msgstr "Создать систему оценивания"
 
-#: src/widgets/header/ui/menu/tablet.tsx:12
 #: src/widgets/header/ui/menu/mobile.tsx:54
+#: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/login-dialog/ui/common.tsx:25
+#: src/widgets/register-dialog/ui/common.tsx:33
+#: src/widgets/login-dialog/ui/common.tsx:29
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/login-dialog/ui/common.tsx:34
+#: src/widgets/register-dialog/ui/common.tsx:42
+#: src/widgets/login-dialog/ui/common.tsx:38
 msgid "Enter your email"
 msgstr "Введите ваш email"
 
-#: src/widgets/login-dialog/ui/common.tsx:65
+#: src/widgets/register-dialog/ui/common.tsx:97
+msgid "Enter your full name"
+msgstr "Введите ваше полное имя"
+
+#: src/widgets/register-dialog/ui/common.tsx:73
+#: src/widgets/login-dialog/ui/common.tsx:69
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
-#: src/features/avatar/ui/tablet.tsx:53
+#: src/widgets/register-dialog/ui/common.tsx:116
+msgid "Enter your username"
+msgstr "Введите ваш username"
+
+#: src/widgets/register-dialog/ui/common.tsx:91
+msgid "Full name"
+msgstr "Полное имя"
+
+#: src/widgets/register-dialog/ui/common.tsx:136
+msgid "Have an account? Sign in"
+msgstr "Есть аккаунт? Войти"
+
 #: src/features/avatar/ui/mobile.tsx:47
+#: src/features/avatar/ui/desktop.tsx:53
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/shared/ui/password-strength-meter.tsx:58
+#: src/widgets/login-dialog/ui/common.tsx:93
+msgid "No account? Register"
+msgstr "Нет аккаунта? Зарегистрироваться"
+
+#: src/shared/ui/password-strength-meter.tsx:64
 msgid "No more than 2 consecutive characters"
 msgstr "Не более двух одинаковых символов подряд"
 
-#: src/shared/ui/password-strength-meter.tsx:59
+#: src/shared/ui/password-strength-meter.tsx:67
 msgid "Not a common password"
 msgstr "Не должен быть распространённым паролем"
 
-#: src/widgets/login-dialog/ui/common.tsx:55
+#: src/widgets/register-dialog/ui/common.tsx:63
+#: src/widgets/login-dialog/ui/common.tsx:59
 msgid "Password"
 msgstr "Пароль"
 
-#: src/features/avatar/ui/tablet.tsx:36
 #: src/features/avatar/ui/mobile.tsx:30
+#: src/features/avatar/ui/desktop.tsx:36
 msgid "Profile"
 msgstr "Профиль"
 
 #: src/widgets/header/ui/menu/mobile.tsx:70
-#: src/widgets/header/ui/create-menu/tablet.tsx:37
+#: src/widgets/header/ui/create-menu/desktop.tsx:37
 msgid "Rate collection item"
 msgstr "Оценить элемент коллекции"
 
-#: src/widgets/header/ui/menu/tablet.tsx:18
 #: src/widgets/header/ui/menu/mobile.tsx:60
+#: src/widgets/header/ui/menu/desktop.tsx:18
 msgid "Rating systems"
 msgstr "Системы оценивания"
 
-#: src/features/avatar/ui/tablet.tsx:42
+#: src/widgets/register-dialog/ui/desktop.tsx:34
+msgid "Registration"
+msgstr "Регистрация"
+
 #: src/features/avatar/ui/mobile.tsx:36
+#: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/widgets/header/ui/tablet.tsx:62
+#: src/widgets/login-dialog/ui/mobile.tsx:57
+#: src/widgets/login-dialog/ui/desktop.tsx:35
+msgid "Sign in"
+msgstr "Войти"
+
+#: src/widgets/header/ui/desktop.tsx:62
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:34
-#: src/widgets/login-dialog/ui/mobile.tsx:55
-msgid "Submit"
-msgstr "Отправить"
+#: src/widgets/register-dialog/ui/common.tsx:109
+msgid "Username"
+msgstr "Username"
 
-#: src/widgets/login-dialog/ui/common.tsx:84
-msgid "User with this email does not exist"
-msgstr "Пользователь с таким email не существует"
-
-#: src/widgets/header/ui/create-menu/tablet.tsx:27
+#: src/widgets/header/ui/create-menu/desktop.tsx:27
 msgid "What do you want to create?"
 msgstr "Что вы хотите создать?"
 
-#: src/widgets/login-dialog/ui/common.tsx:82
+#: src/widgets/register-dialog/ui/common.tsx:144
+#: src/widgets/login-dialog/ui/common.tsx:101
 msgid "Wrong credentials"
 msgstr "Неправильные учётные данные"
 
-#: src/widgets/login-dialog/ui/common.tsx:27
+#: src/widgets/register-dialog/ui/common.tsx:35
+#: src/widgets/login-dialog/ui/common.tsx:31
 msgid "Wrong email"
 msgstr "Неправильный email"
 
-#: src/widgets/login-dialog/ui/common.tsx:58
+#: src/widgets/register-dialog/ui/common.tsx:94
+msgid "Wrong full name"
+msgstr "Неправильное полное имя"
+
+#: src/widgets/register-dialog/ui/common.tsx:66
+#: src/widgets/login-dialog/ui/common.tsx:62
 msgid "Wrong password"
 msgstr "Неправильный пароль"
+
+#: src/widgets/register-dialog/ui/common.tsx:112
+msgid "Wrong username"
+msgstr "Неправильный username"

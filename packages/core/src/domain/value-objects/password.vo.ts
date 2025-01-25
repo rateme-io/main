@@ -10,69 +10,32 @@ export class PasswordVo extends BaseValueObject<string> {
   static checks: PasswordCheck[] = [
     {
       type: 'length',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (password.length < 12) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            fatal: true,
-            message: 'Password must be at least 12 characters long',
-          });
-        }
+      schema: z.string().min(12, {
+        message: 'Password must be at least 12 characters long',
       }),
     },
     {
       type: 'uppercase',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (!/[A-Z]/.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Password must contain at least one uppercase letter',
-          });
-        }
+      schema: z.string().regex(/[A-Z]/, {
+        message: 'Password must contain at least one uppercase letter',
       }),
     },
     {
       type: 'lowercase',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (!/[a-z]/.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Password must contain at least one lowercase letter',
-          });
-        }
+      schema: z.string().regex(/[a-z]/, {
+        message: 'Password must contain at least one lowercase letter',
       }),
     },
     {
       type: 'digit',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (!/[0-9]/.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Password must contain at least one digit',
-          });
-        }
+      schema: z.string().regex(/[0-9]/, {
+        message: 'Password must contain at least one digit',
       }),
     },
     {
       type: 'special',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (!/[^A-Za-z0-9]/.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Password must contain at least one special character',
-          });
-        }
-      }),
-    },
-    {
-      type: 'specialCount',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if ((password.match(/[^A-Za-z0-9]/g) || []).length < 2) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Password must contain at least two special characters',
-          });
-        }
+      schema: z.string().regex(/[^A-Za-z0-9]/, {
+        message: 'Password must contain at least one special character',
       }),
     },
     {

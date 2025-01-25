@@ -19,7 +19,7 @@ import {
 } from '@/shared/ui/drawer';
 import { Link } from '@/shared/ui/link.tsx';
 
-const menuDisclosure = disclosureAtom({ defaultIsOpened: false });
+const menuDisclosure = disclosureAtom({ defaultIsOpened: false, name: 'menu' });
 
 export const MobileMenu = reatomComponent(({ ctx }) => {
   return (
@@ -62,21 +62,21 @@ export const MobileMenu = reatomComponent(({ ctx }) => {
 
           <Separator />
 
-          <MenuLink to={'/'}>
+          <MenuLink to={'/create-collection-item'}>
             <Trans>Create collection item</Trans>
           </MenuLink>
 
-          <MenuLink to={'/'}>
+          <MenuLink to={'/rate-collection-item'}>
             <Trans>Rate collection item</Trans>
           </MenuLink>
 
           <Separator />
 
-          <MenuLink to={'/'}>
+          <MenuLink to={'/create-collection'}>
             <Trans>Create collection</Trans>
           </MenuLink>
 
-          <MenuLink to={'/'}>
+          <MenuLink to={'/create-rating-system'}>
             <Trans>Create rating system</Trans>
           </MenuLink>
         </DrawerBody>

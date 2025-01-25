@@ -7,10 +7,10 @@ export const useBreakpoint = (): Breakpoints => {
   });
 
   if (isGreaterThen800) {
-    return 'tablet';
+    return 'desktop';
   }
 
   return 'mobile';
 };
 
-export type Breakpoints = 'mobile' | 'tablet';
+export type Breakpoints = 'mobile' | 'desktop';

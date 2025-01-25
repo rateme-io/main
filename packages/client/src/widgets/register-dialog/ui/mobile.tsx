@@ -6,16 +6,18 @@ import { useRef } from 'react';
 import { AsyncFormDialog } from '@/shared/ui/async-form-dialog';
 import { Button } from '@/shared/ui/button.tsx';
 
-import { loginDisclosure, loginForm } from '../model';
+import { registerDisclosure, registerForm } from '../model';
 import {
   EmailField,
   FormError,
+  NameField,
   PasswordField,
-  RegisterLink,
+  SignInLink,
   useHandleErrors,
+  UsernameField,
 } from './common';
 
-export const MobileLoginDialog = reatomComponent(() => {
+export const MobileRegisterDialog = reatomComponent(() => {
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
 
   useHandleErrors({ emailFieldRef });
@@ -23,8 +25,8 @@ export const MobileLoginDialog = reatomComponent(() => {
   return (
     <AsyncFormDialog
       size={'full'}
-      form={loginForm}
-      disclosure={loginDisclosure}
+      form={registerForm}
+      disclosure={registerDisclosure}
       errorRenderer={(error) => <FormError error={error} />}
       initialFocusEl={() => emailFieldRef.current}
       title={
@@ -34,14 +36,18 @@ export const MobileLoginDialog = reatomComponent(() => {
       }
       afterError={<SubmitButton />}
     >
-      <RegisterLink />
+      <SignInLink />
+
+      <NameField />
+
+      <UsernameField />
 
       <EmailField inputRef={emailFieldRef} />
 
       <PasswordField />
     </AsyncFormDialog>
   );
-}, 'MobileLoginDialog');
+}, 'MobileRegisterDialog');
 
 type SubmitButtonProps = { formId?: string };
 
@@ -52,9 +58,9 @@ const SubmitButton = reatomComponent<SubmitButtonProps>(({ ctx, formId }) => {
       width={'full'}
       marginTop={8}
       form={formId}
-      loading={ctx.spy(loginForm.$isLoading)}
+      loading={ctx.spy(registerForm.$isLoading)}
     >
-      <Trans>Sign in</Trans>
+      <Trans>Create account</Trans>
     </Button>
   );
 }, 'SubmitButton');

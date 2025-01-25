@@ -10,7 +10,7 @@ import { Avatar } from '@/shared/ui/avatar.tsx';
 import { Link } from '@/shared/ui/link.tsx';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@/shared/ui/menu';
 
-export const TabletAvatar = reatomComponent(({ ctx }) => {
+export const DesktopAvatar = reatomComponent(({ ctx }) => {
   const { user } = ctx.spy($session);
 
   return (
@@ -55,4 +55,4 @@ export const TabletAvatar = reatomComponent(({ ctx }) => {
       </MenuContent>
     </MenuRoot>
   );
-}, 'TabletAvatar');
+}, 'DesktopAvatar');

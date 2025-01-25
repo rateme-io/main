@@ -1,11 +1,12 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 
+import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
 import { SecureRoute } from '@/shared/ui/secure-route.tsx';
 
-export const Route = createLazyFileRoute('/rating-systems')({
+export const Route = createLazyFileRoute('/create-collection')({
   component: SecureRoute(RouteComponent),
 });
 
 function RouteComponent() {
-  return <div>Hello "/rating-systems"!</div>;
+  return <PageWrapper>Hello "/create-collection"!</PageWrapper>;
 }

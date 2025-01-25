@@ -1,8 +1,8 @@
-import { Flex, Icon, Stack } from '@chakra-ui/react';
+import { Flex, Icon, Stack, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent } from '@reatom/npm-react';
 import { useMemo } from 'react';
-import { FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa6';
 import { FaXmark } from 'react-icons/fa6';
 
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
@@ -46,15 +46,28 @@ export const PasswordStrengthMeter =
         })}
       </Stack>
     );
-  });
+  }, 'PasswordStrengthMeter');
 
 const checkLabels = {
   length: <Trans>At least 12 characters long</Trans>,
   uppercase: <Trans>At least one uppercase letter</Trans>,
   lowercase: <Trans>At least one lowercase letter</Trans>,
   digit: <Trans>At least one digit</Trans>,
-  special: <Trans>At least one special character</Trans>,
-  specialCount: <Trans>At least two special characters</Trans>,
+  special: (
+    <Text>
+      <Trans>At least one special character</Trans>
+      <Text as={'span'} color={'gray.400'} ml={1}>
+        (!@#$%^&*)
+      </Text>
+    </Text>
+  ),
   consecutive: <Trans>No more than 2 consecutive characters</Trans>,
-  common: <Trans>Not a common password</Trans>,
+  common: (
+    <Text>
+      <Trans>Not a common password</Trans>
+      <Text as={'span'} color={'gray.400'} ml={1}>
+        (12345, qwerty, password, etc.)
+      </Text>
+    </Text>
+  ),
 };

@@ -2,8 +2,8 @@ import { reatomComponent } from '@reatom/npm-react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
+import { DesktopHeader } from './ui/desktop';
 import { MobileHeader } from './ui/mobile';
-import { TabletHeader } from './ui/tablet';
 
 export const Header = reatomComponent(() => {
   const breakpoint = useBreakpoint();
@@ -11,7 +11,7 @@ export const Header = reatomComponent(() => {
   switch (breakpoint) {
     case 'mobile':
       return <MobileHeader />;
-    case 'tablet':
-      return <TabletHeader />;
+    case 'desktop':
+      return <DesktopHeader />;
   }
 }, 'Header');

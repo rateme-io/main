@@ -5,9 +5,11 @@ import { FieldAtom } from '@/shared/atoms/field.atom.ts';
 export const formAtom = <Form extends BaseForm>({
   fields,
   onSubmit,
+  name,
 }: {
   fields: Form;
   onSubmit: Action<[Fields<Form>], Promise<void>>;
+  name: string;
 }) => {
   const fieldsArray = Object.values(fields);
 
@@ -18,23 +20,23 @@ export const formAtom = <Form extends BaseForm>({
 
         return acc;
       }, {} as Fields<Form>),
-    '$values',
+    `${name}.$values`,
   );
 
-  const $isLoading = atom(false, '$isLoading');
+  const $isLoading = atom(false, `${name}.$isLoading`);
 
-  const $formError = atom<string | null>(null, '$formError');
+  const $formError = atom<string | null>(null, `${name}.$formError`);
 
   const validate = action((ctx) => {
     return fieldsArray.reduce(
       (isValid, field) => field.validate(ctx) === null && isValid,
       true,
     );
-  }, 'validate');
+  }, `${name}.validate`);
 
   const reset = action((ctx) => {
     fieldsArray.forEach((field) => field.reset(ctx));
-  }, 'reset');
+  }, `${name}.reset`);
 
   const submit = action(async (ctx) => {
     try {
@@ -64,7 +66,7 @@ export const formAtom = <Form extends BaseForm>({
 
       return false;
     }
-  }, 'submit');
+  }, `${name}.submit`);
 
   return {
     $values,

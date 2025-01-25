@@ -8,7 +8,7 @@ export const PageLayout: FunctionComponent<BoxProps> = (props) => {
   const breakpoint = useBreakpoint();
 
   switch (breakpoint) {
-    case 'tablet':
+    case 'desktop':
       return (
         <Box
           {...props}
@@ -26,7 +26,7 @@ export const PageLayout: FunctionComponent<BoxProps> = (props) => {
           width={'100%'}
           height={'100%'}
           maxWidth={'8xl'}
-          paddingInline={3}
+          paddingInline={2}
           marginInline={'auto'}
         />
       );

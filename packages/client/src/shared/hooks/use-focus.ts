@@ -7,15 +7,17 @@ export const useFocus = (ref: RefObject<HTMLInputElement | null>) => {
     const onFocus = () => setIsFocused(true);
     const onBlur = () => setIsFocused(false);
 
-    if (ref.current) {
-      ref.current.addEventListener('focus', onFocus);
-      ref.current.addEventListener('blur', onBlur);
+    const input = ref.current;
+
+    if (input) {
+      input.addEventListener('focus', onFocus);
+      input.addEventListener('blur', onBlur);
     }
 
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener('focus', onFocus);
-        ref.current.removeEventListener('blur', onBlur);
+      if (input) {
+        input.removeEventListener('focus', onFocus);
+        input.removeEventListener('blur', onBlur);
       }
     };
   }, [ref]);

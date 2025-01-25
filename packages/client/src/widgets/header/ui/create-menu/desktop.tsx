@@ -12,7 +12,7 @@ import {
   MenuTrigger,
 } from '@/shared/ui/menu';
 
-export const CreateMenuTablet = () => {
+export const CreateMenuDesktop = () => {
   return (
     <MenuRoot>
       <MenuTrigger asChild>
@@ -28,12 +28,12 @@ export const CreateMenuTablet = () => {
             </Text>
           </Flex>
           <MenuItem asChild value={'create-collection-item'} cursor={'pointer'}>
-            <Link to={'/'}>
+            <Link to={'/create-collection-item'}>
               <Trans>Create collection item</Trans>
             </Link>
           </MenuItem>
           <MenuItem asChild value={'create-rating'} cursor={'pointer'}>
-            <Link to={'/'}>
+            <Link to={'/rate-collection-item'}>
               <Trans>Rate collection item</Trans>
             </Link>
           </MenuItem>
@@ -41,12 +41,12 @@ export const CreateMenuTablet = () => {
         <MenuSeparator />
         <MenuItemGroup>
           <MenuItem asChild value={'create-collection'} cursor={'pointer'}>
-            <Link to={'/'}>
+            <Link to={'/create-collection'}>
               <Trans>Create collection</Trans>
             </Link>
           </MenuItem>
           <MenuItem asChild value={'create-rating-system'} cursor={'pointer'}>
-            <Link to={'/'}>
+            <Link to={'/create-rating-system'}>
               <Trans>Create rating system</Trans>
             </Link>
           </MenuItem>

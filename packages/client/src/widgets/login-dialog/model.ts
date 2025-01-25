@@ -8,16 +8,21 @@ import { disclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
 import { fieldAtom } from '@/shared/atoms/field.atom.ts';
 import { formAtom } from '@/shared/atoms/form.atom.ts';
 
-export const loginDisclosure = disclosureAtom({ defaultIsOpened: false });
+export const loginDisclosure = disclosureAtom({
+  defaultIsOpened: false,
+  name: 'loginDisclosure',
+});
 
 export const emailField = fieldAtom({
   defaultValue: '',
   schema: EmailVo.schema,
+  name: 'emailField',
 });
 
 export const passwordField = fieldAtom({
   defaultValue: '',
   schema: PasswordVo.simpleSchema,
+  name: 'passwordField',
 });
 
 export const loginForm = formAtom({
@@ -34,4 +39,5 @@ export const loginForm = formAtom({
       throw new Error(result.error.type);
     }
   }, 'loginForm.onSubmit'),
+  name: 'loginForm',
 });

@@ -25,7 +25,7 @@ msgstr "At least one digit"
 msgid "At least one lowercase letter"
 msgstr "At least one lowercase letter"
 
-#: src/shared/ui/password-strength-meter.tsx:56
+#: src/shared/ui/password-strength-meter.tsx:58
 msgid "At least one special character"
 msgstr "At least one special character"
 
@@ -33,114 +33,159 @@ msgstr "At least one special character"
 msgid "At least one uppercase letter"
 msgstr "At least one uppercase letter"
 
-#: src/shared/ui/password-strength-meter.tsx:57
-msgid "At least two special characters"
-msgstr "At least two special characters"
-
-#: src/widgets/login-dialog/ui/tablet.tsx:31
+#: src/widgets/register-dialog/ui/mobile.tsx:34
 #: src/widgets/login-dialog/ui/mobile.tsx:32
+#: src/widgets/login-dialog/ui/desktop.tsx:32
 msgid "Authorisation"
 msgstr "Authorisation"
 
-#: src/widgets/header/ui/menu/tablet.tsx:15
+#: src/shared/ui/caps-lock-warn.tsx:16
+msgid "Caps Lock"
+msgstr "Caps Lock"
+
 #: src/widgets/header/ui/menu/mobile.tsx:57
+#: src/widgets/header/ui/menu/desktop.tsx:15
 msgid "Collections"
 msgstr "Collections"
 
+#: src/widgets/register-dialog/ui/mobile.tsx:63
+#: src/widgets/register-dialog/ui/desktop.tsx:37
+msgid "Create account"
+msgstr "Create account"
+
 #: src/widgets/header/ui/menu/mobile.tsx:76
-#: src/widgets/header/ui/create-menu/tablet.tsx:45
+#: src/widgets/header/ui/create-menu/desktop.tsx:45
 msgid "Create collection"
 msgstr "Create collection"
 
 #: src/widgets/header/ui/menu/mobile.tsx:66
-#: src/widgets/header/ui/create-menu/tablet.tsx:32
+#: src/widgets/header/ui/create-menu/desktop.tsx:32
 msgid "Create collection item"
 msgstr "Create collection item"
 
 #: src/widgets/header/ui/menu/mobile.tsx:80
-#: src/widgets/header/ui/create-menu/tablet.tsx:50
+#: src/widgets/header/ui/create-menu/desktop.tsx:50
 msgid "Create rating system"
 msgstr "Create rating system"
 
-#: src/widgets/header/ui/menu/tablet.tsx:12
 #: src/widgets/header/ui/menu/mobile.tsx:54
+#: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/login-dialog/ui/common.tsx:25
+#: src/widgets/register-dialog/ui/common.tsx:33
+#: src/widgets/login-dialog/ui/common.tsx:29
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/login-dialog/ui/common.tsx:34
+#: src/widgets/register-dialog/ui/common.tsx:42
+#: src/widgets/login-dialog/ui/common.tsx:38
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/widgets/login-dialog/ui/common.tsx:65
+#: src/widgets/register-dialog/ui/common.tsx:97
+msgid "Enter your full name"
+msgstr "Enter your full name"
+
+#: src/widgets/register-dialog/ui/common.tsx:73
+#: src/widgets/login-dialog/ui/common.tsx:69
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/features/avatar/ui/tablet.tsx:53
+#: src/widgets/register-dialog/ui/common.tsx:116
+msgid "Enter your username"
+msgstr "Enter your username"
+
+#: src/widgets/register-dialog/ui/common.tsx:91
+msgid "Full name"
+msgstr "Full name"
+
+#: src/widgets/register-dialog/ui/common.tsx:136
+msgid "Have an account? Sign in"
+msgstr "Have an account? Sign in"
+
 #: src/features/avatar/ui/mobile.tsx:47
+#: src/features/avatar/ui/desktop.tsx:53
 msgid "Logout"
 msgstr "Logout"
 
-#: src/shared/ui/password-strength-meter.tsx:58
+#: src/widgets/login-dialog/ui/common.tsx:93
+msgid "No account? Register"
+msgstr "No account? Register"
+
+#: src/shared/ui/password-strength-meter.tsx:64
 msgid "No more than 2 consecutive characters"
 msgstr "No more than 2 consecutive characters"
 
-#: src/shared/ui/password-strength-meter.tsx:59
+#: src/shared/ui/password-strength-meter.tsx:67
 msgid "Not a common password"
 msgstr "Not a common password"
 
-#: src/widgets/login-dialog/ui/common.tsx:55
+#: src/widgets/register-dialog/ui/common.tsx:63
+#: src/widgets/login-dialog/ui/common.tsx:59
 msgid "Password"
 msgstr "Password"
 
-#: src/features/avatar/ui/tablet.tsx:36
 #: src/features/avatar/ui/mobile.tsx:30
+#: src/features/avatar/ui/desktop.tsx:36
 msgid "Profile"
 msgstr "Profile"
 
 #: src/widgets/header/ui/menu/mobile.tsx:70
-#: src/widgets/header/ui/create-menu/tablet.tsx:37
+#: src/widgets/header/ui/create-menu/desktop.tsx:37
 msgid "Rate collection item"
 msgstr "Rate collection item"
 
-#: src/widgets/header/ui/menu/tablet.tsx:18
 #: src/widgets/header/ui/menu/mobile.tsx:60
+#: src/widgets/header/ui/menu/desktop.tsx:18
 msgid "Rating systems"
 msgstr "Rating systems"
 
-#: src/features/avatar/ui/tablet.tsx:42
+#: src/widgets/register-dialog/ui/desktop.tsx:34
+msgid "Registration"
+msgstr "Registration"
+
 #: src/features/avatar/ui/mobile.tsx:36
+#: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
 msgstr "Settings"
 
-#: src/widgets/header/ui/tablet.tsx:62
+#: src/widgets/login-dialog/ui/mobile.tsx:57
+#: src/widgets/login-dialog/ui/desktop.tsx:35
+msgid "Sign in"
+msgstr "Sign in"
+
+#: src/widgets/header/ui/desktop.tsx:62
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/widgets/login-dialog/ui/tablet.tsx:34
-#: src/widgets/login-dialog/ui/mobile.tsx:55
-msgid "Submit"
-msgstr "Submit"
+#: src/widgets/register-dialog/ui/common.tsx:109
+msgid "Username"
+msgstr "Username"
 
-#: src/widgets/login-dialog/ui/common.tsx:84
-msgid "User with this email does not exist"
-msgstr "User with this email does not exist"
-
-#: src/widgets/header/ui/create-menu/tablet.tsx:27
+#: src/widgets/header/ui/create-menu/desktop.tsx:27
 msgid "What do you want to create?"
 msgstr "What do you want to create?"
 
-#: src/widgets/login-dialog/ui/common.tsx:82
+#: src/widgets/register-dialog/ui/common.tsx:144
+#: src/widgets/login-dialog/ui/common.tsx:101
 msgid "Wrong credentials"
 msgstr "Wrong credentials"
 
-#: src/widgets/login-dialog/ui/common.tsx:27
+#: src/widgets/register-dialog/ui/common.tsx:35
+#: src/widgets/login-dialog/ui/common.tsx:31
 msgid "Wrong email"
 msgstr "Wrong email"
 
-#: src/widgets/login-dialog/ui/common.tsx:58
+#: src/widgets/register-dialog/ui/common.tsx:94
+msgid "Wrong full name"
+msgstr "Wrong full name"
+
+#: src/widgets/register-dialog/ui/common.tsx:66
+#: src/widgets/login-dialog/ui/common.tsx:62
 msgid "Wrong password"
 msgstr "Wrong password"
+
+#: src/widgets/register-dialog/ui/common.tsx:112
+msgid "Wrong username"
+msgstr "Wrong username"

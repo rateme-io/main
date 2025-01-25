@@ -1,7 +1,7 @@
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
+import { DesktopMenu } from './desktop.tsx';
 import { MobileMenu } from './mobile.tsx';
-import { TabletMenu } from './tablet.tsx';
 
 export const Menu = () => {
   const breakpoint = useBreakpoint();
@@ -9,7 +9,7 @@ export const Menu = () => {
   switch (breakpoint) {
     case 'mobile':
       return <MobileMenu />;
-    case 'tablet':
-      return <TabletMenu />;
+    case 'desktop':
+      return <DesktopMenu />;
   }
 };

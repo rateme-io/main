@@ -5,8 +5,6 @@ import {
   sessionNotFoundError,
   tokenExpiredError,
   tokenNotFoundError,
-  userAlreadyExistsError,
-  userNotFoundError,
   wrongCredentialsError,
 } from '@rateme/core/domain/dtos/token-auth/errors';
 import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
@@ -63,13 +61,13 @@ export class TokenAuthService extends TokenAuthAbstractService {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (!user) {
-        throw new BadRequestException(userNotFoundError);
+        throw new BadRequestException(wrongCredentialsError);
       }
 
       const password = await context.passwordRepository.findByUserId(user.id);
 
       if (!password) {
-        throw new BadRequestException(userNotFoundError);
+        throw new BadRequestException(wrongCredentialsError);
       }
 
       const isValidPassword = await this.cryptoService.verify(
@@ -97,7 +95,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (user) {
-        throw new BadRequestException(userAlreadyExistsError);
+        throw new BadRequestException(wrongCredentialsError);
       }
 
       const userEntity = UserEntity.create({

@@ -1,18 +1,8 @@
 import { BaseError } from '@/domain/common/base.error';
 
-export const userNotFoundError = new BaseError(
-  'User not found',
-  'USER_NOT_FOUND',
-);
-
 export const wrongCredentialsError = new BaseError(
   'Wrong credentials',
   'WRONG_CREDENTIALS',
-);
-
-export const userAlreadyExistsError = new BaseError(
-  'User already exists',
-  'USER_ALREADY_EXISTS',
 );
 
 export const sessionNotFoundError = new BaseError(

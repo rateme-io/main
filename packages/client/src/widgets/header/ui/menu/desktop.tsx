@@ -5,7 +5,7 @@ import { FunctionComponent, PropsWithChildren } from 'react';
 
 import { Link } from '@/shared/ui/link.tsx';
 
-export const TabletMenu = () => {
+export const DesktopMenu = () => {
   return (
     <Flex as={'nav'} gap={3}>
       <MenuLink to={'/'}>

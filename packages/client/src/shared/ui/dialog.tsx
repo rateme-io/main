@@ -50,19 +50,19 @@ export const Dialog = reatomComponent<DialogProps>(
     const isOpened = ctx.spy(disclosure.$isOpened);
 
     return (
-      <Portal>
-        <DialogRoot
-          open={isOpened}
-          onOpenChange={({ open }) => {
-            if (!open) {
-              onClose?.();
-              disclosure.close(ctx);
-            }
-          }}
-          initialFocusEl={initialFocusEl}
-          size={size}
-          scrollBehavior={'outside'}
-        >
+      <DialogRoot
+        open={isOpened}
+        onOpenChange={({ open }) => {
+          if (!open) {
+            onClose?.();
+            disclosure.close(ctx);
+          }
+        }}
+        initialFocusEl={initialFocusEl}
+        size={size}
+        scrollBehavior={'outside'}
+      >
+        <Portal>
           <DialogBackdrop />
           <DialogPositioner>
             <DialogContent>
@@ -91,8 +91,8 @@ export const Dialog = reatomComponent<DialogProps>(
               </DialogFooter>
             </DialogContent>
           </DialogPositioner>
-        </DialogRoot>
-      </Portal>
+        </Portal>
+      </DialogRoot>
     );
   },
   'Dialog',
