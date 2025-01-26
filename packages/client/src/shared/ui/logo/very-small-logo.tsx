@@ -1,7 +1,7 @@
 import { Image } from '@chakra-ui/react';
 
-import SmallSvg from '/small-logo.svg?url';
+import SmallSvg from '/favicon.png?url';
 
-export const SmallLogo = () => (
+export const VerySmallLogo = () => (
   <Image src={SmallSvg} maxHeight={'36px'} maxWidth={'88px'} />
 );
