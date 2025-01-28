@@ -8,7 +8,7 @@ import { Avatar } from '@/features/avatar';
 import { LanguageSelect } from '@/features/language-select';
 import { Search } from '@/features/search';
 import { Link } from '@/shared/ui/link.tsx';
-import { SmallLogo } from '@/shared/ui/logo';
+import { VerySmallLogo } from '@/shared/ui/logo/very-small-logo.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { StatusGuard } from '@/shared/ui/status-guard.tsx';
 import { loginDisclosure } from '@/widgets/login-dialog';
@@ -18,25 +18,39 @@ import { Menu } from './menu';
 export const MobileHeader = reatomComponent(({ ctx }) => {
   return (
     <>
-      <Box as={'header'} borderBottomWidth={1} height={'60px'}>
-        <PageLayout>
+      <Box
+        as={'header'}
+        boxShadow={'xs'}
+        borderBottomWidth={1}
+        height={'60px'}
+        position={'relative'}
+        zIndex={10}
+      >
+        <PageLayout
+          flexDirection={'row'}
+          alignItems={'center'}
+          paddingBlock={2}
+          justifyContent={'space-between'}
+          gap={2}
+        >
           <Flex
-            paddingBlock={2}
-            alignItems={'center'}
-            justifyContent={'space-between'}
             gap={2}
+            flex={1}
+            containerType={'inline-size'}
+            alignItems={'center'}
           >
-            <StatusGuard status={'unauthorized'}>
-              <Link to={'/'}>
-                <SmallLogo />
-              </Link>
-            </StatusGuard>
             <StatusGuard status={'authorized'}>
               <Menu />
             </StatusGuard>
 
-            <Search />
+            <Link to={'/'} marginRight={2}>
+              <VerySmallLogo />
+            </Link>
 
+            <Search />
+          </Flex>
+
+          <Flex alignItems={'center'} gap={2}>
             <LanguageSelect />
 
             <StatusGuard status={'unauthorized'}>

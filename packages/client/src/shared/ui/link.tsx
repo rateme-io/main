@@ -19,7 +19,7 @@ const CreatedLinkComponent = createLink(ChakraLinkComponent);
 export const Link: LinkComponent<typeof ChakraLinkComponent> = (props) => {
   return (
     <CreatedLinkComponent
-      textDecoration={'underline'}
+      textDecoration={'none'}
       _hover={{ textDecoration: 'none' }}
       _focus={{ textDecoration: 'none' }}
       preload={'intent'}

@@ -32,7 +32,10 @@ export const loginForm = formAtom({
   },
   onSubmit: action(async (ctx, { email, password }) => {
     const result = await ctx.schedule((ctx) =>
-      loginAction(ctx, { type: 'token', dto: { email, password } }),
+      loginAction(ctx, {
+        type: 'token',
+        dto: { email: email.trim(), password },
+      }),
     );
 
     if (result.error) {

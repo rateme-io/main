@@ -1,30 +1,29 @@
-import { BoxProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react/box';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
-export const PageLayout: FunctionComponent<BoxProps> = (props) => {
+export const PageLayout: FunctionComponent<FlexProps> = (props) => {
   const breakpoint = useBreakpoint();
 
   switch (breakpoint) {
     case 'desktop':
       return (
-        <Box
+        <Flex
           {...props}
-          width={'100%'}
-          height={'100%'}
+          flex={1}
+          overflow={'hidden'}
           maxWidth={'8xl'}
-          paddingInline={6}
+          paddingInline={5}
           marginInline={'auto'}
         />
       );
     case 'mobile':
       return (
-        <Box
+        <Flex
           {...props}
-          width={'100%'}
-          height={'100%'}
+          flex={1}
+          overflow={'hidden'}
           maxWidth={'8xl'}
           paddingInline={2}
           marginInline={'auto'}

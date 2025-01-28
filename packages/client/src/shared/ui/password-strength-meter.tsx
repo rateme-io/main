@@ -33,11 +33,15 @@ export const PasswordStrengthMeter =
             <Flex key={check.type} alignItems={'center'} gap={1}>
               {check.isValid ? (
                 <Icon color={'green.500'}>
-                  <FaCheck />
+                  <i>
+                    <FaCheck />
+                  </i>
                 </Icon>
               ) : (
                 <Icon color={'red.500'}>
-                  <FaXmark />
+                  <i>
+                    <FaXmark />
+                  </i>
                 </Icon>
               )}
               {Reflect.get(checkLabels, check.type)}
@@ -50,6 +54,7 @@ export const PasswordStrengthMeter =
 
 const checkLabels = {
   length: <Trans>At least 12 characters long</Trans>,
+  'no-white-space': <Trans>No white spaces</Trans>,
   uppercase: <Trans>At least one uppercase letter</Trans>,
   lowercase: <Trans>At least one lowercase letter</Trans>,
   digit: <Trans>At least one digit</Trans>,
@@ -64,7 +69,7 @@ const checkLabels = {
   consecutive: <Trans>No more than 2 consecutive characters</Trans>,
   common: (
     <Text>
-      <Trans>Not a common password</Trans>
+      <Trans>Not a too simple password</Trans>
       <Text as={'span'} color={'gray.400'} ml={1}>
         (12345, qwerty, password, etc.)
       </Text>

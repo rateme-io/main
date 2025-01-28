@@ -3,7 +3,7 @@ import { LuSearch } from 'react-icons/lu';
 
 export const SmallSearch = () => {
   return (
-    <IconButton variant={'ghost'} borderRadius={'full'}>
+    <IconButton variant={'outline'} size={'sm'} color={'gray.500'}>
       <LuSearch />
     </IconButton>
   );

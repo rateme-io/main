@@ -1,12 +1,12 @@
 import { useMediaQuery } from '@chakra-ui/react';
 
 export const useBreakpoint = (): Breakpoints => {
-  const [isGreaterThen800] = useMediaQuery(['(min-width: 800px)'], {
+  const [isGreaterThen900] = useMediaQuery(['(min-width: 900px)'], {
     fallback: [true],
     ssr: false,
   });
 
-  if (isGreaterThen800) {
+  if (isGreaterThen900) {
     return 'desktop';
   }
 

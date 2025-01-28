@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react/box';
 import { Flex } from '@chakra-ui/react/flex';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent } from '@reatom/npm-react';
@@ -19,56 +18,61 @@ import { Menu } from './menu';
 export const DesktopHeader = reatomComponent(({ ctx }) => {
   return (
     <>
-      <Box as={'header'} boxShadow={'xs'} height={'60px'}>
-        <PageLayout>
+      <Flex
+        as={'header'}
+        boxShadow={'xs'}
+        height={'60px'}
+        position={'relative'}
+        zIndex={10}
+      >
+        <PageLayout
+          flexDirection={'row'}
+          alignItems={'center'}
+          paddingBlock={2}
+          justifyContent={'space-between'}
+          gap={2}
+        >
           <Flex
-            paddingBlock={2}
             alignItems={'center'}
-            justifyContent={'space-between'}
-            gap={2}
+            as={'nav'}
+            gap={8}
+            flex={1}
+            containerType={'inline-size'}
           >
-            <Flex
-              alignItems={'center'}
-              as={'nav'}
-              gap={8}
-              flex={1}
-              containerType={'inline-size'}
-            >
-              <Link to={'/'}>
-                <BigLogo />
-              </Link>
+            <Link to={'/'}>
+              <BigLogo />
+            </Link>
 
-              <Search />
+            <Search />
 
-              <StatusGuard status={'authorized'}>
-                <Menu />
-              </StatusGuard>
-            </Flex>
+            <StatusGuard status={'authorized'}>
+              <Menu />
+            </StatusGuard>
+          </Flex>
 
-            <Flex alignItems={'center'} gap={2}>
-              <StatusGuard status={'authorized'}>
-                <CreateMenu />
-              </StatusGuard>
+          <Flex alignItems={'center'} gap={2}>
+            <StatusGuard status={'authorized'}>
+              <CreateMenu />
+            </StatusGuard>
 
-              <LanguageSelect />
+            <LanguageSelect />
 
-              <StatusGuard status={'unauthorized'}>
-                <Button
-                  variant={'ghost'}
-                  onClick={() => {
-                    loginDisclosure.open(ctx);
-                  }}
-                >
-                  <Trans>Sign In</Trans>
-                </Button>
-              </StatusGuard>
-              <StatusGuard status={'authorized'}>
-                <Avatar />
-              </StatusGuard>
-            </Flex>
+            <StatusGuard status={'unauthorized'}>
+              <Button
+                variant={'ghost'}
+                onClick={() => {
+                  loginDisclosure.open(ctx);
+                }}
+              >
+                <Trans>Sign In</Trans>
+              </Button>
+            </StatusGuard>
+            <StatusGuard status={'authorized'}>
+              <Avatar />
+            </StatusGuard>
           </Flex>
         </PageLayout>
-      </Box>
+      </Flex>
     </>
   );
 }, 'DesktopHeader');

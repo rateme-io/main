@@ -15,6 +15,12 @@ export class PasswordVo extends BaseValueObject<string> {
       }),
     },
     {
+      type: 'no-white-space',
+      schema: z.string().regex(/^\S+$/, {
+        message: 'Password must not contain white spaces',
+      }),
+    },
+    {
       type: 'uppercase',
       schema: z.string().regex(/[A-Z]/, {
         message: 'Password must contain at least one uppercase letter',
@@ -40,28 +46,34 @@ export class PasswordVo extends BaseValueObject<string> {
     },
     {
       type: 'consecutive',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (/(\w)\1{2,}/.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message:
-              'Password must not contain more than two consecutive identical characters',
-          });
-        }
-      }),
+      schema: z
+        .string()
+        .min(1)
+        .superRefine((password: string, ctx: RefinementCtx) => {
+          if (/(\w)\1{2,}/.test(password)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message:
+                'Password must not contain more than two consecutive identical characters',
+            });
+          }
+        }),
     },
     {
       type: 'common',
-      schema: z.string().superRefine((password: string, ctx: RefinementCtx) => {
-        if (/1234|abcd|qwerty|password|letmein/i.test(password)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            fatal: true,
-            message:
-              'Password must not contain common patterns or weak sequences',
-          });
-        }
-      }),
+      schema: z
+        .string()
+        .min(1)
+        .superRefine((password: string, ctx: RefinementCtx) => {
+          if (/1234|abcd|qwerty|password|letmein/i.test(password)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              fatal: true,
+              message:
+                'Password must not contain common patterns or weak sequences',
+            });
+          }
+        }),
     },
   ];
 

@@ -13,23 +13,27 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/shared/ui/password-strength-meter.tsx:52
+#: src/widgets/collection-builder/ui/utils.tsx:16
+msgid "A collection of related fields"
+msgstr "Коллекция связанных полей"
+
+#: src/shared/ui/password-strength-meter.tsx:56
 msgid "At least 12 characters long"
 msgstr "Минимум 12 символов"
 
-#: src/shared/ui/password-strength-meter.tsx:55
+#: src/shared/ui/password-strength-meter.tsx:60
 msgid "At least one digit"
 msgstr "Минимум одна цифра"
 
-#: src/shared/ui/password-strength-meter.tsx:54
+#: src/shared/ui/password-strength-meter.tsx:59
 msgid "At least one lowercase letter"
 msgstr "Минимум одна строчная буква"
 
-#: src/shared/ui/password-strength-meter.tsx:58
+#: src/shared/ui/password-strength-meter.tsx:63
 msgid "At least one special character"
 msgstr "Минимум один специальный символ"
 
-#: src/shared/ui/password-strength-meter.tsx:53
+#: src/shared/ui/password-strength-meter.tsx:58
 msgid "At least one uppercase letter"
 msgstr "Минимум одна заглавная буква"
 
@@ -39,9 +43,17 @@ msgstr "Минимум одна заглавная буква"
 msgid "Authorisation"
 msgstr "Авторизация"
 
+#: src/widgets/collection-builder/ui/utils.tsx:76
+msgid "Basic Fields"
+msgstr "Основные поля"
+
 #: src/shared/ui/caps-lock-warn.tsx:16
 msgid "Caps Lock"
 msgstr "Caps Lock"
+
+#: src/widgets/collection-builder/ui/fields-menu.tsx:50
+msgid "Collection fields"
+msgstr "Поля коллекции"
 
 #: src/widgets/header/ui/menu/mobile.tsx:57
 #: src/widgets/header/ui/menu/desktop.tsx:15
@@ -68,10 +80,22 @@ msgstr "Создать элемент коллекции"
 msgid "Create rating system"
 msgstr "Создать систему оценивания"
 
+#: src/widgets/collection-builder/ui/utils.tsx:57
+msgid "Date Picker"
+msgstr "Выбор даты"
+
 #: src/widgets/header/ui/menu/mobile.tsx:54
 #: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
 msgstr "Главная"
+
+#: src/widgets/collection-builder/ui/utils.tsx:33
+msgid "Dropdown Select"
+msgstr "Выпадающий список"
+
+#: src/widgets/collection-builder/ui/utils.tsx:63
+msgid "Duration Input"
+msgstr "Поле длительности"
 
 #: src/widgets/register-dialog/ui/common.tsx:33
 #: src/widgets/login-dialog/ui/common.tsx:29
@@ -96,6 +120,10 @@ msgstr "Введите ваш пароль"
 msgid "Enter your username"
 msgstr "Введите ваш username"
 
+#: src/widgets/collection-builder/ui/utils.tsx:15
+msgid "Field Group"
+msgstr "Группа полей"
+
 #: src/widgets/register-dialog/ui/common.tsx:91
 msgid "Full name"
 msgstr "Полное имя"
@@ -103,6 +131,42 @@ msgstr "Полное имя"
 #: src/widgets/register-dialog/ui/common.tsx:136
 msgid "Have an account? Sign in"
 msgstr "Есть аккаунт? Войти"
+
+#: src/widgets/collection-builder/ui/utils.tsx:80
+msgid "Image Fields"
+msgstr "Поля изображений"
+
+#: src/widgets/collection-builder/ui/utils.tsx:51
+msgid "Image Upload"
+msgstr "Загрузка изображений"
+
+#: src/widgets/collection-builder/ui/utils.tsx:40
+msgid "Input for external links"
+msgstr "Поле для внешних ссылок"
+
+#: src/widgets/collection-builder/ui/utils.tsx:28
+msgid "Input for numeric values"
+msgstr "Поле для числовых значений"
+
+#: src/widgets/collection-builder/ui/utils.tsx:22
+msgid "Input for plain text"
+msgstr "Поле для текста"
+
+#: src/widgets/collection-builder/ui/utils.tsx:64
+msgid "Input for time duration"
+msgstr "Поле для указания времени"
+
+#: src/widgets/collection-builder/ui/utils.tsx:45
+msgid "Internal Link"
+msgstr "Внутренняя ссылка"
+
+#: src/widgets/collection-builder/ui/utils.tsx:88
+msgid "Link Fields"
+msgstr "Поля ссылок"
+
+#: src/widgets/collection-builder/ui/utils.tsx:46
+msgid "Link to another collection item"
+msgstr "Ссылка на другой элемент коллекции"
 
 #: src/features/avatar/ui/mobile.tsx:47
 #: src/features/avatar/ui/desktop.tsx:53
@@ -113,13 +177,21 @@ msgstr "Выйти"
 msgid "No account? Register"
 msgstr "Нет аккаунта? Зарегистрироваться"
 
-#: src/shared/ui/password-strength-meter.tsx:64
+#: src/shared/ui/password-strength-meter.tsx:69
 msgid "No more than 2 consecutive characters"
 msgstr "Не более двух одинаковых символов подряд"
 
-#: src/shared/ui/password-strength-meter.tsx:67
-msgid "Not a common password"
-msgstr "Не должен быть распространённым паролем"
+#: src/shared/ui/password-strength-meter.tsx:57
+msgid "No white spaces"
+msgstr "Без пробелов"
+
+#: src/shared/ui/password-strength-meter.tsx:72
+msgid "Not a too simple password"
+msgstr "Не слишком простой пароль"
+
+#: src/widgets/collection-builder/ui/utils.tsx:27
+msgid "Number Input"
+msgstr "Поле числового ввода"
 
 #: src/widgets/register-dialog/ui/common.tsx:63
 #: src/widgets/login-dialog/ui/common.tsx:59
@@ -145,6 +217,14 @@ msgstr "Системы оценивания"
 msgid "Registration"
 msgstr "Регистрация"
 
+#: src/widgets/collection-builder/ui/utils.tsx:58
+msgid "Select a date"
+msgstr "Выберите дату"
+
+#: src/widgets/collection-builder/ui/utils.tsx:34
+msgid "Select from predefined options"
+msgstr "Селектор из предопределённых опций"
+
 #: src/features/avatar/ui/mobile.tsx:36
 #: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
@@ -155,13 +235,37 @@ msgstr "Настройки"
 msgid "Sign in"
 msgstr "Войти"
 
-#: src/widgets/header/ui/desktop.tsx:62
+#: src/widgets/header/ui/desktop.tsx:67
 msgid "Sign In"
 msgstr "Войти"
+
+#: src/widgets/collection-builder/ui/utils.tsx:21
+msgid "Text Input"
+msgstr "Поле ввода текста"
+
+#: src/widgets/collection-builder/ui/utils.tsx:84
+msgid "Time Fields"
+msgstr "Поля времени"
+
+#: src/features/search/ui/big.tsx:17
+msgid "Type <0>/</0> to search"
+msgstr "Введите <0>/</0> для поиска"
+
+#: src/widgets/collection-builder/ui/utils.tsx:52
+msgid "Upload and manage images"
+msgstr "Загрузите и управляйте изображениями"
+
+#: src/widgets/collection-builder/ui/utils.tsx:39
+msgid "URL Input"
+msgstr "Поле для ввода URL"
 
 #: src/widgets/register-dialog/ui/common.tsx:109
 msgid "Username"
 msgstr "Username"
+
+#: src/widgets/collection-builder/ui/utils.tsx:72
+msgid "Utility Fields"
+msgstr "Утилитарные поля"
 
 #: src/widgets/header/ui/create-menu/desktop.tsx:27
 msgid "What do you want to create?"

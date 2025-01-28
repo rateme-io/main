@@ -10,16 +10,38 @@ export const Search = reatomComponent(() => {
   const breakpoint = useBreakpoint();
 
   if (breakpoint === 'mobile') {
-    return <BigSearch />;
+    return (
+      <>
+        <Flex
+          maxWidth={'lg'}
+          css={{
+            '@container(max-width: 300px)': {
+              display: 'none',
+            },
+          }}
+        >
+          <BigSearch />
+        </Flex>
+        <Flex
+          maxWidth={'lg'}
+          css={{
+            '@container(min-width: 300px)': {
+              display: 'none',
+            },
+          }}
+        >
+          <SmallSearch />
+        </Flex>
+      </>
+    );
   }
 
   return (
     <>
       <Flex
-        flex={'1'}
         maxWidth={'lg'}
         css={{
-          '@container(max-width: 600px)': {
+          '@container(max-width: 800px)': {
             display: 'none',
           },
         }}
@@ -29,7 +51,7 @@ export const Search = reatomComponent(() => {
       <Flex
         maxWidth={'lg'}
         css={{
-          '@container(min-width: 600px)': {
+          '@container(min-width: 800px)': {
             display: 'none',
           },
         }}

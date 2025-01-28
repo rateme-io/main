@@ -1,10 +1,9 @@
-import { BoxProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react/box';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import { FunctionComponent, PropsWithChildren } from 'react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
-export type PageWrapperProps = PropsWithChildren<BoxProps>;
+export type PageWrapperProps = PropsWithChildren<FlexProps>;
 
 export const PageWrapper: FunctionComponent<PageWrapperProps> = ({
   children,
@@ -15,15 +14,15 @@ export const PageWrapper: FunctionComponent<PageWrapperProps> = ({
   switch (breakpoint) {
     case 'desktop':
       return (
-        <Box {...props} paddingBlock={5}>
+        <Flex {...props} flex={1} overflow={'hidden'} paddingBlock={3}>
           {children}
-        </Box>
+        </Flex>
       );
     case 'mobile':
       return (
-        <Box {...props} paddingBlock={1}>
+        <Flex {...props} flex={1} overflow={'hidden'} paddingBlock={1}>
           {children}
-        </Box>
+        </Flex>
       );
   }
 };

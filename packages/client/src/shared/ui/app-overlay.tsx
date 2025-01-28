@@ -2,7 +2,7 @@ import { reatomComponent } from '@reatom/npm-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { $application } from '@/entities/application';
-import { SmallLogo } from '@/shared/ui/logo';
+import { BigLogo } from '@/shared/ui/logo';
 
 export const AppOverlay = reatomComponent(({ ctx }) => {
   const application = ctx.spy($application);
@@ -39,7 +39,7 @@ export const AppOverlay = reatomComponent(({ ctx }) => {
               ease: 'easeInOut',
             }}
           >
-            <SmallLogo />
+            <BigLogo maxHeight={'50px'} />
           </motion.div>
         </motion.div>
       )}

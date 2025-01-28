@@ -50,7 +50,12 @@ export const registerForm = formAtom({
     const result = await ctx.schedule(() =>
       registerAction(ctx, {
         type: 'token',
-        dto: { email, password, name, username },
+        dto: {
+          email: email.trim(),
+          password,
+          name: name.trim(),
+          username: username.trim(),
+        },
       }),
     );
 
