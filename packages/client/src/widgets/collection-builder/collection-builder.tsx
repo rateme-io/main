@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
-import { useEvent } from '@khmilevoi/use-event';
 import { reatomComponent } from '@reatom/npm-react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { Editable } from '@/shared/ui/editable.tsx';
 import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
+import { useIntersection } from '@/widgets/collection-builder/hooks/use-intersection.ts';
 
 import {
   collectionImageField,
@@ -19,47 +19,17 @@ export const CollectionBuilder = reatomComponent(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLElement>(null);
 
-  const [intersection, setIntersection] = useState<number>(0);
-
-  const calculateIntersection = useEvent(() => {
-    if (!containerRef.current || !menuRef.current) {
-      return;
-    }
-
-    const containerWidth = containerRef.current.clientWidth;
-    const containerBoundingRect = containerRef.current.getBoundingClientRect();
-
-    const menuBoundingRect = menuRef.current.getBoundingClientRect();
-
-    setIntersection(
-      containerWidth + containerBoundingRect.x - menuBoundingRect.x,
-    );
+  const { intersection } = useIntersection({
+    firstRef: containerRef,
+    secondRef: menuRef,
   });
-
-  useLayoutEffect(() => {
-    const menuElement = menuRef.current;
-
-    calculateIntersection();
-
-    window.addEventListener('resize', calculateIntersection);
-
-    const resizeObserver = new ResizeObserver(calculateIntersection);
-
-    if (menuElement) {
-      resizeObserver.observe(menuElement);
-    }
-
-    return () => {
-      window.removeEventListener('resize', calculateIntersection);
-
-      resizeObserver.disconnect();
-    };
-  }, [calculateIntersection]);
 
   return (
     <Flex
       ref={containerRef}
-      paddingRight={`${intersection}px`}
+      style={{
+        paddingRight: `${intersection}px`,
+      }}
       flex={1}
       overflow={'hidden'}
       maxWidth={'8xl'}
@@ -75,7 +45,7 @@ export const CollectionBuilder = reatomComponent(() => {
               <CollectionImageField />
             </Flex>
 
-            <Flex height={'10000px'}></Flex>
+            <Flex></Flex>
           </PageWrapper>
         </PageLayout>
       </Flex>

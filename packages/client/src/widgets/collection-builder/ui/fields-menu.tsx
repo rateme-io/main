@@ -138,12 +138,16 @@ export const FieldItem: FunctionComponent<FieldItemProps> = ({ field }) => {
       paddingBlock={2}
       paddingInline={2}
       borderStyle={'dashed'}
-      borderWidth={1}
+      borderWidth={2}
       borderRadius={4}
       borderColor={'gray.300'}
       alignItems={'flex-start'}
       flexDirection={'column'}
       gap={1}
+      _hover={{
+        borderColor: 'gray.500',
+        cursor: 'pointer',
+      }}
     >
       <Flex alignItems={'center'} gap={1}>
         <Icon>

@@ -1,6 +1,8 @@
+import { action } from '@reatom/framework';
 import { z } from 'zod';
 
 import { fieldAtom } from '@/shared/atoms/field.atom.ts';
+import { formAtom } from '@/shared/atoms/form.atom.ts';
 
 export const collectionNameField = fieldAtom({
   defaultValue: '',
@@ -14,4 +16,15 @@ export const collectionImageField = fieldAtom<File | null>({
   defaultValue: null,
   schema: z.instanceof(File).nullable(),
   name: 'collection-image',
+});
+
+export const collectionForm = formAtom({
+  fields: {
+    name: collectionNameField,
+    image: collectionImageField,
+  },
+  name: 'collection-form',
+  onSubmit: action(async (_ctx, values) => {
+    console.log('Submit form', values);
+  }, 'collectionForm.onSubmit'),
 });
