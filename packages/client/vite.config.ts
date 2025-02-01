@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import * as path from 'node:path';
 
 import { lingui } from '@lingui/vite-plugin';
@@ -31,4 +33,5 @@ export default defineConfig({
     lingui(),
     ViteImageOptimizer(),
   ],
+  test: {},
 });

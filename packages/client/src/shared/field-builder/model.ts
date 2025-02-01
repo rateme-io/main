@@ -1,19 +1,20 @@
-import { action } from '@reatom/framework';
+import { nodeBuilder } from '@/shared/node-builder';
+import { generateId } from '@/shared/utils/generate-id.ts';
 
 import {
+  FieldBuilder,
   FieldBuilderConfig,
+  FieldNode,
+  FieldNodePayloads,
   InferFields,
   InferFieldTypes,
-} from '@/shared/field-builder/types.ts';
-import { createNode, NodeAtom, nodeBuilder } from '@/shared/node-builder';
-import { Merge } from '@/shared/types/merge.ts';
-import { generateId } from '@/shared/utils/generate-id.ts';
+} from './types.ts';
 
 export const fieldBuilder = <Config extends FieldBuilderConfig>(
   config: Config,
   { name }: { name: string },
-) => {
-  const tree = nodeBuilder<FieldNodePayloads<Config>>(`${name}.tree`);
+): FieldBuilder<Config> => {
+  const builder = nodeBuilder<FieldNodePayloads<Config>>(`${name}.builder`);
 
   const createField = <Type extends InferFieldTypes<Config>>(
     type: Type,
@@ -22,58 +23,28 @@ export const fieldBuilder = <Config extends FieldBuilderConfig>(
 
     const state = fieldConfig.state() as InferFields<Config>[Type]['state'];
 
-    const node = createNode<FieldNodePayloads<Config>>(
+    const id = generateId();
+
+    const node = builder.createNode(
       {
-        id: generateId(),
-        payload: {
-          type: type,
-          state,
-        },
+        id,
+        type: type,
+        state,
       },
-      type,
+      `${name}.${type}.${id.slice(0, 5)}`,
     );
 
     return {
-      ...node,
-      payload: node.payload as FieldNodePayloads<Config, Type>,
-      actions: {
-        ...node.actions,
-        addChild: action((ctx, child: FieldNode<Config>) => {
-          if (!fieldConfig.hasChildren) {
-            return false;
-          }
-
-          node.actions.addChild(ctx, child);
-
-          return true;
-        }, `${name}.addChild`),
-      },
+      id: node.id,
+      type,
+      nodes: node.nodes,
+      state,
+      actions: node.actions,
     };
   };
 
-  return { createField, root: tree.root };
-};
-
-export type FieldNode<
-  Config extends FieldBuilderConfig,
-  Types extends keyof Config = keyof Config,
-> = {
-  [Key in Types]: Merge<
-    {
-      payload: FieldNodePayloads<Config, Key>;
-    },
-    NodeAtom<FieldNodePayloads<Config>>
-  >;
-}[Types];
-
-export type FieldNodePayloads<
-  Config extends FieldBuilderConfig,
-  Types extends keyof Config = keyof Config,
-> = {
-  [Key in Types]: FieldNodePayload<Key, InferFields<Config>[Key]['state']>;
-}[Types];
-
-type FieldNodePayload<Type, State> = {
-  type: Type;
-  state: State;
+  return {
+    ...builder,
+    createField,
+  };
 };

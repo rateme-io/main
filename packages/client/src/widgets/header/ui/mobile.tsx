@@ -25,6 +25,7 @@ export const MobileHeader = reatomComponent(({ ctx }) => {
         height={'60px'}
         position={'relative'}
         zIndex={10}
+        backgroundColor={'white'}
       >
         <PageLayout
           flexDirection={'row'}

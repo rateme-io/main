@@ -1,168 +1,277 @@
-import { Action, action, Atom, atom, AtomMut } from '@reatom/framework';
+import { action, atom } from '@reatom/framework';
 
-import { Merge } from '@/shared/types/merge.ts';
+import { CreateNodeCommand, NodeAtom, NodeBuilder } from './types';
 
-export const nodeBuilder = <Payload>(name: string): BuilderAtom<Payload> => {
+export const nodeBuilder = <Payload>(name: string): NodeBuilder<Payload> => {
+  const nodesMap = new Map<string, NodeAtom<Payload>>();
+
+  const createNode = nodeFactory({ nodesMap });
+
   const root = createNode(
     {
       id: 'root',
-      payload: null as Payload,
-    },
+    } as CreateNodeCommand<Payload>,
     `${name}.root`,
-  ) as RootNode<Payload>;
+  );
 
   return {
     root,
-  };
+    $child: root.nodes.$child,
+    $children: root.nodes.$children,
+    $lastChild: root.nodes.$lastChild,
+    addChild: root.actions.addChild,
+    find: root.actions.find,
+    createNode,
+    getNode: (id: string) => nodesMap.get(id) ?? null,
+  } as NodeBuilder<Payload>;
 };
 
-export const createNode = <Payload>(
-  command: CreateNodeCommand<Payload>,
-  name: string,
-): NodeAtom<Payload> => {
-  const $prev = atom<NodeAtom<Payload> | null>(null, `${name}.$prev`);
-  const $next = atom<NodeAtom<Payload> | null>(null, `${name}.$next`);
-  const $parent = atom<NodeAtom<Payload> | null>(
-    command.parent ?? null,
-    `${name}.$parent`,
-  );
-  const $child = atom<NodeAtom<Payload> | null>(null, `${name}.$child`);
+const nodeFactory =
+  <Payload>({ nodesMap }: { nodesMap: Map<string, NodeAtom<Payload>> }) =>
+  (command: CreateNodeCommand<Payload>, name: string): NodeAtom<Payload> => {
+    const $prev = atom<NodeAtom<Payload> | null>(null, `${name}.$prev`);
+    const $next = atom<NodeAtom<Payload> | null>(null, `${name}.$next`);
+    const $parent = atom<NodeAtom<Payload> | null>(null, `${name}.$parent`);
+    const $child = atom<NodeAtom<Payload> | null>(null, `${name}.$child`);
+    const $lastChild = atom<NodeAtom<Payload> | null>(
+      null,
+      `${name}.$lastChild`,
+    );
 
-  const $children = atom((ctx) => {
-    const firstChild = ctx.spy($child);
+    const $children = atom((ctx) => {
+      const firstChild = ctx.spy($child);
 
-    if (!firstChild) {
-      return [];
-    }
-
-    const children = [firstChild];
-
-    let currentChild = firstChild;
-
-    while (ctx.spy(currentChild.state.$next)) {
-      const child = ctx.spy(currentChild.state.$next);
-
-      if (child) {
-        currentChild = child;
-
-        children.push(currentChild);
+      if (!firstChild) {
+        return [];
       }
-    }
 
-    return children;
-  }, `${name}.$children`);
+      const children = [firstChild];
 
-  const afterAction = action((ctx, node: NodeAtom<Payload>) => {
-    const next = ctx.get($next);
+      let currentChild = firstChild;
 
-    $next(ctx, node);
+      while (ctx.get(currentChild.nodes.$next)) {
+        const child = ctx.spy(currentChild.nodes.$next);
 
-    if (next === null) {
-      return;
-    }
+        if (child) {
+          currentChild = child;
 
-    next.state.$prev(ctx, node);
-  }, `${name}.afterAction`);
-
-  const beforeAction = action((ctx, node: NodeAtom<Payload>) => {
-    const prev = ctx.get($prev);
-
-    $prev(ctx, node);
-
-    if (prev === null) {
-      return;
-    }
-
-    prev.state.$next(ctx, node);
-  }, `${name}.beforeAction`);
-
-  const removeAction = action((ctx) => {
-    const prev = ctx.get($prev);
-    const next = ctx.get($next);
-
-    if (prev) {
-      prev.state.$next(ctx, next);
-    }
-
-    if (next) {
-      next.state.$prev(ctx, prev);
-    }
-
-    if (prev === null && next === null) {
-      const parent = ctx.get($parent);
-
-      if (parent) {
-        parent.state.$child(ctx, null);
+          children.push(currentChild);
+        }
       }
-    }
 
-    $prev(ctx, null);
-    $next(ctx, null);
-    $parent(ctx, null);
-    $child(ctx, null);
-  }, `${name}.removeAction`);
+      return children;
+    }, `${name}.$children`);
 
-  const addChildAction = action((ctx, node: NodeAtom<Payload>) => {
-    const child = ctx.get($child);
+    const afterAction = action((ctx, node: NodeAtom<Payload>) => {
+      if (node.id === currentNode.id) {
+        return;
+      }
 
-    if (child) {
+      nodesMap.set(node.id, node);
+
+      const next = ctx.get($next);
+
+      $next(ctx, node);
+
+      node.nodes.$parent(ctx, ctx.get($parent));
+      node.nodes.$next(ctx, next);
+      node.nodes.$prev(ctx, currentNode);
+
+      if (next === null) {
+        ctx.get($parent)?.nodes?.$lastChild(ctx, node);
+      } else {
+        next.nodes.$prev(ctx, node);
+      }
+    }, `${name}.afterAction`);
+
+    const beforeAction = action((ctx, node: NodeAtom<Payload>) => {
+      if (node.id === currentNode.id) {
+        return;
+      }
+
+      nodesMap.set(node.id, node);
+
+      const prev = ctx.get($prev);
+
+      $prev(ctx, node);
+
+      node.nodes.$parent(ctx, ctx.get($parent));
+      node.nodes.$prev(ctx, prev);
+      node.nodes.$next(ctx, currentNode);
+
+      if (prev === null) {
+        ctx.get($parent)?.nodes?.$child(ctx, node);
+      } else {
+        prev.nodes.$next(ctx, node);
+      }
+    }, `${name}.beforeAction`);
+
+    const detachAction = action((ctx) => {
+      const prev = ctx.get($prev);
+      const next = ctx.get($next);
+
+      if (prev) {
+        prev.nodes.$next(ctx, next);
+      } else {
+        ctx.get($parent)?.nodes.$child(ctx, next);
+      }
+
+      if (next) {
+        next.nodes.$prev(ctx, prev);
+      } else {
+        ctx.get($parent)?.nodes.$lastChild(ctx, prev);
+      }
+
+      $prev(ctx, null);
+      $next(ctx, null);
+      $parent(ctx, null);
+      nodesMap.delete(command.id);
+    }, `${name}.detachAction`);
+
+    const addChildAction = action((ctx, node: NodeAtom<Payload>) => {
+      nodesMap.set(node.id, node);
+
+      const last = ctx.get($lastChild);
+
+      let lastSibling = node;
+
+      while (lastSibling) {
+        lastSibling.nodes.$parent(ctx, currentNode);
+
+        const next = ctx.get(lastSibling.nodes.$next);
+
+        if (!next) {
+          break;
+        }
+
+        lastSibling = next;
+      }
+
+      if (last) {
+        last.actions.after(ctx, node);
+
+        $lastChild(ctx, lastSibling);
+      } else {
+        $child(ctx, node);
+        $lastChild(ctx, lastSibling);
+      }
+    }, `${name}.addChildAction`);
+
+    const findFirstSiblingAction = action((ctx) => {
+      let currentChild = currentNode;
+
+      while (currentChild) {
+        const prev = ctx.get(currentChild.nodes.$prev);
+
+        if (!prev) {
+          return currentChild;
+        }
+
+        currentChild = prev;
+      }
+
+      return null;
+    }, `${name}.findFirstSiblingAction`);
+
+    const findLastSiblingAction = action((ctx) => {
+      let currentChild = currentNode;
+
+      while (currentChild) {
+        const next = ctx.get(currentChild.nodes.$next);
+
+        if (!next) {
+          return currentChild;
+        }
+
+        currentChild = next;
+      }
+
+      return null;
+    }, `${name}.findLastSiblingAction`);
+
+    const findAction = action((ctx, id: string) => {
+      if (command.id === id) {
+        return currentNode;
+      }
+
+      const firstChild = ctx.get($child);
+
+      if (!firstChild) {
+        return null;
+      }
+
+      let currentChild = firstChild;
+
+      while (currentChild) {
+        const found = currentChild.actions.find(ctx, id);
+
+        if (found) {
+          return found;
+        }
+
+        const child = ctx.get(currentChild.nodes.$next);
+
+        if (child) {
+          currentChild = child;
+        }
+      }
+
+      return null;
+    }, `${name}.findAction`);
+
+    const isChildAction = action((ctx, node: NodeAtom<Payload>) => {
+      let currentParent: NodeAtom<Payload> | null = node;
+
+      while (currentParent) {
+        if (currentParent.id === command.id) {
+          return true;
+        }
+
+        currentParent = ctx.get(currentParent.nodes.$parent);
+      }
+
       return false;
-    }
+    }, `${name}.isChildAction`);
 
-    $child(ctx, node);
+    const isParentAction = action((ctx, node: NodeAtom<Payload>) => {
+      let currentChild: NodeAtom<Payload> | null = currentNode;
 
-    node.state.$parent(ctx, currentNode);
+      while (currentChild) {
+        if (currentChild.id === node.id) {
+          return true;
+        }
 
-    return true;
-  }, `${name}.addChildAction`);
+        currentChild = ctx.get(currentChild.nodes.$parent);
+      }
 
-  const currentNode: NodeAtom<Payload> = {
-    id: command.id,
-    payload: command.payload,
-    state: {
-      $prev,
-      $next,
-      $parent,
-      $child,
-      $children,
-    },
-    actions: {
-      after: afterAction,
-      before: beforeAction,
-      addChild: addChildAction,
-      remove: removeAction,
-    },
+      return false;
+    }, `${name}.isParentAction`);
+
+    const currentNode: NodeAtom<Payload> = {
+      ...command,
+      id: command.id,
+      nodes: {
+        $prev,
+        $next,
+        $parent,
+        $child,
+        $lastChild,
+        $children,
+      },
+      actions: {
+        after: afterAction,
+        before: beforeAction,
+        addChild: addChildAction,
+        detach: detachAction,
+        find: findAction,
+        isChild: isChildAction,
+        isParent: isParentAction,
+        findFirstSibling: findFirstSiblingAction,
+        findLastSibling: findLastSiblingAction,
+      },
+    };
+
+    nodesMap.set(command.id, currentNode);
+
+    return currentNode;
   };
-
-  return currentNode;
-};
-
-export type CreateNodeCommand<Payload> = {
-  payload: Payload;
-  id: string;
-  parent?: NodeAtom<Payload>;
-};
-
-export type NodeAtom<Payload = unknown> = {
-  id: string;
-  payload: Payload;
-  state: {
-    $next: AtomMut<NodeAtom<Payload> | null>;
-    $prev: AtomMut<NodeAtom<Payload> | null>;
-    $parent: AtomMut<NodeAtom<Payload> | null>;
-    $child: AtomMut<NodeAtom<Payload> | null>;
-    $children: Atom<NodeAtom<Payload>[]>;
-  };
-  actions: {
-    after: Action<[node: NodeAtom<Payload>], void>;
-    before: Action<[node: NodeAtom<Payload>], void>;
-    addChild: Action<[node: NodeAtom<Payload>], boolean>;
-    remove: Action<[], void>;
-  };
-};
-
-export type RootNode<Payload> = Merge<{ payload: null }, NodeAtom<Payload>>;
-
-export type BuilderAtom<Payload> = {
-  root: RootNode<Payload>;
-};

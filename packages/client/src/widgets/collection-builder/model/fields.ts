@@ -2,10 +2,11 @@ import { atom } from '@reatom/framework';
 
 import {
   FieldBuilderConfig,
-  InferFields,
+  FieldNode,
+  FieldNodes,
   InferFieldTypes,
 } from '@/shared/field-builder';
-import { fieldBuilder } from '@/shared/field-builder/model.ts';
+import { fieldBuilder } from '@/shared/field-builder';
 
 export const collectionFields = {
   group: {
@@ -65,5 +66,9 @@ export const collectionBuilder = fieldBuilder(collectionFields, {
   name: 'collection',
 });
 
-export type CollectionFields = InferFields<typeof collectionFields>;
 export type CollectionTypes = InferFieldTypes<typeof collectionFields>;
+export type CollectionFields = FieldNodes<typeof collectionFields>;
+export type CollectionField<Type extends CollectionTypes> = FieldNode<
+  typeof collectionFields,
+  Type
+>;

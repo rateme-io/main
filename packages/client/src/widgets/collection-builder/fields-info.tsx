@@ -12,60 +12,72 @@ import { CollectionTypes } from '@/widgets/collection-builder/model';
 
 export const fieldsInfo: FieldsInfo = {
   group: {
+    type: 'group',
     title: <Trans>Field Group</Trans>,
     description: <Trans>A collection of related fields</Trans>,
     icon: <FaLayerGroup />,
     group: 'utility',
   },
   text: {
+    type: 'text',
     title: <Trans>Text Input</Trans>,
     description: <Trans>Input for plain text</Trans>,
     icon: <LuTextCursorInput />,
     group: 'base',
   },
   numeric: {
+    type: 'numeric',
     title: <Trans>Number Input</Trans>,
     description: <Trans>Input for numeric values</Trans>,
     icon: <TiSortNumerically />,
     group: 'base',
   },
   select: {
+    type: 'select',
     title: <Trans>Dropdown Select</Trans>,
     description: <Trans>Select from predefined options</Trans>,
     icon: <BsFillMenuButtonWideFill />,
     group: 'base',
   },
   link: {
+    type: 'link',
     title: <Trans>URL Input</Trans>,
     description: <Trans>Input for external links</Trans>,
     icon: <LuExternalLink />,
     group: 'link',
   },
   internalLink: {
+    type: 'internalLink',
     title: <Trans>Internal Link</Trans>,
     description: <Trans>Link to another collection item</Trans>,
     icon: <MdLink />,
     group: 'link',
   },
   images: {
+    type: 'images',
     title: <Trans>Image Upload</Trans>,
     description: <Trans>Upload and manage images</Trans>,
     icon: <FaImages />,
     group: 'image',
   },
   date: {
+    type: 'date',
     title: <Trans>Date Picker</Trans>,
     description: <Trans>Select a date</Trans>,
     icon: <MdDateRange />,
     group: 'time',
   },
   duration: {
+    type: 'duration',
     title: <Trans>Duration Input</Trans>,
     description: <Trans>Input for time duration</Trans>,
     icon: <IoIosTimer />,
     group: 'time',
   },
 };
+
+export const isCollectionType = (type: unknown): type is CollectionTypes =>
+  Object.keys(fieldsInfo).includes(`${type}`);
 
 export const groups = {
   utility: {
@@ -97,7 +109,8 @@ export type GroupInfo = {
 }[GroupTypes];
 
 type FieldsInfo = {
-  [key in CollectionTypes]: {
+  [Type in CollectionTypes]: {
+    type: Type;
     icon: ReactNode;
     title: ReactNode;
     description: ReactNode;
@@ -117,13 +130,10 @@ export type GroupedFields = {
 const createGroups = (infos: FieldsInfo): GroupedFields[] => {
   const groupsMap = new Map<GroupTypes, FieldInfo[]>();
 
-  for (const [type, info] of Object.entries(infos)) {
+  for (const info of Object.values(infos)) {
     const group = groupsMap.get(info.group) || [];
 
-    group.push({
-      ...info,
-      type: type as CollectionTypes,
-    });
+    group.push(info);
 
     groupsMap.set(info.group, group);
   }

@@ -9,7 +9,7 @@ import { LuAsterisk, LuPencilLine } from 'react-icons/lu';
 
 export type EditableProps = {
   value: string;
-  onChange: (value: string) => void;
+  onValueChange: (value: string) => void;
   placeholder?: string;
   minWidth?: EditableRootProps['minWidth'];
   required?: boolean;
@@ -17,7 +17,7 @@ export type EditableProps = {
 
 export const Editable: FunctionComponent<EditableProps> = ({
   value,
-  onChange,
+  onValueChange,
   placeholder,
   minWidth,
   required,
@@ -25,7 +25,7 @@ export const Editable: FunctionComponent<EditableProps> = ({
   const editable = useEditable({
     value,
     required,
-    onValueChange: ({ value }) => onChange(value),
+    onValueChange: ({ value }) => onValueChange(value),
   });
 
   const [previewWidth, setPreviewWidth] = useState(0);
@@ -50,6 +50,10 @@ export const Editable: FunctionComponent<EditableProps> = ({
           opacity={editable.editing ? 0 : 1}
           hidden={false}
           whiteSpace={'pre'}
+          _after={{
+            content: '"s"',
+            visibility: 'hidden',
+          }}
         >
           {isEmpty && !editable.editing ? placeholder : value}
         </ChakraEditable.Preview>
