@@ -1,4 +1,4 @@
-import { atom, reatomAsync } from '@reatom/framework';
+import { atom, reatomAsync, reatomResource } from '@reatom/framework';
 
 import { SessionEntity } from '@rateme/core/domain/entities/session.entity';
 
@@ -20,11 +20,11 @@ export const initApplicationAction = reatomAsync(async (ctx) => {
 
   const session = await ctx.schedule(() => loadMeAction(ctx));
 
-  if (session === null) {
+  if (session) {
     $application(ctx, (currentApplication) => ({
       ...currentApplication,
-      status: 'unauthorized',
-      session: null,
+      status: 'authorized',
+      session: session,
     }));
 
     return;
@@ -32,16 +32,28 @@ export const initApplicationAction = reatomAsync(async (ctx) => {
 
   $application(ctx, (currentApplication) => ({
     ...currentApplication,
-    status: 'authorized',
-    session: session,
+    status: 'unauthorized',
+    session: null,
   }));
 }, 'initApplicationAction');
 
-export const applicationEffect = atom((ctx) => {
+export const applicationEffect = reatomResource(async (ctx) => {
   const session = ctx.spy($safeSession);
   const application = ctx.spy($application);
 
   if (session === null && application.status === 'authorized') {
+    const session = await ctx.schedule(() => loadMeAction(ctx));
+
+    if (session) {
+      $application(ctx, (currentApplication) => ({
+        ...currentApplication,
+        status: 'authorized',
+        session: session,
+      }));
+
+      return;
+    }
+
     $application(ctx, {
       status: 'unauthorized',
       session: null,
@@ -49,7 +61,7 @@ export const applicationEffect = atom((ctx) => {
     return;
   }
 
-  if (application.status !== 'unauthorized') {
+  if (application.status === 'initializing') {
     return;
   }
 

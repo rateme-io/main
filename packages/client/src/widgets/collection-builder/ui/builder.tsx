@@ -6,12 +6,12 @@ import { Editable } from '@/shared/ui/editable.tsx';
 import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
+import { CollectionFields } from '@/widgets/collection-builder/fields';
 import {
   collectionImageField,
   collectionNameField,
   MAX_FILE_SIZE,
 } from '@/widgets/collection-builder/model';
-import { Board } from '@/widgets/collection-builder/ui/board/board.tsx';
 
 export const Builder = reatomComponent(() => {
   return (
@@ -38,7 +38,7 @@ export const Builder = reatomComponent(() => {
           </Box>
 
           <Box gridArea={'board'}>
-            <Board />
+            <CollectionFields.Board />
           </Box>
         </PageWrapper>
       </PageLayout>

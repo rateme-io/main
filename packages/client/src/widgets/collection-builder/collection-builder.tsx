@@ -1,12 +1,10 @@
 import { Flex } from '@chakra-ui/react';
-import { closestCorners, DndContext } from '@dnd-kit/core';
 import { reatomComponent } from '@reatom/npm-react';
 import { useRef } from 'react';
 
-import { useIntersection } from '@/widgets/collection-builder/hooks/use-intersection.ts';
-import { Builder } from '@/widgets/collection-builder/ui/board/builder.tsx';
-
-import { FieldsMenu } from './ui/menu/fields-menu.tsx';
+import { CollectionFields } from './fields';
+import { useIntersection } from './hooks/use-intersection.ts';
+import { Builder } from './ui/builder.tsx';
 
 export const CollectionBuilder = reatomComponent(() => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,7 +16,7 @@ export const CollectionBuilder = reatomComponent(() => {
   });
 
   return (
-    <DndContext collisionDetection={closestCorners}>
+    <CollectionFields.Root>
       <Flex
         ref={containerRef}
         style={{
@@ -32,8 +30,8 @@ export const CollectionBuilder = reatomComponent(() => {
       >
         <Builder />
 
-        <FieldsMenu containerRef={menuRef} />
+        <CollectionFields.Menu containerRef={menuRef} />
       </Flex>
-    </DndContext>
+    </CollectionFields.Root>
   );
 }, 'CollectionBuilder');

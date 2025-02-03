@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/widgets/collection-builder/ui/utils.tsx:16
+#: src/widgets/collection-builder/fields-info.tsx:14
 msgid "A collection of related fields"
 msgstr "Коллекция связанных полей"
 
@@ -43,7 +43,8 @@ msgstr "Минимум одна заглавная буква"
 msgid "Authorisation"
 msgstr "Авторизация"
 
-#: src/widgets/collection-builder/ui/utils.tsx:76
+#: src/widgets/collection-builder/fields-info.tsx:82
+#: src/widgets/collection-builder/fields/basic/index.tsx:11
 msgid "Basic Fields"
 msgstr "Основные поля"
 
@@ -51,7 +52,7 @@ msgstr "Основные поля"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/widgets/collection-builder/ui/fields-menu.tsx:50
+#: src/shared/field-builder/manager/ui/menu.tsx:32
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
@@ -80,7 +81,7 @@ msgstr "Создать элемент коллекции"
 msgid "Create rating system"
 msgstr "Создать систему оценивания"
 
-#: src/widgets/collection-builder/ui/utils.tsx:57
+#: src/widgets/collection-builder/fields-info.tsx:62
 msgid "Date Picker"
 msgstr "Выбор даты"
 
@@ -89,11 +90,11 @@ msgstr "Выбор даты"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/collection-builder/ui/utils.tsx:33
+#: src/widgets/collection-builder/fields-info.tsx:34
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
-#: src/widgets/collection-builder/ui/utils.tsx:63
+#: src/widgets/collection-builder/fields-info.tsx:69
 msgid "Duration Input"
 msgstr "Поле длительности"
 
@@ -101,6 +102,10 @@ msgstr "Поле длительности"
 #: src/widgets/login-dialog/ui/common.tsx:29
 msgid "Email"
 msgstr "Email"
+
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:21
+msgid "Enter field name"
+msgstr ""
 
 #: src/widgets/register-dialog/ui/common.tsx:42
 #: src/widgets/login-dialog/ui/common.tsx:38
@@ -120,51 +125,60 @@ msgstr "Введите ваш пароль"
 msgid "Enter your username"
 msgstr "Введите ваш username"
 
-#: src/widgets/collection-builder/ui/utils.tsx:15
+#: src/widgets/collection-builder/fields-info.tsx:13
 msgid "Field Group"
 msgstr "Группа полей"
+
+#: src/widgets/collection-builder/ui/board/fields/text-field.tsx:17
+#~ msgid "Field name"
+#~ msgstr ""
 
 #: src/widgets/register-dialog/ui/common.tsx:91
 msgid "Full name"
 msgstr "Полное имя"
 
+#: src/widgets/collection-builder/ui/board/fields/group-field.tsx:18
+#~ msgid "Group name"
+#~ msgstr ""
+
 #: src/widgets/register-dialog/ui/common.tsx:136
 msgid "Have an account? Sign in"
 msgstr "Есть аккаунт? Войти"
 
-#: src/widgets/collection-builder/ui/utils.tsx:80
+#: src/widgets/collection-builder/fields-info.tsx:86
 msgid "Image Fields"
 msgstr "Поля изображений"
 
-#: src/widgets/collection-builder/ui/utils.tsx:51
+#: src/widgets/collection-builder/fields-info.tsx:55
 msgid "Image Upload"
 msgstr "Загрузка изображений"
 
-#: src/widgets/collection-builder/ui/utils.tsx:40
+#: src/widgets/collection-builder/fields-info.tsx:42
 msgid "Input for external links"
 msgstr "Поле для внешних ссылок"
 
-#: src/widgets/collection-builder/ui/utils.tsx:28
+#: src/widgets/collection-builder/fields-info.tsx:28
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
-#: src/widgets/collection-builder/ui/utils.tsx:22
+#: src/widgets/collection-builder/fields-info.tsx:21
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Поле для текста"
 
-#: src/widgets/collection-builder/ui/utils.tsx:64
+#: src/widgets/collection-builder/fields-info.tsx:70
 msgid "Input for time duration"
 msgstr "Поле для указания времени"
 
-#: src/widgets/collection-builder/ui/utils.tsx:45
+#: src/widgets/collection-builder/fields-info.tsx:48
 msgid "Internal Link"
 msgstr "Внутренняя ссылка"
 
-#: src/widgets/collection-builder/ui/utils.tsx:88
+#: src/widgets/collection-builder/fields-info.tsx:94
 msgid "Link Fields"
 msgstr "Поля ссылок"
 
-#: src/widgets/collection-builder/ui/utils.tsx:46
+#: src/widgets/collection-builder/fields-info.tsx:49
 msgid "Link to another collection item"
 msgstr "Ссылка на другой элемент коллекции"
 
@@ -189,7 +203,7 @@ msgstr "Без пробелов"
 msgid "Not a too simple password"
 msgstr "Не слишком простой пароль"
 
-#: src/widgets/collection-builder/ui/utils.tsx:27
+#: src/widgets/collection-builder/fields-info.tsx:27
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
@@ -217,11 +231,11 @@ msgstr "Системы оценивания"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: src/widgets/collection-builder/ui/utils.tsx:58
+#: src/widgets/collection-builder/fields-info.tsx:63
 msgid "Select a date"
 msgstr "Выберите дату"
 
-#: src/widgets/collection-builder/ui/utils.tsx:34
+#: src/widgets/collection-builder/fields-info.tsx:35
 msgid "Select from predefined options"
 msgstr "Селектор из предопределённых опций"
 
@@ -235,15 +249,16 @@ msgstr "Настройки"
 msgid "Sign in"
 msgstr "Войти"
 
-#: src/widgets/header/ui/desktop.tsx:67
+#: src/widgets/header/ui/desktop.tsx:68
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/collection-builder/ui/utils.tsx:21
+#: src/widgets/collection-builder/fields-info.tsx:20
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:12
 msgid "Text Input"
 msgstr "Поле ввода текста"
 
-#: src/widgets/collection-builder/ui/utils.tsx:84
+#: src/widgets/collection-builder/fields-info.tsx:90
 msgid "Time Fields"
 msgstr "Поля времени"
 
@@ -251,11 +266,11 @@ msgstr "Поля времени"
 msgid "Type <0>/</0> to search"
 msgstr "Введите <0>/</0> для поиска"
 
-#: src/widgets/collection-builder/ui/utils.tsx:52
+#: src/widgets/collection-builder/fields-info.tsx:56
 msgid "Upload and manage images"
 msgstr "Загрузите и управляйте изображениями"
 
-#: src/widgets/collection-builder/ui/utils.tsx:39
+#: src/widgets/collection-builder/fields-info.tsx:41
 msgid "URL Input"
 msgstr "Поле для ввода URL"
 
@@ -263,7 +278,7 @@ msgstr "Поле для ввода URL"
 msgid "Username"
 msgstr "Username"
 
-#: src/widgets/collection-builder/ui/utils.tsx:72
+#: src/widgets/collection-builder/fields-info.tsx:78
 msgid "Utility Fields"
 msgstr "Утилитарные поля"
 

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { ReactNode } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
 import { FaTools } from 'react-icons/fa';
 import { FaClock, FaImages, FaLayerGroup, FaLink } from 'react-icons/fa6';
@@ -8,9 +7,7 @@ import { LuExternalLink, LuTextCursorInput } from 'react-icons/lu';
 import { MdDateRange, MdLink } from 'react-icons/md';
 import { TiSortNumerically } from 'react-icons/ti';
 
-import { CollectionTypes } from '@/widgets/collection-builder/model';
-
-export const fieldsInfo: FieldsInfo = {
+export const fieldsInfo = {
   group: {
     type: 'group',
     title: <Trans>Field Group</Trans>,
@@ -76,9 +73,6 @@ export const fieldsInfo: FieldsInfo = {
   },
 };
 
-export const isCollectionType = (type: unknown): type is CollectionTypes =>
-  Object.keys(fieldsInfo).includes(`${type}`);
-
 export const groups = {
   utility: {
     title: <Trans>Utility Fields</Trans>,
@@ -101,50 +95,3 @@ export const groups = {
     icon: <FaLink />,
   },
 } as const;
-
-export type GroupTypes = keyof typeof groups;
-
-export type GroupInfo = {
-  [Key in GroupTypes]: (typeof groups)[Key] & { id: Key };
-}[GroupTypes];
-
-type FieldsInfo = {
-  [Type in CollectionTypes]: {
-    type: Type;
-    icon: ReactNode;
-    title: ReactNode;
-    description: ReactNode;
-    group: GroupTypes;
-  };
-};
-
-export type FieldInfo = FieldsInfo[keyof FieldsInfo] & {
-  type: CollectionTypes;
-};
-
-export type GroupedFields = {
-  group: GroupInfo;
-  fields: FieldInfo[];
-};
-
-const createGroups = (infos: FieldsInfo): GroupedFields[] => {
-  const groupsMap = new Map<GroupTypes, FieldInfo[]>();
-
-  for (const info of Object.values(infos)) {
-    const group = groupsMap.get(info.group) || [];
-
-    group.push(info);
-
-    groupsMap.set(info.group, group);
-  }
-
-  return Array.from(groupsMap).map(([group, fields]) => ({
-    group: {
-      ...groups[group],
-      id: group,
-    },
-    fields,
-  }));
-};
-
-export const groupedFields = createGroups(fieldsInfo);

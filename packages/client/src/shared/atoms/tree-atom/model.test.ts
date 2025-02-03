@@ -2,9 +2,8 @@ import { Ctx } from '@reatom/framework';
 import { createTestCtx } from '@reatom/testing';
 import { describe, expect, it } from 'vitest';
 
-import { NodeAtom } from '@/shared/node-builder/types.ts';
-
-import { nodeBuilder } from './model';
+import { treeAtom } from './model.ts';
+import { NodeAtom } from './types.ts';
 
 type SimpleNode = {
   id: string;
@@ -96,7 +95,7 @@ const createTree = (tree: TestNode[], parentId?: string): SimpleNode[] => {
 describe('nodeBuilder', () => {
   const setup = () => {
     const ctx = createTestCtx();
-    const builder = nodeBuilder('testBuilder');
+    const builder = treeAtom('testBuilder');
     return { ctx, builder };
   };
 
@@ -131,19 +130,6 @@ describe('nodeBuilder', () => {
           parentId: 'root',
         },
       ],
-    });
-  });
-
-  it('should find a node by id', () => {
-    const { ctx, builder } = setup();
-    const childNode = builder.createNode({ id: 'child1' }, 'child1');
-    builder.addChild(ctx, childNode);
-
-    const foundNode = builder.find(ctx, 'child1');
-    expect(foundNode).toBeDefined();
-    expect(simplifyNode(ctx, foundNode!)).toStrictEqual({
-      id: 'child1',
-      parentId: 'root',
     });
   });
 

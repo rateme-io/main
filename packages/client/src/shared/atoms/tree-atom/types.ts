@@ -1,4 +1,4 @@
-import { Action, Atom, AtomMut } from '@reatom/framework';
+import { Action, Atom, AtomMut, Ctx } from '@reatom/framework';
 
 export type CreateNodeCommand<Payload> = {
   id: string;
@@ -19,21 +19,26 @@ export type NodeAtom<CurrentPayload, Payload = CurrentPayload> = {
     before: Action<[node: NodeAtom<Payload>], void>;
     addChild: Action<[node: NodeAtom<Payload>], void>;
     detach: Action<[], void>;
-    find: Action<[id: string], NodeAtom<Payload> | null>;
+    travers: Action<
+      [
+        callback: (
+          ctx: Ctx,
+          current: NodeAtom<Payload>,
+        ) => NodeAtom<Payload> | null,
+      ],
+      void
+    >;
     isChild: Action<[node: NodeAtom<Payload>], boolean>;
     isParent: Action<[node: NodeAtom<Payload>], boolean>;
-    findFirstSibling: Action<[], NodeAtom<Payload> | null>;
-    findLastSibling: Action<[], NodeAtom<Payload> | null>;
   };
 } & CurrentPayload;
 
-export type NodeBuilder<Payload> = {
+export type TreeAtom<Payload> = {
   root: NodeAtom<Payload>;
   $child: NodeAtom<Payload>['nodes']['$child'];
   $children: NodeAtom<Payload>['nodes']['$children'];
   $lastChild: NodeAtom<Payload>['nodes']['$lastChild'];
   addChild: NodeAtom<Payload>['actions']['addChild'];
-  find: NodeAtom<Payload>['actions']['find'];
   createNode: (
     command: CreateNodeCommand<Payload>,
     name: string,

@@ -1,8 +1,8 @@
-import { action, atom } from '@reatom/framework';
+import { action, atom, Ctx } from '@reatom/framework';
 
-import { CreateNodeCommand, NodeAtom, NodeBuilder } from './types';
+import { CreateNodeCommand, NodeAtom, TreeAtom } from './types.ts';
 
-export const nodeBuilder = <Payload>(name: string): NodeBuilder<Payload> => {
+export const treeAtom = <Payload>(name: string): TreeAtom<Payload> => {
   const nodesMap = new Map<string, NodeAtom<Payload>>();
 
   const createNode = nodeFactory({ nodesMap });
@@ -20,10 +20,9 @@ export const nodeBuilder = <Payload>(name: string): NodeBuilder<Payload> => {
     $children: root.nodes.$children,
     $lastChild: root.nodes.$lastChild,
     addChild: root.actions.addChild,
-    find: root.actions.find,
     createNode,
     getNode: (id: string) => nodesMap.get(id) ?? null,
-  } as NodeBuilder<Payload>;
+  } as TreeAtom<Payload>;
 };
 
 const nodeFactory =
@@ -47,20 +46,36 @@ const nodeFactory =
 
       const children = [firstChild];
 
-      let currentChild = firstChild;
-
-      while (ctx.get(currentChild.nodes.$next)) {
-        const child = ctx.spy(currentChild.nodes.$next);
+      traversAction(ctx, firstChild, (_, current) => {
+        const child = ctx.spy(current.nodes.$next);
 
         if (child) {
-          currentChild = child;
-
-          children.push(currentChild);
+          children.push(child);
         }
-      }
+
+        return child;
+      });
 
       return children;
     }, `${name}.$children`);
+
+    const traversAction = action(
+      (
+        ctx,
+        startNode: NodeAtom<Payload>,
+        callback: (
+          ctx: Ctx,
+          current: NodeAtom<Payload>,
+        ) => NodeAtom<Payload> | null,
+      ) => {
+        let currentChild = callback(ctx, startNode);
+
+        while (currentChild) {
+          currentChild = callback(ctx, currentChild);
+        }
+      },
+      `${name}.traversAction`,
+    );
 
     const afterAction = action((ctx, node: NodeAtom<Payload>) => {
       if (node.id === currentNode.id) {
@@ -135,17 +150,17 @@ const nodeFactory =
 
       let lastSibling = node;
 
-      while (lastSibling) {
-        lastSibling.nodes.$parent(ctx, currentNode);
+      traversAction(ctx, node, (_, current) => {
+        current.nodes.$parent(ctx, currentNode);
 
         const next = ctx.get(lastSibling.nodes.$next);
 
-        if (!next) {
-          break;
+        if (next) {
+          lastSibling = next;
         }
 
-        lastSibling = next;
-      }
+        return next;
+      });
 
       if (last) {
         last.actions.after(ctx, node);
@@ -157,94 +172,34 @@ const nodeFactory =
       }
     }, `${name}.addChildAction`);
 
-    const findFirstSiblingAction = action((ctx) => {
-      let currentChild = currentNode;
-
-      while (currentChild) {
-        const prev = ctx.get(currentChild.nodes.$prev);
-
-        if (!prev) {
-          return currentChild;
-        }
-
-        currentChild = prev;
-      }
-
-      return null;
-    }, `${name}.findFirstSiblingAction`);
-
-    const findLastSiblingAction = action((ctx) => {
-      let currentChild = currentNode;
-
-      while (currentChild) {
-        const next = ctx.get(currentChild.nodes.$next);
-
-        if (!next) {
-          return currentChild;
-        }
-
-        currentChild = next;
-      }
-
-      return null;
-    }, `${name}.findLastSiblingAction`);
-
-    const findAction = action((ctx, id: string) => {
-      if (command.id === id) {
-        return currentNode;
-      }
-
-      const firstChild = ctx.get($child);
-
-      if (!firstChild) {
-        return null;
-      }
-
-      let currentChild = firstChild;
-
-      while (currentChild) {
-        const found = currentChild.actions.find(ctx, id);
-
-        if (found) {
-          return found;
-        }
-
-        const child = ctx.get(currentChild.nodes.$next);
-
-        if (child) {
-          currentChild = child;
-        }
-      }
-
-      return null;
-    }, `${name}.findAction`);
-
     const isChildAction = action((ctx, node: NodeAtom<Payload>) => {
-      let currentParent: NodeAtom<Payload> | null = node;
+      let isChild = false;
 
-      while (currentParent) {
-        if (currentParent.id === command.id) {
-          return true;
+      traversAction(ctx, node, (_, current) => {
+        if (current.id === currentNode.id) {
+          isChild = true;
+          return null;
         }
 
-        currentParent = ctx.get(currentParent.nodes.$parent);
-      }
+        return ctx.get(current.nodes.$parent);
+      });
 
-      return false;
+      return isChild;
     }, `${name}.isChildAction`);
 
     const isParentAction = action((ctx, node: NodeAtom<Payload>) => {
-      let currentChild: NodeAtom<Payload> | null = currentNode;
+      let isChild = false;
 
-      while (currentChild) {
-        if (currentChild.id === node.id) {
-          return true;
+      traversAction(ctx, currentNode, (_, current) => {
+        if (current.id === node.id) {
+          isChild = true;
+          return null;
         }
 
-        currentChild = ctx.get(currentChild.nodes.$parent);
-      }
+        return ctx.get(current.nodes.$parent);
+      });
 
-      return false;
+      return isChild;
     }, `${name}.isParentAction`);
 
     const currentNode: NodeAtom<Payload> = {
@@ -263,11 +218,12 @@ const nodeFactory =
         before: beforeAction,
         addChild: addChildAction,
         detach: detachAction,
-        find: findAction,
         isChild: isChildAction,
         isParent: isParentAction,
-        findFirstSibling: findFirstSiblingAction,
-        findLastSibling: findLastSiblingAction,
+        travers: action(
+          (ctx, callback) => traversAction(ctx, currentNode, callback),
+          `${name}.travers`,
+        ),
       },
     };
 
