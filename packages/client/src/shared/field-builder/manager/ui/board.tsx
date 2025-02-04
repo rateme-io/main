@@ -1,4 +1,4 @@
-import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
+import { Flex, Icon, IconButton } from '@chakra-ui/react';
 import { Atom } from '@reatom/framework';
 import { reatomComponent, useAtom } from '@reatom/npm-react';
 import { motion } from 'motion/react';
@@ -13,6 +13,7 @@ import {
   useDroppableZone,
 } from '@/shared/field-builder/manager/ui/hooks/dnd.ts';
 import { useTemporaryValue } from '@/shared/hooks/use-temporary-value.ts';
+import { Editable } from '@/shared/ui/editable.tsx';
 
 import { useFieldsManagerContext } from './context.ts';
 
@@ -47,7 +48,7 @@ const BoardItem = reatomComponent<BoardItemProps>(({ ctx, $node, index }) => {
   return (
     <>
       <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
-        <FieldRenderer key={node.id} node={node} />
+        <FieldRenderer node={node} />
       </FieldDropWrapper>
 
       <BoardItem
@@ -159,7 +160,7 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
       node,
     });
 
-  const { state, actions, field } = node;
+  const { state, actions, field, $name } = node;
 
   const Content = field.ui.FieldContent;
 
@@ -181,6 +182,7 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
       borderWidth={1}
       borderStyle={'solid'}
       borderRadius={'md'}
+      outline={'black'}
     >
       <motion.div
         transition={{
@@ -205,9 +207,11 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
               <i>{field.ui.icon}</i>
             </Icon>
 
-            <Text fontSize={'md'} fontWeight={'semibold'}>
-              {field.ui.title}
-            </Text>
+            <Editable
+              onValueChange={ctx.bind($name)}
+              value={ctx.spy($name)}
+              placeholder={field.ui.title}
+            />
           </Flex>
           <Flex>
             <IconButton
@@ -225,8 +229,10 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
           <Flex
             paddingInline={2}
             paddingBlock={1}
+            paddingBottom={2}
             flex={1}
             flexDirection={'column'}
+            gap={2}
           >
             <Content state={state} />
           </Flex>
@@ -262,8 +268,8 @@ const AddFieldDropZone = reatomComponent(() => {
       justifyContent={'center'}
       padding={8}
       flexDirection={'column'}
-      color={isOver ? 'green.300' : 'gray.300'}
-      backgroundColor={isOver ? 'bg.success' : 'white'}
+      color={isOver ? 'blue.500' : 'gray.300'}
+      backgroundColor={isOver ? 'blue.50' : 'white'}
     >
       <FaPlus />
     </Flex>

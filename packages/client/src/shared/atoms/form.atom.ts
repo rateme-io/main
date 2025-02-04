@@ -28,9 +28,25 @@ export const formAtom = <Form extends BaseForm>({
   const $formError = atom<string | null>(null, `${name}.$formError`);
 
   const validate = action((ctx) => {
-    return fieldsArray.reduce(
-      (isValid, field) => field.validate(ctx) === null && isValid,
-      true,
+    return Object.keys(fields).reduce<ValidFields<Form> | null>(
+      (validValues, key) => {
+        if (validValues === null) {
+          return null;
+        }
+
+        const field = Reflect.get(fields, key);
+
+        const validValue = field.validate(ctx);
+
+        if (validValue === null) {
+          return null;
+        }
+
+        Reflect.set(validValues, key, validValue);
+
+        return validValues;
+      },
+      {} as ValidFields<Form>,
     );
   }, `${name}.validate`);
 
@@ -40,19 +56,17 @@ export const formAtom = <Form extends BaseForm>({
 
   const submit = action(async (ctx) => {
     try {
-      const isValid = validate(ctx);
+      const validValues = validate(ctx);
 
-      if (!isValid) {
+      if (!validValues) {
         return;
       }
 
       $formError(ctx, null);
 
-      const values = ctx.get($values);
-
       $isLoading(ctx, true);
 
-      await ctx.schedule((ctx) => onSubmit(ctx, values as ValidFields<Form>));
+      await ctx.schedule((ctx) => onSubmit(ctx, validValues));
 
       $isLoading(ctx, false);
 

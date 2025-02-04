@@ -14,13 +14,13 @@ export const PageWrapper: FunctionComponent<PageWrapperProps> = ({
   switch (breakpoint) {
     case 'desktop':
       return (
-        <Flex {...props} flex={1} overflow={'hidden'} paddingBlock={3}>
+        <Flex {...props} flex={1} paddingBlock={3}>
           {children}
         </Flex>
       );
     case 'mobile':
       return (
-        <Flex {...props} flex={1} overflow={'hidden'} paddingBlock={1}>
+        <Flex {...props} flex={1} paddingBlock={1}>
           {children}
         </Flex>
       );

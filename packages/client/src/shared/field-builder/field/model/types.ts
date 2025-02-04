@@ -1,9 +1,15 @@
+import { AtomMut } from '@reatom/framework';
+
 export type CreateFieldModelCommand<State> = {
-  state: () => State;
+  state: (command: CreateStateCommand) => State;
 };
 
 export type FieldModel<State> = {
-  create: () => State;
+  create: (command: CreateStateCommand) => State;
+};
+
+export type CreateStateCommand = {
+  $name: AtomMut<string>;
 };
 
 export type InferState<Model> =

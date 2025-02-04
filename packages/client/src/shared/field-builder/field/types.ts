@@ -1,4 +1,4 @@
-import { FieldModel } from './model';
+import { CreateStateCommand, FieldModel } from './model';
 import { FieldUI } from './ui';
 
 export type CreateFieldCommand<State> = {
@@ -10,7 +10,7 @@ export type CreateFieldCommand<State> = {
 export type Field<State> = {
   id: string;
   ui: FieldUI<State>;
-  create: () => {
+  create: (command: CreateStateCommand) => {
     id: string;
     state: State;
   };

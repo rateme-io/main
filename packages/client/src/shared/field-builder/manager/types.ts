@@ -1,3 +1,4 @@
+import { AtomMut } from '@reatom/framework';
 import { FunctionComponent } from 'react';
 
 import { NodeAtom } from '@/shared/atoms/tree-atom';
@@ -23,4 +24,5 @@ export type BoardNode = NodeAtom<NodePayload>;
 export type NodePayload = {
   state: unknown;
   field: Field<unknown>;
+  $name: AtomMut<string>;
 };

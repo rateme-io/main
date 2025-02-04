@@ -22,14 +22,20 @@ export const createFieldsManager = (
   const context: FieldManagerContextInterface = {
     groups: command.groups,
     tree,
-    createNode: (field) =>
-      tree.createNode(
+    createNode: (field) => {
+      const $name = atom('', '$name');
+
+      return tree.createNode(
         {
-          ...field.create(),
+          ...field.create({
+            $name,
+          }),
+          $name,
           field,
         },
         field.id,
-      ),
+      );
+    },
     $lastActiveNode: atom<BoardNode | null>(null, 'context.$lastActiveNode'),
   };
 

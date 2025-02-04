@@ -7,6 +7,7 @@ import { reatomComponent } from '@reatom/npm-react';
 import { PropsWithChildren } from 'react';
 
 import { Field } from '@/shared/field-builder/field';
+import { BoardNode } from '@/shared/field-builder/manager';
 
 import {
   FieldManagerContextInterface,
@@ -152,15 +153,15 @@ const RenderOverlay = reatomComponent<RenderOverlayProps>(({ data }) => {
     case 'menu':
       return <MenuOverlay field={data.field} />;
     case 'board':
-      return <BoardOverlay field={data.node.field} />;
+      return <BoardOverlay node={data.node} />;
   }
 }, 'RenderOverlay');
 
-type OverlayProps = {
+type MenuOverlayProps = {
   field: Field<unknown>;
 };
 
-const MenuOverlay = reatomComponent<OverlayProps>(({ field }) => {
+const MenuOverlay = reatomComponent<MenuOverlayProps>(({ field }) => {
   const CustomOverlay = field.ui.MenuItemOverlay;
 
   if (CustomOverlay) {
@@ -196,22 +197,26 @@ const DefaultMenuOverlay = reatomComponent<DefaultMenuOverlayProps>(
   'DefaultMenuOverlay',
 );
 
-const BoardOverlay = reatomComponent<OverlayProps>(({ field }) => {
-  const CustomOverlay = field.ui.FieldOverlay;
+type BoardOverlayProps = {
+  node: BoardNode;
+};
+
+const BoardOverlay = reatomComponent<BoardOverlayProps>(({ node }) => {
+  const CustomOverlay = node.field.ui.FieldOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;
   }
 
-  return <DefaultBoardOverlay field={field} />;
+  return <DefaultBoardOverlay node={node} />;
 }, 'BoardOverlay');
 
 type DefaultBoardOverlayProps = {
-  field: Field<unknown>;
+  node: BoardNode;
 };
 
 const DefaultBoardOverlay = reatomComponent<DefaultBoardOverlayProps>(
-  ({ field }) => {
+  ({ ctx, node }) => {
     return (
       <Flex
         zIndex={'max'}
@@ -225,7 +230,8 @@ const DefaultBoardOverlay = reatomComponent<DefaultBoardOverlayProps>(
         paddingBlock={1}
         gap={2}
       >
-        {field.ui.icon} <Text>{field.ui.title}</Text>
+        {node.field.ui.icon}{' '}
+        <Text>{ctx.get(node.$name).trim() || node.field.ui.title}</Text>
       </Flex>
     );
   },

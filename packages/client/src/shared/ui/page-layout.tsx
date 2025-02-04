@@ -12,7 +12,6 @@ export const PageLayout: FunctionComponent<FlexProps> = (props) => {
         <Flex
           {...props}
           flex={1}
-          overflow={'hidden'}
           maxWidth={'8xl'}
           paddingInline={5}
           marginInline={'auto'}
@@ -23,7 +22,6 @@ export const PageLayout: FunctionComponent<FlexProps> = (props) => {
         <Flex
           {...props}
           flex={1}
-          overflow={'hidden'}
           maxWidth={'8xl'}
           paddingInline={2}
           marginInline={'auto'}

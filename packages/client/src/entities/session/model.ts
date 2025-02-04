@@ -106,6 +106,8 @@ export const logoutAction = action(async (ctx) => {
   await ctx.schedule((ctx) => {
     $safeSession(ctx, null);
   });
+
+  window.location.reload();
 }, 'logoutAction');
 
 export const mapDtoToDomain = (dto: SessionResponseDto) => {

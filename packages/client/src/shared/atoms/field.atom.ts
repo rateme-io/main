@@ -23,13 +23,15 @@ export const fieldAtom = <Value, ValidValue extends Value = Value>({
     const value = ctx.get($value);
     const result = schema.safeParse(value);
 
+    console.log(result);
+
     if (result.success) {
       $error(ctx, null);
-      return null;
+      return result.data;
     }
 
     $error(ctx, result.error.errors[0].message);
-    return value as ValidValue;
+    return null;
   }, `${name}.validate`);
 
   const reset = action((ctx) => {
@@ -45,6 +47,6 @@ export const fieldAtom = <Value, ValidValue extends Value = Value>({
   };
 };
 
-export type FieldAtom<Value, ValidValue extends Value> = ReturnType<
+export type FieldAtom<Value, ValidValue extends Value = Value> = ReturnType<
   typeof fieldAtom<Value, ValidValue>
 >;

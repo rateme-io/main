@@ -18,10 +18,17 @@ export const collectionImageField = fieldAtom<File | null>({
   name: 'collection-image',
 });
 
+export const collectionTagsField = fieldAtom<string[]>({
+  defaultValue: [],
+  schema: z.array(z.string()),
+  name: 'collection-tags',
+});
+
 export const collectionForm = formAtom({
   fields: {
     name: collectionNameField,
     image: collectionImageField,
+    tags: collectionTagsField,
   },
   name: 'collection-form',
   onSubmit: action(async (_ctx, values) => {

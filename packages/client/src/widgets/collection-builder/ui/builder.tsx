@@ -1,8 +1,11 @@
 import { Flex } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
-import { reatomComponent } from '@reatom/npm-react';
+import { Trans } from '@lingui/react/macro';
+import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { CreatableSelect } from 'chakra-react-select';
 
 import { Editable } from '@/shared/ui/editable.tsx';
+import { Field } from '@/shared/ui/field';
 import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
@@ -10,6 +13,7 @@ import { CollectionFields } from '@/widgets/collection-builder/fields';
 import {
   collectionImageField,
   collectionNameField,
+  collectionTagsField,
   MAX_FILE_SIZE,
 } from '@/widgets/collection-builder/model';
 
@@ -23,10 +27,11 @@ export const Builder = reatomComponent(() => {
           gap={4}
           display={'grid'}
           gridTemplateColumns={'min-content 1fr'}
-          gridTemplateRows={'min-content 1fr'}
+          gridTemplateRows={'min-content min-content 1fr'}
           gridTemplateAreas={`
-            "name name"
+            "name view"
             "image board"
+            "tags board"
           `}
         >
           <Box gridArea={'name'}>
@@ -36,6 +41,12 @@ export const Builder = reatomComponent(() => {
           <Box gridArea={'image'}>
             <CollectionImageField />
           </Box>
+
+          <Box gridArea={'tags'}>
+            <CollectionTags />
+          </Box>
+
+          <Box gridArea={'view'}></Box>
 
           <Box gridArea={'board'}>
             <CollectionFields.Board />
@@ -77,3 +88,26 @@ const CollectionImageField = reatomComponent(({ ctx }) => {
     />
   );
 }, 'CollectionImageField');
+
+const CollectionTags = reatomComponent(({ ctx }) => {
+  const [value] = useAtom((ctx) =>
+    ctx
+      .spy(collectionTagsField.$value)
+      .map((tag) => ({ value: tag, label: tag })),
+  );
+
+  return (
+    <Field label={<Trans>Tags</Trans>}>
+      <CreatableSelect
+        isMulti
+        value={value}
+        onChange={(newValue) => {
+          collectionTagsField.$value(
+            ctx,
+            newValue.map((item) => item.value),
+          );
+        }}
+      />
+    </Field>
+  );
+}, 'CollectionTags');

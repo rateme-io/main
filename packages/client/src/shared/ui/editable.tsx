@@ -1,18 +1,26 @@
+import { InputProps } from '@chakra-ui/react';
 import {
   Editable as ChakraEditable,
   EditableRootProps,
   useEditable,
 } from '@chakra-ui/react/editable';
 import { Flex } from '@chakra-ui/react/flex';
-import { FunctionComponent, useLayoutEffect, useRef, useState } from 'react';
+import {
+  FunctionComponent,
+  ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { LuAsterisk, LuPencilLine } from 'react-icons/lu';
 
 export type EditableProps = {
   value: string;
   onValueChange: (value: string) => void;
-  placeholder?: string;
+  placeholder?: ReactNode;
   minWidth?: EditableRootProps['minWidth'];
   required?: boolean;
+  onBlur?: InputProps['onBlur'];
 };
 
 export const Editable: FunctionComponent<EditableProps> = ({
@@ -21,6 +29,7 @@ export const Editable: FunctionComponent<EditableProps> = ({
   placeholder,
   minWidth,
   required,
+  onBlur,
 }) => {
   const editable = useEditable({
     value,
@@ -60,10 +69,10 @@ export const Editable: FunctionComponent<EditableProps> = ({
         <ChakraEditable.Input
           minWidth={minWidth}
           width={`${previewWidth}px`}
-          placeholder={placeholder}
           position={'absolute'}
           top={0}
           left={0}
+          onBlur={onBlur}
         />
       </Flex>
 

@@ -1,9 +1,9 @@
 import { createFieldModel, InferState } from '@/shared/field-builder/field';
 
-export const TextFieldModel = createFieldModel({
+export const LinkFieldModel = createFieldModel({
   state: ({ $name }) => ({
     $name,
   }),
 });
 
-export type TextFieldState = InferState<typeof TextFieldModel>;
+export type LinkFieldState = InferState<typeof LinkFieldModel>;
