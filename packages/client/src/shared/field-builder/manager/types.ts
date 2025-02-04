@@ -7,6 +7,7 @@ import { FieldGroup } from '@/shared/field-builder/group';
 
 import { FieldsManagerBoardProps } from './ui/board.tsx';
 import { FieldManagerMenuProps } from './ui/menu.tsx';
+import { FieldsManagerPreviewProps } from './ui/preview.tsx';
 import { FieldsManagerRootProps } from './ui/root.tsx';
 
 export type CreateFieldsManagerCommand = {
@@ -17,6 +18,7 @@ export type FieldsManager = {
   Root: FunctionComponent<Omit<FieldsManagerRootProps, 'value'>>;
   Menu: FunctionComponent<FieldManagerMenuProps>;
   Board: FunctionComponent<FieldsManagerBoardProps>;
+  Preview: FunctionComponent<FieldsManagerPreviewProps>;
 };
 
 export type BoardNode = NodeAtom<NodePayload>;

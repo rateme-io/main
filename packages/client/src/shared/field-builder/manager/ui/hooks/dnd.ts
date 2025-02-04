@@ -36,7 +36,10 @@ export type InsertBeforeDropData = {
 export type CustomActive = Active & { data: DataRef<DragData> | null };
 export type CustomOver = Over & { data: DataRef<DropData> | null };
 
-export const useDraggableField = (data: DragData) => {
+export const useDraggableField = (
+  data: DragData,
+  { disabled }: { disabled?: boolean } = {},
+) => {
   const createId = () => {
     switch (data.type) {
       case 'menu':
@@ -49,6 +52,7 @@ export const useDraggableField = (data: DragData) => {
   return useDraggable({
     id: createId(),
     data: data,
+    disabled,
   });
 };
 

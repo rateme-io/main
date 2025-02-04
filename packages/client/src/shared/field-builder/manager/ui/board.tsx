@@ -1,5 +1,4 @@
 import { Flex, Icon, IconButton } from '@chakra-ui/react';
-import { Atom } from '@reatom/framework';
 import { reatomComponent, useAtom } from '@reatom/npm-react';
 import { motion } from 'motion/react';
 import { PropsWithChildren } from 'react';
@@ -19,46 +18,25 @@ import { useFieldsManagerContext } from './context.ts';
 
 export type FieldsManagerBoardProps = object;
 
-export const Board = reatomComponent<FieldsManagerBoardProps>(() => {
+export const Board = reatomComponent<FieldsManagerBoardProps>(({ ctx }) => {
   const { tree } = useFieldsManagerContext();
 
-  return (
-    <Flex flexDirection={'column'} gap={1}>
-      <BoardItem $node={tree.$child} index={0} />
-    </Flex>
-  );
-}, 'Board');
+  const children = ctx.spy(tree.$children);
 
-type BoardItemProps = {
-  $node: Atom<BoardNode | null>;
-  index: number;
-};
-
-const BoardItem = reatomComponent<BoardItemProps>(({ ctx, $node, index }) => {
-  const node = ctx.spy($node);
-
-  if (!node) {
-    if (index === 0) {
-      return <AddFieldDropZone />;
-    }
-
-    return null;
+  if (children.length === 0) {
+    return <AddFieldDropZone />;
   }
 
   return (
-    <>
-      <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
-        <FieldRenderer node={node} />
-      </FieldDropWrapper>
-
-      <BoardItem
-        key={`${node.id}-next`}
-        $node={node.nodes.$next}
-        index={index + 1}
-      />
-    </>
+    <Flex flexDirection={'column'} gap={1}>
+      {children.map((node, index) => (
+        <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
+          <FieldRenderer node={node} />
+        </FieldDropWrapper>
+      ))}
+    </Flex>
   );
-}, 'BoardItem');
+}, 'Board');
 
 type FieldDropWrapperProps = PropsWithChildren<{
   isFirst: boolean;
@@ -185,6 +163,7 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
       outline={'black'}
     >
       <motion.div
+        layoutId={node.id}
         transition={{
           scale: { duration: 0.1 },
           opacity: { duration: 0.1 },

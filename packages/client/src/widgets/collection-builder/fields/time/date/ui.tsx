@@ -10,7 +10,9 @@ export const DateFieldUI = createFieldUI<DateFieldState>({
   title: <Trans>Date Picker</Trans>,
   description: <Trans>Select a date</Trans>,
   icon: <MdDateRange />,
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  comingSoon: true,
+  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomComponent(() => {
     return <></>;
   }, 'DateFieldUI.FieldContent'),
 });

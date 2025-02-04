@@ -23,8 +23,6 @@ export const fieldAtom = <Value, ValidValue extends Value = Value>({
     const value = ctx.get($value);
     const result = schema.safeParse(value);
 
-    console.log(result);
-
     if (result.success) {
       $error(ctx, null);
       return result.data;

@@ -9,8 +9,10 @@ import { ImagesFieldState } from './model.ts';
 export const ImagesFieldUI = createFieldUI<ImagesFieldState>({
   title: <Trans>Image Upload</Trans>,
   description: <Trans>Upload and manage images</Trans>,
+  comingSoon: true,
   icon: <FaImages />,
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomComponent(() => {
     return <></>;
   }, 'ImagesFieldUI.FieldContent'),
 });

@@ -12,6 +12,7 @@ import {
 import { Board } from './ui/board.tsx';
 import { FieldManagerContextInterface } from './ui/context.ts';
 import { Menu } from './ui/menu.tsx';
+import { Preview } from './ui/preview.tsx';
 import { Root } from './ui/root.tsx';
 
 export const createFieldsManager = (
@@ -51,6 +52,10 @@ export const createFieldsManager = (
     Board: reatomComponent(
       (props) => <Board {...props} />,
       'createFieldsManager.Board',
+    ),
+    Preview: reatomComponent(
+      (props) => <Preview {...props} />,
+      'createFieldsManager.Preview',
     ),
   };
 };

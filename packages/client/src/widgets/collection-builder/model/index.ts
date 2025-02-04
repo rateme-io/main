@@ -1,1 +1,1 @@
-export * from './form.ts';
+export * from './model.ts';

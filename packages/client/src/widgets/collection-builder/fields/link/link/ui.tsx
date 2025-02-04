@@ -10,7 +10,9 @@ export const LinkFieldUI = createFieldUI<LinkFieldState>({
   title: <Trans>URL Input</Trans>,
   description: <Trans>Input for external links</Trans>,
   icon: <LuExternalLink />,
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  comingSoon: true,
+  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomComponent(() => {
     return <></>;
   }, 'LinkFieldUI.FieldContent'),
 });

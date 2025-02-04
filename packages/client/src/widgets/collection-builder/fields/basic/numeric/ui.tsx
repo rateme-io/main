@@ -15,6 +15,26 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   title: <Trans>Number Input</Trans>,
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
+  FieldPreview: reatomComponent(
+    ({ ctx, state }) => (
+      <Field orientation={'horizontal'} label={ctx.get(state.$name)}>
+        <Input
+          type={'number'}
+          min={
+            ctx.get(state.min.$enabled)
+              ? (ctx.get(state.min.$value) ?? undefined)
+              : undefined
+          }
+          max={
+            ctx.get(state.max.$enabled)
+              ? (ctx.get(state.max.$value) ?? undefined)
+              : undefined
+          }
+        />
+      </Field>
+    ),
+    'NumericFieldUI.FieldPreview',
+  ),
   FieldContent: reatomComponent(({ ctx, state }) => {
     return (
       <>

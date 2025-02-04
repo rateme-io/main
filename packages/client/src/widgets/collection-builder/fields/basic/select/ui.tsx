@@ -9,6 +9,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { CreatableSelect, Select } from 'chakra-react-select';
+import { useMemo } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
 import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator, MdOutlineRemove } from 'react-icons/md';
@@ -25,6 +27,27 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
   description: <Trans>Select from predefined options</Trans>,
   icon: <BsFillMenuButtonWideFill />,
+  FieldPreview: reatomComponent(({ ctx, state }) => {
+    const isCreatable = ctx.get(state.model.$isCreatable);
+    const isMulti = ctx.get(state.model.$isMulti);
+
+    const stateOptions = ctx.get(state.model.$options);
+
+    const options = useMemo(() => {
+      return stateOptions.map((option) => ({
+        value: option.value,
+        label: ctx.get(option.labelField.$value),
+      }));
+    }, [ctx, stateOptions]);
+
+    const SelectComponent = isCreatable ? CreatableSelect : Select;
+
+    return (
+      <Field label={ctx.get(state.$name)} orientation={'horizontal'}>
+        <SelectComponent isMulti={isMulti} options={options} />
+      </Field>
+    );
+  }, 'NumericFieldUI.FieldPreview'),
   FieldContent: reatomComponent(({ ctx, state }) => {
     return (
       <>

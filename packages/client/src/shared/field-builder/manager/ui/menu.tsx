@@ -158,10 +158,15 @@ type MenuDraggableContainerProps = PropsWithChildren<{
 
 const MenuDraggableContainer = reatomComponent<MenuDraggableContainerProps>(
   ({ field, children }) => {
-    const { setNodeRef, listeners, attributes } = useDraggableField({
-      type: 'menu',
-      field,
-    });
+    const { setNodeRef, listeners, attributes } = useDraggableField(
+      {
+        type: 'menu',
+        field,
+      },
+      {
+        disabled: field.ui.comingSoon,
+      },
+    );
 
     return (
       <div ref={setNodeRef} {...listeners} {...attributes}>
@@ -179,6 +184,7 @@ type FieldItemProps = {
 const MenuFieldItem = reatomComponent<FieldItemProps>(({ field }) => {
   return (
     <Flex
+      pointerEvents={field.ui.comingSoon ? 'none' : 'auto'}
       paddingBlock={2}
       paddingInline={2}
       borderStyle={'dashed'}
@@ -194,11 +200,24 @@ const MenuFieldItem = reatomComponent<FieldItemProps>(({ field }) => {
         cursor: 'pointer',
       }}
     >
-      <Flex alignItems={'center'} gap={1}>
-        <Icon>
-          <i>{field.ui.icon}</i>
-        </Icon>
-        <Text>{field.ui.title}</Text>
+      <Flex justifyContent={'space-between'} width={'100%'}>
+        <Flex alignItems={'center'} gap={1}>
+          <Icon>
+            <i>{field.ui.icon}</i>
+          </Icon>
+          <Text>{field.ui.title}</Text>
+        </Flex>
+
+        {field.ui.comingSoon && (
+          <Flex
+            borderRadius={'md'}
+            backgroundColor={'blue.500'}
+            paddingInline={1}
+            color={'white'}
+          >
+            <Trans>coming soon</Trans>
+          </Flex>
+        )}
       </Flex>
 
       <Flex alignItems={'center'} gap={1}>

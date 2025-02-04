@@ -10,7 +10,9 @@ export const InternalLinkFieldUI = createFieldUI<InternalLinkFieldState>({
   title: <Trans>Internal Link</Trans>,
   description: <Trans>Link to another collection item</Trans>,
   icon: <MdLink />,
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  comingSoon: true,
+  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomComponent(() => {
     return <></>;
   }, 'InternalLinkFieldUI.FieldContent'),
 });

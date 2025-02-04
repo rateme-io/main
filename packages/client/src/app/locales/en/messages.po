@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/widgets/collection-builder/fields-info.tsx:14
-msgid "A collection of related fields"
-msgstr "A collection of related fields"
+#~ msgid "A collection of related fields"
+#~ msgstr "A collection of related fields"
 
 #: src/shared/ui/password-strength-meter.tsx:56
 msgid "At least 12 characters long"
@@ -43,10 +43,17 @@ msgstr "At least one uppercase letter"
 msgid "Authorisation"
 msgstr "Authorisation"
 
-#: src/widgets/collection-builder/fields-info.tsx:82
-#: src/widgets/collection-builder/fields/basic/index.tsx:11
+#: src/widgets/collection-builder/fields/basic/index.tsx:13
 msgid "Basic Fields"
 msgstr "Basic Fields"
+
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:55
+msgid "Can create new options"
+msgstr "Can create new options"
+
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:45
+msgid "Can select multiple options"
+msgstr "Can select multiple options"
 
 #: src/shared/ui/caps-lock-warn.tsx:16
 msgid "Caps Lock"
@@ -81,7 +88,7 @@ msgstr "Create collection item"
 msgid "Create rating system"
 msgstr "Create rating system"
 
-#: src/widgets/collection-builder/fields-info.tsx:62
+#: src/widgets/collection-builder/fields/time/date/ui.tsx:10
 msgid "Date Picker"
 msgstr "Date Picker"
 
@@ -90,11 +97,11 @@ msgstr "Date Picker"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/collection-builder/fields-info.tsx:34
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:25
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
-#: src/widgets/collection-builder/fields-info.tsx:69
+#: src/widgets/collection-builder/fields/time/duration/ui.tsx:10
 msgid "Duration Input"
 msgstr "Duration Input"
 
@@ -104,8 +111,12 @@ msgid "Email"
 msgstr "Email"
 
 #: src/widgets/collection-builder/fields/basic/text/ui.tsx:21
-msgid "Enter field name"
-msgstr "Enter field name"
+#~ msgid "Enter field name"
+#~ msgstr "Enter field name"
+
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:90
+msgid "Enter option label"
+msgstr "Enter option label"
 
 #: src/widgets/register-dialog/ui/common.tsx:42
 #: src/widgets/login-dialog/ui/common.tsx:38
@@ -126,8 +137,8 @@ msgid "Enter your username"
 msgstr "Enter your username"
 
 #: src/widgets/collection-builder/fields-info.tsx:13
-msgid "Field Group"
-msgstr "Field Group"
+#~ msgid "Field Group"
+#~ msgstr "Field Group"
 
 #: src/widgets/collection-builder/ui/board/fields/text-field.tsx:17
 #~ msgid "Field name"
@@ -145,40 +156,39 @@ msgstr "Full name"
 msgid "Have an account? Sign in"
 msgstr "Have an account? Sign in"
 
-#: src/widgets/collection-builder/fields-info.tsx:86
+#: src/widgets/collection-builder/fields/image/index.tsx:11
 msgid "Image Fields"
 msgstr "Image Fields"
 
-#: src/widgets/collection-builder/fields-info.tsx:55
+#: src/widgets/collection-builder/fields/image/images/ui.tsx:10
 msgid "Image Upload"
 msgstr "Image Upload"
 
-#: src/widgets/collection-builder/fields-info.tsx:42
+#: src/widgets/collection-builder/fields/link/link/ui.tsx:11
 msgid "Input for external links"
 msgstr "Input for external links"
 
-#: src/widgets/collection-builder/fields-info.tsx:28
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:16
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
 
-#: src/widgets/collection-builder/fields-info.tsx:21
-#: src/widgets/collection-builder/fields/basic/text/ui.tsx:13
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:11
 msgid "Input for plain text"
 msgstr "Input for plain text"
 
-#: src/widgets/collection-builder/fields-info.tsx:70
+#: src/widgets/collection-builder/fields/time/duration/ui.tsx:11
 msgid "Input for time duration"
 msgstr "Input for time duration"
 
-#: src/widgets/collection-builder/fields-info.tsx:48
+#: src/widgets/collection-builder/fields/link/internal-link/ui.tsx:10
 msgid "Internal Link"
 msgstr "Internal Link"
 
-#: src/widgets/collection-builder/fields-info.tsx:94
+#: src/widgets/collection-builder/fields/link/index.tsx:12
 msgid "Link Fields"
 msgstr "Link Fields"
 
-#: src/widgets/collection-builder/fields-info.tsx:49
+#: src/widgets/collection-builder/fields/link/internal-link/ui.tsx:11
 msgid "Link to another collection item"
 msgstr "Link to another collection item"
 
@@ -186,6 +196,14 @@ msgstr "Link to another collection item"
 #: src/features/avatar/ui/desktop.tsx:53
 msgid "Logout"
 msgstr "Logout"
+
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:32
+msgid "Max"
+msgstr "Max"
+
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:23
+msgid "Min"
+msgstr "Min"
 
 #: src/widgets/login-dialog/ui/common.tsx:93
 msgid "No account? Register"
@@ -203,7 +221,7 @@ msgstr "No white spaces"
 msgid "Not a too simple password"
 msgstr "Not a too simple password"
 
-#: src/widgets/collection-builder/fields-info.tsx:27
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:15
 msgid "Number Input"
 msgstr "Number Input"
 
@@ -231,11 +249,11 @@ msgstr "Rating systems"
 msgid "Registration"
 msgstr "Registration"
 
-#: src/widgets/collection-builder/fields-info.tsx:63
+#: src/widgets/collection-builder/fields/time/date/ui.tsx:11
 msgid "Select a date"
 msgstr "Select a date"
 
-#: src/widgets/collection-builder/fields-info.tsx:35
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:26
 msgid "Select from predefined options"
 msgstr "Select from predefined options"
 
@@ -253,12 +271,15 @@ msgstr "Sign in"
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/widgets/collection-builder/fields-info.tsx:20
-#: src/widgets/collection-builder/fields/basic/text/ui.tsx:12
+#: src/widgets/collection-builder/ui/builder.tsx:100
+msgid "Tags"
+msgstr "Tags"
+
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:10
 msgid "Text Input"
 msgstr "Text Input"
 
-#: src/widgets/collection-builder/fields-info.tsx:90
+#: src/widgets/collection-builder/fields/time/index.tsx:12
 msgid "Time Fields"
 msgstr "Time Fields"
 
@@ -266,11 +287,11 @@ msgstr "Time Fields"
 msgid "Type <0>/</0> to search"
 msgstr "Type <0>/</0> to search"
 
-#: src/widgets/collection-builder/fields-info.tsx:56
+#: src/widgets/collection-builder/fields/image/images/ui.tsx:11
 msgid "Upload and manage images"
 msgstr "Upload and manage images"
 
-#: src/widgets/collection-builder/fields-info.tsx:41
+#: src/widgets/collection-builder/fields/link/link/ui.tsx:10
 msgid "URL Input"
 msgstr "URL Input"
 
@@ -279,8 +300,8 @@ msgid "Username"
 msgstr "Username"
 
 #: src/widgets/collection-builder/fields-info.tsx:78
-msgid "Utility Fields"
-msgstr "Utility Fields"
+#~ msgid "Utility Fields"
+#~ msgstr "Utility Fields"
 
 #: src/widgets/header/ui/create-menu/desktop.tsx:27
 msgid "What do you want to create?"
