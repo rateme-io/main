@@ -1,27 +1,21 @@
-import { Flex, Icon, IconButton } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { reatomComponent, useAtom } from '@reatom/npm-react';
-import { motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 import { PropsWithChildren } from 'react';
-import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaPlus } from 'react-icons/fa6';
-import { MdDragIndicator } from 'react-icons/md';
 
 import { BoardNode } from '@/shared/field-builder/manager';
-import {
-  useDraggableField,
-  useDroppableZone,
-} from '@/shared/field-builder/manager/ui/hooks/dnd.ts';
-import { useTemporaryValue } from '@/shared/hooks/use-temporary-value.ts';
-import { Editable } from '@/shared/ui/editable.tsx';
+import { useDroppableZone } from '@/shared/field-builder/manager/ui/hooks/dnd.ts';
 
+import { DraggableFieldRenderer } from './components/field-renderer.tsx';
 import { useFieldsManagerContext } from './context.ts';
 
 export type FieldsManagerBoardProps = object;
 
 export const Board = reatomComponent<FieldsManagerBoardProps>(({ ctx }) => {
-  const { tree } = useFieldsManagerContext();
+  const { model } = useFieldsManagerContext();
 
-  const children = ctx.spy(tree.$children);
+  const children = ctx.spy(model.tree.$children);
 
   if (children.length === 0) {
     return <AddFieldDropZone />;
@@ -29,11 +23,13 @@ export const Board = reatomComponent<FieldsManagerBoardProps>(({ ctx }) => {
 
   return (
     <Flex flexDirection={'column'} gap={1}>
-      {children.map((node, index) => (
-        <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
-          <FieldRenderer node={node} />
-        </FieldDropWrapper>
-      ))}
+      <AnimatePresence>
+        {children.map((node, index) => (
+          <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
+            <DraggableFieldRenderer node={node} />
+          </FieldDropWrapper>
+        ))}
+      </AnimatePresence>
     </Flex>
   );
 }, 'Board');
@@ -124,112 +120,6 @@ const InsertFieldDropZone = reatomComponent<InsertFieldDropZoneProps>(
   },
   'InsertFieldDropZone',
 );
-
-type FieldRendererProps = {
-  node: BoardNode;
-};
-
-const FieldRenderer = reatomComponent<FieldRendererProps>(({ ctx, node }) => {
-  const { $lastActiveNode } = useFieldsManagerContext();
-
-  const { setNodeRef, listeners, attributes, setActivatorNodeRef, isDragging } =
-    useDraggableField({
-      type: 'board',
-      node,
-    });
-
-  const { state, actions, field, $name } = node;
-
-  const Content = field.ui.FieldContent;
-
-  const lastActiveNode = ctx.spy($lastActiveNode);
-
-  const isActive = useTemporaryValue({
-    defaultValue: false,
-    value: lastActiveNode?.id === node.id,
-    timeout: 1000,
-  });
-
-  return (
-    <Flex
-      asChild
-      ref={setNodeRef}
-      {...attributes}
-      flexDirection={'column'}
-      borderColor={'gray.500'}
-      borderWidth={1}
-      borderStyle={'solid'}
-      borderRadius={'md'}
-      outline={'black'}
-    >
-      <motion.div
-        layoutId={node.id}
-        transition={{
-          scale: { duration: 0.1 },
-          opacity: { duration: 0.1 },
-          backgroundColor: { duration: 0.1 },
-        }}
-        initial={{
-          scale: 1,
-          opacity: 1,
-          backgroundColor: 'white',
-        }}
-        animate={{
-          scale: isDragging ? 0.99 : 1,
-          opacity: isDragging ? 0.5 : 1,
-          backgroundColor: isActive ? '#eff6ff' : '#ffffff',
-        }}
-      >
-        <Flex justifyContent={'space-between'} padding={2}>
-          <Flex gap={2} alignItems={'center'}>
-            <Icon asChild>
-              <i>{field.ui.icon}</i>
-            </Icon>
-
-            <Editable
-              onValueChange={ctx.bind($name)}
-              value={ctx.spy($name)}
-              placeholder={field.ui.title}
-            />
-          </Flex>
-          <Flex>
-            <IconButton
-              variant={'ghost'}
-              size={'2xs'}
-              onClick={() => {
-                actions.detach(ctx);
-              }}
-            >
-              <FaRegTrashAlt />
-            </IconButton>
-          </Flex>
-        </Flex>
-        <Flex>
-          <Flex
-            paddingInline={2}
-            paddingBlock={1}
-            paddingBottom={2}
-            flex={1}
-            flexDirection={'column'}
-            gap={2}
-          >
-            <Content state={state} />
-          </Flex>
-          <Flex paddingInline={3} paddingBlock={2} alignItems={'center'}>
-            <IconButton
-              ref={setActivatorNodeRef}
-              {...listeners}
-              size={'2xs'}
-              variant={'ghost'}
-            >
-              <MdDragIndicator />
-            </IconButton>
-          </Flex>
-        </Flex>
-      </motion.div>
-    </Flex>
-  );
-}, 'FieldRenderer');
 
 const AddFieldDropZone = reatomComponent(() => {
   const { setNodeRef, isOver } = useDroppableZone({

@@ -44,4 +44,5 @@ export type TreeAtom<Payload> = {
     name: string,
   ) => NodeAtom<Payload>;
   getNode: (id: string) => NodeAtom<Payload> | null;
+  getNodes: () => NodeAtom<Payload>[];
 };

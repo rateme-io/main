@@ -2,11 +2,11 @@ import {
   Active,
   DataRef,
   Over,
+  useDndContext,
   useDndMonitor,
   useDraggable,
   useDroppable,
 } from '@dnd-kit/core';
-import { useState } from 'react';
 
 import { Field } from '@/shared/field-builder/field';
 import { BoardNode } from '@/shared/field-builder/manager';
@@ -81,16 +81,9 @@ export const useDroppableZone = (data: DropData) => {
 };
 
 export const useActiveField = () => {
-  const [active, setActive] = useState<CustomActive | null>(null);
+  const context = useDndContext();
 
-  useDndMonitor({
-    onDragStart: (event) => {
-      setActive(event.active as CustomActive);
-    },
-    onDragEnd: () => {
-      setActive(null);
-    },
-  });
+  const active = context.active as CustomActive | null;
 
   return {
     active,

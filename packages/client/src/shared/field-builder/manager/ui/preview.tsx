@@ -12,9 +12,9 @@ export type FieldsManagerPreviewProps = {
 };
 
 export const Preview = reatomComponent<FieldsManagerPreviewProps>(({ ctx }) => {
-  const { tree } = useFieldsManagerContext();
+  const { model } = useFieldsManagerContext();
 
-  const children = ctx.get(tree.$children);
+  const children = ctx.get(model.tree.$children);
 
   if (children.length === 0) {
     return (

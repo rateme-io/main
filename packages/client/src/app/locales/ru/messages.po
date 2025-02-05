@@ -47,11 +47,15 @@ msgstr "Авторизация"
 msgid "Basic Fields"
 msgstr "Основные поля"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:55
+#: src/widgets/collection-builder/ui/builder.tsx:70
+msgid "Builder"
+msgstr ""
+
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:78
 msgid "Can create new options"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:45
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:68
 msgid "Can select multiple options"
 msgstr ""
 
@@ -67,6 +71,10 @@ msgstr "Поля коллекции"
 #: src/widgets/header/ui/menu/desktop.tsx:15
 msgid "Collections"
 msgstr "Коллекции"
+
+#: src/shared/field-builder/manager/ui/menu.tsx:218
+msgid "coming soon"
+msgstr ""
 
 #: src/widgets/register-dialog/ui/mobile.tsx:63
 #: src/widgets/register-dialog/ui/desktop.tsx:37
@@ -97,7 +105,7 @@ msgstr "Выбор даты"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:25
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:27
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
@@ -114,7 +122,7 @@ msgstr "Email"
 #~ msgid "Enter field name"
 #~ msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:90
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:113
 msgid "Enter option label"
 msgstr ""
 
@@ -172,7 +180,7 @@ msgstr "Поле для внешних ссылок"
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
-#: src/widgets/collection-builder/fields/basic/text/ui.tsx:11
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Поле для текста"
 
@@ -197,17 +205,21 @@ msgstr "Ссылка на другой элемент коллекции"
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:32
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:52
 msgid "Max"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:23
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:43
 msgid "Min"
 msgstr ""
 
 #: src/widgets/login-dialog/ui/common.tsx:93
 msgid "No account? Register"
 msgstr "Нет аккаунта? Зарегистрироваться"
+
+#: src/shared/field-builder/manager/ui/preview.tsx:23
+msgid "No fields"
+msgstr ""
 
 #: src/shared/ui/password-strength-meter.tsx:69
 msgid "No more than 2 consecutive characters"
@@ -229,6 +241,10 @@ msgstr "Поле числового ввода"
 #: src/widgets/login-dialog/ui/common.tsx:59
 msgid "Password"
 msgstr "Пароль"
+
+#: src/widgets/collection-builder/ui/builder.tsx:75
+msgid "Preview"
+msgstr ""
 
 #: src/features/avatar/ui/mobile.tsx:30
 #: src/features/avatar/ui/desktop.tsx:36
@@ -253,7 +269,7 @@ msgstr "Регистрация"
 msgid "Select a date"
 msgstr "Выберите дату"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:26
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:28
 msgid "Select from predefined options"
 msgstr "Селектор из предопределённых опций"
 
@@ -271,11 +287,11 @@ msgstr "Войти"
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/collection-builder/ui/builder.tsx:100
+#: src/widgets/collection-builder/ui/builder.tsx:138
 msgid "Tags"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/text/ui.tsx:10
+#: src/widgets/collection-builder/fields/basic/text/ui.tsx:12
 msgid "Text Input"
 msgstr "Поле ввода текста"
 

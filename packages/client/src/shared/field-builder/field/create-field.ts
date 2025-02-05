@@ -12,7 +12,7 @@ export const createField = <State>({
     ui,
     create: (command) => ({
       id: `${name}-item-${generateId()}`,
-      state: model.create(command),
+      ...model.create(command),
     }),
   };
 };

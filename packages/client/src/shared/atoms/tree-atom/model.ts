@@ -22,6 +22,7 @@ export const treeAtom = <Payload>(name: string): TreeAtom<Payload> => {
     addChild: root.actions.addChild,
     createNode,
     getNode: (id: string) => nodesMap.get(id) ?? null,
+    getNodes: () => Array.from(nodesMap.values()),
   } as TreeAtom<Payload>;
 };
 
@@ -227,7 +228,9 @@ const nodeFactory =
       },
     };
 
-    nodesMap.set(command.id, currentNode);
+    if (command.id !== 'root') {
+      nodesMap.set(command.id, currentNode);
+    }
 
     return currentNode;
   };

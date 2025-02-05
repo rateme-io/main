@@ -2,7 +2,6 @@ import { Flex, Text } from '@chakra-ui/react';
 import { Portal } from '@chakra-ui/react/portal';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
-import { useEvent } from '@khmilevoi/use-event';
 import { reatomComponent } from '@reatom/npm-react';
 import { PropsWithChildren } from 'react';
 
@@ -14,13 +13,7 @@ import {
   FieldsManagerContext,
   useFieldsManagerContext,
 } from './context.ts';
-import {
-  DragData,
-  InsertAfterDropData,
-  InsertBeforeDropData,
-  useActiveField,
-  useDrop,
-} from './hooks/dnd.ts';
+import { DragData, useActiveField, useDrop } from './hooks/dnd.ts';
 import { snapRightToCursor } from './utils/modifiers.ts';
 
 export type FieldsManagerRootProps = PropsWithChildren<{
@@ -44,80 +37,29 @@ export const Root = reatomComponent<FieldsManagerRootProps>(
 );
 
 const DropLogic = reatomComponent(({ ctx }) => {
-  const { tree, createNode, $lastActiveNode } = useFieldsManagerContext();
+  const { model } = useFieldsManagerContext();
 
   useDrop(({ dropData, dragData }) => {
-    switch (dropData.type) {
-      case 'add':
-        return handleAdd({ dragData });
-      case 'insert-after':
-        return handleInsertAfter({ dropData, dragData });
-      case 'insert-before':
-        return handleInsertBefore({ dropData, dragData });
-    }
-  });
-
-  const handleAdd = useEvent(({ dragData }: { dragData: DragData }) => {
-    if (dragData.type === 'menu') {
-      const newNode = createNode(dragData.field);
-
-      $lastActiveNode(ctx, newNode);
-
-      return tree.addChild(ctx, newNode);
-    }
-  });
-
-  const handleInsertAfter = useEvent(
-    ({
-      dropData,
-      dragData,
-    }: {
-      dragData: DragData;
-      dropData: InsertAfterDropData;
-    }) => {
+    if (dropData.type === 'add') {
       if (dragData.type === 'menu') {
-        const newNode = createNode(dragData.field);
-
-        $lastActiveNode(ctx, newNode);
-
-        return dropData.node.actions.after(ctx, newNode);
-      } else if (dragData.type === 'board') {
-        dragData.node.actions.detach(ctx);
-
-        $lastActiveNode(ctx, dragData.node);
-
-        return dropData.node.actions.after(ctx, dragData.node);
-      } else {
-        throw new Error('Unknown dragData type');
+        return model.actions.addChild(ctx, dragData.field);
       }
-    },
-  );
-
-  const handleInsertBefore = useEvent(
-    ({
-      dropData,
-      dragData,
-    }: {
-      dragData: DragData;
-      dropData: InsertBeforeDropData;
-    }) => {
+    } else if (dropData.type === 'insert-after') {
       if (dragData.type === 'menu') {
-        const newNode = createNode(dragData.field);
-
-        $lastActiveNode(ctx, newNode);
-
-        return dropData.node.actions.before(ctx, newNode);
+        return model.actions.insertAfter(ctx, dropData.node, dragData.field);
       } else if (dragData.type === 'board') {
-        dragData.node.actions.detach(ctx);
-
-        $lastActiveNode(ctx, dragData.node);
-
-        return dropData.node.actions.before(ctx, dragData.node);
-      } else {
-        throw new Error('Unknown dragData type');
+        return model.actions.moveAfter(ctx, dropData.node, dragData.node);
       }
-    },
-  );
+    } else if (dropData.type === 'insert-before') {
+      if (dragData.type === 'menu') {
+        return model.actions.insertBefore(ctx, dropData.node, dragData.field);
+      } else if (dragData.type === 'board') {
+        return model.actions.moveBefore(ctx, dropData.node, dragData.node);
+      }
+    }
+
+    throw new Error('Unknown operation');
+  });
 
   return null;
 }, 'DropLogic');

@@ -120,7 +120,7 @@ describe('nodeBuilder', () => {
     const childNode = builder.createNode({ id: 'child1' }, 'child1');
     builder.addChild(ctx, childNode);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual({
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual({
       id: 'root',
       childId: 'child1',
       lastChildId: 'child1',
@@ -148,7 +148,7 @@ describe('nodeBuilder', () => {
     expect(builder.getNode('child1')).toBeNull();
     expect(simplifyNode(ctx, childNode)).toStrictEqual({ id: 'child1' });
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual({
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual({
       id: 'root',
     });
   });
@@ -167,7 +167,7 @@ describe('nodeBuilder', () => {
     childNode1.actions.detach(ctx);
     childNode4.actions.before(ctx, childNode1);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual(
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual(
       createTree([
         {
           id: 'root',
@@ -196,7 +196,7 @@ describe('nodeBuilder', () => {
     childNode4.actions.detach(ctx);
     childNode1.actions.before(ctx, childNode4);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual(
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual(
       createTree([
         {
           id: 'root',
@@ -231,7 +231,7 @@ describe('nodeBuilder', () => {
     childNode4.actions.detach(ctx);
     childNode2.actions.before(ctx, childNode4);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual(
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual(
       createTree([
         {
           id: 'root',
@@ -261,7 +261,7 @@ describe('nodeBuilder', () => {
     childNode1.actions.detach(ctx);
     childNode4.actions.after(ctx, childNode1);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual(
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual(
       createTree([
         {
           id: 'root',
@@ -290,7 +290,7 @@ describe('nodeBuilder', () => {
     childNode4.actions.detach(ctx);
     childNode1.actions.after(ctx, childNode4);
 
-    expect(simplifyNode(ctx, builder.getNode('root')!)).toStrictEqual(
+    expect(simplifyNode(ctx, builder.root)).toStrictEqual(
       createTree([
         {
           id: 'root',

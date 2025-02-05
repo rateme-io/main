@@ -18,5 +18,5 @@
     "husky": "^9.1.7",
     "lerna": "^8.1.9"
   },
-  "packageManager": "pnpm@10.0.0"
+  "packageManager": "pnpm@10.2.0"
 }
