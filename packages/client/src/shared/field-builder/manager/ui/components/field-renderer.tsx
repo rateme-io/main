@@ -1,21 +1,25 @@
 import { Flex, Icon, IconButton } from '@chakra-ui/react';
-import { reatomComponent } from '@reatom/npm-react';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'motion/react';
+import { PropsWithChildren, useEffect } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 
+import { FIELD_NAME_ISSUE } from '@/shared/field-builder/field';
 import { BoardNode } from '@/shared/field-builder/manager';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useDraggableField } from '../hooks/dnd.ts';
+import { IssueRenderer } from './issue-renderer.tsx';
 
 type DraggableFieldRendererProps = {
   node: BoardNode;
 };
 
-export const DraggableFieldRenderer =
-  reatomComponent<DraggableFieldRendererProps>(({ node }) => {
+export const DraggableFieldRenderer = reatomMemo<DraggableFieldRendererProps>(
+  ({ node }) => {
     const value = useDraggableField({
       type: 'board',
       node,
@@ -30,17 +34,109 @@ export const DraggableFieldRenderer =
         </Flex>
       </Draggable>
     );
-  }, 'DraggableFieldRenderer');
+  },
+  'DraggableFieldRenderer',
+);
 
 type FieldRendererProps = {
   node: BoardNode;
   isDragging: boolean;
 };
 
-const FieldRenderer = reatomComponent<FieldRendererProps>(
-  ({ ctx, node, isDragging }) => {
-    const Content = node.field.ui.FieldContent;
+const FieldRenderer = reatomMemo<FieldRendererProps>(({ node, isDragging }) => {
+  const Content = node.field.ui.FieldContent;
 
+  useEffect(() => {
+    console.log('node');
+  }, [node]);
+
+  useEffect(() => {
+    console.log('isDragging');
+  }, [isDragging]);
+
+  return (
+    <FieldRendererContainer node={node} isDragging={isDragging}>
+      <Flex justifyContent={'space-between'} padding={2}>
+        <Flex gap={2} alignItems={'center'}>
+          <Icon asChild>
+            <i>{node.field.ui.icon}</i>
+          </Icon>
+
+          <FieldRendererName node={node} />
+        </Flex>
+        <Flex>
+          <FieldRendererRemove node={node} />
+        </Flex>
+      </Flex>
+      <Flex>
+        <Flex
+          paddingInline={2}
+          paddingBlock={1}
+          paddingBottom={2}
+          flex={1}
+          flexDirection={'column'}
+          gap={2}
+        >
+          <Content state={node.state} />
+        </Flex>
+        <FieldRendererDragActivator />
+      </Flex>
+    </FieldRendererContainer>
+  );
+}, 'FieldRenderer');
+
+type FieldRendererNameProps = {
+  node: BoardNode;
+};
+
+const FieldRendererName = reatomMemo<FieldRendererNameProps>(
+  ({ ctx, node }) => {
+    return (
+      <IssueRenderer
+        manager={node.issueManager}
+        issueId={FIELD_NAME_ISSUE}
+        message={<Trans>Name is required</Trans>}
+      >
+        <Editable
+          onValueChange={ctx.bind(node.$name)}
+          value={ctx.spy(node.$name)}
+          placeholder={node.field.ui.title}
+          required
+        />
+      </IssueRenderer>
+    );
+  },
+  'FieldRendererName',
+);
+
+type FieldRendererRemoveProps = {
+  node: BoardNode;
+};
+
+const FieldRendererRemove = reatomMemo<FieldRendererRemoveProps>(
+  ({ ctx, node }) => {
+    return (
+      <IconButton
+        variant={'ghost'}
+        size={'2xs'}
+        onClick={() => {
+          node.actions.detach(ctx);
+        }}
+      >
+        <FaRegTrashAlt />
+      </IconButton>
+    );
+  },
+  'FieldRendererRemove',
+);
+
+type FieldRendererContainerProps = PropsWithChildren<{
+  node: BoardNode;
+  isDragging: boolean;
+}>;
+
+const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
+  ({ node, isDragging, children }) => {
     return (
       <Flex
         asChild
@@ -74,52 +170,15 @@ const FieldRenderer = reatomComponent<FieldRendererProps>(
             opacity: 0,
           }}
         >
-          <Flex justifyContent={'space-between'} padding={2}>
-            <Flex gap={2} alignItems={'center'}>
-              <Icon asChild>
-                <i>{node.field.ui.icon}</i>
-              </Icon>
-
-              <Editable
-                onValueChange={ctx.bind(node.$name)}
-                value={ctx.spy(node.$name)}
-                placeholder={node.field.ui.title}
-                required
-              />
-            </Flex>
-            <Flex>
-              <IconButton
-                variant={'ghost'}
-                size={'2xs'}
-                onClick={() => {
-                  node.actions.detach(ctx);
-                }}
-              >
-                <FaRegTrashAlt />
-              </IconButton>
-            </Flex>
-          </Flex>
-          <Flex>
-            <Flex
-              paddingInline={2}
-              paddingBlock={1}
-              paddingBottom={2}
-              flex={1}
-              flexDirection={'column'}
-              gap={2}
-            >
-              <Content state={node.state} />
-            </Flex>
-            <FieldRendererDragActivator />
-          </Flex>
+          {children}
         </motion.div>
       </Flex>
     );
   },
-  'FieldRenderer',
+  'FieldRendererContainer',
 );
 
-const FieldRendererDragActivator = reatomComponent(() => {
+const FieldRendererDragActivator = reatomMemo(() => {
   const value = useDraggableContext();
 
   if (value === null) {

@@ -8,7 +8,7 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/npm-react';
 import { CreatableSelect, Select } from 'chakra-react-select';
 import { useMemo } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
@@ -20,6 +20,7 @@ import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { InputGroup } from '@/shared/ui/input-group.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { DropdownFieldOption, DropdownFieldState } from './model.ts';
 
@@ -27,7 +28,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
   description: <Trans>Select from predefined options</Trans>,
   icon: <BsFillMenuButtonWideFill />,
-  FieldPreview: reatomComponent(({ ctx, state }) => {
+  FieldPreview: reatomMemo(({ ctx, state }) => {
     const isCreatable = ctx.get(state.model.$isCreatable);
     const isMulti = ctx.get(state.model.$isMulti);
 
@@ -48,7 +49,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
       </Field>
     );
   }, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  FieldContent: reatomMemo(({ ctx, state }) => {
     return (
       <>
         <Flex gap={5}>
@@ -88,7 +89,7 @@ type AddOptionProps = {
   state: DropdownFieldState;
 };
 
-const AddOption = reatomComponent<AddOptionProps>(({ ctx, state }) => {
+const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
   return (
     <Flex
       as={'form'}
@@ -126,7 +127,7 @@ type OptionsFieldProps = {
   state: DropdownFieldState;
 };
 
-const OptionsField = reatomComponent<OptionsFieldProps>(({ ctx, state }) => {
+const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
   const [values] = useAtom((ctx) =>
     ctx.spy(state.model.$options).map((option) => option.value),
   );
@@ -159,7 +160,7 @@ type OptionProps = {
   onRemove: () => void;
 };
 
-const Option = reatomComponent<OptionProps>(({ ctx, option, onRemove }) => {
+const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
   const {
     attributes,
     listeners,

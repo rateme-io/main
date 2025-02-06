@@ -1,4 +1,4 @@
-import { action } from '@reatom/framework';
+import { action, atom, reatomMap } from '@reatom/framework';
 
 import {
   CreateFieldModelCommand,
@@ -9,45 +9,52 @@ import {
 
 export const createFieldModel = <State>({
   state,
-  validate,
+  validateField,
 }: CreateFieldModelCommand<State>): FieldModel<State> => {
   return {
     create: (command) => {
       const currentState = state(command);
 
-      const issuesMap = new Map<symbol, FieldIssue>();
+      const issuesMap = reatomMap<symbol, FieldIssue>(new Map(), 'issuesMap');
 
-      const addIssue = (issue: FieldIssue) => {
-        issuesMap.set(issue.id, issue);
-      };
+      const addIssue = action((ctx, issue: FieldIssue) => {
+        issuesMap.set(ctx, issue.id, issue);
+      }, 'addIssue');
 
-      const validateName = (name: string) => {
+      const validateName = action((ctx, name: string) => {
         if (name.trim() === '') {
-          addIssue({
+          addIssue(ctx, {
             type: 'critical',
             id: FIELD_NAME_ISSUE,
             message: 'Name is required',
           });
         }
-      };
+      }, 'validateName');
 
       const issueManager: FieldIssueManager = {
-        getIssue: (id) => issuesMap.get(id) ?? null,
-        getIssues: () => Array.from(issuesMap.values()),
+        getIssue: action(
+          (ctx, id) => issuesMap.get(ctx, id) ?? null,
+          'issueManager.getIssue',
+        ),
+        issueAtom: (id) =>
+          atom((ctx) => {
+            ctx.spy(issuesMap);
+            return issuesMap.get(ctx, id) ?? null;
+          }, 'issueManager.issueAtom'),
         validate: action((ctx) => {
-          issuesMap.clear();
+          issuesMap.clear(ctx);
 
-          if (!validate) {
-            validateName(ctx.get(command.$name));
+          if (!validateField) {
+            validateName(ctx, ctx.get(command.$name));
           } else {
-            validate(ctx, {
+            validateField(ctx, {
               state: currentState,
               addIssue,
               validateName,
             });
           }
 
-          return issuesMap.size === 0;
+          return ctx.get(issuesMap).size === 0;
         }, 'issueManager.validate'),
       };
 

@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { MdDateRange } from 'react-icons/md';
 
 import { createFieldUI } from '@/shared/field-builder/field';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { DateFieldState } from './model.ts';
 
@@ -11,8 +11,8 @@ export const DateFieldUI = createFieldUI<DateFieldState>({
   description: <Trans>Select a date</Trans>,
   icon: <MdDateRange />,
   comingSoon: true,
-  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomComponent(() => {
+  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomMemo(() => {
     return <></>;
   }, 'DateFieldUI.FieldContent'),
 });

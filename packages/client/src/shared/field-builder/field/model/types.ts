@@ -1,14 +1,14 @@
-import { Action, AtomMut } from '@reatom/framework';
+import { Action, Atom, AtomMut } from '@reatom/framework';
 
 export type CreateFieldModelCommand<State> = {
   state: (command: CreateStateCommand) => State;
-  validate?: Action<[api: FieldValidationApi<State>], void>;
+  validateField?: Action<[api: FieldValidationApi<State>], void>;
 };
 
 export type FieldValidationApi<State> = {
   state: State;
-  addIssue: (issue: FieldIssue) => void;
-  validateName: (name: string) => void;
+  addIssue: Action<[issue: FieldIssue], void>;
+  validateName: Action<[name: string], void>;
 };
 
 export type FieldIssue = {
@@ -27,8 +27,8 @@ export type FieldInstance<State> = {
 };
 
 export type FieldIssueManager = {
-  getIssue(id: symbol): FieldIssue | null;
-  getIssues(): FieldIssue[];
+  getIssue: Action<[id: symbol], FieldIssue | null>;
+  issueAtom: (id: symbol) => Atom<FieldIssue | null>;
   validate: Action<[], boolean>;
 };
 

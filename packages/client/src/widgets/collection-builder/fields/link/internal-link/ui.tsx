@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { MdLink } from 'react-icons/md';
 
 import { createFieldUI } from '@/shared/field-builder/field';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { InternalLinkFieldState } from './model.ts';
 
@@ -11,8 +11,8 @@ export const InternalLinkFieldUI = createFieldUI<InternalLinkFieldState>({
   description: <Trans>Link to another collection item</Trans>,
   icon: <MdLink />,
   comingSoon: true,
-  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomComponent(() => {
+  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomMemo(() => {
     return <></>;
   }, 'InternalLinkFieldUI.FieldContent'),
 });

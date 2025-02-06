@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { LuExternalLink } from 'react-icons/lu';
 
 import { createFieldUI } from '@/shared/field-builder/field';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { LinkFieldState } from './model.ts';
 
@@ -11,8 +11,8 @@ export const LinkFieldUI = createFieldUI<LinkFieldState>({
   description: <Trans>Input for external links</Trans>,
   icon: <LuExternalLink />,
   comingSoon: true,
-  FieldPreview: reatomComponent(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomComponent(() => {
+  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
+  FieldContent: reatomMemo(() => {
     return <></>;
   }, 'LinkFieldUI.FieldContent'),
 });

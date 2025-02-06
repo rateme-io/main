@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
-import { reatomComponent } from '@reatom/npm-react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { BigSearch } from './ui/big';
 import { SmallSearch } from './ui/small';
 
-export const Search = reatomComponent(() => {
+export const Search = reatomMemo(() => {
   const breakpoint = useBreakpoint();
 
   if (breakpoint === 'mobile') {

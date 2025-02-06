@@ -32,6 +32,7 @@ export default tseslint.config(
       ],
       'react/react-in-jsx-scope': 'off',
       'react/display-name': 'error',
+      'react/prop-types': 'off',
     },
   },
   pluginLingui.configs['flat/recommended'],

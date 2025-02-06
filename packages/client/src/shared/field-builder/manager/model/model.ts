@@ -36,6 +36,13 @@ export const createModel = () => {
     createNode,
     actions: {
       validate,
+      submit: action((ctx) => {
+        const isValid = validate(ctx);
+
+        if (!isValid) {
+          return;
+        }
+      }, 'actions.submit'),
       addChild: action((ctx, field: Field<unknown>) => {
         tree.addChild(ctx, createNode(field));
       }, 'actions.addChild'),

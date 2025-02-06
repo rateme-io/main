@@ -1,10 +1,10 @@
 import { Input } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { LuTextCursorInput } from 'react-icons/lu';
 
 import { createFieldUI } from '@/shared/field-builder/field';
 import { Field } from '@/shared/ui/field.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo';
 
 import { TextFieldState } from './model.ts';
 
@@ -12,7 +12,7 @@ export const TextFieldUI = createFieldUI<TextFieldState>({
   title: <Trans>Text Input</Trans>,
   description: <Trans>Input for plain text</Trans>,
   icon: <LuTextCursorInput />,
-  FieldPreview: reatomComponent(
+  FieldPreview: reatomMemo(
     ({ ctx, state }) => (
       <Field orientation={'horizontal'} label={ctx.get(state.$name)}>
         <Input />
@@ -20,7 +20,7 @@ export const TextFieldUI = createFieldUI<TextFieldState>({
     ),
     'NumericFieldUI.FieldPreview',
   ),
-  FieldContent: reatomComponent(() => {
+  FieldContent: reatomMemo(() => {
     return <></>;
   }, 'TextFieldUI.FieldContent'),
 });

@@ -1,18 +1,19 @@
 import { Flex } from '@chakra-ui/react';
-import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/npm-react';
 import { AnimatePresence } from 'motion/react';
 import { PropsWithChildren } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 
 import { BoardNode } from '@/shared/field-builder/manager';
 import { useDroppableZone } from '@/shared/field-builder/manager/ui/hooks/dnd.ts';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { DraggableFieldRenderer } from './components/field-renderer.tsx';
 import { useFieldsManagerContext } from './context.ts';
 
 export type FieldsManagerBoardProps = object;
 
-export const Board = reatomComponent<FieldsManagerBoardProps>(({ ctx }) => {
+export const Board = reatomMemo<FieldsManagerBoardProps>(({ ctx }) => {
   const { model } = useFieldsManagerContext();
 
   const children = ctx.spy(model.tree.$children);
@@ -22,7 +23,11 @@ export const Board = reatomComponent<FieldsManagerBoardProps>(({ ctx }) => {
   }
 
   return (
-    <Flex flexDirection={'column'} gap={1}>
+    <Flex
+      flexDirection={'column'}
+      gap={1}
+      marginTop={'calc(var(--chakra-spacing-1) * -1 - 4px)'}
+    >
       <AnimatePresence>
         {children.map((node, index) => (
           <FieldDropWrapper key={node.id} isFirst={index === 0} node={node}>
@@ -39,7 +44,7 @@ type FieldDropWrapperProps = PropsWithChildren<{
   node: BoardNode;
 }>;
 
-const FieldDropWrapper = reatomComponent<FieldDropWrapperProps>(
+const FieldDropWrapper = reatomMemo<FieldDropWrapperProps>(
   ({ isFirst, node, children }) => {
     return (
       <>
@@ -57,7 +62,7 @@ type InsertFieldDropZoneProps = {
   node: BoardNode;
 };
 
-const InsertFieldDropZone = reatomComponent<InsertFieldDropZoneProps>(
+const InsertFieldDropZone = reatomMemo<InsertFieldDropZoneProps>(
   ({ node, type }) => {
     const { isOver, setNodeRef, active } = useDroppableZone({
       type,
@@ -121,7 +126,7 @@ const InsertFieldDropZone = reatomComponent<InsertFieldDropZoneProps>(
   'InsertFieldDropZone',
 );
 
-const AddFieldDropZone = reatomComponent(() => {
+const AddFieldDropZone = reatomMemo(() => {
   const { setNodeRef, isOver } = useDroppableZone({
     type: 'add',
   });

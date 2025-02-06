@@ -1,7 +1,6 @@
 import { IconButton } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
 import { Flex } from '@chakra-ui/react/flex';
-import { reatomComponent } from '@reatom/npm-react';
 import { FiLogIn } from 'react-icons/fi';
 
 import { Avatar } from '@/features/avatar';
@@ -10,12 +9,13 @@ import { Search } from '@/features/search';
 import { Link } from '@/shared/ui/link.tsx';
 import { VerySmallLogo } from '@/shared/ui/logo/very-small-logo.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { StatusGuard } from '@/shared/ui/status-guard.tsx';
 import { loginDisclosure } from '@/widgets/login-dialog';
 
 import { Menu } from './menu';
 
-export const MobileHeader = reatomComponent(({ ctx }) => {
+export const MobileHeader = reatomMemo(({ ctx }) => {
   return (
     <>
       <Box

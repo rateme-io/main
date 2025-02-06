@@ -1,4 +1,4 @@
-import { reatomComponent } from '@reatom/npm-react';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { createModel } from './model';
 import { CreateFieldsManagerCommand, FieldsManager } from './types.ts';
@@ -20,19 +20,19 @@ export const createFieldsManager = (
 
   return {
     model,
-    Root: reatomComponent(
+    Root: reatomMemo(
       (props) => <Root {...props} value={context} />,
       'createFieldsManager.Root',
     ),
-    Menu: reatomComponent(
+    Menu: reatomMemo(
       (props) => <Menu {...props} />,
       'createFieldsManager.Menu',
     ),
-    Board: reatomComponent(
+    Board: reatomMemo(
       (props) => <Board {...props} />,
       'createFieldsManager.Board',
     ),
-    Preview: reatomComponent(
+    Preview: reatomMemo(
       (props) => <Preview {...props} />,
       'createFieldsManager.Preview',
     ),

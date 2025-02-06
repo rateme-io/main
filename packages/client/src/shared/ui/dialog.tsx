@@ -12,12 +12,12 @@ import {
   DialogTitle,
 } from '@chakra-ui/react/dialog';
 import { Portal } from '@chakra-ui/react/portal';
-import { reatomComponent } from '@reatom/npm-react';
 import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 import { DisclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
 import { Button } from '@/shared/ui/button.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 export type DialogProps = PropsWithChildren<{
   disclosure: DisclosureAtom;
@@ -32,7 +32,7 @@ export type DialogProps = PropsWithChildren<{
   footer?: (formId?: string) => ReactNode;
 }>;
 
-export const Dialog = reatomComponent<DialogProps>(
+export const Dialog = reatomMemo<DialogProps>(
   ({
     ctx,
     disclosure,

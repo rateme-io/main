@@ -1,10 +1,10 @@
 import { Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { useRef } from 'react';
 
 import { AsyncFormDialog } from '@/shared/ui/async-form-dialog';
 import { Button } from '@/shared/ui/button.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { registerDisclosure, registerForm } from '../model';
 import {
@@ -17,7 +17,7 @@ import {
   UsernameField,
 } from './common';
 
-export const MobileRegisterDialog = reatomComponent(() => {
+export const MobileRegisterDialog = reatomMemo(() => {
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
 
   useHandleErrors({ emailFieldRef });
@@ -51,7 +51,7 @@ export const MobileRegisterDialog = reatomComponent(() => {
 
 type SubmitButtonProps = { formId?: string };
 
-const SubmitButton = reatomComponent<SubmitButtonProps>(({ ctx, formId }) => {
+const SubmitButton = reatomMemo<SubmitButtonProps>(({ ctx, formId }) => {
   return (
     <Button
       type={'submit'}

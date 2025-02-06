@@ -1,7 +1,6 @@
 import { Box, Flex, Icon, Separator, Text } from '@chakra-ui/react';
 import { css } from '@emotion/css';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { clsx } from 'clsx';
 import { Resizable } from 're-resizable';
 import {
@@ -14,6 +13,7 @@ import {
 
 import { Field } from '@/shared/field-builder/field';
 import { FieldGroup } from '@/shared/field-builder/group';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useFieldsManagerContext } from './context.ts';
 import { useDraggableField } from './hooks/dnd.ts';
@@ -22,30 +22,27 @@ export type FieldManagerMenuProps = {
   containerRef?: RefObject<HTMLElement | null>;
 };
 
-export const Menu = reatomComponent<FieldManagerMenuProps>(
-  ({ containerRef }) => {
-    const { groups } = useFieldsManagerContext();
+export const Menu = reatomMemo<FieldManagerMenuProps>(({ containerRef }) => {
+  const { groups } = useFieldsManagerContext();
 
-    return (
-      <ResizableWrapper containerRef={containerRef}>
-        <Text as={'h3'} paddingInline={3} fontWeight={'semibold'}>
-          <Trans>Collection fields</Trans>
-        </Text>
+  return (
+    <ResizableWrapper containerRef={containerRef}>
+      <Text as={'h3'} paddingInline={3} fontWeight={'semibold'}>
+        <Trans>Collection fields</Trans>
+      </Text>
 
-        {groups.map((group) => {
-          return <MenuGroupItem key={group.id} group={group} />;
-        })}
-      </ResizableWrapper>
-    );
-  },
-  'Menu',
-);
+      {groups.map((group) => {
+        return <MenuGroupItem key={group.id} group={group} />;
+      })}
+    </ResizableWrapper>
+  );
+}, 'Menu');
 
 type ResizableWrapperProps = PropsWithChildren<{
   containerRef?: RefObject<HTMLElement | null>;
 }>;
 
-const ResizableWrapper = reatomComponent<ResizableWrapperProps>(
+const ResizableWrapper = reatomMemo<ResizableWrapperProps>(
   ({ children, containerRef }) => {
     const resizableRef = useRef<Resizable>(null);
 
@@ -129,7 +126,7 @@ type MenuGroupItemProps = {
   group: FieldGroup;
 };
 
-const MenuGroupItem = reatomComponent<MenuGroupItemProps>(({ group }) => {
+const MenuGroupItem = reatomMemo<MenuGroupItemProps>(({ group }) => {
   return (
     <Box>
       <Separator />
@@ -156,7 +153,7 @@ type MenuDraggableContainerProps = PropsWithChildren<{
   field: Field<unknown>;
 }>;
 
-const MenuDraggableContainer = reatomComponent<MenuDraggableContainerProps>(
+const MenuDraggableContainer = reatomMemo<MenuDraggableContainerProps>(
   ({ field, children }) => {
     const { setNodeRef, listeners, attributes } = useDraggableField(
       {
@@ -181,7 +178,7 @@ type FieldItemProps = {
   field: Field<unknown>;
 };
 
-const MenuFieldItem = reatomComponent<FieldItemProps>(({ field }) => {
+const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
   return (
     <Flex
       pointerEvents={field.ui.comingSoon ? 'none' : 'auto'}

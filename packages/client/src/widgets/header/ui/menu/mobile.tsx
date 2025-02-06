@@ -1,6 +1,5 @@
 import { IconButton, Separator } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { LinkComponentProps } from '@tanstack/react-router';
 import { PropsWithChildren } from 'react';
 import { CgMenuLeft } from 'react-icons/cg';
@@ -18,10 +17,11 @@ import {
   DrawerTrigger,
 } from '@/shared/ui/drawer';
 import { Link } from '@/shared/ui/link.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 const menuDisclosure = disclosureAtom({ defaultIsOpened: false, name: 'menu' });
 
-export const MobileMenu = reatomComponent(({ ctx }) => {
+export const MobileMenu = reatomMemo(({ ctx }) => {
   return (
     <DrawerRoot
       placement={'start'}
@@ -90,7 +90,7 @@ type MenuLinkProps = PropsWithChildren<{
   to: LinkComponentProps<'a'>['to'];
 }>;
 
-const MenuLink = reatomComponent<MenuLinkProps>(({ ctx, to, children }) => {
+const MenuLink = reatomMemo<MenuLinkProps>(({ ctx, to, children }) => {
   return (
     <Link
       to={to}

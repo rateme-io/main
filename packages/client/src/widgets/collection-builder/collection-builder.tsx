@@ -1,12 +1,13 @@
 import { Flex } from '@chakra-ui/react';
-import { reatomComponent } from '@reatom/npm-react';
 import { useRef } from 'react';
+
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { CollectionFields } from './fields';
 import { useIntersection } from './hooks/use-intersection.ts';
 import { Builder } from './ui/builder.tsx';
 
-export const CollectionBuilder = reatomComponent(() => {
+export const CollectionBuilder = reatomMemo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLElement>(null);
 

@@ -1,9 +1,9 @@
 import { createListCollection, IconButton } from '@chakra-ui/react';
-import { reatomComponent } from '@reatom/npm-react';
 import { MdTranslate } from 'react-icons/md';
 
 import { defaultLocale, Locales, locales } from '@/app/locales';
 import { $locale } from '@/shared/atoms/locale.atom.ts';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
   SelectContent,
@@ -21,7 +21,7 @@ const languageCollection = createListCollection({
   items: languageOptions,
 });
 
-export const LanguageSelect = reatomComponent(({ ctx }) => {
+export const LanguageSelect = reatomMemo(({ ctx }) => {
   const locale = ctx.spy($locale);
 
   return (

@@ -1,10 +1,12 @@
 import { Box, Fieldset } from '@chakra-ui/react';
-import { PropsWithCtx, reatomComponent } from '@reatom/npm-react';
+import { PropsWithCtx } from '@reatom/npm-react';
 import { ReactNode, useId } from 'react';
 
 import { BaseForm, FormAtom } from '@/shared/atoms/form.atom.ts';
 import { Dialog, DialogProps } from '@/shared/ui/dialog';
 import { Form } from '@/shared/ui/form.tsx';
+
+import { reatomMemo } from './reatom-memo';
 
 export type AsyncFormDialogProps<Form extends BaseForm> = {
   form: FormAtom<Form>;
@@ -13,7 +15,7 @@ export type AsyncFormDialogProps<Form extends BaseForm> = {
   afterError?: ReactNode;
 } & Omit<DialogProps, 'formId' | 'isLoading'>;
 
-export const AsyncFormDialog = reatomComponent(
+export const AsyncFormDialog = reatomMemo(
   <Form extends BaseForm>({
     disclosure,
     ctx,
@@ -78,7 +80,7 @@ export const AsyncFormDialog = reatomComponent(
   'AsyncFormDialog',
 );
 
-const ErrorRenderer = reatomComponent<{
+const ErrorRenderer = reatomMemo<{
   errorRenderer: (error: string) => ReactNode;
   form: FormAtom<BaseForm>;
 }>(({ ctx, form, errorRenderer }) => {

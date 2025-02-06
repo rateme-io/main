@@ -1,10 +1,10 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 import { useRef } from 'react';
 
 import { AsyncFormDialog } from '@/shared/ui/async-form-dialog.tsx';
 import { CapsLockWarn } from '@/shared/ui/caps-lock-warn.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { registerDisclosure, registerForm } from '../model';
 import {
@@ -17,7 +17,7 @@ import {
   UsernameField,
 } from './common';
 
-export const DesktopRegisterDialog = reatomComponent(() => {
+export const DesktopRegisterDialog = reatomMemo(() => {
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
 
   useHandleErrors({ emailFieldRef });

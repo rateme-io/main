@@ -1,16 +1,14 @@
 import { Flex } from '@chakra-ui/react';
-import { reatomComponent } from '@reatom/npm-react';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 
-import { Controllers } from '@/app/controllers.tsx';
 import { Dialogs } from '@/app/dialogs.tsx';
 import { AppOverlay } from '@/shared/ui/app-overlay.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo';
 import { Header } from '@/widgets/header';
 
-const Root = reatomComponent(() => {
+const Root = reatomMemo(() => {
   return (
     <>
-      <Controllers />
       <Dialogs />
 
       <AppOverlay />

@@ -1,13 +1,13 @@
 import { Flex, Input, InputProps, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { AtomMut } from '@reatom/framework';
-import { reatomComponent } from '@reatom/npm-react';
 import { ReactNode } from 'react';
 import { TiSortNumerically } from 'react-icons/ti';
 
 import { createFieldUI } from '@/shared/field-builder/field';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Field } from '@/shared/ui/field.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo';
 
 import { NumericFieldState } from './model.ts';
 
@@ -15,7 +15,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   title: <Trans>Number Input</Trans>,
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
-  FieldPreview: reatomComponent(
+  FieldPreview: reatomMemo(
     ({ ctx, state }) => (
       <Field orientation={'horizontal'} label={ctx.get(state.$name)}>
         <Input
@@ -35,7 +35,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
     ),
     'NumericFieldUI.FieldPreview',
   ),
-  FieldContent: reatomComponent(({ ctx, state }) => {
+  FieldContent: reatomMemo(({ ctx, state }) => {
     return (
       <>
         <Flex gap={2}>
@@ -62,7 +62,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   }, 'NumericFieldUI.FieldContent'),
 });
 
-const NumberInput = reatomComponent<{
+const NumberInput = reatomMemo<{
   label: ReactNode;
   $enabled: AtomMut<boolean>;
   $value: AtomMut<number | null>;

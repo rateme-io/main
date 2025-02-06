@@ -1,16 +1,18 @@
 import { Flex, Tabs } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/npm-react';
 import { CreatableSelect } from 'chakra-react-select';
 import { MdPreview } from 'react-icons/md';
 import { SiFormspree } from 'react-icons/si';
 
+import { Button } from '@/shared/ui/button.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { Field } from '@/shared/ui/field';
 import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { CollectionFields } from '@/widgets/collection-builder/fields';
 import {
   $activeTab,
@@ -22,7 +24,7 @@ import {
   MAX_FILE_SIZE,
 } from '@/widgets/collection-builder/model';
 
-export const Builder = reatomComponent(({ ctx }) => {
+export const Builder = reatomMemo(({ ctx }) => {
   return (
     <Flex flex={1} overflowY={'auto'}>
       <PageLayout flex={1} height={'fit-content'}>
@@ -62,7 +64,7 @@ export const Builder = reatomComponent(({ ctx }) => {
               <CollectionTags />
             </Box>
 
-            <Flex gridArea={'tabs'} justifyContent={'flex-end'}>
+            <Flex gridArea={'tabs'} justifyContent={'space-between'}>
               <Tabs.List borderBottomWidth={0} _before={{ content: '""' }}>
                 <Tabs.Trigger value={'builder'}>
                   <SiFormspree />
@@ -75,12 +77,15 @@ export const Builder = reatomComponent(({ ctx }) => {
                   <Trans>Preview</Trans>
                 </Tabs.Trigger>
               </Tabs.List>
+
+              <Button
+                onClick={() => CollectionFields.model.actions.submit(ctx)}
+              >
+                <Trans>Submit</Trans>
+              </Button>
             </Flex>
 
-            <Box
-              gridArea={'board'}
-              marginTop={'calc(var(--chakra-spacing-1) * -1 - 4px)'}
-            >
+            <Box gridArea={'board'}>
               <Tabs.Content value={'builder'} padding={0}>
                 <CollectionFields.Board />
               </Tabs.Content>
@@ -95,7 +100,7 @@ export const Builder = reatomComponent(({ ctx }) => {
   );
 }, 'Builder');
 
-const CollectionNameField = reatomComponent(({ ctx }) => {
+const CollectionNameField = reatomMemo(({ ctx }) => {
   return (
     <Editable
       onValueChange={(value) => collectionNameField.$value(ctx, value)}
@@ -106,7 +111,7 @@ const CollectionNameField = reatomComponent(({ ctx }) => {
   );
 }, 'CollectionNameField');
 
-const CollectionImageField = reatomComponent(({ ctx }) => {
+const CollectionImageField = reatomMemo(({ ctx }) => {
   const file = ctx.spy(collectionImageField.$value);
 
   return (
@@ -127,7 +132,7 @@ const CollectionImageField = reatomComponent(({ ctx }) => {
   );
 }, 'CollectionImageField');
 
-const CollectionTags = reatomComponent(({ ctx }) => {
+const CollectionTags = reatomMemo(({ ctx }) => {
   const [value] = useAtom((ctx) =>
     ctx
       .spy(collectionTagsField.$value)

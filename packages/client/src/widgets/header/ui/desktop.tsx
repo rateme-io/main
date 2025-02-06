@@ -1,6 +1,5 @@
 import { Flex } from '@chakra-ui/react/flex';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent } from '@reatom/npm-react';
 
 import { Avatar } from '@/features/avatar';
 import { LanguageSelect } from '@/features/language-select';
@@ -9,13 +8,14 @@ import { Button } from '@/shared/ui/button.tsx';
 import { Link } from '@/shared/ui/link.tsx';
 import { BigLogo } from '@/shared/ui/logo';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { StatusGuard } from '@/shared/ui/status-guard.tsx';
 import { loginDisclosure } from '@/widgets/login-dialog';
 
 import { CreateMenu } from './create-menu';
 import { Menu } from './menu';
 
-export const DesktopHeader = reatomComponent(({ ctx }) => {
+export const DesktopHeader = reatomMemo(({ ctx }) => {
   return (
     <>
       <Flex

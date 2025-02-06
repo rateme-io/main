@@ -1,7 +1,7 @@
 import { Input, Stack } from '@chakra-ui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { reatomComponent, useAtom } from '@reatom/npm-react';
+import { useAtom } from '@reatom/npm-react';
 import { FunctionComponent, RefObject, useEffect } from 'react';
 
 import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/errors';
@@ -9,6 +9,7 @@ import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/error
 import { ButtonLink } from '@/shared/ui/button-link.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { PasswordInput } from '@/shared/ui/password-input.tsx';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { registerDisclosure } from '@/widgets/register-dialog';
 
 import {
@@ -22,37 +23,34 @@ export type EmailFieldProps = {
   inputRef?: RefObject<HTMLInputElement>;
 };
 
-export const EmailField = reatomComponent<EmailFieldProps>(
-  ({ ctx, inputRef }) => {
-    return (
-      <Field
-        label={t`Email`}
-        invalid={!!ctx.spy(emailField.$error)}
-        errorText={ctx.spy(emailField.$error) && <Trans>Wrong email</Trans>}
-        required
-      >
-        <Input
-          ref={inputRef}
-          formNoValidate
-          type={'email'}
-          placeholder={t`Enter your email`}
-          autoComplete={'email'}
-          value={ctx.spy(emailField.$value)}
-          onChange={(e) => {
-            emailField.$value(ctx, e.currentTarget.value);
-          }}
-        />
-      </Field>
-    );
-  },
-  'EmailField',
-);
+export const EmailField = reatomMemo<EmailFieldProps>(({ ctx, inputRef }) => {
+  return (
+    <Field
+      label={t`Email`}
+      invalid={!!ctx.spy(emailField.$error)}
+      errorText={ctx.spy(emailField.$error) && <Trans>Wrong email</Trans>}
+      required
+    >
+      <Input
+        ref={inputRef}
+        formNoValidate
+        type={'email'}
+        placeholder={t`Enter your email`}
+        autoComplete={'email'}
+        value={ctx.spy(emailField.$value)}
+        onChange={(e) => {
+          emailField.$value(ctx, e.currentTarget.value);
+        }}
+      />
+    </Field>
+  );
+}, 'EmailField');
 
 export type PasswordFieldProps = {
   inputRef?: RefObject<HTMLInputElement>;
 };
 
-export const PasswordField = reatomComponent<PasswordFieldProps>(
+export const PasswordField = reatomMemo<PasswordFieldProps>(
   ({ ctx, inputRef }) => {
     return (
       <Field
@@ -80,7 +78,7 @@ export const PasswordField = reatomComponent<PasswordFieldProps>(
   'PasswordField',
 );
 
-export const RegisterLink = reatomComponent(({ ctx }) => {
+export const RegisterLink = reatomMemo(({ ctx }) => {
   return (
     <ButtonLink
       onClick={() => {

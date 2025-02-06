@@ -1,10 +1,11 @@
-import { reatomComponent } from '@reatom/npm-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { $application } from '@/entities/application';
 import { BigLogo } from '@/shared/ui/logo';
 
-export const AppOverlay = reatomComponent(({ ctx }) => {
+import { reatomMemo } from './reatom-memo';
+
+export const AppOverlay = reatomMemo(({ ctx }) => {
   const application = ctx.spy($application);
 
   return (
