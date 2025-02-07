@@ -125,8 +125,8 @@ const DefaultMenuOverlay = reatomMemo<DefaultMenuOverlayProps>(({ field }) => {
   return (
     <Flex
       zIndex={'max'}
-      borderColor={'gray.300'}
-      backgroundColor={'gray.100'}
+      borderColor={'border.emphasized'}
+      backgroundColor={'bg.muted'}
       borderRadius={'md'}
       borderWidth={1}
       borderStyle={'solid'}
@@ -163,8 +163,8 @@ const DefaultBoardOverlay = reatomMemo<DefaultBoardOverlayProps>(
     return (
       <Flex
         zIndex={'max'}
-        borderColor={'gray.300'}
-        backgroundColor={'gray.100'}
+        borderColor={'border.emphasized'}
+        backgroundColor={'bg.muted'}
         borderRadius={'md'}
         borderWidth={1}
         borderStyle={'solid'}

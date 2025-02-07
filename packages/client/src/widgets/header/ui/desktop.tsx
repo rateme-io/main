@@ -24,7 +24,7 @@ export const DesktopHeader = reatomMemo(({ ctx }) => {
         height={'60px'}
         position={'relative'}
         zIndex={10}
-        backgroundColor={'white'}
+        backgroundColor={'bg'}
       >
         <PageLayout
           flexDirection={'row'}

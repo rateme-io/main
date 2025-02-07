@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import { Atom } from '@reatom/framework';
 import { FaRegFaceSadTear } from 'react-icons/fa6';
 
-import { BoardNode } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useFieldsManagerContext } from './context.ts';
@@ -15,7 +14,7 @@ export type FieldsManagerPreviewProps = {
 export const Preview = reatomMemo<FieldsManagerPreviewProps>(({ ctx }) => {
   const { model } = useFieldsManagerContext();
 
-  const children = ctx.get(model.tree.$children);
+  const children = ctx.spy(model.tree.$children);
 
   if (children.length === 0) {
     return (
@@ -41,21 +40,8 @@ export const Preview = reatomMemo<FieldsManagerPreviewProps>(({ ctx }) => {
   return (
     <Flex flexDirection={'column'} gap={2}>
       {children.map((node) => (
-        <FieldPreviewRenderer key={node.id} node={node} />
+        <node.field.ui.FieldPreview key={node.id} state={node.state} />
       ))}
     </Flex>
   );
 }, 'Preview');
-
-type FieldPreviewRendererProps = {
-  node: BoardNode;
-};
-
-const FieldPreviewRenderer = reatomMemo<FieldPreviewRendererProps>(
-  ({ node }) => {
-    const Component = node.field.ui.FieldPreview;
-
-    return <Component state={node.state} />;
-  },
-  'FieldPreviewRenderer',
-);

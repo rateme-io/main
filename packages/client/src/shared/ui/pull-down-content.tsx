@@ -30,7 +30,7 @@ export const PullDownContent: FunctionComponent<PullDownContentProps> = ({
         <Box
           width={'100%'}
           height={'100%'}
-          backgroundColor={'white'}
+          backgroundColor={'bg'}
           position={'relative'}
           zIndex={2}
           {...contentProps}
@@ -43,13 +43,13 @@ export const PullDownContent: FunctionComponent<PullDownContentProps> = ({
           size={'sm'}
           width={'24px'}
           justifyContent={'flex-start'}
-          color={'black'}
+          color={'fg'}
           minWidth={'auto'}
           height={'auto'}
           position={'absolute'}
           left={'-18px'}
           top={4}
-          backgroundColor={'white'}
+          backgroundColor={'bg'}
           boxShadow={'md'}
           border={'1px solid gray.200'}
           onClick={() => setIsOpened(!isOpened)}

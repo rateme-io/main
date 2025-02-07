@@ -11,7 +11,7 @@ export const BigSearch = () => {
       maxWidth={'fit-content'}
       size={'sm'}
       justifyContent={'flex-start'}
-      color={'gray.500'}
+      color={'fg.muted'}
     >
       <LuSearch />
       <Trans>

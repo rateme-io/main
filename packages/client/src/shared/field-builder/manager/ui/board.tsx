@@ -103,13 +103,13 @@ const InsertFieldDropZone = reatomMemo<InsertFieldDropZoneProps>(
           flex={1}
           height={'4px'}
           position={'relative'}
-          backgroundColor={isOver ? 'blue.500' : 'gray.100'}
+          backgroundColor={isOver ? 'fg.info' : 'bg.muted'}
         >
           <Flex
             opacity={isOver ? 1 : 0}
             position={'absolute'}
-            color={'white'}
-            backgroundColor={'blue.500'}
+            color={'fg.inverted'}
+            backgroundColor={'fg.info'}
             left={'50%'}
             top={'50%'}
             transform={'translate(-50%, -50%)'}
@@ -142,8 +142,8 @@ const AddFieldDropZone = reatomMemo(() => {
       justifyContent={'center'}
       padding={8}
       flexDirection={'column'}
-      color={isOver ? 'blue.500' : 'gray.300'}
-      backgroundColor={isOver ? 'blue.50' : 'white'}
+      color={isOver ? 'fg.info' : 'fg.subtle'}
+      backgroundColor={isOver ? 'bg.info' : 'bg'}
     >
       <FaPlus />
     </Flex>

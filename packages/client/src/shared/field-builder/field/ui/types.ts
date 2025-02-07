@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { FieldIssueManager } from '@/shared/field-builder/field';
+
 export type CreateFieldUICommand<State> = {
   title: ReactNode;
   description: ReactNode;
@@ -13,6 +15,7 @@ export type CreateFieldUICommand<State> = {
 
 export type FieldContentProps<State> = {
   state: State;
+  issueManager: FieldIssueManager;
 };
 
 export type FieldPreviewProps<State> = {

@@ -1,8 +1,8 @@
-import { Action, Atom, AtomMut } from '@reatom/framework';
+import { Action, Atom, AtomMut, Ctx } from '@reatom/framework';
 
 export type CreateFieldModelCommand<State> = {
   state: (command: CreateStateCommand) => State;
-  validateField?: Action<[api: FieldValidationApi<State>], void>;
+  validateField?: (ctx: Ctx, api: FieldValidationApi<State>) => void;
 };
 
 export type FieldValidationApi<State> = {
@@ -30,6 +30,7 @@ export type FieldIssueManager = {
   getIssue: Action<[id: symbol], FieldIssue | null>;
   issueAtom: (id: symbol) => Atom<FieldIssue | null>;
   validate: Action<[], boolean>;
+  revalidate: Action<[], boolean>;
 };
 
 export type CreateStateCommand = {

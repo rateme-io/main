@@ -26,7 +26,7 @@ import {
 
 export const Builder = reatomMemo(({ ctx }) => {
   return (
-    <Flex flex={1} overflowY={'auto'}>
+    <Flex flex={1} overflowY={'auto'} top={0} left={0} right={0} bottom={0}>
       <PageLayout flex={1} height={'fit-content'}>
         <Tabs.Root
           display={'flex'}
@@ -79,6 +79,7 @@ export const Builder = reatomMemo(({ ctx }) => {
               </Tabs.List>
 
               <Button
+                variant={'ghost'}
                 onClick={() => CollectionFields.model.actions.submit(ctx)}
               >
                 <Trans>Submit</Trans>

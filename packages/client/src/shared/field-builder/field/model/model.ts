@@ -9,16 +9,29 @@ import {
 
 export const createFieldModel = <State>({
   state,
-  validateField,
+  validateField: _validateField,
 }: CreateFieldModelCommand<State>): FieldModel<State> => {
+  const validateField =
+    _validateField && action(_validateField, 'validateField');
+
   return {
     create: (command) => {
       const currentState = state(command);
 
-      const issuesMap = reatomMap<symbol, FieldIssue>(new Map(), 'issuesMap');
+      const $issuesMap = reatomMap<symbol, FieldIssue>(new Map(), '$issuesMap');
+      const $issueTypes = reatomMap<FieldIssue['type'], number>(
+        new Map(),
+        '$issueTypes',
+      );
 
       const addIssue = action((ctx, issue: FieldIssue) => {
-        issuesMap.set(ctx, issue.id, issue);
+        $issueTypes.set(
+          ctx,
+          issue.type,
+          ($issueTypes.get(ctx, issue.type) ?? 0) + 1,
+        );
+
+        $issuesMap.set(ctx, issue.id, issue);
       }, 'addIssue');
 
       const validateName = action((ctx, name: string) => {
@@ -33,16 +46,17 @@ export const createFieldModel = <State>({
 
       const issueManager: FieldIssueManager = {
         getIssue: action(
-          (ctx, id) => issuesMap.get(ctx, id) ?? null,
+          (ctx, id) => $issuesMap.get(ctx, id) ?? null,
           'issueManager.getIssue',
         ),
         issueAtom: (id) =>
           atom((ctx) => {
-            ctx.spy(issuesMap);
-            return issuesMap.get(ctx, id) ?? null;
+            ctx.spy($issuesMap);
+            return $issuesMap.get(ctx, id) ?? null;
           }, 'issueManager.issueAtom'),
         validate: action((ctx) => {
-          issuesMap.clear(ctx);
+          $issueTypes.clear(ctx);
+          $issuesMap.clear(ctx);
 
           if (!validateField) {
             validateName(ctx, ctx.get(command.$name));
@@ -54,8 +68,15 @@ export const createFieldModel = <State>({
             });
           }
 
-          return ctx.get(issuesMap).size === 0;
+          return !!$issueTypes.get(ctx, 'critical');
         }, 'issueManager.validate'),
+        revalidate: action((ctx) => {
+          if (ctx.get($issuesMap).size === 0) {
+            return true;
+          }
+
+          return issueManager.validate(ctx);
+        }, 'issueManager.revalidate'),
       };
 
       return {

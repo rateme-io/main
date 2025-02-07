@@ -17,23 +17,23 @@ msgstr ""
 #~ msgid "A collection of related fields"
 #~ msgstr "Коллекция связанных полей"
 
-#: src/shared/ui/password-strength-meter.tsx:56
+#: src/shared/ui/password-strength-meter.tsx:73
 msgid "At least 12 characters long"
 msgstr "Минимум 12 символов"
 
-#: src/shared/ui/password-strength-meter.tsx:60
+#: src/shared/ui/password-strength-meter.tsx:77
 msgid "At least one digit"
 msgstr "Минимум одна цифра"
 
-#: src/shared/ui/password-strength-meter.tsx:59
+#: src/shared/ui/password-strength-meter.tsx:76
 msgid "At least one lowercase letter"
 msgstr "Минимум одна строчная буква"
 
-#: src/shared/ui/password-strength-meter.tsx:63
+#: src/shared/ui/password-strength-meter.tsx:80
 msgid "At least one special character"
 msgstr "Минимум один специальный символ"
 
-#: src/shared/ui/password-strength-meter.tsx:58
+#: src/shared/ui/password-strength-meter.tsx:75
 msgid "At least one uppercase letter"
 msgstr "Минимум одна заглавная буква"
 
@@ -47,15 +47,15 @@ msgstr "Авторизация"
 msgid "Basic Fields"
 msgstr "Основные поля"
 
-#: src/widgets/collection-builder/ui/builder.tsx:70
+#: src/widgets/collection-builder/ui/builder.tsx:72
 msgid "Builder"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:78
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:79
 msgid "Can create new options"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:68
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:69
 msgid "Can select multiple options"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:32
+#: src/shared/field-builder/manager/ui/menu.tsx:31
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
@@ -72,7 +72,7 @@ msgstr "Поля коллекции"
 msgid "Collections"
 msgstr "Коллекции"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:218
+#: src/shared/field-builder/manager/ui/menu.tsx:215
 msgid "coming soon"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr "Выбор даты"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:27
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:28
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
@@ -122,7 +122,7 @@ msgstr "Email"
 #~ msgid "Enter field name"
 #~ msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:113
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:114
 msgid "Enter option label"
 msgstr ""
 
@@ -131,16 +131,16 @@ msgstr ""
 msgid "Enter your email"
 msgstr "Введите ваш email"
 
-#: src/widgets/register-dialog/ui/common.tsx:97
+#: src/widgets/register-dialog/ui/common.tsx:95
 msgid "Enter your full name"
 msgstr "Введите ваше полное имя"
 
-#: src/widgets/register-dialog/ui/common.tsx:73
-#: src/widgets/login-dialog/ui/common.tsx:69
+#: src/widgets/register-dialog/ui/common.tsx:71
+#: src/widgets/login-dialog/ui/common.tsx:67
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
-#: src/widgets/register-dialog/ui/common.tsx:116
+#: src/widgets/register-dialog/ui/common.tsx:114
 msgid "Enter your username"
 msgstr "Введите ваш username"
 
@@ -152,7 +152,7 @@ msgstr "Введите ваш username"
 #~ msgid "Field name"
 #~ msgstr ""
 
-#: src/widgets/register-dialog/ui/common.tsx:91
+#: src/widgets/register-dialog/ui/common.tsx:89
 msgid "Full name"
 msgstr "Полное имя"
 
@@ -160,7 +160,7 @@ msgstr "Полное имя"
 #~ msgid "Group name"
 #~ msgstr ""
 
-#: src/widgets/register-dialog/ui/common.tsx:136
+#: src/widgets/register-dialog/ui/common.tsx:134
 msgid "Have an account? Sign in"
 msgstr "Есть аккаунт? Войти"
 
@@ -213,23 +213,27 @@ msgstr ""
 msgid "Min"
 msgstr ""
 
-#: src/widgets/login-dialog/ui/common.tsx:93
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:98
+msgid "Name is required"
+msgstr ""
+
+#: src/widgets/login-dialog/ui/common.tsx:91
 msgid "No account? Register"
 msgstr "Нет аккаунта? Зарегистрироваться"
 
-#: src/shared/field-builder/manager/ui/preview.tsx:23
+#: src/shared/field-builder/manager/ui/preview.tsx:28
 msgid "No fields"
 msgstr ""
 
-#: src/shared/ui/password-strength-meter.tsx:69
+#: src/shared/ui/password-strength-meter.tsx:86
 msgid "No more than 2 consecutive characters"
 msgstr "Не более двух одинаковых символов подряд"
 
-#: src/shared/ui/password-strength-meter.tsx:57
+#: src/shared/ui/password-strength-meter.tsx:74
 msgid "No white spaces"
 msgstr "Без пробелов"
 
-#: src/shared/ui/password-strength-meter.tsx:72
+#: src/shared/ui/password-strength-meter.tsx:89
 msgid "Not a too simple password"
 msgstr "Не слишком простой пароль"
 
@@ -237,12 +241,12 @@ msgstr "Не слишком простой пароль"
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
-#: src/widgets/register-dialog/ui/common.tsx:63
-#: src/widgets/login-dialog/ui/common.tsx:59
+#: src/widgets/register-dialog/ui/common.tsx:61
+#: src/widgets/login-dialog/ui/common.tsx:57
 msgid "Password"
 msgstr "Пароль"
 
-#: src/widgets/collection-builder/ui/builder.tsx:75
+#: src/widgets/collection-builder/ui/builder.tsx:77
 msgid "Preview"
 msgstr ""
 
@@ -269,7 +273,7 @@ msgstr "Регистрация"
 msgid "Select a date"
 msgstr "Выберите дату"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:28
+#: src/widgets/collection-builder/fields/basic/select/ui.tsx:29
 msgid "Select from predefined options"
 msgstr "Селектор из предопределённых опций"
 
@@ -287,7 +291,11 @@ msgstr "Войти"
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/collection-builder/ui/builder.tsx:138
+#: src/widgets/collection-builder/ui/builder.tsx:84
+msgid "Submit"
+msgstr ""
+
+#: src/widgets/collection-builder/ui/builder.tsx:143
 msgid "Tags"
 msgstr ""
 
@@ -311,7 +319,7 @@ msgstr "Загрузите и управляйте изображениями"
 msgid "URL Input"
 msgstr "Поле для ввода URL"
 
-#: src/widgets/register-dialog/ui/common.tsx:109
+#: src/widgets/register-dialog/ui/common.tsx:107
 msgid "Username"
 msgstr "Username"
 
@@ -323,8 +331,8 @@ msgstr "Username"
 msgid "What do you want to create?"
 msgstr "Что вы хотите создать?"
 
-#: src/widgets/register-dialog/ui/common.tsx:144
-#: src/widgets/login-dialog/ui/common.tsx:101
+#: src/widgets/register-dialog/ui/common.tsx:142
+#: src/widgets/login-dialog/ui/common.tsx:99
 msgid "Wrong credentials"
 msgstr "Неправильные учётные данные"
 
@@ -333,15 +341,19 @@ msgstr "Неправильные учётные данные"
 msgid "Wrong email"
 msgstr "Неправильный email"
 
-#: src/widgets/register-dialog/ui/common.tsx:94
+#: src/widgets/register-dialog/ui/common.tsx:92
 msgid "Wrong full name"
 msgstr "Неправильное полное имя"
 
-#: src/widgets/register-dialog/ui/common.tsx:66
-#: src/widgets/login-dialog/ui/common.tsx:62
+#: src/widgets/register-dialog/ui/common.tsx:64
+#: src/widgets/login-dialog/ui/common.tsx:60
 msgid "Wrong password"
 msgstr "Неправильный пароль"
 
-#: src/widgets/register-dialog/ui/common.tsx:112
+#: src/widgets/register-dialog/ui/common.tsx:110
 msgid "Wrong username"
 msgstr "Неправильный username"
+
+#: src/shared/field-builder/manager/ui/preview.tsx:31
+msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
+msgstr ""

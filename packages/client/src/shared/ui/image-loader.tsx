@@ -60,7 +60,7 @@ export const ImageLoader: FunctionComponent<ImageLoaderProps> = ({
           width={'100%'}
           height={'100%'}
           minHeight={'auto'}
-          color={'gray.600'}
+          color={'fg.muted'}
           borderRadius={borderRadius}
         />
         <Flex

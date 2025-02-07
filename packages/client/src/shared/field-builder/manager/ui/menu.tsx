@@ -86,7 +86,7 @@ const containerStyles = css`
   padding-inline: var(--chakra-spacing-1);
   gap: var(--chakra-spacing-3);
 
-  background-color: var(--chakra-colors-white);
+  background-color: var(--chakra-colors-bg);
   box-shadow: var(--chakra-shadows-sm);
 
   position: absolute !important;
@@ -108,7 +108,7 @@ const containerStyles = css`
 
     &:hover {
       &::after {
-        background-color: var(--chakra-colors-black);
+        background-color: var(--chakra-colors-bg-inverted);
       }
     }
 
@@ -116,7 +116,7 @@ const containerStyles = css`
       position: relative;
 
       &::after {
-        background-color: var(--chakra-colors-black);
+        background-color: var(--chakra-colors-bg-inverted);
       }
     }
   }
@@ -187,13 +187,13 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
       borderStyle={'dashed'}
       borderWidth={2}
       borderRadius={4}
-      borderColor={'gray.300'}
-      backgroundColor={'white'}
+      borderColor={'border.emphasized'}
+      backgroundColor={'bg'}
       alignItems={'flex-start'}
       flexDirection={'column'}
       gap={1}
       _hover={{
-        borderColor: 'gray.500',
+        borderColor: 'gray.emphasized',
         cursor: 'pointer',
       }}
     >
@@ -208,9 +208,9 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
         {field.ui.comingSoon && (
           <Flex
             borderRadius={'md'}
-            backgroundColor={'blue.500'}
+            backgroundColor={'bg.info'}
             paddingInline={1}
-            color={'white'}
+            color={'fg.info'}
           >
             <Trans>coming soon</Trans>
           </Flex>
@@ -222,7 +222,7 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
           <i>{field.ui.icon}</i>
         </Icon>
 
-        <Text fontSize={'sm'} color={'gray.500'}>
+        <Text fontSize={'sm'} color={'fg.muted'}>
           {field.ui.description}
         </Text>
       </Flex>

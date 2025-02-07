@@ -1,19 +1,17 @@
 import { reatomContext } from '@reatom/npm-react';
-import { RouterProvider } from '@tanstack/react-router';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 
 import { LocalesProvider } from './locales';
-import { router } from './router';
 import { ctx } from './store';
 import { ThemeProvider } from './theme';
 
-export const Provider: FunctionComponent = () => {
+export const Provider: FunctionComponent<PropsWithChildren> = ({
+  children,
+}) => {
   return (
     <reatomContext.Provider value={ctx}>
       <ThemeProvider>
-        <LocalesProvider>
-          <RouterProvider router={router} />
-        </LocalesProvider>
+        <LocalesProvider>{children}</LocalesProvider>
       </ThemeProvider>
     </reatomContext.Provider>
   );

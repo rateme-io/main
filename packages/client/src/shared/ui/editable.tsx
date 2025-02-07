@@ -18,6 +18,7 @@ export type EditableProps = {
   value: string;
   onValueChange: (value: string) => void;
   placeholder?: ReactNode;
+  maxWidth?: EditableRootProps['maxWidth'];
   minWidth?: EditableRootProps['minWidth'];
   required?: boolean;
   onBlur?: InputProps['onBlur'];
@@ -27,6 +28,7 @@ export const Editable: FunctionComponent<EditableProps> = ({
   value,
   onValueChange,
   placeholder,
+  maxWidth = '100%',
   minWidth,
   required,
   onBlur,
@@ -50,23 +52,31 @@ export const Editable: FunctionComponent<EditableProps> = ({
   }, [value]);
 
   return (
-    <ChakraEditable.RootProvider value={editable}>
-      <Flex position={'relative'}>
+    <ChakraEditable.RootProvider value={editable} maxWidth={maxWidth} gap={0}>
+      <Flex position={'relative'} maxWidth={`calc(${maxWidth} - 14px)`}>
         <ChakraEditable.Preview
           ref={previewRef}
+          maxWidth={maxWidth}
           minWidth={minWidth}
-          color={isEmpty ? 'gray.500' : 'inherit'}
+          color={isEmpty ? 'fg.muted' : 'inherit'}
           opacity={editable.editing ? 0 : 1}
           hidden={false}
           whiteSpace={'pre'}
+          overflow={'hidden'}
+          textOverflow={'ellipsis'}
+          display={'inline-block'}
+          lineHeight={2}
           _after={{
             content: '"s"',
             visibility: 'hidden',
           }}
+          title={previewRef.current?.innerText}
         >
-          {isEmpty && !editable.editing ? placeholder : value}
+          {isEmpty ? placeholder : value}
         </ChakraEditable.Preview>
+
         <ChakraEditable.Input
+          maxWidth={maxWidth}
           minWidth={minWidth}
           width={`${previewWidth}px`}
           position={'absolute'}
@@ -76,20 +86,22 @@ export const Editable: FunctionComponent<EditableProps> = ({
         />
       </Flex>
 
-      <ChakraEditable.Control>
-        <ChakraEditable.EditTrigger cursor={'pointer'} display={'flex'}>
-          <LuPencilLine />
-          {required && (
-            <Flex
-              alignItems={'flex-start'}
-              color={'red.500'}
-              marginTop={'-4px'}
-            >
-              <LuAsterisk />
-            </Flex>
-          )}
-        </ChakraEditable.EditTrigger>
-      </ChakraEditable.Control>
+      {!editable.editing && (
+        <ChakraEditable.Control>
+          <ChakraEditable.EditTrigger cursor={'pointer'} display={'flex'}>
+            <LuPencilLine />
+            {required && (
+              <Flex
+                alignItems={'flex-start'}
+                color={'fg.error'}
+                marginTop={'-4px'}
+              >
+                <LuAsterisk />
+              </Flex>
+            )}
+          </ChakraEditable.EditTrigger>
+        </ChakraEditable.Control>
+      )}
     </ChakraEditable.RootProvider>
   );
 };

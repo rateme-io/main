@@ -11,7 +11,25 @@ export const DropdownFieldModel = createFieldModel({
     $name,
     model: createModel(),
   }),
+  validateField: (ctx, { state, addIssue, validateName }) => {
+    const { model, $name } = state;
+
+    validateName(ctx, ctx.get($name));
+
+    const labelValue = ctx.get(model.labelField.$value);
+
+    if (labelValue.trim() !== '') {
+      addIssue(ctx, {
+        type: 'warning',
+        id: DROPDOWN_FIELD_LABEL_WARNING,
+      });
+    }
+  },
 });
+
+export const DROPDOWN_FIELD_LABEL_WARNING = Symbol(
+  'DROPDOWN_FIELD_LABEL_WARNING',
+);
 
 export type DropdownFieldState = InferState<typeof DropdownFieldModel>;
 

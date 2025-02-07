@@ -1,16 +1,18 @@
+import { RouterProvider } from '@tanstack/react-router';
 import { FunctionComponent } from 'react';
 
-import { ctx } from '@/app/store.ts';
 import {
   applicationEffect,
   initApplicationAction,
 } from '@/entities/application';
+import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { Provider } from './provider';
+import { router } from './router';
+import { ctx } from './store.ts';
 
 initApplicationAction(ctx);
-ctx.get(applicationEffect);
 
-export const App: FunctionComponent = () => {
-  return <Provider />;
-};
+export const App: FunctionComponent = reatomMemo(({ ctx }) => {
+  ctx.spy(applicationEffect);
+  return <RouterProvider router={router} />;
+}, 'App');

@@ -1,4 +1,9 @@
-import { IconButton, Popover as ChakraPopover, Portal } from '@chakra-ui/react';
+import {
+  FlexProps,
+  IconButton,
+  Popover as ChakraPopover,
+  Portal,
+} from '@chakra-ui/react';
 import * as React from 'react';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
 
@@ -7,6 +12,8 @@ export interface ToggleTipProps extends ChakraPopover.RootProps {
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
   content?: React.ReactNode;
+  backgroundColor?: FlexProps['backgroundColor'];
+  color?: FlexProps['color'];
 }
 
 export const ToggleTip = React.forwardRef<HTMLDivElement, ToggleTipProps>(
@@ -17,6 +24,8 @@ export const ToggleTip = React.forwardRef<HTMLDivElement, ToggleTipProps>(
       portalled = true,
       content,
       portalRef,
+      backgroundColor,
+      color,
       ...rest
     } = props;
 
@@ -35,10 +44,14 @@ export const ToggleTip = React.forwardRef<HTMLDivElement, ToggleTipProps>(
               textStyle="xs"
               rounded="sm"
               ref={ref}
+              backgroundColor={backgroundColor}
+              color={color}
             >
               {showArrow && (
                 <ChakraPopover.Arrow>
-                  <ChakraPopover.ArrowTip />
+                  <ChakraPopover.ArrowTip
+                    backgroundColor={`${backgroundColor} !important`}
+                  />
                 </ChakraPopover.Arrow>
               )}
               {content}

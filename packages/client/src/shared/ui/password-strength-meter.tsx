@@ -52,13 +52,13 @@ const CheckItem = reatomMemo<CheckItemProps>(({ type, isValid }) => {
   return (
     <Flex key={type} alignItems={'center'} gap={1}>
       {isValid ? (
-        <Icon color={'green.500'}>
+        <Icon color={'fg.success'}>
           <i>
             <FaCheck />
           </i>
         </Icon>
       ) : (
-        <Icon color={'red.500'}>
+        <Icon color={'fg.error'}>
           <i>
             <FaXmark />
           </i>
@@ -78,7 +78,7 @@ const checkLabels = {
   special: (
     <Text>
       <Trans>At least one special character</Trans>
-      <Text as={'span'} color={'gray.400'} ml={1}>
+      <Text as={'span'} color={'fg.subtle'} ml={1}>
         (!@#$%^&*)
       </Text>
     </Text>
@@ -87,7 +87,7 @@ const checkLabels = {
   common: (
     <Text>
       <Trans>Not a too simple password</Trans>
-      <Text as={'span'} color={'gray.400'} ml={1}>
+      <Text as={'span'} color={'fg.subtle'} ml={1}>
         (12345, qwerty, password, etc.)
       </Text>
     </Text>

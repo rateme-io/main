@@ -1,7 +1,7 @@
 import { Flex, Icon, IconButton } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'motion/react';
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 
@@ -46,14 +46,6 @@ type FieldRendererProps = {
 const FieldRenderer = reatomMemo<FieldRendererProps>(({ node, isDragging }) => {
   const Content = node.field.ui.FieldContent;
 
-  useEffect(() => {
-    console.log('node');
-  }, [node]);
-
-  useEffect(() => {
-    console.log('isDragging');
-  }, [isDragging]);
-
   return (
     <FieldRendererContainer node={node} isDragging={isDragging}>
       <Flex justifyContent={'space-between'} padding={2}>
@@ -77,7 +69,7 @@ const FieldRenderer = reatomMemo<FieldRendererProps>(({ node, isDragging }) => {
           flexDirection={'column'}
           gap={2}
         >
-          <Content state={node.state} />
+          <Content state={node.state} issueManager={node.issueManager} />
         </Flex>
         <FieldRendererDragActivator />
       </Flex>
@@ -136,19 +128,20 @@ type FieldRendererContainerProps = PropsWithChildren<{
 }>;
 
 const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
-  ({ node, isDragging, children }) => {
+  ({ node, isDragging, children, ctx }) => {
     return (
       <Flex
         asChild
         flexDirection={'column'}
-        borderColor={'gray.500'}
+        borderColor={'border.inverted'}
         borderWidth={1}
         borderStyle={'solid'}
         borderRadius={'md'}
-        backgroundColor={'white'}
+        backgroundColor={'bg'}
         outline={'black'}
         overflow={'hidden'}
         flex={1}
+        onBlur={() => node.issueManager.revalidate(ctx)}
       >
         <motion.div
           layoutId={node.id}

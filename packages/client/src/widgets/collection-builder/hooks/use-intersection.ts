@@ -26,7 +26,8 @@ export const useIntersection = ({
   });
 
   useLayoutEffect(() => {
-    const menuElement = secondRef.current;
+    const firstElement = firstRef.current;
+    const secondElement = secondRef.current;
 
     calculateIntersection();
 
@@ -34,8 +35,12 @@ export const useIntersection = ({
 
     const resizeObserver = new ResizeObserver(calculateIntersection);
 
-    if (menuElement) {
-      resizeObserver.observe(menuElement);
+    if (firstElement) {
+      resizeObserver.observe(firstElement);
+    }
+
+    if (secondElement) {
+      resizeObserver.observe(secondElement);
     }
 
     return () => {

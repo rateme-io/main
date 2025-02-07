@@ -1,6 +1,10 @@
 import { Box, Flex, IconButton, Input } from '@chakra-ui/react';
 import { DndContext } from '@dnd-kit/core';
 import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from '@dnd-kit/modifiers';
+import {
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
@@ -12,17 +16,23 @@ import { useAtom } from '@reatom/npm-react';
 import { CreatableSelect, Select } from 'chakra-react-select';
 import { useMemo } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
-import { MdDragIndicator, MdOutlineRemove } from 'react-icons/md';
+import { MdDragIndicator } from 'react-icons/md';
 
-import { createFieldUI } from '@/shared/field-builder/field';
+import { createFieldUI, FieldIssueManager } from '@/shared/field-builder/field';
+import { IssueRenderer } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { InputGroup } from '@/shared/ui/input-group.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { DropdownFieldOption, DropdownFieldState } from './model.ts';
+import {
+  DROPDOWN_FIELD_LABEL_WARNING,
+  DropdownFieldOption,
+  DropdownFieldState,
+} from './model.ts';
 
 export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
@@ -49,13 +59,13 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
       </Field>
     );
   }, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(({ ctx, state }) => {
+  FieldContent: reatomMemo(({ ctx, state, issueManager }) => {
     return (
       <>
         <Flex gap={5}>
-          <Flex flexDirection={'column'} gap={1} maxWidth={'50%'}>
+          <Flex flexDirection={'column'} gap={1} flex={1}>
             <OptionsField state={state} />
-            <AddOption state={state} />
+            <AddOption state={state} issueManager={issueManager} />
           </Flex>
 
           <Flex flexDirection={'column'} gap={2}>
@@ -87,39 +97,46 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
 
 type AddOptionProps = {
   state: DropdownFieldState;
+  issueManager: FieldIssueManager;
 };
 
-const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
+const AddOption = reatomMemo<AddOptionProps>(({ ctx, state, issueManager }) => {
   return (
-    <Flex
-      as={'form'}
-      gap={2}
-      alignItems={'center'}
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        state.model.add(ctx);
-      }}
+    <IssueRenderer
+      manager={issueManager}
+      issueId={DROPDOWN_FIELD_LABEL_WARNING}
+      message={<Trans>Maybe you forgot to add the last option.</Trans>}
     >
-      <Field invalid={!!ctx.spy(state.model.labelField.$error)}>
-        <InputGroup
-          width={'100%'}
-          endElement={
-            <Box as={'button'} cursor={'pointer'}>
-              <FaCheck />
-            </Box>
-          }
-        >
-          <Input
-            placeholder={t`Enter option label`}
-            value={ctx.spy(state.model.labelField.$value)}
-            onChange={(event) =>
-              state.model.labelField.$value(ctx, event.currentTarget.value)
+      <Flex
+        as={'form'}
+        gap={2}
+        alignItems={'center'}
+        onSubmit={(event) => {
+          event.preventDefault();
+
+          state.model.add(ctx);
+        }}
+      >
+        <Field invalid={!!ctx.spy(state.model.labelField.$error)}>
+          <InputGroup
+            width={'100%'}
+            endElement={
+              <Box as={'button'} cursor={'pointer'} color={'fg'}>
+                <FaCheck />
+              </Box>
             }
-          />
-        </InputGroup>
-      </Field>
-    </Flex>
+          >
+            <Input
+              placeholder={t`Enter option label`}
+              value={ctx.spy(state.model.labelField.$value)}
+              onChange={(event) =>
+                state.model.labelField.$value(ctx, event.currentTarget.value)
+              }
+            />
+          </InputGroup>
+        </Field>
+      </Flex>
+    </IssueRenderer>
   );
 }, 'AddOption');
 
@@ -134,6 +151,7 @@ const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
 
   return (
     <DndContext
+      modifiers={[restrictToParentElement, restrictToVerticalAxis]}
       onDragEnd={({ active, over }) => {
         if (over) {
           state.model.move(ctx, active.id.toString(), over.id.toString());
@@ -182,17 +200,49 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
       transition={transition}
       transform={CSS.Transform.toString(transform)}
       alignItems={'center'}
-      justifyContent={'space-between'}
-      borderColor={isInvalid ? 'red.500' : 'gray.100'}
-      borderWidth={2}
-      borderStyle={'solid'}
-      borderRadius={'md'}
-      paddingBlock={1}
-      paddingInline={1}
-      backgroundColor={'white'}
-      maxWidth={'100%'}
+      width={'100%'}
+      position={'relative'}
+      height={'40px'}
     >
-      <Flex alignItems={'center'}>
+      <Flex position={'absolute'} top={0} left={0} height={0} right={0}>
+        <Flex
+          flex={1}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          borderColor={isInvalid ? 'border.error' : 'border'}
+          borderWidth={1}
+          borderStyle={'solid'}
+          borderRadius={'md'}
+          paddingBlock={1}
+          paddingInline={1}
+          backgroundColor={'bg'}
+          width={'calc(100% - var(--chakra-sizes-9))'}
+        >
+          <Flex
+            alignItems={'center'}
+            width={'calc(100% - var(--chakra-sizes-8))'}
+          >
+            <Editable
+              // maxWidth={'100%'}
+              value={ctx.spy(option.labelField.$value)}
+              onValueChange={(value) => option.labelField.$value(ctx, value)}
+              onBlur={() => {
+                const validValue = option.labelField.validate(ctx);
+
+                if (validValue) {
+                  option.labelField.$value(ctx, validValue);
+                }
+              }}
+            />
+          </Flex>
+
+          <Flex>
+            <IconButton variant={'ghost'} size={'xs'} onClick={onRemove}>
+              <FaRegTrashAlt />
+            </IconButton>
+          </Flex>
+        </Flex>
+
         <IconButton
           {...listeners}
           {...attributes}
@@ -201,24 +251,6 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
           size={'sm'}
         >
           <MdDragIndicator />
-        </IconButton>
-
-        <Editable
-          value={ctx.spy(option.labelField.$value)}
-          onValueChange={(value) => option.labelField.$value(ctx, value)}
-          onBlur={() => {
-            const validValue = option.labelField.validate(ctx);
-
-            if (validValue) {
-              option.labelField.$value(ctx, validValue);
-            }
-          }}
-        />
-      </Flex>
-
-      <Flex>
-        <IconButton variant={'ghost'} size={'sm'} onClick={onRemove}>
-          <MdOutlineRemove />
         </IconButton>
       </Flex>
     </Flex>
