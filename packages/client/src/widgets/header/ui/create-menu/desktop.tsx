@@ -16,7 +16,7 @@ export const CreateMenuDesktop = () => {
   return (
     <MenuRoot>
       <MenuTrigger asChild>
-        <IconButton borderRadius={'full'}>
+        <IconButton borderRadius={'full'} variant={'ghost'}>
           <FaPlus />
         </IconButton>
       </MenuTrigger>

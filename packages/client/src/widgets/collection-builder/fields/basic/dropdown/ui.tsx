@@ -30,6 +30,7 @@ import { InputGroup } from '@/shared/ui/input-group.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
+  DROPDOWN_FIELD_EMPTY_OPTIONS,
   DROPDOWN_FIELD_LABEL_WARNING,
   DropdownFieldOption,
   DropdownFieldState,
@@ -65,8 +66,14 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
       <>
         <Flex gap={5}>
           <Flex flexDirection={'column'} gap={1} flex={1}>
-            <OptionsField state={state} />
-            <AddOption state={state} issueManager={issueManager} />
+            <IssueRenderer
+              manager={issueManager}
+              issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
+              message={<Trans>You need to add at least one option.</Trans>}
+            >
+              <OptionsField state={state} />
+              <AddOption state={state} issueManager={issueManager} />
+            </IssueRenderer>
           </Flex>
 
           <Flex flexDirection={'column'} gap={2}>

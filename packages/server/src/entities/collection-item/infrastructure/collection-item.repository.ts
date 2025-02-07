@@ -41,8 +41,6 @@ export class CollectionItemRepository
       where: { collection: { id: collectionId } },
     });
 
-    console.log(collectionItems);
-
     return collectionItems.map((collectionItem) =>
       this.toDomain(collectionItem),
     );

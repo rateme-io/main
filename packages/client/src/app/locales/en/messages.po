@@ -51,11 +51,11 @@ msgstr "Basic Fields"
 msgid "Builder"
 msgstr "Builder"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:89
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:90
 msgid "Can create new options"
 msgstr "Can create new options"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:79
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:80
 msgid "Can select multiple options"
 msgstr "Can select multiple options"
 
@@ -105,7 +105,7 @@ msgstr "Date Picker"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:38
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:39
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
@@ -122,7 +122,7 @@ msgstr "Email"
 #~ msgid "Enter field name"
 #~ msgstr "Enter field name"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:130
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:131
 msgid "Enter option label"
 msgstr "Enter option label"
 
@@ -176,7 +176,7 @@ msgstr "Image Upload"
 msgid "Input for external links"
 msgstr "Input for external links"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:16
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:22
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
 
@@ -205,17 +205,21 @@ msgstr "Link to another collection item"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:52
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:76
 msgid "Max"
 msgstr "Max"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:108
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:109
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:43
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:60
 msgid "Min"
 msgstr "Min"
+
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:49
+msgid "Min value should be less than max value."
+msgstr "Min value should be less than max value."
 
 #: src/shared/field-builder/manager/ui/components/field-renderer.tsx:90
 msgid "Name is required"
@@ -241,7 +245,7 @@ msgstr "No white spaces"
 msgid "Not a too simple password"
 msgstr "Not a too simple password"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:15
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:21
 msgid "Number Input"
 msgstr "Number Input"
 
@@ -277,7 +281,7 @@ msgstr "Registration"
 msgid "Select a date"
 msgstr "Select a date"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:39
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
 msgid "Select from predefined options"
 msgstr "Select from predefined options"
 
@@ -361,3 +365,11 @@ msgstr "Wrong username"
 #: src/shared/field-builder/manager/ui/preview.tsx:30
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
+
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:71
+msgid "You enabled max input but haven't typed a value."
+msgstr "You enabled max input but haven't typed a value."
+
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
+msgid "You enabled min input but haven't typed a value."
+msgstr "You enabled min input but haven't typed a value."

@@ -14,7 +14,7 @@ export type FieldsManagerPreviewProps = {
 export const Preview = reatomMemo<FieldsManagerPreviewProps>(({ ctx }) => {
   const { model } = useFieldsManagerContext();
 
-  const children = ctx.spy(model.tree.$children);
+  const children = ctx.get(model.tree.$children);
 
   if (children.length === 0) {
     return (

@@ -41,8 +41,6 @@ export const applicationEffect = reatomResource(async (ctx) => {
   const session = ctx.spy($safeSession);
   const application = ctx.spy($application);
 
-  console.log('applicationEffect');
-
   if (session === null && application.status === 'authorized') {
     const session = await ctx.schedule(() => loadMeAction(ctx));
 

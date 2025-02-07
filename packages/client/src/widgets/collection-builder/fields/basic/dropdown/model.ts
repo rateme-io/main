@@ -17,6 +17,7 @@ export const DropdownFieldModel = createFieldModel({
     validateName(ctx, ctx.get($name));
 
     const labelValue = ctx.get(model.labelField.$value);
+    const options = ctx.get(model.$options);
 
     if (labelValue.trim() !== '') {
       addIssue(ctx, {
@@ -24,11 +25,21 @@ export const DropdownFieldModel = createFieldModel({
         id: DROPDOWN_FIELD_LABEL_WARNING,
       });
     }
+
+    if (options.length === 0) {
+      addIssue(ctx, {
+        type: 'critical',
+        id: DROPDOWN_FIELD_EMPTY_OPTIONS,
+      });
+    }
   },
 });
 
 export const DROPDOWN_FIELD_LABEL_WARNING = Symbol(
   'DROPDOWN_FIELD_LABEL_WARNING',
+);
+export const DROPDOWN_FIELD_EMPTY_OPTIONS = Symbol(
+  'DROPDOWN_FIELD_EMPTY_OPTIONS',
 );
 
 export type DropdownFieldState = InferState<typeof DropdownFieldModel>;
