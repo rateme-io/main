@@ -13,10 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/widgets/collection-builder/fields-info.tsx:14
-#~ msgid "A collection of related fields"
-#~ msgstr "A collection of related fields"
-
 #: src/shared/ui/password-strength-meter.tsx:73
 msgid "At least 12 characters long"
 msgstr "At least 12 characters long"
@@ -51,11 +47,11 @@ msgstr "Basic Fields"
 msgid "Builder"
 msgstr "Builder"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:90
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:97
 msgid "Can create new options"
 msgstr "Can create new options"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:80
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:87
 msgid "Can select multiple options"
 msgstr "Can select multiple options"
 
@@ -105,7 +101,7 @@ msgstr "Date Picker"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:39
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
@@ -118,11 +114,7 @@ msgstr "Duration Input"
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/collection-builder/fields/basic/text/ui.tsx:21
-#~ msgid "Enter field name"
-#~ msgstr "Enter field name"
-
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:131
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:138
 msgid "Enter option label"
 msgstr "Enter option label"
 
@@ -144,21 +136,9 @@ msgstr "Enter your password"
 msgid "Enter your username"
 msgstr "Enter your username"
 
-#: src/widgets/collection-builder/fields-info.tsx:13
-#~ msgid "Field Group"
-#~ msgstr "Field Group"
-
-#: src/widgets/collection-builder/ui/board/fields/text-field.tsx:17
-#~ msgid "Field name"
-#~ msgstr "Field name"
-
 #: src/widgets/register-dialog/ui/common.tsx:89
 msgid "Full name"
 msgstr "Full name"
-
-#: src/widgets/collection-builder/ui/board/fields/group-field.tsx:18
-#~ msgid "Group name"
-#~ msgstr "Group name"
 
 #: src/widgets/register-dialog/ui/common.tsx:134
 msgid "Have an account? Sign in"
@@ -209,7 +189,7 @@ msgstr "Logout"
 msgid "Max"
 msgstr "Max"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:109
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:116
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
@@ -281,7 +261,7 @@ msgstr "Registration"
 msgid "Select a date"
 msgstr "Select a date"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:41
 msgid "Select from predefined options"
 msgstr "Select from predefined options"
 
@@ -331,10 +311,6 @@ msgstr "URL Input"
 msgid "Username"
 msgstr "Username"
 
-#: src/widgets/collection-builder/fields-info.tsx:78
-#~ msgid "Utility Fields"
-#~ msgstr "Utility Fields"
-
 #: src/widgets/header/ui/create-menu/desktop.tsx:27
 msgid "What do you want to create?"
 msgstr "What do you want to create?"
@@ -373,3 +349,7 @@ msgstr "You enabled max input but haven't typed a value."
 #: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
+
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:72
+msgid "You need to add at least one option."
+msgstr "You need to add at least one option."
