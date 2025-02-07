@@ -57,7 +57,11 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     return (
       <ChakraPopover.Root
         size={'lg'}
-        positioning={{ placement: 'right', gutter: 6 }}
+        positioning={{
+          placement: 'right',
+          flip: ['left', 'bottom', 'top'],
+          gutter: 6,
+        }}
         portalled={false}
         open={isOpened}
         lazyMount

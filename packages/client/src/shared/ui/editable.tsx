@@ -53,7 +53,10 @@ export const Editable: FunctionComponent<EditableProps> = ({
 
   return (
     <ChakraEditable.RootProvider value={editable} maxWidth={maxWidth} gap={0}>
-      <Flex position={'relative'} maxWidth={`calc(${maxWidth} - 14px)`}>
+      <Flex
+        position={'relative'}
+        maxWidth={editable.editing ? maxWidth : `calc(${maxWidth} - 14px)`}
+      >
         <ChakraEditable.Preview
           ref={previewRef}
           maxWidth={maxWidth}

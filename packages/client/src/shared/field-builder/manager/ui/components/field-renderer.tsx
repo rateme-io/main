@@ -139,7 +139,6 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
         borderRadius={'md'}
         backgroundColor={'bg'}
         outline={'black'}
-        overflow={'hidden'}
         flex={1}
         onBlur={() => node.issueManager.revalidate(ctx)}
       >
@@ -173,10 +172,6 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
 
 const FieldRendererDragActivator = reatomMemo(() => {
   const value = useDraggableContext();
-
-  if (value === null) {
-    return null;
-  }
 
   const { setActivatorNodeRef, listeners } = value;
 

@@ -51,11 +51,11 @@ msgstr "Основные поля"
 msgid "Builder"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:79
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:89
 msgid "Can create new options"
 msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:69
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:79
 msgid "Can select multiple options"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr "Выбор даты"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:28
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:38
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
@@ -122,7 +122,7 @@ msgstr "Email"
 #~ msgid "Enter field name"
 #~ msgstr ""
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:114
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:130
 msgid "Enter option label"
 msgstr ""
 
@@ -209,11 +209,15 @@ msgstr "Выйти"
 msgid "Max"
 msgstr ""
 
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:108
+msgid "Maybe you forgot to add the last option."
+msgstr ""
+
 #: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:43
 msgid "Min"
 msgstr ""
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:98
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:90
 msgid "Name is required"
 msgstr ""
 
@@ -221,7 +225,7 @@ msgstr ""
 msgid "No account? Register"
 msgstr "Нет аккаунта? Зарегистрироваться"
 
-#: src/shared/field-builder/manager/ui/preview.tsx:28
+#: src/shared/field-builder/manager/ui/preview.tsx:27
 msgid "No fields"
 msgstr ""
 
@@ -273,7 +277,7 @@ msgstr "Регистрация"
 msgid "Select a date"
 msgstr "Выберите дату"
 
-#: src/widgets/collection-builder/fields/basic/select/ui.tsx:29
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:39
 msgid "Select from predefined options"
 msgstr "Селектор из предопределённых опций"
 
@@ -291,11 +295,11 @@ msgstr "Войти"
 msgid "Sign In"
 msgstr "Войти"
 
-#: src/widgets/collection-builder/ui/builder.tsx:84
+#: src/widgets/collection-builder/ui/builder.tsx:85
 msgid "Submit"
 msgstr ""
 
-#: src/widgets/collection-builder/ui/builder.tsx:143
+#: src/widgets/collection-builder/ui/builder.tsx:144
 msgid "Tags"
 msgstr ""
 
@@ -354,6 +358,6 @@ msgstr "Неправильный пароль"
 msgid "Wrong username"
 msgstr "Неправильный username"
 
-#: src/shared/field-builder/manager/ui/preview.tsx:31
+#: src/shared/field-builder/manager/ui/preview.tsx:30
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr ""

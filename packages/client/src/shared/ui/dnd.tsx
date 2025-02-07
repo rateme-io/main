@@ -1,10 +1,24 @@
-import { useDraggable } from '@dnd-kit/core';
+import { Active, Over } from '@dnd-kit/core';
+import { DraggableAttributes } from '@dnd-kit/core';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
+import { Transform } from '@dnd-kit/utilities';
 import { createContext, PropsWithChildren, useContext } from 'react';
 
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
+type DraggableValue = {
+  listeners: SyntheticListenerMap | undefined;
+  attributes: DraggableAttributes;
+  isDragging: boolean;
+  active: Active | null;
+  over: Over | null;
+  setNodeRef: (element: HTMLElement | null) => void;
+  setActivatorNodeRef: (element: HTMLElement | null) => void;
+  transform: Transform | null;
+};
+
 type DraggableProps = PropsWithChildren<{
-  value: ReturnType<typeof useDraggable>;
+  value: DraggableValue;
 }>;
 
 export const Draggable = reatomMemo<DraggableProps>(({ children, value }) => {
@@ -16,9 +30,15 @@ export const Draggable = reatomMemo<DraggableProps>(({ children, value }) => {
 }, 'Draggable');
 
 export const useDraggableContext = () => {
-  return useContext(DraggableContext);
+  const value = useContext(DraggableContext);
+
+  if (value === null) {
+    throw new Error(
+      'useDraggableContext must be used within a Draggable component',
+    );
+  }
+
+  return value;
 };
 
-const DraggableContext = createContext<ReturnType<typeof useDraggable> | null>(
-  null,
-);
+const DraggableContext = createContext<DraggableValue | null>(null);

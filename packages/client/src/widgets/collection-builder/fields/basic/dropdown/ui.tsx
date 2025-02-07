@@ -14,7 +14,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAtom } from '@reatom/npm-react';
 import { CreatableSelect, Select } from 'chakra-react-select';
-import { useMemo } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
@@ -23,6 +23,7 @@ import { MdDragIndicator } from 'react-icons/md';
 import { createFieldUI, FieldIssueManager } from '@/shared/field-builder/field';
 import { IssueRenderer } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
+import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { InputGroup } from '@/shared/ui/input-group.tsx';
@@ -160,13 +161,7 @@ const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
     >
       <SortableContext strategy={verticalListSortingStrategy} items={values}>
         {ctx.spy(state.model.$options).map((option) => (
-          <Option
-            key={option.value}
-            option={option}
-            onRemove={() => {
-              state.model.remove(ctx, option.value);
-            }}
-          />
+          <Option key={option.value} option={option} state={state} />
         ))}
       </SortableContext>
     </DndContext>
@@ -174,37 +169,24 @@ const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
 }, 'OptionsField');
 
 type OptionProps = {
+  state: DropdownFieldState;
   option: DropdownFieldOption;
-  onRemove: () => void;
 };
 
-const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    setActivatorNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: option.value,
-  });
-
+const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
   const isInvalid = !!ctx.spy(option.labelField.$error);
 
   return (
-    <Flex
-      ref={setNodeRef}
-      zIndex={isDragging ? 1 : undefined}
-      transition={transition}
-      transform={CSS.Transform.toString(transform)}
-      alignItems={'center'}
-      width={'100%'}
-      position={'relative'}
-      height={'40px'}
-    >
-      <Flex position={'absolute'} top={0} left={0} height={0} right={0}>
+    <OptionDraggableWrapper option={option}>
+      <Flex
+        position={'absolute'}
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        width={'100%'}
+        height={'100%'}
+      >
         <Flex
           flex={1}
           alignItems={'center'}
@@ -223,9 +205,8 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
             width={'calc(100% - var(--chakra-sizes-8))'}
           >
             <Editable
-              // maxWidth={'100%'}
               value={ctx.spy(option.labelField.$value)}
-              onValueChange={(value) => option.labelField.$value(ctx, value)}
+              onValueChange={ctx.bind(option.labelField.$value)}
               onBlur={() => {
                 const validValue = option.labelField.validate(ctx);
 
@@ -237,22 +218,68 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, onRemove }) => {
           </Flex>
 
           <Flex>
-            <IconButton variant={'ghost'} size={'xs'} onClick={onRemove}>
+            <IconButton
+              variant={'ghost'}
+              size={'xs'}
+              onClick={() => {
+                state.model.remove(ctx, option.value);
+              }}
+            >
               <FaRegTrashAlt />
             </IconButton>
           </Flex>
         </Flex>
 
-        <IconButton
-          {...listeners}
-          {...attributes}
-          ref={setActivatorNodeRef}
-          variant={'ghost'}
-          size={'sm'}
-        >
-          <MdDragIndicator />
-        </IconButton>
+        <OptionDraggableActivator />
       </Flex>
-    </Flex>
+    </OptionDraggableWrapper>
   );
 }, 'Option');
+
+type OptionDraggableWrapperProps = PropsWithChildren<{
+  option: DropdownFieldOption;
+}>;
+
+const OptionDraggableWrapper = reatomMemo<OptionDraggableWrapperProps>(
+  ({ option, children }) => {
+    const value = useSortable({
+      id: option.value,
+    });
+
+    const { setNodeRef, transition, transform, isDragging } = value;
+
+    return (
+      <Draggable value={value}>
+        <Flex
+          ref={setNodeRef}
+          zIndex={isDragging ? 1 : undefined}
+          transition={transition}
+          transform={CSS.Transform.toString(transform)}
+          alignItems={'center'}
+          width={'100%'}
+          position={'relative'}
+          height={'40px'}
+        >
+          {children}
+        </Flex>
+      </Draggable>
+    );
+  },
+  'OptionDraggableWrapper',
+);
+
+const OptionDraggableActivator = reatomMemo(() => {
+  const { listeners, attributes, setActivatorNodeRef } = useDraggableContext();
+
+  return (
+    <IconButton
+      {...listeners}
+      {...attributes}
+      ref={setActivatorNodeRef}
+      variant={'ghost'}
+      size={'sm'}
+    >
+      <MdDragIndicator />
+    </IconButton>
+  );
+}, 'OptionDraggableActivator');
