@@ -34,7 +34,7 @@ export const DesktopRegisterDialog = reatomMemo(() => {
           <Trans>Registration</Trans>
         </Text>
       }
-      submitLabel={<Trans>Create account</Trans>}
+      submitLabel={<Trans>Sign up</Trans>}
     >
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <SignInLink />

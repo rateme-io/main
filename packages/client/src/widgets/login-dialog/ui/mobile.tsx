@@ -29,7 +29,7 @@ export const MobileLoginDialog = reatomMemo(() => {
       initialFocusEl={() => emailFieldRef.current}
       title={
         <Text>
-          <Trans>Authorisation</Trans>
+          <Trans>Authentication</Trans>
         </Text>
       }
       afterError={<SubmitButton />}

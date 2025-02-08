@@ -1,5 +1,3 @@
-import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
-
 import { createModel } from './model';
 import { CreateFieldsManagerCommand, FieldsManager } from './types.ts';
 import { Board } from './ui/board.tsx';
@@ -20,21 +18,9 @@ export const createFieldsManager = (
 
   return {
     model,
-    Root: reatomMemo(
-      (props) => <Root {...props} value={context} />,
-      'createFieldsManager.Root',
-    ),
-    Menu: reatomMemo(
-      (props) => <Menu {...props} />,
-      'createFieldsManager.Menu',
-    ),
-    Board: reatomMemo(
-      (props) => <Board {...props} />,
-      'createFieldsManager.Board',
-    ),
-    Preview: reatomMemo(
-      (props) => <Preview {...props} />,
-      'createFieldsManager.Preview',
-    ),
+    Root: (props) => <Root {...props} value={context} />,
+    Menu: (props) => <Menu {...props} />,
+    Board: (props) => <Board {...props} />,
+    Preview: (props) => <Preview {...props} />,
   };
 };

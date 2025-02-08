@@ -31,7 +31,7 @@ export const MobileRegisterDialog = reatomMemo(() => {
       initialFocusEl={() => emailFieldRef.current}
       title={
         <Text>
-          <Trans>Authorisation</Trans>
+          <Trans>Authentication</Trans>
         </Text>
       }
       afterError={<SubmitButton />}
@@ -60,7 +60,7 @@ const SubmitButton = reatomMemo<SubmitButtonProps>(({ ctx, formId }) => {
       form={formId}
       loading={ctx.spy(registerForm.$isLoading)}
     >
-      <Trans>Create account</Trans>
+      <Trans>Sign up</Trans>
     </Button>
   );
 }, 'SubmitButton');

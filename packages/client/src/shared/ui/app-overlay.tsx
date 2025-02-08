@@ -27,7 +27,7 @@ export const AppOverlay = reatomMemo(({ ctx }) => {
             alignItems: 'center',
             padding: 4,
             zIndex: 1000,
-            backgroundColor: 'bg',
+            backgroundColor: 'var(--chakra-colors-bg)',
           }}
         >
           <motion.div

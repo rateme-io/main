@@ -88,7 +88,7 @@ export const RegisterLink = reatomMemo(({ ctx }) => {
         });
       }}
     >
-      <Trans>No account? Register</Trans>
+      <Trans>Don’t have an account? Sign up</Trans>
     </ButtonLink>
   );
 }, 'RegisterLink');

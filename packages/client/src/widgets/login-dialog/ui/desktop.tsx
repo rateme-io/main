@@ -29,7 +29,7 @@ export const DesktopLoginDialog = reatomMemo(() => {
       errorRenderer={(error) => <FormError error={error} />}
       title={
         <Text>
-          <Trans>Authorisation</Trans>
+          <Trans>Authentication</Trans>
         </Text>
       }
       submitLabel={<Trans>Sign in</Trans>}

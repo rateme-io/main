@@ -16,7 +16,6 @@ import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { CollectionFields } from '@/widgets/collection-builder/fields';
 import {
   $activeTab,
-  $isPreviewTabActive,
   BoardTabs,
   collectionImageField,
   collectionNameField,
@@ -91,7 +90,7 @@ export const Builder = reatomMemo(({ ctx }) => {
                 <CollectionFields.Board />
               </Tabs.Content>
               <Tabs.Content value={'preview'} padding={0}>
-                <CollectionFields.Preview $isActive={$isPreviewTabActive} />
+                <CollectionFields.Preview />
               </Tabs.Content>
             </Box>
           </PageWrapper>
@@ -121,7 +120,7 @@ const CollectionImageField = reatomMemo(({ ctx }) => {
         width: '200px',
         height: '200px',
       }}
-      label={'Collection image'}
+      label={<Trans>Collection image</Trans>}
       files={file ? [file] : []}
       onChangeFiles={(files) =>
         collectionImageField.$value(ctx, files.at(0) ?? null)

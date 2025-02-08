@@ -21,7 +21,10 @@ export const useIntersection = ({
     const menuBoundingRect = secondRef.current.getBoundingClientRect();
 
     setIntersection(
-      containerWidth + containerBoundingRect.x - menuBoundingRect.x,
+      Math.max(
+        containerWidth + containerBoundingRect.x - menuBoundingRect.x,
+        0,
+      ),
     );
   });
 
@@ -33,22 +36,24 @@ export const useIntersection = ({
 
     window.addEventListener('resize', calculateIntersection);
 
-    const resizeObserver = new ResizeObserver(calculateIntersection);
+    const firstResizeObserver = new ResizeObserver(calculateIntersection);
+    const secondResizeObserver = new ResizeObserver(calculateIntersection);
 
     if (firstElement) {
-      resizeObserver.observe(firstElement);
+      firstResizeObserver.observe(firstElement);
     }
 
     if (secondElement) {
-      resizeObserver.observe(secondElement);
+      secondResizeObserver.observe(secondElement);
     }
 
     return () => {
       window.removeEventListener('resize', calculateIntersection);
 
-      resizeObserver.disconnect();
+      firstResizeObserver.disconnect();
+      secondResizeObserver.disconnect();
     };
-  }, [calculateIntersection, secondRef]);
+  }, [calculateIntersection, firstRef, secondRef]);
 
   return {
     intersection,

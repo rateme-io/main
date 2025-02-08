@@ -63,7 +63,7 @@ export const MobileMenu = reatomMemo(({ ctx }) => {
           <Separator />
 
           <MenuLink to={'/create-collection-item'}>
-            <Trans>Create collection item</Trans>
+            <Trans>Add Collection Item</Trans>
           </MenuLink>
 
           <MenuLink to={'/rate-collection-item'}>
@@ -73,11 +73,11 @@ export const MobileMenu = reatomMemo(({ ctx }) => {
           <Separator />
 
           <MenuLink to={'/create-collection'}>
-            <Trans>Create collection</Trans>
+            <Trans>New Collection</Trans>
           </MenuLink>
 
           <MenuLink to={'/create-rating-system'}>
-            <Trans>Create rating system</Trans>
+            <Trans>New Rating System</Trans>
           </MenuLink>
         </DrawerBody>
         <DrawerFooter />

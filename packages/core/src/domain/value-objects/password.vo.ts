@@ -11,7 +11,7 @@ export class PasswordVo extends BaseValueObject<string> {
     {
       type: 'length',
       schema: z.string().min(12, {
-        message: 'Password must be at least 12 characters long',
+        message: 'Password must be At least 12 characters long',
       }),
     },
     {
@@ -23,25 +23,28 @@ export class PasswordVo extends BaseValueObject<string> {
     {
       type: 'uppercase',
       schema: z.string().regex(/[A-Z]/, {
-        message: 'Password must contain at least one uppercase letter',
+        message:
+          'Password must contain Must include at least one uppercase letter',
       }),
     },
     {
       type: 'lowercase',
       schema: z.string().regex(/[a-z]/, {
-        message: 'Password must contain at least one lowercase letter',
+        message:
+          'Password must contain Must include at least one lowercase letter',
       }),
     },
     {
       type: 'digit',
       schema: z.string().regex(/[0-9]/, {
-        message: 'Password must contain at least one digit',
+        message: 'Password must contain Must contain at least one digit',
       }),
     },
     {
       type: 'special',
       schema: z.string().regex(/[^A-Za-z0-9]/, {
-        message: 'Password must contain at least one special character',
+        message:
+          'Password must contain Must include at least one special character',
       }),
     },
     {

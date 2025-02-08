@@ -4,7 +4,7 @@ import { AtomMut } from '@reatom/framework';
 import { ReactNode } from 'react';
 import { TiSortNumerically } from 'react-icons/ti';
 
-import { createFieldUI, FieldIssueManager } from '@/shared/field-builder/field';
+import { createFieldUI } from '@/shared/field-builder/field';
 import { IssueRenderer } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Field } from '@/shared/ui/field.tsx';
@@ -23,17 +23,17 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   icon: <TiSortNumerically />,
   FieldPreview: reatomMemo(
     ({ ctx, state }) => (
-      <Field orientation={'horizontal'} label={ctx.get(state.$name)}>
+      <Field orientation={'horizontal'} label={ctx.spy(state.$name)}>
         <Input
           type={'number'}
           min={
-            ctx.get(state.min.$enabled)
-              ? (ctx.get(state.min.$value) ?? undefined)
+            ctx.spy(state.min.$enabled)
+              ? (ctx.spy(state.min.$value) ?? undefined)
               : undefined
           }
           max={
-            ctx.get(state.max.$enabled)
-              ? (ctx.get(state.max.$value) ?? undefined)
+            ctx.spy(state.max.$enabled)
+              ? (ctx.spy(state.max.$value) ?? undefined)
               : undefined
           }
         />
@@ -41,10 +41,9 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
     ),
     'NumericFieldUI.FieldPreview',
   ),
-  FieldContent: reatomMemo(({ ctx, state, issueManager }) => {
+  FieldContent: reatomMemo(({ ctx, state }) => {
     return (
       <IssueRenderer
-        manager={issueManager}
         issueId={NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE}
         message={<Trans>Min value should be less than max value.</Trans>}
       >
@@ -56,7 +55,6 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
                 You enabled min input but haven&#39;t typed a value.
               </Trans>
             }
-            issueManager={issueManager}
             label={<Trans>Min</Trans>}
             $enabled={state.min.$enabled}
             $value={state.min.$value}
@@ -72,7 +70,6 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
                 You enabled max input but haven&#39;t typed a value.
               </Trans>
             }
-            issueManager={issueManager}
             label={<Trans>Max</Trans>}
             $enabled={state.max.$enabled}
             $value={state.max.$value}
@@ -91,50 +88,33 @@ const NumberInput = reatomMemo<{
   $enabled: AtomMut<boolean>;
   $value: AtomMut<number | null>;
   inputProps: InputProps;
-  issueManager: FieldIssueManager;
   issueId: symbol;
   issueMessage: ReactNode;
-}>(
-  ({
-    ctx,
-    label,
-    $value,
-    $enabled,
-    inputProps,
-    issueManager,
-    issueId,
-    issueMessage,
-  }) => {
-    return (
-      <Field
-        label={
-          <Flex gap={2}>
-            <Checkbox
-              checked={ctx.spy($enabled)}
-              onCheckedChange={(event) => $enabled(ctx, !!event.checked)}
-            />
-
-            <Text>{label}</Text>
-          </Flex>
-        }
-      >
-        <IssueRenderer
-          manager={issueManager}
-          issueId={issueId}
-          message={issueMessage}
-        >
-          <Input
-            {...inputProps}
-            type={'number'}
-            disabled={!ctx.spy($enabled)}
-            value={ctx.spy($value) ?? undefined}
-            onChange={(event) =>
-              $value(ctx, parseFloat(event.currentTarget.value))
-            }
+}>(({ ctx, label, $value, $enabled, inputProps, issueId, issueMessage }) => {
+  return (
+    <Field
+      label={
+        <Flex gap={2}>
+          <Checkbox
+            checked={ctx.spy($enabled)}
+            onCheckedChange={(event) => $enabled(ctx, !!event.checked)}
           />
-        </IssueRenderer>
-      </Field>
-    );
-  },
-  'NumberInput',
-);
+
+          <Text>{label}</Text>
+        </Flex>
+      }
+    >
+      <IssueRenderer issueId={issueId} message={issueMessage}>
+        <Input
+          {...inputProps}
+          type={'number'}
+          disabled={!ctx.spy($enabled)}
+          value={ctx.spy($value) ?? undefined}
+          onChange={(event) =>
+            $value(ctx, parseFloat(event.currentTarget.value))
+          }
+        />
+      </IssueRenderer>
+    </Field>
+  );
+}, 'NumberInput');

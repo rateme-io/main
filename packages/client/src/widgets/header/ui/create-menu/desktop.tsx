@@ -29,7 +29,7 @@ export const CreateMenuDesktop = () => {
           </Flex>
           <MenuItem asChild value={'create-collection-item'} cursor={'pointer'}>
             <Link to={'/create-collection-item'}>
-              <Trans>Create collection item</Trans>
+              <Trans>Add Collection Item</Trans>
             </Link>
           </MenuItem>
           <MenuItem asChild value={'create-rating'} cursor={'pointer'}>
@@ -42,12 +42,12 @@ export const CreateMenuDesktop = () => {
         <MenuItemGroup>
           <MenuItem asChild value={'create-collection'} cursor={'pointer'}>
             <Link to={'/create-collection'}>
-              <Trans>Create collection</Trans>
+              <Trans>New Collection</Trans>
             </Link>
           </MenuItem>
           <MenuItem asChild value={'create-rating-system'} cursor={'pointer'}>
             <Link to={'/create-rating-system'}>
-              <Trans>Create rating system</Trans>
+              <Trans>New Rating System</Trans>
             </Link>
           </MenuItem>
         </MenuItemGroup>

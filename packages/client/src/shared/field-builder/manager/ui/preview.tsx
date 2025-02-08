@@ -1,20 +1,17 @@
 import { EmptyState, Flex } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { Atom } from '@reatom/framework';
 import { FaRegFaceSadTear } from 'react-icons/fa6';
 
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useFieldsManagerContext } from './context.ts';
 
-export type FieldsManagerPreviewProps = {
-  $isActive?: Atom<boolean>;
-};
+export type FieldsManagerPreviewProps = object;
 
 export const Preview = reatomMemo<FieldsManagerPreviewProps>(({ ctx }) => {
   const { model } = useFieldsManagerContext();
 
-  const children = ctx.get(model.tree.$children);
+  const children = ctx.spy(model.tree.$children);
 
   if (children.length === 0) {
     return (

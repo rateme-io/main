@@ -18,6 +18,7 @@ export const DropdownFieldModel = createFieldModel({
 
     const labelValue = ctx.get(model.labelField.$value);
     const options = ctx.get(model.$options);
+    const isCreatable = ctx.get(model.$isCreatable);
 
     if (labelValue.trim() !== '') {
       addIssue(ctx, {
@@ -26,7 +27,7 @@ export const DropdownFieldModel = createFieldModel({
       });
     }
 
-    if (options.length === 0) {
+    if (options.length === 0 && !isCreatable) {
       addIssue(ctx, {
         type: 'critical',
         id: DROPDOWN_FIELD_EMPTY_OPTIONS,

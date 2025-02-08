@@ -1,7 +1,7 @@
 import { Flex, Icon, IconButton } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'motion/react';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 
@@ -12,6 +12,7 @@ import { Editable } from '@/shared/ui/editable.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useDraggableField } from '../hooks/dnd.ts';
+import { FieldContext } from './field.context.ts';
 import { IssueRenderer } from './issue-renderer.tsx';
 
 type DraggableFieldRendererProps = {
@@ -46,34 +47,38 @@ type FieldRendererProps = {
 const FieldRenderer = reatomMemo<FieldRendererProps>(({ node, isDragging }) => {
   const Content = node.field.ui.FieldContent;
 
-  return (
-    <FieldRendererContainer node={node} isDragging={isDragging}>
-      <Flex justifyContent={'space-between'} padding={2}>
-        <Flex gap={2} alignItems={'center'}>
-          <Icon asChild>
-            <i>{node.field.ui.icon}</i>
-          </Icon>
+  const context = useMemo(() => ({ node }), [node]);
 
-          <FieldRendererName node={node} />
+  return (
+    <FieldContext.Provider value={context}>
+      <FieldRendererContainer node={node} isDragging={isDragging}>
+        <Flex justifyContent={'space-between'} padding={2}>
+          <Flex gap={2} alignItems={'center'}>
+            <Icon asChild>
+              <i>{node.field.ui.icon}</i>
+            </Icon>
+
+            <FieldRendererName node={node} />
+          </Flex>
+          <Flex>
+            <FieldRendererRemove node={node} />
+          </Flex>
         </Flex>
         <Flex>
-          <FieldRendererRemove node={node} />
+          <Flex
+            paddingInline={2}
+            paddingBlock={1}
+            paddingBottom={2}
+            flex={1}
+            flexDirection={'column'}
+            gap={2}
+          >
+            <Content state={node.state} issueManager={node.issueManager} />
+          </Flex>
+          <FieldRendererDragActivator />
         </Flex>
-      </Flex>
-      <Flex>
-        <Flex
-          paddingInline={2}
-          paddingBlock={1}
-          paddingBottom={2}
-          flex={1}
-          flexDirection={'column'}
-          gap={2}
-        >
-          <Content state={node.state} issueManager={node.issueManager} />
-        </Flex>
-        <FieldRendererDragActivator />
-      </Flex>
-    </FieldRendererContainer>
+      </FieldRendererContainer>
+    </FieldContext.Provider>
   );
 }, 'FieldRenderer');
 
@@ -85,7 +90,6 @@ const FieldRendererName = reatomMemo<FieldRendererNameProps>(
   ({ ctx, node }) => {
     return (
       <IssueRenderer
-        manager={node.issueManager}
         issueId={FIELD_NAME_ISSUE}
         message={<Trans>Name is required</Trans>}
       >
@@ -139,6 +143,7 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
         borderRadius={'md'}
         backgroundColor={'bg'}
         outline={'black'}
+        overflow={'hidden'}
         flex={1}
         onBlur={() => node.issueManager.revalidate(ctx)}
       >

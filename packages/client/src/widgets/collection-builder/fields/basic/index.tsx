@@ -10,6 +10,6 @@ import { TextField } from './text';
 export const BasicFieldGroup = createFieldGroup({
   name: 'BasicFieldGroup',
   icon: <LuTextCursorInput />,
-  title: <Trans>Basic Fields</Trans>,
+  title: <Trans>Standard Fields</Trans>,
   fields: [TextField, NumericField, DropdownField],
 });

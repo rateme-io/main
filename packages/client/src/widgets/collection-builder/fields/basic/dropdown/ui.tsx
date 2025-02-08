@@ -20,7 +20,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator } from 'react-icons/md';
 
-import { createFieldUI, FieldIssueManager } from '@/shared/field-builder/field';
+import { createFieldUI } from '@/shared/field-builder/field';
 import { IssueRenderer } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
@@ -38,18 +38,18 @@ import {
 
 export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
-  description: <Trans>Select from predefined options</Trans>,
+  description: <Trans>The field that displays the drop-down list</Trans>,
   icon: <BsFillMenuButtonWideFill />,
   FieldPreview: reatomMemo(({ ctx, state }) => {
-    const isCreatable = ctx.get(state.model.$isCreatable);
-    const isMulti = ctx.get(state.model.$isMulti);
+    const isCreatable = ctx.spy(state.model.$isCreatable);
+    const isMulti = ctx.spy(state.model.$isMulti);
 
-    const stateOptions = ctx.get(state.model.$options);
+    const stateOptions = ctx.spy(state.model.$options);
 
     const options = useMemo(() => {
       return stateOptions.map((option) => ({
         value: option.value,
-        label: ctx.get(option.labelField.$value),
+        label: ctx.spy(option.labelField.$value),
       }));
     }, [ctx, stateOptions]);
 
@@ -61,20 +61,19 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
       </Field>
     );
   }, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(({ ctx, state, issueManager }) => {
+  FieldContent: reatomMemo(({ ctx, state }) => {
     return (
       <>
-        <Flex gap={5}>
-          <Flex flexDirection={'column'} gap={1} flex={1}>
-            <IssueRenderer
-              manager={issueManager}
-              issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
-              message={<Trans>You need to add at least one option.</Trans>}
-            >
+        <Flex gap={5} flex={1}>
+          <IssueRenderer
+            issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
+            message={<Trans>You need to add at least one option.</Trans>}
+          >
+            <Flex flexDirection={'column'} flex={1}>
               <OptionsField state={state} />
-              <AddOption state={state} issueManager={issueManager} />
-            </IssueRenderer>
-          </Flex>
+              <AddOption state={state} />
+            </Flex>
+          </IssueRenderer>
 
           <Flex flexDirection={'column'} gap={2}>
             <Checkbox
@@ -84,7 +83,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
                 state.model.$isMulti(ctx, !!event.checked)
               }
             >
-              <Trans>Can select multiple options</Trans>
+              <Trans>Allow multiple selections</Trans>
             </Checkbox>
 
             <Checkbox
@@ -94,7 +93,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
                 state.model.$isCreatable(ctx, !!event.checked)
               }
             >
-              <Trans>Can create new options</Trans>
+              <Trans>Allow adding custom options</Trans>
             </Checkbox>
           </Flex>
         </Flex>
@@ -105,13 +104,11 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
 
 type AddOptionProps = {
   state: DropdownFieldState;
-  issueManager: FieldIssueManager;
 };
 
-const AddOption = reatomMemo<AddOptionProps>(({ ctx, state, issueManager }) => {
+const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
   return (
     <IssueRenderer
-      manager={issueManager}
       issueId={DROPDOWN_FIELD_LABEL_WARNING}
       message={<Trans>Maybe you forgot to add the last option.</Trans>}
     >
@@ -135,7 +132,7 @@ const AddOption = reatomMemo<AddOptionProps>(({ ctx, state, issueManager }) => {
             }
           >
             <Input
-              placeholder={t`Enter option label`}
+              placeholder={t`Enter a name for this option`}
               value={ctx.spy(state.model.labelField.$value)}
               onChange={(event) =>
                 state.model.labelField.$value(ctx, event.currentTarget.value)
@@ -193,6 +190,8 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
         right={0}
         width={'100%'}
         height={'100%'}
+        alignItems={'center'}
+        gap={1}
       >
         <Flex
           flex={1}
@@ -266,6 +265,7 @@ const OptionDraggableWrapper = reatomMemo<OptionDraggableWrapperProps>(
           width={'100%'}
           position={'relative'}
           height={'40px'}
+          marginBottom={3}
         >
           {children}
         </Flex>
@@ -284,7 +284,8 @@ const OptionDraggableActivator = reatomMemo(() => {
       {...attributes}
       ref={setActivatorNodeRef}
       variant={'ghost'}
-      size={'sm'}
+      size={'xs'}
+      padding={1}
     >
       <MdDragIndicator />
     </IconButton>

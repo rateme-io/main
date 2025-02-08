@@ -72,12 +72,12 @@ const CheckItem = reatomMemo<CheckItemProps>(({ type, isValid }) => {
 const checkLabels = {
   length: <Trans>At least 12 characters long</Trans>,
   'no-white-space': <Trans>No white spaces</Trans>,
-  uppercase: <Trans>At least one uppercase letter</Trans>,
-  lowercase: <Trans>At least one lowercase letter</Trans>,
-  digit: <Trans>At least one digit</Trans>,
+  uppercase: <Trans>Must include at least one uppercase letter</Trans>,
+  lowercase: <Trans>Must include at least one lowercase letter</Trans>,
+  digit: <Trans>Must contain at least one digit</Trans>,
   special: (
     <Text>
-      <Trans>At least one special character</Trans>
+      <Trans>Must include at least one special character</Trans>
       <Text as={'span'} color={'fg.subtle'} ml={1}>
         (!@#$%^&*)
       </Text>

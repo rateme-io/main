@@ -131,7 +131,7 @@ export const SignInLink = reatomMemo(({ ctx }) => {
         });
       }}
     >
-      <Trans>Have an account? Sign in</Trans>
+      <Trans>Already registered? Log in</Trans>
     </ButtonLink>
   );
 }, 'SignInLink');

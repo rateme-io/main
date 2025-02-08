@@ -13,47 +13,36 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/widgets/header/ui/menu/mobile.tsx:66
+#: src/widgets/header/ui/create-menu/desktop.tsx:32
+msgid "Add Collection Item"
+msgstr "Add Collection Item"
+
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:96
+msgid "Allow adding custom options"
+msgstr "Allow adding custom options"
+
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:86
+msgid "Allow multiple selections"
+msgstr "Allow multiple selections"
+
+#: src/widgets/register-dialog/ui/common.tsx:134
+msgid "Already registered? Log in"
+msgstr "Already registered? Log in"
+
 #: src/shared/ui/password-strength-meter.tsx:73
 msgid "At least 12 characters long"
 msgstr "At least 12 characters long"
 
-#: src/shared/ui/password-strength-meter.tsx:77
-msgid "At least one digit"
-msgstr "At least one digit"
-
-#: src/shared/ui/password-strength-meter.tsx:76
-msgid "At least one lowercase letter"
-msgstr "At least one lowercase letter"
-
-#: src/shared/ui/password-strength-meter.tsx:80
-msgid "At least one special character"
-msgstr "At least one special character"
-
-#: src/shared/ui/password-strength-meter.tsx:75
-msgid "At least one uppercase letter"
-msgstr "At least one uppercase letter"
-
 #: src/widgets/register-dialog/ui/mobile.tsx:34
 #: src/widgets/login-dialog/ui/mobile.tsx:32
 #: src/widgets/login-dialog/ui/desktop.tsx:32
-msgid "Authorisation"
-msgstr "Authorisation"
+msgid "Authentication"
+msgstr "Authentication"
 
-#: src/widgets/collection-builder/fields/basic/index.tsx:13
-msgid "Basic Fields"
-msgstr "Basic Fields"
-
-#: src/widgets/collection-builder/ui/builder.tsx:72
+#: src/widgets/collection-builder/ui/builder.tsx:71
 msgid "Builder"
 msgstr "Builder"
-
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:97
-msgid "Can create new options"
-msgstr "Can create new options"
-
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:87
-msgid "Can select multiple options"
-msgstr "Can select multiple options"
 
 #: src/shared/ui/caps-lock-warn.tsx:16
 msgid "Caps Lock"
@@ -63,34 +52,18 @@ msgstr "Caps Lock"
 msgid "Collection fields"
 msgstr "Collection fields"
 
+#: src/widgets/collection-builder/ui/builder.tsx:123
+msgid "Collection image"
+msgstr "Collection image"
+
 #: src/widgets/header/ui/menu/mobile.tsx:57
 #: src/widgets/header/ui/menu/desktop.tsx:15
 msgid "Collections"
 msgstr "Collections"
 
 #: src/shared/field-builder/manager/ui/menu.tsx:215
-msgid "coming soon"
-msgstr "coming soon"
-
-#: src/widgets/register-dialog/ui/mobile.tsx:63
-#: src/widgets/register-dialog/ui/desktop.tsx:37
-msgid "Create account"
-msgstr "Create account"
-
-#: src/widgets/header/ui/menu/mobile.tsx:76
-#: src/widgets/header/ui/create-menu/desktop.tsx:45
-msgid "Create collection"
-msgstr "Create collection"
-
-#: src/widgets/header/ui/menu/mobile.tsx:66
-#: src/widgets/header/ui/create-menu/desktop.tsx:32
-msgid "Create collection item"
-msgstr "Create collection item"
-
-#: src/widgets/header/ui/menu/mobile.tsx:80
-#: src/widgets/header/ui/create-menu/desktop.tsx:50
-msgid "Create rating system"
-msgstr "Create rating system"
+msgid "Coming soon"
+msgstr "Coming soon"
 
 #: src/widgets/collection-builder/fields/time/date/ui.tsx:10
 msgid "Date Picker"
@@ -100,6 +73,10 @@ msgstr "Date Picker"
 #: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
 msgstr "Discover"
+
+#: src/widgets/login-dialog/ui/common.tsx:91
+msgid "Don’t have an account? Sign up"
+msgstr "Don’t have an account? Sign up"
 
 #: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
 msgid "Dropdown Select"
@@ -114,9 +91,9 @@ msgstr "Duration Input"
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:138
-msgid "Enter option label"
-msgstr "Enter option label"
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:135
+msgid "Enter a name for this option"
+msgstr "Enter a name for this option"
 
 #: src/widgets/register-dialog/ui/common.tsx:42
 #: src/widgets/login-dialog/ui/common.tsx:38
@@ -139,10 +116,6 @@ msgstr "Enter your username"
 #: src/widgets/register-dialog/ui/common.tsx:89
 msgid "Full name"
 msgstr "Full name"
-
-#: src/widgets/register-dialog/ui/common.tsx:134
-msgid "Have an account? Sign in"
-msgstr "Have an account? Sign in"
 
 #: src/widgets/collection-builder/fields/image/index.tsx:11
 msgid "Image Fields"
@@ -185,31 +158,53 @@ msgstr "Link to another collection item"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:76
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:73
 msgid "Max"
 msgstr "Max"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:116
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:113
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:60
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:58
 msgid "Min"
 msgstr "Min"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:49
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:48
 msgid "Min value should be less than max value."
 msgstr "Min value should be less than max value."
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:90
+#: src/shared/ui/password-strength-meter.tsx:77
+msgid "Must contain at least one digit"
+msgstr "Must contain at least one digit"
+
+#: src/shared/ui/password-strength-meter.tsx:76
+msgid "Must include at least one lowercase letter"
+msgstr "Must include at least one lowercase letter"
+
+#: src/shared/ui/password-strength-meter.tsx:80
+msgid "Must include at least one special character"
+msgstr "Must include at least one special character"
+
+#: src/shared/ui/password-strength-meter.tsx:75
+msgid "Must include at least one uppercase letter"
+msgstr "Must include at least one uppercase letter"
+
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:94
 msgid "Name is required"
 msgstr "Name is required"
 
-#: src/widgets/login-dialog/ui/common.tsx:91
-msgid "No account? Register"
-msgstr "No account? Register"
+#: src/widgets/header/ui/menu/mobile.tsx:76
+#: src/widgets/header/ui/create-menu/desktop.tsx:45
+msgid "New Collection"
+msgstr "New Collection"
 
-#: src/shared/field-builder/manager/ui/preview.tsx:27
+#: src/widgets/header/ui/menu/mobile.tsx:80
+#: src/widgets/header/ui/create-menu/desktop.tsx:50
+msgid "New Rating System"
+msgstr "New Rating System"
+
+#: src/shared/field-builder/manager/ui/preview.tsx:24
 msgid "No fields"
 msgstr "No fields"
 
@@ -234,7 +229,7 @@ msgstr "Number Input"
 msgid "Password"
 msgstr "Password"
 
-#: src/widgets/collection-builder/ui/builder.tsx:77
+#: src/widgets/collection-builder/ui/builder.tsx:76
 msgid "Preview"
 msgstr "Preview"
 
@@ -261,10 +256,6 @@ msgstr "Registration"
 msgid "Select a date"
 msgstr "Select a date"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:41
-msgid "Select from predefined options"
-msgstr "Select from predefined options"
-
 #: src/features/avatar/ui/mobile.tsx:36
 #: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
@@ -279,17 +270,30 @@ msgstr "Sign in"
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/widgets/collection-builder/ui/builder.tsx:85
+#: src/widgets/register-dialog/ui/mobile.tsx:63
+#: src/widgets/register-dialog/ui/desktop.tsx:37
+msgid "Sign up"
+msgstr "Sign up"
+
+#: src/widgets/collection-builder/fields/basic/index.tsx:13
+msgid "Standard Fields"
+msgstr "Standard Fields"
+
+#: src/widgets/collection-builder/ui/builder.tsx:84
 msgid "Submit"
 msgstr "Submit"
 
-#: src/widgets/collection-builder/ui/builder.tsx:144
+#: src/widgets/collection-builder/ui/builder.tsx:143
 msgid "Tags"
 msgstr "Tags"
 
 #: src/widgets/collection-builder/fields/basic/text/ui.tsx:12
 msgid "Text Input"
 msgstr "Text Input"
+
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:41
+msgid "The field that displays the drop-down list"
+msgstr "The field that displays the drop-down list"
 
 #: src/widgets/collection-builder/fields/time/index.tsx:12
 msgid "Time Fields"
@@ -338,18 +342,18 @@ msgstr "Wrong password"
 msgid "Wrong username"
 msgstr "Wrong username"
 
-#: src/shared/field-builder/manager/ui/preview.tsx:30
+#: src/shared/field-builder/manager/ui/preview.tsx:27
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:71
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:69
 msgid "You enabled max input but haven't typed a value."
 msgstr "You enabled max input but haven't typed a value."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:54
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:72
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:70
 msgid "You need to add at least one option."
 msgstr "You need to add at least one option."
