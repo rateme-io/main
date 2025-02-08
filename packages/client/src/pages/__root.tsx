@@ -8,12 +8,7 @@ import { Header } from '@/widgets/header';
 
 const Root = reatomMemo(() => {
   return (
-    <Flex
-      flexDirection={'column'}
-      width={'100%'}
-      height={'100vh'}
-      overflow={'hidden'}
-    >
+    <>
       <Dialogs />
 
       <AppOverlay />
@@ -30,7 +25,7 @@ const Root = reatomMemo(() => {
       >
         <Outlet />
       </Flex>
-    </Flex>
+    </>
   );
 }, 'Root');
 

@@ -6,6 +6,7 @@ import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { CollectionFields } from './fields';
 import { useIntersection } from './hooks/use-intersection.ts';
 import { Builder } from './ui/builder.tsx';
+import { Menu } from './ui/menu.tsx';
 
 export const CollectionBuilder = reatomMemo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,7 +32,7 @@ export const CollectionBuilder = reatomMemo(() => {
       >
         <Builder />
 
-        <CollectionFields.Menu containerRef={menuRef} />
+        <Menu containerRef={menuRef} />
       </Flex>
     </CollectionFields.Root>
   );

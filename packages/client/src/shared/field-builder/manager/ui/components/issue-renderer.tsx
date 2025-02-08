@@ -43,7 +43,11 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     useEffect(() => {
       return model.actions.validate.onCall((ctx) => {
         if (ctx.get(issueAtom)) {
-          ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          ref.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          });
         }
       });
     }, [isOpened, issueAtom, model.actions.validate]);
@@ -53,7 +57,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     }, [issue, setIsOpened]);
 
     return (
-      <Box position={'relative'} flex={1} ref={ref}>
+      <Box position={'relative'} flex={1}>
         <Box
           position={'absolute'}
           zIndex={1}
@@ -78,6 +82,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
           open={isOpened}
         >
           <ChakraPopover.Content
+            ref={ref}
             width="auto"
             px="2"
             py="1"
