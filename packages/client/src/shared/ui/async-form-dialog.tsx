@@ -8,12 +8,14 @@ import { Form } from '@/shared/ui/form.tsx';
 
 import { reatomMemo } from './reatom-memo';
 
-export type AsyncFormDialogProps<Form extends BaseForm> = {
-  form: FormAtom<Form>;
-  onSubmit?: () => void;
-  errorRenderer?: (error: string) => ReactNode;
-  afterError?: ReactNode;
-} & Omit<DialogProps, 'formId' | 'isLoading'>;
+export type AsyncFormDialogProps<Form extends BaseForm> = PropsWithCtx<
+  {
+    form: FormAtom<Form>;
+    onSubmit?: () => void;
+    errorRenderer?: (error: string) => ReactNode;
+    afterError?: ReactNode;
+  } & Omit<DialogProps, 'formId' | 'isLoading'>
+>;
 
 export const AsyncFormDialog = reatomMemo(
   <Form extends BaseForm>({
@@ -26,7 +28,7 @@ export const AsyncFormDialog = reatomMemo(
     errorRenderer,
     afterError,
     ...props
-  }: PropsWithCtx<AsyncFormDialogProps<Form>>) => {
+  }: AsyncFormDialogProps<Form>) => {
     const formId = useId();
 
     return (

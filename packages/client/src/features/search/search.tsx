@@ -1,7 +1,6 @@
-import { Flex } from '@chakra-ui/react';
-
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
+import { ResponsiveContainer } from '@/shared/ui/responsive-container.tsx';
 
 import { BigSearch } from './ui/big';
 import { SmallSearch } from './ui/small';
@@ -12,52 +11,30 @@ export const Search = reatomMemo(() => {
   if (breakpoint === 'mobile') {
     return (
       <>
-        <Flex
-          maxWidth={'lg'}
-          css={{
-            '@container(max-width: 300px)': {
-              display: 'none',
-            },
-          }}
+        <ResponsiveContainer
+          maxWidth="300px"
+          containerProps={{ maxWidth: 'lg' }}
         >
           <BigSearch />
-        </Flex>
-        <Flex
-          maxWidth={'lg'}
-          css={{
-            '@container(min-width: 300px)': {
-              display: 'none',
-            },
-          }}
+        </ResponsiveContainer>
+        <ResponsiveContainer
+          minWidth="300px"
+          containerProps={{ maxWidth: 'lg' }}
         >
           <SmallSearch />
-        </Flex>
+        </ResponsiveContainer>
       </>
     );
   }
 
   return (
     <>
-      <Flex
-        maxWidth={'lg'}
-        css={{
-          '@container(max-width: 800px)': {
-            display: 'none',
-          },
-        }}
-      >
+      <ResponsiveContainer maxWidth="800px" containerProps={{ maxWidth: 'lg' }}>
         <BigSearch />
-      </Flex>
-      <Flex
-        maxWidth={'lg'}
-        css={{
-          '@container(min-width: 800px)': {
-            display: 'none',
-          },
-        }}
-      >
+      </ResponsiveContainer>
+      <ResponsiveContainer minWidth="800px" containerProps={{ maxWidth: 'lg' }}>
         <SmallSearch />
-      </Flex>
+      </ResponsiveContainer>
     </>
   );
 }, 'Search');
