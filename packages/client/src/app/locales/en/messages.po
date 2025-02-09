@@ -48,7 +48,7 @@ msgstr "Builder"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:26
+#: src/shared/field-builder/manager/ui/menu.tsx:27
 msgid "Collection fields"
 msgstr "Collection fields"
 
@@ -61,7 +61,7 @@ msgstr "Collection image"
 msgid "Collections"
 msgstr "Collections"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:126
+#: src/shared/field-builder/manager/ui/menu.tsx:127
 msgid "Coming soon"
 msgstr "Coming soon"
 
@@ -77,6 +77,10 @@ msgstr "Discover"
 #: src/widgets/login-dialog/ui/common.tsx:91
 msgid "Don’t have an account? Sign up"
 msgstr "Don’t have an account? Sign up"
+
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:97
+msgid "Drop here if you want to cancel the operation"
+msgstr "Drop here if you want to cancel the operation"
 
 #: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
 msgid "Dropdown Select"
@@ -190,7 +194,7 @@ msgstr "Must include at least one special character"
 msgid "Must include at least one uppercase letter"
 msgstr "Must include at least one uppercase letter"
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:94
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:159
 msgid "Name is required"
 msgstr "Name is required"
 
