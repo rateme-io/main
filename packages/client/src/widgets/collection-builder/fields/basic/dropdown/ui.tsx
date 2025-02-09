@@ -137,6 +137,9 @@ const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
               onChange={(event) =>
                 state.model.labelField.$value(ctx, event.currentTarget.value)
               }
+              onBlur={() => {
+                state.model.blur(ctx);
+              }}
             />
           </InputGroup>
         </Field>

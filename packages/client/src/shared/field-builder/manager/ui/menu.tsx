@@ -16,6 +16,7 @@ export const Menu = reatomMemo<FieldManagerMenuProps>(() => {
 
   return (
     <Flex
+      width={'100%'}
       flexDirection={'column'}
       paddingBlock={3}
       paddingInline={1}

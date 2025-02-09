@@ -11,17 +11,16 @@ import {
 import { Field } from '@/shared/field-builder/field';
 import { BoardNode } from '@/shared/field-builder/manager';
 
-export type DragData =
-  | {
-      type: 'menu';
-      field: Field<unknown>;
-    }
-  | {
-      type: 'board';
-      node: BoardNode;
-    };
+export type DragData = MenuDragData | BoardDragData;
 
-export type DropData = AddDropData | InsertAfterDropData | InsertBeforeDropData;
+export type MenuDragData = { type: 'menu'; field: Field<unknown> };
+export type BoardDragData = { type: 'board'; node: BoardNode };
+
+export type DropData =
+  | AddDropData
+  | InsertAfterDropData
+  | InsertBeforeDropData
+  | CancelDropData;
 
 export type AddDropData = { type: 'add' };
 export type InsertAfterDropData = {
@@ -30,6 +29,10 @@ export type InsertAfterDropData = {
 };
 export type InsertBeforeDropData = {
   type: 'insert-before';
+  node: BoardNode;
+};
+export type CancelDropData = {
+  type: 'cancel';
   node: BoardNode;
 };
 
@@ -65,6 +68,8 @@ export const useDroppableZone = (data: DropData) => {
         return `insert-after-${data.node.id}`;
       case 'insert-before':
         return `insert-before-${data.node.id}`;
+      case 'cancel':
+        return `cancel-${data.node.id}`;
     }
   };
 
@@ -75,8 +80,8 @@ export const useDroppableZone = (data: DropData) => {
 
   return {
     ...rest,
-    active: active as CustomActive,
-    over: over as CustomOver,
+    active: active as CustomActive | null,
+    over: over as CustomOver | null,
   };
 };
 
@@ -84,10 +89,13 @@ export const useActiveField = () => {
   const context = useDndContext();
 
   const active = context.active as CustomActive | null;
+  const over = context.over as CustomOver | null;
 
   return {
     active,
-    data: active?.data?.current ?? null,
+    activeData: active?.data?.current ?? null,
+    over,
+    overData: over?.data?.current ?? null,
   };
 };
 

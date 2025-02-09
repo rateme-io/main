@@ -98,6 +98,7 @@ const InsertFieldDropZone = reatomMemo<InsertFieldDropZoneProps>(
         pointerEvents={isDisabled ? 'none' : 'auto'}
         ref={isDisabled ? undefined : setNodeRef}
         opacity={isActive && !isDisabled ? 1 : 0}
+        zIndex={2}
       >
         <Flex
           flex={1}

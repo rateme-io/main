@@ -60,7 +60,6 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
       <Box position={'relative'} flex={1}>
         <Box
           position={'absolute'}
-          zIndex={1}
           top={-1}
           left={-1}
           right={-1}
@@ -97,6 +96,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
             transform={'translateX(100%) translateY(-50%)'}
             pointerEvents={'none'}
             userSelect={'none'}
+            zIndex={2}
             _hover={{
               opacity: 0,
             }}

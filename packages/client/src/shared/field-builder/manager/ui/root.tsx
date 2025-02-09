@@ -4,8 +4,6 @@ import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { PropsWithChildren } from 'react';
 
-import { Field } from '@/shared/field-builder/field';
-import { BoardNode } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
@@ -13,7 +11,14 @@ import {
   FieldsManagerContext,
   useFieldsManagerContext,
 } from './context.ts';
-import { DragData, useActiveField, useDrop } from './hooks/dnd.ts';
+import {
+  BoardDragData,
+  DragData,
+  DropData,
+  MenuDragData,
+  useActiveField,
+  useDrop,
+} from './hooks/dnd.ts';
 import { conditionalCollisionDetection } from './utils/collision-detections.ts';
 import { snapRightToCursor } from './utils/modifiers.ts';
 
@@ -69,9 +74,9 @@ const DropLogic = reatomMemo(({ ctx }) => {
 }, 'DropLogic');
 
 const Overlay = reatomMemo(() => {
-  const { data, active } = useActiveField();
+  const { activeData, overData } = useActiveField();
 
-  if (!active || !data) {
+  if (!activeData) {
     return null;
   }
 
@@ -84,7 +89,7 @@ const Overlay = reatomMemo(() => {
         }}
         dropAnimation={null}
       >
-        <RenderOverlay data={data} />
+        <RenderOverlay data={activeData} overData={overData} />
       </DragOverlay>
     </Portal>
   );
@@ -92,36 +97,39 @@ const Overlay = reatomMemo(() => {
 
 type RenderOverlayProps = {
   data: DragData;
+  overData: DropData | null;
 };
 
-const RenderOverlay = reatomMemo<RenderOverlayProps>(({ data }) => {
+const RenderOverlay = reatomMemo<RenderOverlayProps>(({ data, overData }) => {
   switch (data.type) {
     case 'menu':
-      return <MenuOverlay field={data.field} />;
+      return <MenuOverlay data={data} overData={overData} />;
     case 'board':
-      return <BoardOverlay node={data.node} />;
+      return <BoardOverlay data={data} overData={overData} />;
   }
 }, 'RenderOverlay');
 
 type MenuOverlayProps = {
-  field: Field<unknown>;
+  data: MenuDragData;
+  overData: DropData | null;
 };
 
-const MenuOverlay = reatomMemo<MenuOverlayProps>(({ field }) => {
-  const CustomOverlay = field.ui.MenuItemOverlay;
+const MenuOverlay = reatomMemo<MenuOverlayProps>(({ data, overData }) => {
+  const CustomOverlay = data.field.ui.MenuItemOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;
   }
 
-  return <DefaultMenuOverlay field={field} />;
+  return <DefaultMenuOverlay data={data} overData={overData} />;
 }, 'MenuOverlay');
 
 type DefaultMenuOverlayProps = {
-  field: Field<unknown>;
+  data: MenuDragData;
+  overData: DropData | null;
 };
 
-const DefaultMenuOverlay = reatomMemo<DefaultMenuOverlayProps>(({ field }) => {
+const DefaultMenuOverlay = reatomMemo<DefaultMenuOverlayProps>(({ data }) => {
   return (
     <Flex
       zIndex={'max'}
@@ -135,31 +143,33 @@ const DefaultMenuOverlay = reatomMemo<DefaultMenuOverlayProps>(({ field }) => {
       paddingBlock={1}
       gap={2}
     >
-      {field.ui.icon} <Text>{field.ui.title}</Text>
+      {data.field.ui.icon} <Text>{data.field.ui.title}</Text>
     </Flex>
   );
 }, 'DefaultMenuOverlay');
 
 type BoardOverlayProps = {
-  node: BoardNode;
+  data: BoardDragData;
+  overData: DropData | null;
 };
 
-const BoardOverlay = reatomMemo<BoardOverlayProps>(({ node }) => {
-  const CustomOverlay = node.field.ui.FieldOverlay;
+const BoardOverlay = reatomMemo<BoardOverlayProps>(({ data, overData }) => {
+  const CustomOverlay = data.node.field.ui.FieldOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;
   }
 
-  return <DefaultBoardOverlay node={node} />;
+  return <DefaultBoardOverlay data={data} overData={overData} />;
 }, 'BoardOverlay');
 
 type DefaultBoardOverlayProps = {
-  node: BoardNode;
+  data: BoardDragData;
+  overData: DropData | null;
 };
 
 const DefaultBoardOverlay = reatomMemo<DefaultBoardOverlayProps>(
-  ({ ctx, node }) => {
+  ({ ctx, data, overData }) => {
     return (
       <Flex
         zIndex={'max'}
@@ -172,9 +182,13 @@ const DefaultBoardOverlay = reatomMemo<DefaultBoardOverlayProps>(
         paddingInline={2}
         paddingBlock={1}
         gap={2}
+        transition={'opacity 0.2s'}
+        opacity={overData?.type === 'cancel' ? 0.5 : 1}
       >
-        {node.field.ui.icon}{' '}
-        <Text>{ctx.get(node.$name).trim() || node.field.ui.title}</Text>
+        {data.node.field.ui.icon}
+        <Text>
+          {ctx.get(data.node.$name).trim() || data.node.field.ui.title}
+        </Text>
       </Flex>
     );
   },

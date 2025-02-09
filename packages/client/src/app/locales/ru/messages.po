@@ -48,7 +48,7 @@ msgstr "Конструктор"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:31
+#: src/shared/field-builder/manager/ui/menu.tsx:26
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
@@ -61,7 +61,7 @@ msgstr "Изображение коллекции"
 msgid "Collections"
 msgstr "Коллекции"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:215
+#: src/shared/field-builder/manager/ui/menu.tsx:126
 msgid "Coming soon"
 msgstr "Скоро"
 

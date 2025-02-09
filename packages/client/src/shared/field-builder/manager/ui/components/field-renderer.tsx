@@ -1,6 +1,6 @@
-import { Flex, Icon, IconButton } from '@chakra-ui/react';
+import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { PropsWithChildren, useMemo } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
@@ -11,7 +11,7 @@ import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { useDraggableField } from '../hooks/dnd.ts';
+import { useDraggableField, useDroppableZone } from '../hooks/dnd.ts';
 import { FieldContext } from './field.context.ts';
 import { IssueRenderer } from './issue-renderer.tsx';
 
@@ -21,17 +21,20 @@ type DraggableFieldRendererProps = {
 
 export const DraggableFieldRenderer = reatomMemo<DraggableFieldRendererProps>(
   ({ node }) => {
-    const value = useDraggableField({
+    const dragValue = useDraggableField({
       type: 'board',
       node,
     });
 
-    const { setNodeRef, attributes, isDragging } = value;
-
     return (
-      <Draggable value={value}>
-        <Flex ref={setNodeRef} {...attributes} flex={1}>
-          <FieldRenderer node={node} isDragging={isDragging} />
+      <Draggable value={dragValue}>
+        <Flex
+          ref={dragValue.setNodeRef}
+          {...dragValue.attributes}
+          flex={1}
+          position={'relative'}
+        >
+          <FieldRenderer node={node} />
         </Flex>
       </Draggable>
     );
@@ -39,19 +42,81 @@ export const DraggableFieldRenderer = reatomMemo<DraggableFieldRendererProps>(
   'DraggableFieldRenderer',
 );
 
-type FieldRendererProps = {
+type CancelDropZoneProps = {
   node: BoardNode;
-  isDragging: boolean;
 };
 
-const FieldRenderer = reatomMemo<FieldRendererProps>(({ node, isDragging }) => {
+const CancelDropZone = reatomMemo<CancelDropZoneProps>(({ node }) => {
+  const { active, setNodeRef } = useDroppableZone({
+    type: 'cancel',
+    node,
+  });
+
+  const isActive =
+    active?.data?.current?.type === 'board' &&
+    active?.data?.current?.node.id === node.id;
+
+  return (
+    <AnimatePresence>
+      {isActive && (
+        <Flex
+          asChild
+          ref={setNodeRef}
+          position={'absolute'}
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          zIndex={3}
+          pointerEvents={isActive ? 'auto' : 'none'}
+          userSelect={'none'}
+          width={'100%'}
+          height={'100%'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          borderColor={'red.fg'}
+          borderWidth={2}
+          borderStyle={'dashed'}
+          borderRadius={'md'}
+          backgroundColor={'red.subtle'}
+          color={'red.fg'}
+          transition={'opacity 1s 1s'}
+        >
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+          >
+            <Text>
+              <Trans>Drop here if you want to cancel the operation</Trans>
+            </Text>
+          </motion.div>
+        </Flex>
+      )}
+    </AnimatePresence>
+  );
+}, 'CancelDropZone');
+
+type FieldRendererProps = {
+  node: BoardNode;
+};
+
+const FieldRenderer = reatomMemo<FieldRendererProps>(({ node }) => {
   const Content = node.field.ui.FieldContent;
 
   const context = useMemo(() => ({ node }), [node]);
 
   return (
     <FieldContext.Provider value={context}>
-      <FieldRendererContainer node={node} isDragging={isDragging}>
+      <FieldRendererContainer node={node}>
+        <CancelDropZone node={node} />
+
         <Flex justifyContent={'space-between'} padding={2}>
           <Flex gap={2} alignItems={'center'}>
             <Icon asChild>
@@ -128,17 +193,16 @@ const FieldRendererRemove = reatomMemo<FieldRendererRemoveProps>(
 
 type FieldRendererContainerProps = PropsWithChildren<{
   node: BoardNode;
-  isDragging: boolean;
 }>;
 
 const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
-  ({ node, isDragging, children, ctx }) => {
+  ({ node, children, ctx }) => {
     return (
       <Flex
         asChild
         flexDirection={'column'}
-        borderColor={'border.inverted'}
-        borderWidth={1}
+        borderColor={'border'}
+        borderWidth={2}
         borderStyle={'solid'}
         borderRadius={'md'}
         backgroundColor={'bg'}
@@ -150,21 +214,23 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
         <motion.div
           layoutId={node.id}
           transition={{
-            scale: { duration: 0.1 },
-            opacity: { duration: 0.1 },
+            height: {
+              type: 'spring',
+              stiffness: 500,
+              damping: 30,
+            },
           }}
           initial={{
-            scale: 1,
-            opacity: 1,
             height: 0,
           }}
           animate={{
-            scale: isDragging ? 0.99 : 1,
-            opacity: isDragging ? 0.5 : 1,
             height: 'auto',
           }}
           exit={{
             opacity: 0,
+            transition: {
+              duration: 0.1,
+            },
           }}
         >
           {children}

@@ -106,6 +106,9 @@ const createModel = () => {
         },
       ]);
     }, 'createModel.add'),
+    blur: action((ctx) => {
+      labelField.$error(ctx, null);
+    }, 'createModel.blur'),
     remove: action((ctx, value: string) => {
       $options(ctx, (options) =>
         options.filter((option) => option.value !== value),
