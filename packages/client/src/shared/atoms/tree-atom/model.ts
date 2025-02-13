@@ -1,6 +1,7 @@
-import { action, atom, Ctx } from '@reatom/framework';
+import { action, atom } from '@reatom/framework';
 
 import { CreateNodeCommand, NodeAtom, TreeAtom } from './types.ts';
+import { deepTraversAction, traversAction } from './utils.ts';
 
 export const treeAtom = <Payload>(name: string): TreeAtom<Payload> => {
   const nodesMap = new Map<string, NodeAtom<Payload>>();
@@ -21,8 +22,40 @@ export const treeAtom = <Payload>(name: string): TreeAtom<Payload> => {
     $lastChild: root.nodes.$lastChild,
     addChild: root.actions.addChild,
     createNode,
+    $nodes: atom((ctx) => {
+      const nodes: NodeAtom<Payload>[] = [];
+
+      const child = ctx.spy(root.nodes.$child);
+
+      if (child) {
+        deepTraversAction(ctx, child, (_, current) => {
+          nodes.push(current);
+        });
+      }
+
+      return nodes;
+    }, `${name}.$nodes`),
     getNode: (id: string) => nodesMap.get(id) ?? null,
-    getNodes: () => Array.from(nodesMap.values()),
+    travers: action((ctx, callback) => {
+      const child = ctx.get(root.nodes.$child);
+
+      if (child) {
+        traversAction(ctx, child, callback);
+      }
+    }, `${name}.travers`),
+    getNodes: action((ctx) => {
+      const nodes: NodeAtom<Payload>[] = [];
+
+      const child = ctx.get(root.nodes.$child);
+
+      if (child) {
+        deepTraversAction(ctx, child, (_, current) => {
+          nodes.push(current);
+        });
+      }
+
+      return nodes;
+    }, `${name}.getNodes`),
   } as TreeAtom<Payload>;
 };
 
@@ -59,24 +92,6 @@ const nodeFactory =
 
       return children;
     }, `${name}.$children`);
-
-    const traversAction = action(
-      (
-        ctx,
-        startNode: NodeAtom<Payload>,
-        callback: (
-          ctx: Ctx,
-          current: NodeAtom<Payload>,
-        ) => NodeAtom<Payload> | null,
-      ) => {
-        let currentChild = callback(ctx, startNode);
-
-        while (currentChild) {
-          currentChild = callback(ctx, currentChild);
-        }
-      },
-      `${name}.traversAction`,
-    );
 
     const afterAction = action((ctx, node: NodeAtom<Payload>) => {
       if (node.id === currentNode.id) {

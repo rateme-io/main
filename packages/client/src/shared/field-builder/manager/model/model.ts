@@ -24,7 +24,7 @@ export const createModel = () => {
   };
 
   const validate = action((ctx) => {
-    const nodes = tree.getNodes();
+    const nodes = tree.getNodes(ctx);
 
     return nodes.reduce((isValid, node) => {
       return node.issueManager.validate(ctx) && isValid;

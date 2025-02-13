@@ -31,3 +31,7 @@ yalc.lock
 # env
 
 .env
+
+# vitest
+
+coverage

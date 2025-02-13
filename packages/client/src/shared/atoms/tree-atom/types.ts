@@ -38,11 +38,13 @@ export type TreeAtom<Payload> = {
   $child: NodeAtom<Payload>['nodes']['$child'];
   $children: NodeAtom<Payload>['nodes']['$children'];
   $lastChild: NodeAtom<Payload>['nodes']['$lastChild'];
+  $nodes: Atom<NodeAtom<Payload>[]>;
   addChild: NodeAtom<Payload>['actions']['addChild'];
   createNode: (
     command: CreateNodeCommand<Payload>,
     name: string,
   ) => NodeAtom<Payload>;
   getNode: (id: string) => NodeAtom<Payload> | null;
-  getNodes: () => NodeAtom<Payload>[];
+  travers: NodeAtom<Payload>['actions']['travers'];
+  getNodes: Action<[], NodeAtom<Payload>[]>;
 };
