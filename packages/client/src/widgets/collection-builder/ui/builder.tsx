@@ -47,21 +47,19 @@ export const Builder = reatomMemo(({ ctx }) => {
             gridTemplateRows={'min-content min-content 1fr'}
             gridTemplateAreas={`
             "name tabs"
-            "image board"
-            "tags board"
+            "inputs board"
+            "inputs board"
           `}
           >
             <Box gridArea={'name'}>
               <CollectionNameField />
             </Box>
 
-            <Box gridArea={'image'}>
+            <Flex gridArea={'inputs'} flexDirection={'column'} gap={4}>
               <CollectionImageField />
-            </Box>
 
-            <Box gridArea={'tags'}>
               <CollectionTags />
-            </Box>
+            </Flex>
 
             <Flex gridArea={'tabs'} justifyContent={'space-between'}>
               <Tabs.List borderBottomWidth={0} _before={{ content: '""' }}>

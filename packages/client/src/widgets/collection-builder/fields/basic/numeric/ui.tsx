@@ -46,6 +46,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
       <IssueRenderer
         issueId={NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE}
         message={<Trans>Min value should be less than max value.</Trans>}
+        placement={['top', 'bottom']}
       >
         <Flex gap={2}>
           <NumberInput

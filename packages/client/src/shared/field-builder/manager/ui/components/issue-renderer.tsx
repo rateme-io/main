@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { FieldIssue } from '@/shared/field-builder/field';
+import { PlacementSide } from '@/shared/ui/popover.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useFieldsManagerContext } from '../context.ts';
@@ -17,10 +18,11 @@ import { useFieldContext } from './field.context.ts';
 export type IssueRendererProps = PropsWithChildren<{
   issueId: symbol;
   message: ReactNode;
+  placement?: PlacementSide[];
 }>;
 
 export const IssueRenderer = reatomMemo<IssueRendererProps>(
-  ({ issueId, message, children }) => {
+  ({ issueId, message, placement = ['right', 'left'], children }) => {
     const { model } = useFieldsManagerContext();
     const { node } = useFieldContext();
 
@@ -28,13 +30,13 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     const ref = useRef<HTMLDivElement>(null);
 
-    const issueAtom = useMemo(() => {
+    const $issue = useMemo(() => {
       return manager.issueAtom(issueId);
     }, [manager, issueId]);
 
-    const [issue] = useAtom(issueAtom);
+    const [issue] = useAtom($issue);
 
-    const [isOpened, setIsOpened] = useAtom(false);
+    const isOpened = !!issue;
 
     const fontColor = issue?.type && fontColors[issue.type];
     const bgColor = issue?.type && bgColors[issue.type];
@@ -42,7 +44,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     useEffect(() => {
       return model.actions.validate.onCall((ctx) => {
-        if (ctx.get(issueAtom)) {
+        if (ctx.get($issue)) {
           ref.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
@@ -50,70 +52,73 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
           });
         }
       });
-    }, [isOpened, issueAtom, model.actions.validate]);
-
-    useEffect(() => {
-      setIsOpened(!!issue);
-    }, [issue, setIsOpened]);
+    }, [$issue, model.actions.validate]);
 
     return (
-      <Box position={'relative'} flex={1}>
-        <Box
-          position={'absolute'}
-          top={-1}
-          left={-1}
-          right={-1}
-          bottom={-1}
-          borderColor={borderColor ?? 'transparent'}
-          borderWidth={2}
-          borderRadius={'md'}
-          pointerEvents={'none'}
-        />
-        {children}
+      <ChakraPopover.Root
+        size={'lg'}
+        unmountOnExit={false}
+        positioning={{
+          placement: placement[0],
+          flip: placement.slice(1),
+          gutter: 6,
+        }}
+        open={isOpened}
+      >
+        <Box position={'relative'} flex={1}>
+          <ChakraPopover.Trigger asChild>
+            <Box>
+              <Box
+                ref={ref}
+                position={'absolute'}
+                top={-1}
+                left={-1}
+                right={-1}
+                bottom={-1}
+                borderColor={borderColor ?? 'transparent'}
+                borderWidth={2}
+                borderRadius={'md'}
+                pointerEvents={'none'}
+              />
+              {children}
+            </Box>
+          </ChakraPopover.Trigger>
 
-        <ChakraPopover.Root
-          size={'lg'}
-          positioning={{
-            placement: 'right',
-            flip: ['left', 'bottom', 'top'],
-            gutter: 6,
-          }}
-          open={isOpened}
-        >
-          <ChakraPopover.Content
-            ref={ref}
-            width="auto"
-            px="2"
-            py="1"
-            textStyle="xs"
-            rounded="sm"
-            backgroundColor={bgColor}
-            color={fontColor}
-            transition={'opacity 0.2s'}
-            position={'absolute'}
-            top={'50%'}
-            right={'-12px'}
-            transform={'translateX(100%) translateY(-50%)'}
-            pointerEvents={'none'}
+          <ChakraPopover.Positioner
             userSelect={'none'}
-            zIndex={2}
-            _hover={{
-              opacity: 0,
+            pointerEvents={'none'}
+            onMouseEnter={() => {
+              console.log('enter');
             }}
           >
-            <ChakraPopover.Arrow
-              top={'50%'}
-              left={0}
-              transform={'translateX(-50%) translateY(-50%)'}
+            <ChakraPopover.Content
+              width="auto"
+              px="2"
+              py="1"
+              minHeight={'24px'}
+              textStyle="xs"
+              rounded="sm"
+              backgroundColor={bgColor}
+              color={fontColor}
+              pointerEvents={'none'}
+              transition={'opacity 0.2s'}
+              zIndex={2}
+              _hover={{
+                opacity: 0,
+              }}
             >
-              <ChakraPopover.ArrowTip
-                backgroundColor={`${bgColor} !important`}
-              />
-            </ChakraPopover.Arrow>
-            <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
-          </ChakraPopover.Content>
-        </ChakraPopover.Root>
-      </Box>
+              <ChakraPopover.Arrow pointerEvents={'none'}>
+                <ChakraPopover.ArrowTip
+                  backgroundColor={`${bgColor} !important`}
+                />
+              </ChakraPopover.Arrow>
+              <ChakraPopover.Body padding={0} pointerEvents={'none'}>
+                {message}
+              </ChakraPopover.Body>
+            </ChakraPopover.Content>
+          </ChakraPopover.Positioner>
+        </Box>
+      </ChakraPopover.Root>
     );
   },
   'IssueRenderer',
