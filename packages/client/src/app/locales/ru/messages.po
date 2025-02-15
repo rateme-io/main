@@ -40,7 +40,7 @@ msgstr "Минимум 12 символов"
 msgid "Authentication"
 msgstr "Авторизация"
 
-#: src/widgets/collection-builder/ui/builder.tsx:71
+#: src/widgets/collection-builder/ui/builder.tsx:69
 msgid "Builder"
 msgstr "Конструктор"
 
@@ -52,7 +52,7 @@ msgstr "Caps Lock"
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
-#: src/widgets/collection-builder/ui/builder.tsx:123
+#: src/widgets/collection-builder/ui/builder.tsx:121
 msgid "Collection image"
 msgstr "Изображение коллекции"
 
@@ -78,7 +78,7 @@ msgstr "Главная"
 msgid "Don’t have an account? Sign up"
 msgstr "Нет аккаунта? Зарегистрироваться"
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:97
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:91
 msgid "Drop here if you want to cancel the operation"
 msgstr "Перетащите сюда, если хотите отменить операцию"
 
@@ -162,7 +162,7 @@ msgstr "Ссылка на другой элемент коллекции"
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:73
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:74
 msgid "Max"
 msgstr "Max"
 
@@ -170,7 +170,7 @@ msgstr "Max"
 msgid "Maybe you forgot to add the last option."
 msgstr "Возможно, вы забыли добавить последнюю опцию."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:58
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:59
 msgid "Min"
 msgstr "Min"
 
@@ -194,7 +194,7 @@ msgstr "Минимум один специальный символ"
 msgid "Must include at least one uppercase letter"
 msgstr "Минимум одна заглавная буква"
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:159
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:151
 msgid "Name is required"
 msgstr "Название обязательно"
 
@@ -233,7 +233,7 @@ msgstr "Поле числового ввода"
 msgid "Password"
 msgstr "Пароль"
 
-#: src/widgets/collection-builder/ui/builder.tsx:76
+#: src/widgets/collection-builder/ui/builder.tsx:74
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -283,11 +283,11 @@ msgstr "Создать аккаунт"
 msgid "Standard Fields"
 msgstr "Основные поля"
 
-#: src/widgets/collection-builder/ui/builder.tsx:84
+#: src/widgets/collection-builder/ui/builder.tsx:82
 msgid "Submit"
 msgstr "Отправить"
 
-#: src/widgets/collection-builder/ui/builder.tsx:143
+#: src/widgets/collection-builder/ui/builder.tsx:141
 msgid "Tags"
 msgstr "Теги"
 
@@ -350,11 +350,11 @@ msgstr "Неправильный username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "Вы можете добавить поля на доску, перетащив их из правой панели во вкладке конструктора."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:69
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:70
 msgid "You enabled max input but haven't typed a value."
 msgstr "Вы включили максимальное значение, но не ввели его."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:54
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
 msgid "You enabled min input but haven't typed a value."
 msgstr "Вы включили минимальное значение, но не ввели его."
 

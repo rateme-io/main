@@ -40,7 +40,7 @@ msgstr "At least 12 characters long"
 msgid "Authentication"
 msgstr "Authentication"
 
-#: src/widgets/collection-builder/ui/builder.tsx:71
+#: src/widgets/collection-builder/ui/builder.tsx:69
 msgid "Builder"
 msgstr "Builder"
 
@@ -52,7 +52,7 @@ msgstr "Caps Lock"
 msgid "Collection fields"
 msgstr "Collection fields"
 
-#: src/widgets/collection-builder/ui/builder.tsx:123
+#: src/widgets/collection-builder/ui/builder.tsx:121
 msgid "Collection image"
 msgstr "Collection image"
 
@@ -78,7 +78,7 @@ msgstr "Discover"
 msgid "Don’t have an account? Sign up"
 msgstr "Don’t have an account? Sign up"
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:97
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:91
 msgid "Drop here if you want to cancel the operation"
 msgstr "Drop here if you want to cancel the operation"
 
@@ -162,7 +162,7 @@ msgstr "Link to another collection item"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:73
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:74
 msgid "Max"
 msgstr "Max"
 
@@ -170,7 +170,7 @@ msgstr "Max"
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:58
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:59
 msgid "Min"
 msgstr "Min"
 
@@ -194,7 +194,7 @@ msgstr "Must include at least one special character"
 msgid "Must include at least one uppercase letter"
 msgstr "Must include at least one uppercase letter"
 
-#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:159
+#: src/shared/field-builder/manager/ui/components/field-renderer.tsx:151
 msgid "Name is required"
 msgstr "Name is required"
 
@@ -233,7 +233,7 @@ msgstr "Number Input"
 msgid "Password"
 msgstr "Password"
 
-#: src/widgets/collection-builder/ui/builder.tsx:76
+#: src/widgets/collection-builder/ui/builder.tsx:74
 msgid "Preview"
 msgstr "Preview"
 
@@ -283,11 +283,11 @@ msgstr "Sign up"
 msgid "Standard Fields"
 msgstr "Standard Fields"
 
-#: src/widgets/collection-builder/ui/builder.tsx:84
+#: src/widgets/collection-builder/ui/builder.tsx:82
 msgid "Submit"
 msgstr "Submit"
 
-#: src/widgets/collection-builder/ui/builder.tsx:143
+#: src/widgets/collection-builder/ui/builder.tsx:141
 msgid "Tags"
 msgstr "Tags"
 
@@ -350,11 +350,11 @@ msgstr "Wrong username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:69
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:70
 msgid "You enabled max input but haven't typed a value."
 msgstr "You enabled max input but haven't typed a value."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:54
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
 
