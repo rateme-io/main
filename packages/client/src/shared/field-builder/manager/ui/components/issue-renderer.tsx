@@ -1,11 +1,14 @@
 import { Box, FlexProps, Popover as ChakraPopover } from '@chakra-ui/react';
+import { useEvent } from '@khmilevoi/use-event';
 import { useAtom } from '@reatom/npm-react';
 import {
+  MouseEvent,
   PropsWithChildren,
   ReactNode,
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 
 import { FieldIssue } from '@/shared/field-builder/field';
@@ -36,7 +39,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     const [issue] = useAtom($issue);
 
-    const isOpened = !!issue;
+    const [isOpened, setIsOpened] = useState(false);
 
     const fontColor = issue?.type && fontColors[issue.type];
     const bgColor = issue?.type && bgColors[issue.type];
@@ -54,6 +57,15 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
       });
     }, [$issue, model.actions.validate]);
 
+    const handleMouseEnter = useEvent((event: MouseEvent) => {
+      event.stopPropagation();
+      setIsOpened(!!issue);
+    });
+
+    const handleMouseLeave = useEvent(() => {
+      setIsOpened(false);
+    });
+
     return (
       <ChakraPopover.Root
         size={'lg'}
@@ -65,9 +77,12 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
         }}
         open={isOpened}
       >
-        <Box position={'relative'} flex={1}>
+        <Box position={'relative'} flex={1} width={'100%'}>
           <ChakraPopover.Trigger asChild>
-            <Box>
+            <Box
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Box
                 ref={ref}
                 position={'absolute'}
@@ -84,13 +99,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
             </Box>
           </ChakraPopover.Trigger>
 
-          <ChakraPopover.Positioner
-            userSelect={'none'}
-            pointerEvents={'none'}
-            onMouseEnter={() => {
-              console.log('enter');
-            }}
-          >
+          <ChakraPopover.Positioner>
             <ChakraPopover.Content
               width="auto"
               px="2"
@@ -100,21 +109,14 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
               rounded="sm"
               backgroundColor={bgColor}
               color={fontColor}
-              pointerEvents={'none'}
-              transition={'opacity 0.2s'}
               zIndex={2}
-              _hover={{
-                opacity: 0,
-              }}
             >
-              <ChakraPopover.Arrow pointerEvents={'none'}>
+              <ChakraPopover.Arrow>
                 <ChakraPopover.ArrowTip
                   backgroundColor={`${bgColor} !important`}
                 />
               </ChakraPopover.Arrow>
-              <ChakraPopover.Body padding={0} pointerEvents={'none'}>
-                {message}
-              </ChakraPopover.Body>
+              <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
             </ChakraPopover.Content>
           </ChakraPopover.Positioner>
         </Box>

@@ -9,8 +9,6 @@ import { CustomActive } from '../hooks/dnd.ts';
 export const conditionalCollisionDetection: CollisionDetection = (args) => {
   const active = args.active as CustomActive;
 
-  // console.log(active.data.current?.type);
-
   if (active.data.current?.type === 'board') {
     return closestCenter(args);
   } else {

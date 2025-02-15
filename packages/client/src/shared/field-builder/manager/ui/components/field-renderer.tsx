@@ -1,6 +1,6 @@
 import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
@@ -54,52 +54,44 @@ const CancelDropZone = reatomMemo<CancelDropZoneProps>(({ node }) => {
 
   const isActive =
     active?.data?.current?.type === 'board' &&
-    active?.data?.current?.node.id === node.id;
+    active?.data?.current?.node?.id === node.id;
 
   return (
-    <AnimatePresence>
-      {isActive && (
-        <Flex
-          asChild
-          ref={setNodeRef}
-          position={'absolute'}
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          zIndex={3}
-          pointerEvents={isActive ? 'auto' : 'none'}
-          userSelect={'none'}
-          width={'100%'}
-          height={'100%'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          borderColor={'red.fg'}
-          borderWidth={2}
-          borderStyle={'dashed'}
-          borderRadius={'md'}
-          backgroundColor={'red.subtle'}
-          color={'red.fg'}
-          transition={'opacity 1s 1s'}
-        >
-          <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-          >
-            <Text>
-              <Trans>Drop here if you want to cancel the operation</Trans>
-            </Text>
-          </motion.div>
-        </Flex>
-      )}
-    </AnimatePresence>
+    <Flex
+      asChild
+      ref={setNodeRef}
+      position={'absolute'}
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      zIndex={3}
+      pointerEvents={isActive ? 'auto' : 'none'}
+      userSelect={'none'}
+      width={'100%'}
+      height={'100%'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      borderColor={'red.fg'}
+      borderWidth={2}
+      borderStyle={'dashed'}
+      borderRadius={'md'}
+      backgroundColor={'red.subtle'}
+      color={'red.fg'}
+    >
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: isActive ? 1 : 0,
+        }}
+      >
+        <Text>
+          <Trans>Drop here if you want to cancel the operation</Trans>
+        </Text>
+      </motion.div>
+    </Flex>
   );
 }, 'CancelDropZone');
 

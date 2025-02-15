@@ -10,21 +10,21 @@ export const PageLayout: FunctionComponent<FlexProps> = (props) => {
     case 'desktop':
       return (
         <Flex
-          {...props}
           flex={1}
           maxWidth={'8xl'}
           paddingInline={5}
           marginInline={'auto'}
+          {...props}
         />
       );
     case 'mobile':
       return (
         <Flex
-          {...props}
           flex={1}
           maxWidth={'8xl'}
           paddingInline={2}
           marginInline={'auto'}
+          {...props}
         />
       );
   }

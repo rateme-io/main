@@ -34,24 +34,34 @@ export const useIntersection = ({
 
     calculateIntersection();
 
-    window.addEventListener('resize', calculateIntersection);
-
     const firstResizeObserver = new ResizeObserver(calculateIntersection);
+    const firstMutationObserver = new MutationObserver(calculateIntersection);
+
     const secondResizeObserver = new ResizeObserver(calculateIntersection);
+    const secondMutationObserver = new MutationObserver(calculateIntersection);
 
     if (firstElement) {
       firstResizeObserver.observe(firstElement);
+      firstMutationObserver.observe(firstElement, {
+        attributes: true,
+        attributeFilter: ['style'],
+      });
     }
 
     if (secondElement) {
       secondResizeObserver.observe(secondElement);
+      secondMutationObserver.observe(secondElement, {
+        attributes: true,
+        attributeFilter: ['style'],
+      });
     }
 
     return () => {
-      window.removeEventListener('resize', calculateIntersection);
-
       firstResizeObserver.disconnect();
+      firstMutationObserver.disconnect();
+
       secondResizeObserver.disconnect();
+      secondMutationObserver.disconnect();
     };
   }, [calculateIntersection, firstRef, secondRef]);
 

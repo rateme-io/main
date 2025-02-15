@@ -27,6 +27,7 @@ export const CollectionBuilder = reatomMemo(() => {
         flex={1}
         overflow={'hidden'}
         maxWidth={'8xl'}
+        minWidth={'breakpoint-md'}
         marginInline={'auto'}
         width={'100%'}
       >

@@ -65,6 +65,8 @@ const DropLogic = reatomMemo(({ ctx }) => {
       } else if (dragData.type === 'board') {
         return model.actions.moveBefore(ctx, dropData.node, dragData.node);
       }
+    } else if (dropData.type === 'cancel') {
+      return;
     }
 
     throw new Error('Unknown operation');
