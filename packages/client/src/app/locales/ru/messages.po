@@ -40,7 +40,11 @@ msgstr "Минимум 12 символов"
 msgid "Authentication"
 msgstr "Авторизация"
 
-#: src/widgets/collection-builder/ui/builder.tsx:69
+#: src/widgets/collection-builder/ui/builder.tsx:34
+msgid "Build"
+msgstr "Создай"
+
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:60
 msgid "Builder"
 msgstr "Конструктор"
 
@@ -48,11 +52,15 @@ msgstr "Конструктор"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
+#: src/widgets/collection-builder/ui/builder.tsx:35
+msgid "Check"
+msgstr "Проверь"
+
 #: src/shared/field-builder/manager/ui/menu.tsx:27
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
-#: src/widgets/collection-builder/ui/builder.tsx:121
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:116
 msgid "Collection image"
 msgstr "Изображение коллекции"
 
@@ -61,7 +69,7 @@ msgstr "Изображение коллекции"
 msgid "Collections"
 msgstr "Коллекции"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:127
+#: src/shared/field-builder/manager/ui/menu.tsx:128
 msgid "Coming soon"
 msgstr "Скоро"
 
@@ -208,6 +216,10 @@ msgstr "Создать коллекцию"
 msgid "New Rating System"
 msgstr "Создать систему оценивания"
 
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:80
+msgid "Next"
+msgstr "Далее"
+
 #: src/shared/field-builder/manager/ui/preview.tsx:24
 msgid "No fields"
 msgstr "Нет полей"
@@ -233,7 +245,7 @@ msgstr "Поле числового ввода"
 msgid "Password"
 msgstr "Пароль"
 
-#: src/widgets/collection-builder/ui/builder.tsx:74
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:65
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -241,6 +253,10 @@ msgstr "Предпросмотр"
 #: src/features/avatar/ui/desktop.tsx:36
 msgid "Profile"
 msgstr "Профиль"
+
+#: src/widgets/collection-builder/ui/builder.tsx:36
+msgid "Publish"
+msgstr "Опубликуй"
 
 #: src/widgets/header/ui/menu/mobile.tsx:70
 #: src/widgets/header/ui/create-menu/desktop.tsx:37
@@ -284,10 +300,10 @@ msgid "Standard Fields"
 msgstr "Основные поля"
 
 #: src/widgets/collection-builder/ui/builder.tsx:82
-msgid "Submit"
-msgstr "Отправить"
+#~ msgid "Submit"
+#~ msgstr "Отправить"
 
-#: src/widgets/collection-builder/ui/builder.tsx:141
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:136
 msgid "Tags"
 msgstr "Теги"
 

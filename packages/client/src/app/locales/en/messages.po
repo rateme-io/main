@@ -40,7 +40,11 @@ msgstr "At least 12 characters long"
 msgid "Authentication"
 msgstr "Authentication"
 
-#: src/widgets/collection-builder/ui/builder.tsx:69
+#: src/widgets/collection-builder/ui/builder.tsx:34
+msgid "Build"
+msgstr "Build"
+
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:60
 msgid "Builder"
 msgstr "Builder"
 
@@ -48,11 +52,15 @@ msgstr "Builder"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
+#: src/widgets/collection-builder/ui/builder.tsx:35
+msgid "Check"
+msgstr "Check"
+
 #: src/shared/field-builder/manager/ui/menu.tsx:27
 msgid "Collection fields"
 msgstr "Collection fields"
 
-#: src/widgets/collection-builder/ui/builder.tsx:121
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:116
 msgid "Collection image"
 msgstr "Collection image"
 
@@ -61,7 +69,7 @@ msgstr "Collection image"
 msgid "Collections"
 msgstr "Collections"
 
-#: src/shared/field-builder/manager/ui/menu.tsx:127
+#: src/shared/field-builder/manager/ui/menu.tsx:128
 msgid "Coming soon"
 msgstr "Coming soon"
 
@@ -208,6 +216,10 @@ msgstr "New Collection"
 msgid "New Rating System"
 msgstr "New Rating System"
 
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:80
+msgid "Next"
+msgstr "Next"
+
 #: src/shared/field-builder/manager/ui/preview.tsx:24
 msgid "No fields"
 msgstr "No fields"
@@ -233,7 +245,7 @@ msgstr "Number Input"
 msgid "Password"
 msgstr "Password"
 
-#: src/widgets/collection-builder/ui/builder.tsx:74
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:65
 msgid "Preview"
 msgstr "Preview"
 
@@ -241,6 +253,10 @@ msgstr "Preview"
 #: src/features/avatar/ui/desktop.tsx:36
 msgid "Profile"
 msgstr "Profile"
+
+#: src/widgets/collection-builder/ui/builder.tsx:36
+msgid "Publish"
+msgstr "Publish"
 
 #: src/widgets/header/ui/menu/mobile.tsx:70
 #: src/widgets/header/ui/create-menu/desktop.tsx:37
@@ -284,10 +300,10 @@ msgid "Standard Fields"
 msgstr "Standard Fields"
 
 #: src/widgets/collection-builder/ui/builder.tsx:82
-msgid "Submit"
-msgstr "Submit"
+#~ msgid "Submit"
+#~ msgstr "Submit"
 
-#: src/widgets/collection-builder/ui/builder.tsx:141
+#: src/widgets/collection-builder/ui/steps/build-step.tsx:136
 msgid "Tags"
 msgstr "Tags"
 

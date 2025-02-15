@@ -33,7 +33,7 @@ export const Menu = reatomMemo<MenuProps>(({ containerRef }) => {
         animate={{ right: isOpened ? 0 : -300 }}
         transition={{ duration: 0.3 }}
       >
-        <Box position={'absolute'} top={'16px'} left={'-22px'}>
+        <Box position={'absolute'} top={'44px'} left={'-22px'}>
           <IconButton
             variant={'ghost'}
             size={'2xs'}

@@ -69,7 +69,9 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     return (
       <ChakraPopover.Root
         size={'lg'}
-        unmountOnExit={false}
+        unmountOnExit
+        lazyMount
+        autoFocus={false}
         positioning={{
           placement: placement[0],
           flip: placement.slice(1),

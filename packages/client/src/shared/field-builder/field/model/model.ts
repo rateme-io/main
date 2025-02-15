@@ -68,7 +68,7 @@ export const createFieldModel = <State>({
             });
           }
 
-          return !!$issueTypes.get(ctx, 'critical');
+          return !$issueTypes.get(ctx, 'critical');
         }, 'issueManager.validate'),
         revalidate: action((ctx) => {
           if (ctx.get($issuesMap).size === 0) {

@@ -123,6 +123,7 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
             backgroundColor={'bg.info'}
             paddingInline={1}
             color={'fg.info'}
+            height={'min-content'}
           >
             <Trans>Coming soon</Trans>
           </Flex>

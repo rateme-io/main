@@ -1,4 +1,4 @@
-import { action, atom } from '@reatom/framework';
+import { action, atom, withAssign } from '@reatom/framework';
 import { z } from 'zod';
 
 import { fieldAtom } from '@/shared/atoms/field.atom.ts';
@@ -36,11 +36,9 @@ export const collectionForm = formAtom({
   }, 'collectionForm.onSubmit'),
 });
 
-export type BoardTabs = 'builder' | 'preview';
-
-export const $activeTab = atom<BoardTabs>('builder', '$activeTab');
-
-export const $isPreviewTabActive = atom(
-  (ctx) => ctx.spy($activeTab) === 'preview',
-  '$isPreviewTabActive',
+export const $step = atom(0, '$step').pipe(
+  withAssign((target, name) => ({
+    next: action((ctx) => target(ctx, ctx.get(target) + 1), `${name}.next`),
+    prev: action((ctx) => target(ctx, ctx.get(target) - 1), `${name}.prev`),
+  })),
 );

@@ -26,6 +26,10 @@ export const createModel = () => {
   const validate = action((ctx) => {
     const nodes = tree.getNodes(ctx);
 
+    if (nodes.length === 0) {
+      return false;
+    }
+
     return nodes.reduce((isValid, node) => {
       return node.issueManager.validate(ctx) && isValid;
     }, true);
@@ -37,11 +41,7 @@ export const createModel = () => {
     actions: {
       validate,
       submit: action((ctx) => {
-        const isValid = validate(ctx);
-
-        if (!isValid) {
-          return;
-        }
+        return validate(ctx);
       }, 'actions.submit'),
       addChild: action((ctx, field: Field<unknown>) => {
         tree.addChild(ctx, createNode(field));
