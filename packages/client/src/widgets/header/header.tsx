@@ -1,8 +1,14 @@
+import { lazy } from 'react';
+
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { DesktopHeader } from './ui/desktop';
-import { MobileHeader } from './ui/mobile';
+const DesktopHeader = lazy(() =>
+  import('./ui/desktop').then((module) => ({ default: module.DesktopHeader })),
+);
+const MobileHeader = lazy(() =>
+  import('./ui/mobile').then((module) => ({ default: module.MobileHeader })),
+);
 
 export const Header = reatomMemo(() => {
   const breakpoint = useBreakpoint();

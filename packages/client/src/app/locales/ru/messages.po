@@ -18,11 +18,11 @@ msgstr ""
 msgid "Add Collection Item"
 msgstr "Создать элемент коллекции"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:96
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:97
 msgid "Allow adding custom options"
 msgstr "Можно создавать новые опции"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:86
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:87
 msgid "Allow multiple selections"
 msgstr "Можно выбрать несколько опций"
 
@@ -40,7 +40,7 @@ msgstr "Минимум 12 символов"
 msgid "Authentication"
 msgstr "Авторизация"
 
-#: src/widgets/collection-builder/ui/builder.tsx:34
+#: src/widgets/collection-builder/ui/builder.tsx:35
 msgid "Build"
 msgstr "Создай"
 
@@ -52,7 +52,7 @@ msgstr "Конструктор"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/widgets/collection-builder/ui/builder.tsx:35
+#: src/widgets/collection-builder/ui/builder.tsx:36
 msgid "Check"
 msgstr "Проверь"
 
@@ -90,7 +90,7 @@ msgstr "Нет аккаунта? Зарегистрироваться"
 msgid "Drop here if you want to cancel the operation"
 msgstr "Перетащите сюда, если хотите отменить операцию"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:40
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:41
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
@@ -103,7 +103,7 @@ msgstr "Поле длительности"
 msgid "Email"
 msgstr "Email"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:135
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:136
 msgid "Enter a name for this option"
 msgstr "Введите название опции"
 
@@ -141,7 +141,7 @@ msgstr "Загрузка изображений"
 msgid "Input for external links"
 msgstr "Поле для внешних ссылок"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:22
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
@@ -170,19 +170,19 @@ msgstr "Ссылка на другой элемент коллекции"
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:74
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:75
 msgid "Max"
 msgstr "Max"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:113
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:114
 msgid "Maybe you forgot to add the last option."
 msgstr "Возможно, вы забыли добавить последнюю опцию."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:59
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:60
 msgid "Min"
 msgstr "Min"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:48
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:49
 msgid "Min value should be less than max value."
 msgstr "Минимальное значение должно быть меньше максимального."
 
@@ -236,7 +236,7 @@ msgstr "Без пробелов"
 msgid "Not a too simple password"
 msgstr "Не слишком простой пароль"
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:21
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:22
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
@@ -254,7 +254,7 @@ msgstr "Предпросмотр"
 msgid "Profile"
 msgstr "Профиль"
 
-#: src/widgets/collection-builder/ui/builder.tsx:36
+#: src/widgets/collection-builder/ui/builder.tsx:37
 msgid "Publish"
 msgstr "Опубликуй"
 
@@ -311,9 +311,13 @@ msgstr "Теги"
 msgid "Text Input"
 msgstr "Поле ввода текста"
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:41
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:42
 msgid "The field that displays the drop-down list"
 msgstr "Поле, которое отображает выпадающий список"
+
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:191
+msgid "The option label cannot be empty. Please enter a value."
+msgstr ""
 
 #: src/widgets/collection-builder/fields/time/index.tsx:12
 msgid "Time Fields"
@@ -366,14 +370,14 @@ msgstr "Неправильный username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "Вы можете добавить поля на доску, перетащив их из правой панели во вкладке конструктора."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:70
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:71
 msgid "You enabled max input but haven't typed a value."
 msgstr "Вы включили максимальное значение, но не ввели его."
 
-#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:55
+#: src/widgets/collection-builder/fields/basic/numeric/ui.tsx:56
 msgid "You enabled min input but haven't typed a value."
 msgstr "Вы включили минимальное значение, но не ввели его."
 
-#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:70
+#: src/widgets/collection-builder/fields/basic/dropdown/ui.tsx:71
 msgid "You need to add at least one option."
 msgstr "Необходимо добавить хотя бы одну опцию."

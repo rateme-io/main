@@ -1,9 +1,17 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, lazy } from 'react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
-import { DesktopRegisterDialog } from './ui/desktop';
-import { MobileRegisterDialog } from './ui/mobile';
+const MobileRegisterDialog = lazy(() =>
+  import('./ui/mobile.tsx').then((module) => ({
+    default: module.MobileRegisterDialog,
+  })),
+);
+const DesktopRegisterDialog = lazy(() =>
+  import('./ui/desktop.tsx').then((module) => ({
+    default: module.DesktopRegisterDialog,
+  })),
+);
 
 export const RegisterDialog: FunctionComponent = (props) => {
   const breakpoint = useBreakpoint();

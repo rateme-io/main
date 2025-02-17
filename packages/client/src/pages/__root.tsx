@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 
 import { Dialogs } from '@/app/dialogs.tsx';
-import { AppOverlay } from '@/shared/ui/app-overlay.tsx';
+import { AppLoader, AppOverlay } from '@/shared/ui/app-overlay.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 import { Header } from '@/widgets/header';
 
@@ -31,6 +31,7 @@ const Root = reatomMemo(() => {
 
 export const Route = createRootRoute({
   component: Root,
+  pendingComponent: () => <AppLoader />,
   errorComponent: ({ error }) => {
     return <div>error: {error.message}</div>;
   },

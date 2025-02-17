@@ -1,9 +1,17 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, lazy } from 'react';
 
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
 
-import { DesktopAvatar } from './ui/desktop';
-import { MobileAvatar } from './ui/mobile';
+const MobileAvatar = lazy(() =>
+  import('./ui/mobile.tsx').then((module) => ({
+    default: module.MobileAvatar,
+  })),
+);
+const DesktopAvatar = lazy(() =>
+  import('./ui/desktop.tsx').then((module) => ({
+    default: module.DesktopAvatar,
+  })),
+);
 
 export const Avatar: FunctionComponent = () => {
   const breakpoint = useBreakpoint();
