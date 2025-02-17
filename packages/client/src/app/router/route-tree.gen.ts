@@ -22,9 +22,9 @@ const CreateRatingSystemLazyImport = createFileRoute('/create-rating-system')()
 const CreateCollectionItemLazyImport = createFileRoute(
   '/create-collection-item',
 )()
+const CreateCollectionLazyImport = createFileRoute('/create-collection')()
 const CollectionsLazyImport = createFileRoute('/collections')()
 const IndexLazyImport = createFileRoute('/')()
-const CreateCollectionIndexLazyImport = createFileRoute('/create-collection/')()
 
 // Create/Update Routes
 
@@ -60,6 +60,14 @@ const CreateCollectionItemLazyRoute = CreateCollectionItemLazyImport.update({
   import('./../../pages/create-collection-item.lazy').then((d) => d.Route),
 )
 
+const CreateCollectionLazyRoute = CreateCollectionLazyImport.update({
+  id: '/create-collection',
+  path: '/create-collection',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./../../pages/create-collection.lazy').then((d) => d.Route),
+)
+
 const CollectionsLazyRoute = CollectionsLazyImport.update({
   id: '/collections',
   path: '/collections',
@@ -73,14 +81,6 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./../../pages/index.lazy').then((d) => d.Route))
-
-const CreateCollectionIndexLazyRoute = CreateCollectionIndexLazyImport.update({
-  id: '/create-collection/',
-  path: '/create-collection/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./../../pages/create-collection/index.lazy').then((d) => d.Route),
-)
 
 // Populate the FileRoutesByPath interface
 
@@ -98,6 +98,13 @@ declare module '@tanstack/react-router' {
       path: '/collections'
       fullPath: '/collections'
       preLoaderRoute: typeof CollectionsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/create-collection': {
+      id: '/create-collection'
+      path: '/create-collection'
+      fullPath: '/create-collection'
+      preLoaderRoute: typeof CreateCollectionLazyImport
       parentRoute: typeof rootRoute
     }
     '/create-collection-item': {
@@ -128,13 +135,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RatingSystemsLazyImport
       parentRoute: typeof rootRoute
     }
-    '/create-collection/': {
-      id: '/create-collection/'
-      path: '/create-collection'
-      fullPath: '/create-collection'
-      preLoaderRoute: typeof CreateCollectionIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -143,32 +143,32 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/collections': typeof CollectionsLazyRoute
+  '/create-collection': typeof CreateCollectionLazyRoute
   '/create-collection-item': typeof CreateCollectionItemLazyRoute
   '/create-rating-system': typeof CreateRatingSystemLazyRoute
   '/rate-collection-item': typeof RateCollectionItemLazyRoute
   '/rating-systems': typeof RatingSystemsLazyRoute
-  '/create-collection': typeof CreateCollectionIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/collections': typeof CollectionsLazyRoute
+  '/create-collection': typeof CreateCollectionLazyRoute
   '/create-collection-item': typeof CreateCollectionItemLazyRoute
   '/create-rating-system': typeof CreateRatingSystemLazyRoute
   '/rate-collection-item': typeof RateCollectionItemLazyRoute
   '/rating-systems': typeof RatingSystemsLazyRoute
-  '/create-collection': typeof CreateCollectionIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/collections': typeof CollectionsLazyRoute
+  '/create-collection': typeof CreateCollectionLazyRoute
   '/create-collection-item': typeof CreateCollectionItemLazyRoute
   '/create-rating-system': typeof CreateRatingSystemLazyRoute
   '/rate-collection-item': typeof RateCollectionItemLazyRoute
   '/rating-systems': typeof RatingSystemsLazyRoute
-  '/create-collection/': typeof CreateCollectionIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -176,50 +176,50 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/collections'
+    | '/create-collection'
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
     | '/rating-systems'
-    | '/create-collection'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/collections'
+    | '/create-collection'
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
     | '/rating-systems'
-    | '/create-collection'
   id:
     | '__root__'
     | '/'
     | '/collections'
+    | '/create-collection'
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
     | '/rating-systems'
-    | '/create-collection/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   CollectionsLazyRoute: typeof CollectionsLazyRoute
+  CreateCollectionLazyRoute: typeof CreateCollectionLazyRoute
   CreateCollectionItemLazyRoute: typeof CreateCollectionItemLazyRoute
   CreateRatingSystemLazyRoute: typeof CreateRatingSystemLazyRoute
   RateCollectionItemLazyRoute: typeof RateCollectionItemLazyRoute
   RatingSystemsLazyRoute: typeof RatingSystemsLazyRoute
-  CreateCollectionIndexLazyRoute: typeof CreateCollectionIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   CollectionsLazyRoute: CollectionsLazyRoute,
+  CreateCollectionLazyRoute: CreateCollectionLazyRoute,
   CreateCollectionItemLazyRoute: CreateCollectionItemLazyRoute,
   CreateRatingSystemLazyRoute: CreateRatingSystemLazyRoute,
   RateCollectionItemLazyRoute: RateCollectionItemLazyRoute,
   RatingSystemsLazyRoute: RatingSystemsLazyRoute,
-  CreateCollectionIndexLazyRoute: CreateCollectionIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -234,11 +234,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/collections",
+        "/create-collection",
         "/create-collection-item",
         "/create-rating-system",
         "/rate-collection-item",
-        "/rating-systems",
-        "/create-collection/"
+        "/rating-systems"
       ]
     },
     "/": {
@@ -246,6 +246,9 @@ export const routeTree = rootRoute
     },
     "/collections": {
       "filePath": "collections.lazy.tsx"
+    },
+    "/create-collection": {
+      "filePath": "create-collection.lazy.tsx"
     },
     "/create-collection-item": {
       "filePath": "create-collection-item.lazy.tsx"
@@ -258,9 +261,6 @@ export const routeTree = rootRoute
     },
     "/rating-systems": {
       "filePath": "rating-systems.lazy.tsx"
-    },
-    "/create-collection/": {
-      "filePath": "create-collection/index.lazy.tsx"
     }
   }
 }
