@@ -1,4 +1,9 @@
-import { Box, FlexProps, Popover as ChakraPopover } from '@chakra-ui/react';
+import {
+  Box,
+  BoxProps,
+  FlexProps,
+  Popover as ChakraPopover,
+} from '@chakra-ui/react';
 import { useEvent } from '@khmilevoi/use-event';
 import { useAtom } from '@reatom/npm-react';
 import {
@@ -20,12 +25,21 @@ import { useFieldContext } from './field.context.ts';
 
 export type IssueRendererProps = PropsWithChildren<{
   issueId: symbol;
+  issueKey?: string;
   message: ReactNode;
   placement?: PlacementSide[];
+  containerProps?: BoxProps;
 }>;
 
 export const IssueRenderer = reatomMemo<IssueRendererProps>(
-  ({ issueId, message, placement = ['right', 'left'], children }) => {
+  ({
+    issueId,
+    issueKey,
+    message,
+    placement = ['right', 'left'],
+    containerProps,
+    children,
+  }) => {
     const { model } = useFieldsManagerContext();
     const { node } = useFieldContext();
 
@@ -34,12 +48,14 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     const ref = useRef<HTMLDivElement>(null);
 
     const $issue = useMemo(() => {
-      return manager.issueAtom(issueId);
-    }, [manager, issueId]);
+      return manager.issueAtom(issueId, issueKey);
+    }, [manager, issueId, issueKey]);
 
     const [issue] = useAtom($issue);
 
-    const [isOpened, setIsOpened] = useState(false);
+    const isActive = !!issue;
+
+    const [isOpened, setIsOpened] = useState(isActive);
 
     const fontColor = issue?.type && fontColors[issue.type];
     const bgColor = issue?.type && bgColors[issue.type];
@@ -59,7 +75,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     const handleMouseEnter = useEvent((event: MouseEvent) => {
       event.stopPropagation();
-      setIsOpened(!!issue);
+      setIsOpened(isActive);
     });
 
     const handleMouseLeave = useEvent(() => {
@@ -75,53 +91,53 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
         positioning={{
           placement: placement[0],
           flip: placement.slice(1),
-          gutter: 6,
+          gutter: 8,
         }}
         open={isOpened}
       >
-        <Box position={'relative'} flex={1} width={'100%'}>
-          <ChakraPopover.Trigger asChild>
+        <ChakraPopover.Trigger asChild>
+          <Box
+            {...containerProps}
+            onMouseMove={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            position={'relative'}
+          >
             <Box
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Box
-                ref={ref}
-                position={'absolute'}
-                top={-1}
-                left={-1}
-                right={-1}
-                bottom={-1}
-                borderColor={borderColor ?? 'transparent'}
-                borderWidth={2}
-                borderRadius={'md'}
-                pointerEvents={'none'}
-              />
-              {children}
-            </Box>
-          </ChakraPopover.Trigger>
+              ref={ref}
+              position={'absolute'}
+              top={'-5.5px'}
+              left={'-4px'}
+              right={'-4px'}
+              bottom={'-5.5px'}
+              borderColor={borderColor ?? 'transparent'}
+              borderWidth={2}
+              borderRadius={'md'}
+              pointerEvents={'none'}
+            />
+            {children}
+          </Box>
+        </ChakraPopover.Trigger>
 
-          <ChakraPopover.Positioner>
-            <ChakraPopover.Content
-              width="auto"
-              px="2"
-              py="1"
-              minHeight={'24px'}
-              textStyle="xs"
-              rounded="sm"
-              backgroundColor={bgColor}
-              color={fontColor}
-              zIndex={2}
-            >
-              <ChakraPopover.Arrow>
-                <ChakraPopover.ArrowTip
-                  backgroundColor={`${bgColor} !important`}
-                />
-              </ChakraPopover.Arrow>
-              <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
-            </ChakraPopover.Content>
-          </ChakraPopover.Positioner>
-        </Box>
+        <ChakraPopover.Positioner>
+          <ChakraPopover.Content
+            width="auto"
+            px="2"
+            py="1"
+            minHeight={'24px'}
+            textStyle="xs"
+            rounded="sm"
+            backgroundColor={bgColor}
+            color={fontColor}
+            zIndex={2}
+          >
+            <ChakraPopover.Arrow>
+              <ChakraPopover.ArrowTip
+                backgroundColor={`${bgColor} !important`}
+              />
+            </ChakraPopover.Arrow>
+            <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
+          </ChakraPopover.Content>
+        </ChakraPopover.Positioner>
       </ChakraPopover.Root>
     );
   },

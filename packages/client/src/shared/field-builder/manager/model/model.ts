@@ -13,7 +13,7 @@ export const createModel = () => {
 
     return tree.createNode(
       {
-        ...field.create({
+        ...field.createBuilder({
           $name,
         }),
         $name,

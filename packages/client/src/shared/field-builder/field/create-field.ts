@@ -10,9 +10,9 @@ export const createField = <State>({
   return {
     id: `${name}-${generateId()}`,
     ui,
-    create: (command) => ({
+    createBuilder: (command) => ({
       id: `${name}-item-${generateId()}`,
-      ...model.create(command),
+      ...model.createBuilder(command),
     }),
   };
 };

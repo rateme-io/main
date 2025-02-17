@@ -30,6 +30,7 @@ import { InputGroup } from '@/shared/ui/input-group.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
+  DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
   DROPDOWN_FIELD_EMPTY_OPTIONS,
   DROPDOWN_FIELD_LABEL_WARNING,
   DropdownFieldOption,
@@ -56,7 +57,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
     const SelectComponent = isCreatable ? CreatableSelect : Select;
 
     return (
-      <Field label={ctx.get(state.$name)} orientation={'horizontal'}>
+      <Field label={ctx.spy(state.$name)} orientation={'horizontal'}>
         <SelectComponent isMulti={isMulti} options={options} />
       </Field>
     );
@@ -181,66 +182,76 @@ type OptionProps = {
 };
 
 const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
-  const isInvalid = !!ctx.spy(option.labelField.$error);
-
   return (
     <OptionDraggableWrapper option={option}>
-      <Flex
-        position={'absolute'}
-        top={0}
-        left={0}
-        bottom={0}
-        right={0}
-        width={'100%'}
-        height={'100%'}
-        alignItems={'center'}
-        gap={1}
+      <IssueRenderer
+        issueId={DROPDOWN_FIELD_EMPTY_OPTION_LABEL}
+        issueKey={option.value}
+        message={
+          <Trans>The option label cannot be empty. Please enter a value.</Trans>
+        }
+        containerProps={{
+          width: '100%',
+          height: '100%',
+        }}
       >
         <Flex
-          flex={1}
+          position={'absolute'}
+          top={0}
+          left={0}
+          bottom={0}
+          right={0}
+          width={'100%'}
+          height={'100%'}
           alignItems={'center'}
-          justifyContent={'space-between'}
-          borderColor={isInvalid ? 'border.error' : 'border'}
-          borderWidth={1}
-          borderStyle={'solid'}
-          borderRadius={'md'}
-          paddingBlock={1}
-          paddingInline={1}
-          backgroundColor={'bg'}
-          width={'calc(100% - var(--chakra-sizes-9))'}
+          gap={1}
         >
           <Flex
+            flex={1}
             alignItems={'center'}
-            width={'calc(100% - var(--chakra-sizes-8))'}
+            justifyContent={'space-between'}
+            borderColor={'border'}
+            borderWidth={1}
+            borderStyle={'solid'}
+            borderRadius={'md'}
+            paddingBlock={1}
+            paddingInline={1}
+            backgroundColor={'bg'}
+            width={'calc(100% - var(--chakra-sizes-9))'}
           >
-            <Editable
-              value={ctx.spy(option.labelField.$value)}
-              onValueChange={ctx.bind(option.labelField.$value)}
-              onBlur={() => {
-                const validValue = option.labelField.validate(ctx);
-
-                if (validValue) {
-                  option.labelField.$value(ctx, validValue);
-                }
-              }}
-            />
-          </Flex>
-
-          <Flex>
-            <IconButton
-              variant={'ghost'}
-              size={'xs'}
-              onClick={() => {
-                state.model.remove(ctx, option.value);
-              }}
+            <Flex
+              alignItems={'center'}
+              width={'calc(100% - var(--chakra-sizes-8))'}
             >
-              <FaRegTrashAlt />
-            </IconButton>
-          </Flex>
-        </Flex>
+              <Editable
+                value={ctx.spy(option.labelField.$value)}
+                onValueChange={ctx.bind(option.labelField.$value)}
+                onBlur={() => {
+                  const validValue = option.labelField.validate(ctx);
 
-        <OptionDraggableActivator />
-      </Flex>
+                  if (validValue) {
+                    option.labelField.$value(ctx, validValue);
+                  }
+                }}
+              />
+            </Flex>
+
+            <Flex>
+              <IconButton
+                variant={'ghost'}
+                size={'xs'}
+                onClick={() => {
+                  state.model.remove(ctx, option.value);
+                }}
+              >
+                <FaRegTrashAlt />
+              </IconButton>
+            </Flex>
+          </Flex>
+
+          <OptionDraggableActivator />
+        </Flex>
+      </IssueRenderer>
     </OptionDraggableWrapper>
   );
 }, 'Option');

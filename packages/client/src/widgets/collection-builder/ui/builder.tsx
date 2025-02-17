@@ -22,6 +22,7 @@ export const Builder = reatomMemo(({ ctx }) => {
         <StepsRoot
           step={ctx.spy($step)}
           onStepChange={(event) => $step(ctx, event.step)}
+          linear
         >
           <PageWrapper
             flex={1}
@@ -41,6 +42,8 @@ export const Builder = reatomMemo(({ ctx }) => {
               <StepsContent index={0}>
                 <BuildStep />
               </StepsContent>
+              <StepsContent index={1}>Check</StepsContent>
+              <StepsContent index={2}>Publish</StepsContent>
             </Box>
           </PageWrapper>
         </StepsRoot>

@@ -7,7 +7,7 @@ import { createFieldModel, InferState } from '@/shared/field-builder/field';
 import { generateId } from '@/shared/utils/generate-id';
 
 export const DropdownFieldModel = createFieldModel({
-  state: ({ $name }) => ({
+  builderState: ({ $name }) => ({
     $name,
     model: createModel(),
   }),
@@ -33,6 +33,16 @@ export const DropdownFieldModel = createFieldModel({
         id: DROPDOWN_FIELD_EMPTY_OPTIONS,
       });
     }
+
+    options.forEach((option) => {
+      if (ctx.get(option.labelField.$value).trim() === '') {
+        addIssue(ctx, {
+          type: 'critical',
+          key: option.value,
+          id: DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
+        });
+      }
+    });
   },
 });
 
@@ -41,6 +51,9 @@ export const DROPDOWN_FIELD_LABEL_WARNING = Symbol(
 );
 export const DROPDOWN_FIELD_EMPTY_OPTIONS = Symbol(
   'DROPDOWN_FIELD_EMPTY_OPTIONS',
+);
+export const DROPDOWN_FIELD_EMPTY_OPTION_LABEL = Symbol(
+  'DROPDOWN_FIELD_EMPTY_OPTION_LABEL',
 );
 
 export type DropdownFieldState = InferState<typeof DropdownFieldModel>;

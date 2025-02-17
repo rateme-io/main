@@ -11,6 +11,7 @@ import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 
 import {
+  NumberAtom,
   NUMERIC_FIELD_EMPTY_MAX_ISSUE,
   NUMERIC_FIELD_EMPTY_MIN_ISSUE,
   NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE,
@@ -87,7 +88,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
 const NumberInput = reatomMemo<{
   label: ReactNode;
   $enabled: AtomMut<boolean>;
-  $value: AtomMut<number | null>;
+  $value: NumberAtom;
   inputProps: InputProps;
   issueId: symbol;
   issueMessage: ReactNode;
@@ -105,15 +106,19 @@ const NumberInput = reatomMemo<{
         </Flex>
       }
     >
-      <IssueRenderer issueId={issueId} message={issueMessage}>
+      <IssueRenderer
+        issueId={issueId}
+        message={issueMessage}
+        containerProps={{ width: '100%' }}
+      >
         <Input
           {...inputProps}
           type={'number'}
           disabled={!ctx.spy($enabled)}
           value={ctx.spy($value) ?? undefined}
-          onChange={(event) =>
-            $value(ctx, parseFloat(event.currentTarget.value))
-          }
+          onChange={(event) => {
+            return $value(ctx, event.currentTarget.value);
+          }}
         />
       </IssueRenderer>
     </Field>

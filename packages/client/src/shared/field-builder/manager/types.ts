@@ -2,7 +2,7 @@ import { AtomMut } from '@reatom/framework';
 import { FunctionComponent } from 'react';
 
 import { NodeAtom } from '@/shared/atoms/tree-atom';
-import { Field, FieldInstance } from '@/shared/field-builder/field';
+import { Field, FieldBuilderInstance } from '@/shared/field-builder/field';
 import { FieldGroup } from '@/shared/field-builder/group';
 
 import { FieldsManagerModel } from './model';
@@ -28,4 +28,4 @@ export type BoardNode = NodeAtom<NodePayload>;
 export type NodePayload = {
   field: Field<unknown>;
   $name: AtomMut<string>;
-} & FieldInstance<unknown>;
+} & FieldBuilderInstance<unknown>;

@@ -1,7 +1,7 @@
 import { Action, Atom, AtomMut, Ctx } from '@reatom/framework';
 
 export type CreateFieldModelCommand<State> = {
-  state: (command: CreateStateCommand) => State;
+  builderState: (command: CreateStateCommand) => State;
   validateField?: (ctx: Ctx, api: FieldValidationApi<State>) => void;
 };
 
@@ -14,21 +14,22 @@ export type FieldValidationApi<State> = {
 export type FieldIssue = {
   type: 'warning' | 'critical';
   id: symbol;
+  key?: string;
   message?: string;
 };
 
 export type FieldModel<State> = {
-  create: (command: CreateStateCommand) => FieldInstance<State>;
+  createBuilder: (command: CreateStateCommand) => FieldBuilderInstance<State>;
 };
 
-export type FieldInstance<State> = {
+export type FieldBuilderInstance<State> = {
   state: State;
   issueManager: FieldIssueManager;
 };
 
 export type FieldIssueManager = {
-  getIssue: Action<[id: symbol], FieldIssue | null>;
-  issueAtom: (id: symbol) => Atom<FieldIssue | null>;
+  getIssue: Action<[id: symbol, key?: string], FieldIssue | null>;
+  issueAtom: (id: symbol, key?: string) => Atom<FieldIssue | null>;
   validate: Action<[], boolean>;
   revalidate: Action<[], boolean>;
 };
