@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "precommit": "pnpm run locale",
+    "precommit": "pnpm run locale && git add src/app/locales",
     "prepush": "pnpm run tsc && pnpm run format && pnpm run lint",
     "test": "vitest",
     "tsc": "tsc -b",

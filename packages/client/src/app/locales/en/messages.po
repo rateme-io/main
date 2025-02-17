@@ -299,10 +299,6 @@ msgstr "Sign up"
 msgid "Standard Fields"
 msgstr "Standard Fields"
 
-#: src/widgets/collection-builder/ui/builder.tsx:82
-#~ msgid "Submit"
-#~ msgstr "Submit"
-
 #: src/widgets/collection-builder/ui/steps/build-step.tsx:136
 msgid "Tags"
 msgstr "Tags"

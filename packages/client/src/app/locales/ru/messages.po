@@ -299,10 +299,6 @@ msgstr "Создать аккаунт"
 msgid "Standard Fields"
 msgstr "Основные поля"
 
-#: src/widgets/collection-builder/ui/builder.tsx:82
-#~ msgid "Submit"
-#~ msgstr "Отправить"
-
 #: src/widgets/collection-builder/ui/steps/build-step.tsx:136
 msgid "Tags"
 msgstr "Теги"
@@ -317,7 +313,7 @@ msgstr "Поле, которое отображает выпадающий сп�
 
 #: src/shared/fields/basic/dropdown/ui.tsx:191
 msgid "The option label cannot be empty. Please enter a value."
-msgstr ""
+msgstr "Название опции не может быть пустой. Пожалуйста, введите значение."
 
 #: src/shared/fields/time/index.tsx:12
 msgid "Time Fields"
