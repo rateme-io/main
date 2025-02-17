@@ -2,7 +2,7 @@ import { Active, Over } from '@dnd-kit/core';
 import { DraggableAttributes } from '@dnd-kit/core';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { Transform } from '@dnd-kit/utilities';
-import { createContext, PropsWithChildren, useContext } from 'react';
+import { createContext, PropsWithChildren, use } from 'react';
 
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
@@ -30,7 +30,7 @@ export const Draggable = reatomMemo<DraggableProps>(({ children, value }) => {
 }, 'Draggable');
 
 export const useDraggableContext = () => {
-  const value = useContext(DraggableContext);
+  const value = use(DraggableContext);
 
   if (value === null) {
     throw new Error(

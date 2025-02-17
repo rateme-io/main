@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
 import { BoardNode } from '@/shared/field-builder/manager';
 
@@ -9,7 +9,7 @@ export type FieldContextInterface = {
 export const FieldContext = createContext<FieldContextInterface | null>(null);
 
 export const useFieldContext = () => {
-  const context = useContext(FieldContext);
+  const context = use(FieldContext);
 
   if (!context) {
     throw new Error(
