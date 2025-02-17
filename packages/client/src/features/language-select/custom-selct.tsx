@@ -1,4 +1,4 @@
-import { ButtonProps } from '@chakra-ui/react';
+import { ButtonProps } from '@chakra-ui/react/button';
 import { Portal } from '@chakra-ui/react/portal';
 import { Select as ChakraSelect } from '@chakra-ui/react/select';
 import { forwardRef, RefObject } from 'react';

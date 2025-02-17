@@ -12,7 +12,7 @@ import { useDraggableField } from './hooks/dnd.ts';
 export type FieldManagerMenuProps = object;
 
 export const Menu = reatomMemo<FieldManagerMenuProps>(() => {
-  const { groups } = useFieldsManagerContext();
+  const { model } = useFieldsManagerContext();
 
   return (
     <Flex
@@ -27,7 +27,7 @@ export const Menu = reatomMemo<FieldManagerMenuProps>(() => {
         <Trans>Collection fields</Trans>
       </Text>
 
-      {groups.map((group) => {
+      {model.groups.map((group) => {
         return <MenuGroupItem key={group.id} group={group} />;
       })}
     </Flex>

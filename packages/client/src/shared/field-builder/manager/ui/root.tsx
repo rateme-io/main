@@ -2,8 +2,9 @@ import { Flex, Text } from '@chakra-ui/react';
 import { Portal } from '@chakra-ui/react/portal';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 
+import { FieldsManagerModel } from '@/shared/field-builder/manager/model';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
@@ -23,13 +24,19 @@ import { conditionalCollisionDetection } from './utils/collision-detections.ts';
 import { snapRightToCursor } from './utils/modifiers.ts';
 
 export type FieldsManagerRootProps = PropsWithChildren<{
-  value: FieldManagerContextInterface;
+  value: FieldsManagerModel;
 }>;
 
 export const Root = reatomMemo<FieldsManagerRootProps>(
   ({ children, value }) => {
+    const context = useMemo<FieldManagerContextInterface>(() => {
+      return {
+        model: value,
+      };
+    }, [value]);
+
     return (
-      <FieldsManagerContext.Provider value={value}>
+      <FieldsManagerContext.Provider value={context}>
         <DndContext
           modifiers={[snapRightToCursor, restrictToWindowEdges]}
           collisionDetection={conditionalCollisionDetection}

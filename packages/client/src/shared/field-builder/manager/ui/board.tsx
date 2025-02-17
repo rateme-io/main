@@ -4,10 +4,10 @@ import { AnimatePresence } from 'motion/react';
 import { PropsWithChildren } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 
-import { BoardNode } from '@/shared/field-builder/manager';
 import { useDroppableZone } from '@/shared/field-builder/manager/ui/hooks/dnd.ts';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
+import { BoardNode } from '../model';
 import { DraggableFieldRenderer } from './components/field-renderer.tsx';
 import { useFieldsManagerContext } from './context.ts';
 

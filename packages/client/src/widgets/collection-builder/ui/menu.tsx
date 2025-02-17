@@ -7,8 +7,8 @@ import {
   TbLayoutSidebarRightCollapseFilled,
 } from 'react-icons/tb';
 
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
-import { CollectionFields } from '@/widgets/collection-builder/fields';
 
 export type MenuProps = {
   containerRef?: RefObject<HTMLElement | null>;
@@ -56,7 +56,7 @@ export const Menu = reatomMemo<MenuProps>(({ containerRef }) => {
           width={'100%'}
           height={'100%'}
         >
-          <CollectionFields.Menu />
+          <FieldBuilder.ui.Menu />
         </Box>
       </motion.div>
     </Box>

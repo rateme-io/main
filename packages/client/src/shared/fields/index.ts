@@ -1,10 +1,10 @@
-import { createFieldsManager } from '@/shared/field-builder/manager';
+import { FieldBuilder } from '@/shared/field-builder/manager';
 
 import { BasicFieldGroup } from './basic';
 import { ImageFieldGroup } from './image';
 import { LinkFieldGroup } from './link';
 import { TimeFieldGroup } from './time';
 
-export const CollectionFields = createFieldsManager({
+export const collectionBuilder = FieldBuilder.createModel({
   groups: [BasicFieldGroup, LinkFieldGroup, ImageFieldGroup, TimeFieldGroup],
 });

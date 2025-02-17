@@ -6,13 +6,13 @@ import { CreatableSelect } from 'chakra-react-select';
 import { MdPreview } from 'react-icons/md';
 import { SiFormspree } from 'react-icons/si';
 
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { useFieldsManagerContext } from '@/shared/field-builder/manager/ui/context.ts';
 import { Button } from '@/shared/ui/button.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
-import { CollectionFields } from '@/widgets/collection-builder/fields';
 import {
   $step,
   collectionImageField,
@@ -70,7 +70,7 @@ export const BuildStep = reatomMemo(({ ctx }) => {
           variant={'ghost'}
           disabled={!hasChild}
           onClick={() => {
-            const isValid = CollectionFields.model.actions.submit(ctx);
+            const isValid = model.actions.submit(ctx);
 
             if (isValid) {
               $step.next(ctx);
@@ -83,10 +83,10 @@ export const BuildStep = reatomMemo(({ ctx }) => {
 
       <Box gridArea={'board'}>
         <Tabs.Content value={'builder'} padding={0}>
-          <CollectionFields.Board />
+          <FieldBuilder.ui.Board />
         </Tabs.Content>
         <Tabs.Content value={'preview'} padding={0}>
-          <CollectionFields.Preview />
+          <FieldBuilder.ui.Preview />
         </Tabs.Content>
       </Box>
     </Tabs.Root>

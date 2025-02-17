@@ -1,10 +1,8 @@
 import { createContext, use } from 'react';
 
-import { FieldGroup } from '@/shared/field-builder/group';
 import { FieldsManagerModel } from '@/shared/field-builder/manager/model';
 
 export type FieldManagerContextInterface = {
-  groups: FieldGroup[];
   model: FieldsManagerModel;
 };
 

@@ -1,6 +1,6 @@
 import { createContext, use } from 'react';
 
-import { BoardNode } from '@/shared/field-builder/manager';
+import { BoardNode } from '../../model';
 
 export type FieldContextInterface = {
   node: BoardNode;

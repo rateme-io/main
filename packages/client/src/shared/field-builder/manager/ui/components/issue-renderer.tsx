@@ -4,13 +4,15 @@ import {
   FlexProps,
   Popover as ChakraPopover,
 } from '@chakra-ui/react';
+import { Portal } from '@chakra-ui/react/portal';
 import { useEvent } from '@khmilevoi/use-event';
 import { useAtom } from '@reatom/npm-react';
 import {
-  MouseEvent,
   PropsWithChildren,
   ReactNode,
+  RefObject,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -24,6 +26,8 @@ import { useFieldsManagerContext } from '../context.ts';
 import { useFieldContext } from './field.context.ts';
 
 export type IssueRendererProps = PropsWithChildren<{
+  ref?: RefObject<HTMLDivElement>;
+  className?: string;
   issueId: symbol;
   issueKey?: string;
   message: ReactNode;
@@ -33,6 +37,8 @@ export type IssueRendererProps = PropsWithChildren<{
 
 export const IssueRenderer = reatomMemo<IssueRendererProps>(
   ({
+    ref,
+    className,
     issueId,
     issueKey,
     message,
@@ -45,7 +51,9 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     const manager = node.issueManager;
 
-    const ref = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
     const $issue = useMemo(() => {
       return manager.issueAtom(issueId, issueKey);
@@ -64,7 +72,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     useEffect(() => {
       return model.actions.validate.onCall((ctx) => {
         if (ctx.get($issue)) {
-          ref.current?.scrollIntoView({
+          containerRef.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
             inline: 'nearest',
@@ -73,12 +81,11 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
       });
     }, [$issue, model.actions.validate]);
 
-    const handleMouseEnter = useEvent((event: MouseEvent) => {
-      event.stopPropagation();
+    const handleOpen = useEvent(() => {
       setIsOpened(isActive);
     });
 
-    const handleMouseLeave = useEvent(() => {
+    const handleClose = useEvent(() => {
       setIsOpened(false);
     });
 
@@ -98,12 +105,13 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
         <ChakraPopover.Trigger asChild>
           <Box
             {...containerProps}
-            onMouseMove={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            ref={containerRef}
+            className={className}
+            onMouseMove={handleOpen}
+            onMouseLeave={handleClose}
             position={'relative'}
           >
             <Box
-              ref={ref}
               position={'absolute'}
               top={'-5.5px'}
               left={'-4px'}
@@ -118,26 +126,28 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
           </Box>
         </ChakraPopover.Trigger>
 
-        <ChakraPopover.Positioner>
-          <ChakraPopover.Content
-            width="auto"
-            px="2"
-            py="1"
-            minHeight={'24px'}
-            textStyle="xs"
-            rounded="sm"
-            backgroundColor={bgColor}
-            color={fontColor}
-            zIndex={2}
-          >
-            <ChakraPopover.Arrow>
-              <ChakraPopover.ArrowTip
-                backgroundColor={`${bgColor} !important`}
-              />
-            </ChakraPopover.Arrow>
-            <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
-          </ChakraPopover.Content>
-        </ChakraPopover.Positioner>
+        <Portal>
+          <ChakraPopover.Positioner>
+            <ChakraPopover.Content
+              width="auto"
+              px="2"
+              py="1"
+              minHeight={'24px'}
+              textStyle="xs"
+              rounded="sm"
+              backgroundColor={bgColor}
+              color={fontColor}
+              zIndex={'popover'}
+            >
+              <ChakraPopover.Arrow>
+                <ChakraPopover.ArrowTip
+                  backgroundColor={`${bgColor} !important`}
+                />
+              </ChakraPopover.Arrow>
+              <ChakraPopover.Body padding={0}>{message}</ChakraPopover.Body>
+            </ChakraPopover.Content>
+          </ChakraPopover.Positioner>
+        </Portal>
       </ChakraPopover.Root>
     );
   },

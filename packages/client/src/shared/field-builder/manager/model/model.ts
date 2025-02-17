@@ -3,9 +3,9 @@ import { action, atom } from '@reatom/framework';
 import { treeAtom } from '@/shared/atoms/tree-atom';
 import { Field } from '@/shared/field-builder/field';
 
-import { BoardNode, NodePayload } from '../types.ts';
+import { BoardNode, CreateFieldsManagerCommand, NodePayload } from './types.ts';
 
-export const createModel = () => {
+export const createModel = (command: CreateFieldsManagerCommand) => {
   const tree = treeAtom<NodePayload>('fieldsManager.tree');
 
   const createNode = (field: Field<unknown>) => {
@@ -38,6 +38,7 @@ export const createModel = () => {
   return {
     tree,
     createNode,
+    groups: command.groups,
     actions: {
       validate,
       submit: action((ctx) => {

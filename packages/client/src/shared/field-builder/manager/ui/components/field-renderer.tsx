@@ -6,11 +6,11 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 
 import { FIELD_NAME_ISSUE } from '@/shared/field-builder/field';
-import { BoardNode } from '@/shared/field-builder/manager';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
+import { BoardNode } from '../../model';
 import { useDraggableField, useDroppableZone } from '../hooks/dnd.ts';
 import { FieldContext } from './field.context.ts';
 import { IssueRenderer } from './issue-renderer.tsx';

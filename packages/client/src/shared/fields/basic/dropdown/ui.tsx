@@ -21,7 +21,7 @@ import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator } from 'react-icons/md';
 
 import { createFieldUI } from '@/shared/field-builder/field';
-import { IssueRenderer } from '@/shared/field-builder/manager';
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
@@ -66,15 +66,15 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
     return (
       <>
         <Flex gap={5} flex={1}>
-          <IssueRenderer
-            issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
-            message={<Trans>You need to add at least one option.</Trans>}
-          >
-            <Flex flexDirection={'column'} flex={1}>
+          <Flex flexDirection={'column'} flex={1} asChild>
+            <FieldBuilder.ui.IssueRenderer
+              issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
+              message={<Trans>You need to add at least one option.</Trans>}
+            >
               <OptionsField state={state} />
               <AddOption state={state} />
-            </Flex>
-          </IssueRenderer>
+            </FieldBuilder.ui.IssueRenderer>
+          </Flex>
 
           <Flex flexDirection={'column'} gap={2}>
             <Checkbox
@@ -109,7 +109,7 @@ type AddOptionProps = {
 
 const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
   return (
-    <IssueRenderer
+    <FieldBuilder.ui.IssueRenderer
       issueId={DROPDOWN_FIELD_LABEL_WARNING}
       message={<Trans>Maybe you forgot to add the last option.</Trans>}
     >
@@ -145,7 +145,7 @@ const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
           </InputGroup>
         </Field>
       </Flex>
-    </IssueRenderer>
+    </FieldBuilder.ui.IssueRenderer>
   );
 }, 'AddOption');
 
@@ -184,7 +184,7 @@ type OptionProps = {
 const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
   return (
     <OptionDraggableWrapper option={option}>
-      <IssueRenderer
+      <FieldBuilder.ui.IssueRenderer
         issueId={DROPDOWN_FIELD_EMPTY_OPTION_LABEL}
         issueKey={option.value}
         message={
@@ -251,7 +251,7 @@ const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
 
           <OptionDraggableActivator />
         </Flex>
-      </IssueRenderer>
+      </FieldBuilder.ui.IssueRenderer>
     </OptionDraggableWrapper>
   );
 }, 'Option');

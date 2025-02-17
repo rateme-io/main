@@ -9,7 +9,8 @@ import {
 } from '@dnd-kit/core';
 
 import { Field } from '@/shared/field-builder/field';
-import { BoardNode } from '@/shared/field-builder/manager';
+
+import { BoardNode } from '../../model';
 
 export type DragData = MenuDragData | BoardDragData;
 

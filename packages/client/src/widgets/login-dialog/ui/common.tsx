@@ -20,7 +20,7 @@ import {
 } from '../model.ts';
 
 export type EmailFieldProps = {
-  inputRef?: RefObject<HTMLInputElement>;
+  inputRef?: RefObject<HTMLInputElement | null>;
 };
 
 export const EmailField = reatomMemo<EmailFieldProps>(({ ctx, inputRef }) => {
@@ -105,7 +105,7 @@ export const FormError: FunctionComponent<{ error: string }> = ({ error }) => {
 export const useHandleErrors = ({
   emailFieldRef,
 }: {
-  emailFieldRef: RefObject<HTMLInputElement>;
+  emailFieldRef: RefObject<HTMLInputElement | null>;
 }) => {
   const [error] = useAtom(loginForm.$formError);
 

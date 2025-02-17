@@ -5,8 +5,8 @@ export const useIntersection = ({
   firstRef,
   secondRef,
 }: {
-  firstRef: RefObject<HTMLElement>;
-  secondRef: RefObject<HTMLElement>;
+  firstRef: RefObject<HTMLElement | null>;
+  secondRef: RefObject<HTMLElement | null>;
 }) => {
   const [intersection, setIntersection] = useState<number>(0);
 

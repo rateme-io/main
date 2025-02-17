@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { TiSortNumerically } from 'react-icons/ti';
 
 import { createFieldUI } from '@/shared/field-builder/field';
-import { IssueRenderer } from '@/shared/field-builder/manager';
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
@@ -44,7 +44,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   ),
   FieldContent: reatomMemo(({ ctx, state }) => {
     return (
-      <IssueRenderer
+      <FieldBuilder.ui.IssueRenderer
         issueId={NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE}
         message={<Trans>Min value should be less than max value.</Trans>}
         placement={['top', 'bottom']}
@@ -80,7 +80,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
             }}
           />
         </Flex>
-      </IssueRenderer>
+      </FieldBuilder.ui.IssueRenderer>
     );
   }, 'NumericFieldUI.FieldContent'),
 });
@@ -106,7 +106,7 @@ const NumberInput = reatomMemo<{
         </Flex>
       }
     >
-      <IssueRenderer
+      <FieldBuilder.ui.IssueRenderer
         issueId={issueId}
         message={issueMessage}
         containerProps={{ width: '100%' }}
@@ -120,7 +120,7 @@ const NumberInput = reatomMemo<{
             return $value(ctx, event.currentTarget.value);
           }}
         />
-      </IssueRenderer>
+      </FieldBuilder.ui.IssueRenderer>
     </Field>
   );
 }, 'NumberInput');
