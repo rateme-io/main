@@ -15,3 +15,6 @@ export const FieldBuilder = {
     Board: Board,
   },
 };
+
+export type { FieldsManagerModel } from './model/model';
+export * from './model/types';

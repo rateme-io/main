@@ -1,8 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import { useRef } from 'react';
 
-import { FieldBuilder } from '@/shared/field-builder/manager';
-import { FieldsManagerModel } from '@/shared/field-builder/manager/model';
+import {
+  FieldBuilder,
+  FieldsManagerModel,
+} from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useIntersection } from './hooks/use-intersection.ts';
