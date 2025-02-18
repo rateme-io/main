@@ -1,7 +1,7 @@
 import { action } from '@reatom/framework';
 
-import { EmailVo } from '@rateme/core/domain/value-objects/email.vo.ts';
-import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo.ts';
+import { EmailVo } from '@rateme/core/domain/value-objects/email.vo';
+import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
 
 import { loginAction } from '@/entities/session';
 import { disclosureAtom } from '@/shared/atoms/disclosure.atom.ts';

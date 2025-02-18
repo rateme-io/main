@@ -2,7 +2,7 @@ import { action, atom, reatomAsync } from '@reatom/framework';
 
 import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 import { TokenLoginDto } from '@rateme/core/domain/dtos/token-auth/token-login.dto';
-import { TokenRegisterDto } from '@rateme/core/domain/dtos/token-auth/token-register.dto.js';
+import { TokenRegisterDto } from '@rateme/core/domain/dtos/token-auth/token-register.dto';
 import {
   SessionEntity,
   SessionStatus,

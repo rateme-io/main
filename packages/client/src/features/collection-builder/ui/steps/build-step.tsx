@@ -1,4 +1,4 @@
-import { Box, Flex, Tabs } from '@chakra-ui/react';
+import { Grid, GridItem, Tabs } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { select } from '@reatom/framework';
 import { useAtom } from '@reatom/npm-react';
@@ -6,13 +6,8 @@ import { CreatableSelect } from 'chakra-react-select';
 import { MdPreview } from 'react-icons/md';
 import { SiFormspree } from 'react-icons/si';
 
-import {
-  $step,
-  collectionImageField,
-  collectionNameField,
-  collectionTagsField,
-  MAX_FILE_SIZE,
-} from '@/features/collection-builder/model';
+import { useCollectionBuilderContext } from '@/features/collection-builder/context.ts';
+import { MAX_FILE_SIZE } from '@/shared/constants/file.ts';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Button } from '@/shared/ui/button.tsx';
 import { Editable } from '@/shared/ui/editable.tsx';
@@ -21,83 +16,91 @@ import { ImageLoader } from '@/shared/ui/image-loader.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 export const BuildStep = reatomMemo(({ ctx }) => {
-  const { model } = FieldBuilder.ui.useContext();
+  const { model } = useCollectionBuilderContext();
 
-  const hasChild = select(ctx, (ctx) => ctx.spy(model.tree.$child) !== null);
+  const hasChild = select(
+    ctx,
+    (ctx) => ctx.spy(model.fields.tree.$child) !== null,
+  );
 
   return (
-    <Tabs.Root
-      flex={'content'}
-      defaultValue={'builder'}
-      variant={'subtle'}
-      lazyMount
-      gap={4}
-      display={'grid'}
-      gridTemplateColumns={'min-content 1fr'}
-      gridTemplateRows={'min-content min-content 1fr'}
-      gridTemplateAreas={`
-        "name tabs"
-        "inputs board"
-        "inputs board"
+    <Tabs.Root asChild defaultValue={'builder'} variant={'subtle'} lazyMount>
+      <Grid
+        flex={'content'}
+        gap={4}
+        display={'grid'}
+        templateColumns={'min-content 1fr'}
+        templateRows={'min-content min-content 1fr'}
+        templateAreas={`
+          "name tabs"
+          "inputs board"
+          "inputs board"
       `}
-    >
-      <Box gridArea={'name'} position={'relative'}>
-        <CollectionNameField />
-      </Box>
+      >
+        <GridItem gridArea={'name'} position={'relative'}>
+          <CollectionNameField />
+        </GridItem>
 
-      <Flex gridArea={'inputs'} flexDirection={'column'} gap={4}>
-        <CollectionImageField />
+        <GridItem gridArea={'inputs'} flexDirection={'column'} gap={4}>
+          <CollectionImageField />
 
-        <CollectionTags />
-      </Flex>
+          <CollectionTags />
+        </GridItem>
 
-      <Flex gridArea={'tabs'} justifyContent={'space-between'}>
-        <Tabs.List borderBottomWidth={0} _before={{ content: '""' }}>
-          <Tabs.Trigger value={'builder'}>
-            <SiFormspree />
-
-            <Trans>Builder</Trans>
-          </Tabs.Trigger>
-          <Tabs.Trigger value={'preview'}>
-            <MdPreview />
-
-            <Trans>Preview</Trans>
-          </Tabs.Trigger>
-        </Tabs.List>
-
-        <Button
-          variant={'ghost'}
-          disabled={!hasChild}
-          onClick={() => {
-            const isValid = model.actions.validate(ctx);
-
-            if (isValid) {
-              $step.next(ctx);
-            }
-          }}
+        <GridItem
+          gridArea={'tabs'}
+          display={'flex'}
+          justifyContent={'space-between'}
         >
-          <Trans>Next</Trans>
-        </Button>
-      </Flex>
+          <Tabs.List borderBottomWidth={0} _before={{ content: '""' }}>
+            <Tabs.Trigger value={'builder'}>
+              <SiFormspree />
 
-      <Box gridArea={'board'}>
-        <Tabs.Content value={'builder'} padding={0}>
-          <FieldBuilder.ui.Board />
-        </Tabs.Content>
-        <Tabs.Content value={'preview'} padding={0}>
-          <FieldBuilder.ui.Preview />
-        </Tabs.Content>
-      </Box>
+              <Trans>Builder</Trans>
+            </Tabs.Trigger>
+            <Tabs.Trigger value={'preview'}>
+              <MdPreview />
+
+              <Trans>Preview</Trans>
+            </Tabs.Trigger>
+          </Tabs.List>
+
+          <Button
+            variant={'ghost'}
+            disabled={!hasChild}
+            onClick={() => {
+              const isValid = model.fields.actions.validate(ctx);
+
+              if (isValid) {
+                model.$step.next(ctx);
+              }
+            }}
+          >
+            <Trans>Next</Trans>
+          </Button>
+        </GridItem>
+
+        <GridItem gridArea={'board'}>
+          <Tabs.Content value={'builder'} padding={0}>
+            <FieldBuilder.ui.Board />
+          </Tabs.Content>
+          <Tabs.Content value={'preview'} padding={0}>
+            <FieldBuilder.ui.Preview />
+          </Tabs.Content>
+        </GridItem>
+      </Grid>
     </Tabs.Root>
   );
 }, 'BuildStep');
 
 const CollectionNameField = reatomMemo(({ ctx }) => {
+  const { model } = useCollectionBuilderContext();
+
   return (
     <Editable
-      onValueChange={(value) => collectionNameField.$value(ctx, value)}
-      value={ctx.spy(collectionNameField.$value)}
-      placeholder={'Collection name'}
+      onValueChange={(value) => model.nameField.$value(ctx, value)}
+      value={ctx.spy(model.nameField.$value)}
+      placeholder={<Trans>Collection name</Trans>}
       required
       containerProps={{
         position: 'absolute',
@@ -111,7 +114,9 @@ const CollectionNameField = reatomMemo(({ ctx }) => {
 }, 'CollectionNameField');
 
 const CollectionImageField = reatomMemo(({ ctx }) => {
-  const file = ctx.spy(collectionImageField.$value);
+  const { model } = useCollectionBuilderContext();
+
+  const file = ctx.spy(model.imageField.$value);
 
   return (
     <ImageLoader
@@ -122,7 +127,7 @@ const CollectionImageField = reatomMemo(({ ctx }) => {
       label={<Trans>Collection image</Trans>}
       files={file ? [file] : []}
       onChangeFiles={(files) =>
-        collectionImageField.$value(ctx, files.at(0) ?? null)
+        model.imageField.$value(ctx, files.at(0) ?? null)
       }
       maxFiles={1}
       accept={'image/*'}
@@ -132,10 +137,10 @@ const CollectionImageField = reatomMemo(({ ctx }) => {
 }, 'CollectionImageField');
 
 const CollectionTags = reatomMemo(({ ctx }) => {
+  const { model } = useCollectionBuilderContext();
+
   const [value] = useAtom((ctx) =>
-    ctx
-      .spy(collectionTagsField.$value)
-      .map((tag) => ({ value: tag, label: tag })),
+    ctx.spy(model.tagsField.$value).map((tag) => ({ value: tag, label: tag })),
   );
 
   return (
@@ -144,7 +149,7 @@ const CollectionTags = reatomMemo(({ ctx }) => {
         isMulti
         value={value}
         onChange={(newValue) => {
-          collectionTagsField.$value(
+          model.tagsField.$value(
             ctx,
             newValue.map((item) => item.value),
           );

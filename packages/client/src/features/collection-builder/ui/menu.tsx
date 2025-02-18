@@ -7,10 +7,7 @@ import {
   TbLayoutSidebarRightCollapseFilled,
 } from 'react-icons/tb';
 
-import {
-  $menuIsHidden,
-  $menuIsOpened,
-} from '@/features/collection-builder/model';
+import { useCollectionBuilderContext } from '@/features/collection-builder/context.ts';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
@@ -19,8 +16,10 @@ export type MenuProps = {
 };
 
 export const Menu = reatomMemo<MenuProps>(({ ctx, containerRef }) => {
-  const isOpened = ctx.spy($menuIsOpened);
-  const isHidden = ctx.spy($menuIsHidden);
+  const { model } = useCollectionBuilderContext();
+
+  const isOpened = ctx.spy(model.$menuIsOpened);
+  const isHidden = ctx.spy(model.$menuIsHidden);
 
   return (
     <Box
@@ -45,7 +44,7 @@ export const Menu = reatomMemo<MenuProps>(({ ctx, containerRef }) => {
             size={'2xs'}
             backgroundColor={'bg'}
             boxShadow={'sm'}
-            onClick={() => $menuIsOpened.toggle(ctx)}
+            onClick={() => model.$menuIsOpened.toggle(ctx)}
             borderRightRadius={'none'}
           >
             {isOpened ? (

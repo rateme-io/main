@@ -1,4 +1,7 @@
-import { createFieldModel, InferState } from '@/shared/field-builder/field';
+import {
+  createFieldModel,
+  InferBuilderState,
+} from '@/shared/field-builder/field';
 
 export const InternalLinkFieldModel = createFieldModel({
   builderState: ({ $name }) => ({
@@ -6,4 +9,6 @@ export const InternalLinkFieldModel = createFieldModel({
   }),
 });
 
-export type InternalLinkFieldState = InferState<typeof InternalLinkFieldModel>;
+export type InternalLinkFieldState = InferBuilderState<
+  typeof InternalLinkFieldModel
+>;

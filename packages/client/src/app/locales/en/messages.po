@@ -40,7 +40,7 @@ msgstr "At least 12 characters long"
 msgid "Authentication"
 msgstr "Authentication"
 
-#: src/features/collection-builder/ui/builder.tsx:36
+#: src/features/collection-builder/ui/builder.tsx:38
 msgid "Build"
 msgstr "Build"
 
@@ -52,7 +52,7 @@ msgstr "Builder"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/features/collection-builder/ui/builder.tsx:37
+#: src/features/collection-builder/ui/builder.tsx:39
 msgid "Check"
 msgstr "Check"
 
@@ -60,9 +60,21 @@ msgstr "Check"
 msgid "Collection fields"
 msgstr "Collection fields"
 
-#: src/features/collection-builder/ui/steps/build-step.tsx:122
+#: src/features/collection-builder/ui/steps/build-step.tsx:127
 msgid "Collection image"
 msgstr "Collection image"
+
+#: src/features/collection-item-builder/collection-item-builder.tsx:109
+msgid "Collection item image"
+msgstr "Collection item image"
+
+#: src/features/collection-item-builder/collection-item-builder.tsx:90
+msgid "Collection item name"
+msgstr "Collection item name"
+
+#: src/features/collection-builder/ui/steps/build-step.tsx:103
+msgid "Collection name"
+msgstr "Collection name"
 
 #: src/widgets/header/ui/menu/mobile.tsx:57
 #: src/widgets/header/ui/menu/desktop.tsx:15
@@ -216,7 +228,7 @@ msgstr "New Collection"
 msgid "New Rating System"
 msgstr "New Rating System"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:33
+#: src/features/collection-builder/ui/steps/check-step.tsx:34
 #: src/features/collection-builder/ui/steps/build-step.tsx:79
 msgid "Next"
 msgstr "Next"
@@ -250,7 +262,7 @@ msgstr "Option label"
 msgid "Password"
 msgstr "Password"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:24
+#: src/features/collection-builder/ui/steps/check-step.tsx:25
 msgid "Prev"
 msgstr "Prev"
 
@@ -263,7 +275,7 @@ msgstr "Preview"
 msgid "Profile"
 msgstr "Profile"
 
-#: src/features/collection-builder/ui/builder.tsx:38
+#: src/features/collection-builder/ui/builder.tsx:40
 msgid "Publish"
 msgstr "Publish"
 
@@ -308,7 +320,8 @@ msgstr "Sign up"
 msgid "Standard Fields"
 msgstr "Standard Fields"
 
-#: src/features/collection-builder/ui/steps/build-step.tsx:142
+#: src/features/collection-item-builder/collection-item-builder.tsx:129
+#: src/features/collection-builder/ui/steps/build-step.tsx:147
 msgid "Tags"
 msgstr "Tags"
 

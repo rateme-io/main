@@ -1,4 +1,7 @@
-import { createFieldModel, InferState } from '@/shared/field-builder/field';
+import {
+  createFieldModel,
+  InferBuilderState,
+} from '@/shared/field-builder/field';
 
 export const ImagesFieldModel = createFieldModel({
   builderState: ({ $name }) => ({
@@ -6,4 +9,4 @@ export const ImagesFieldModel = createFieldModel({
   }),
 });
 
-export type ImagesFieldState = InferState<typeof ImagesFieldModel>;
+export type ImagesFieldState = InferBuilderState<typeof ImagesFieldModel>;

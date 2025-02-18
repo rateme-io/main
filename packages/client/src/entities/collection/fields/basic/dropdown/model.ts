@@ -3,7 +3,10 @@ import { action, atom } from '@reatom/framework';
 import { z } from 'zod';
 
 import { FieldAtom, fieldAtom } from '@/shared/atoms/field.atom.ts';
-import { createFieldModel, InferState } from '@/shared/field-builder/field';
+import {
+  createFieldModel,
+  InferBuilderState,
+} from '@/shared/field-builder/field';
 import { generateId } from '@/shared/utils/generate-id';
 
 export const DropdownFieldModel = createFieldModel({
@@ -56,7 +59,7 @@ export const DROPDOWN_FIELD_EMPTY_OPTION_LABEL = Symbol(
   'DROPDOWN_FIELD_EMPTY_OPTION_LABEL',
 );
 
-export type DropdownFieldState = InferState<typeof DropdownFieldModel>;
+export type DropdownFieldState = InferBuilderState<typeof DropdownFieldModel>;
 
 export type DropdownFieldOption = {
   value: string;

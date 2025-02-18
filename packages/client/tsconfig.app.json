@@ -6,10 +6,11 @@
     "lib": [
       "ES2020",
       "DOM",
-      "DOM.Iterable"
+      "DOM.Iterable",
     ],
     "module": "ESNext",
     "skipLibCheck": true,
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -26,6 +27,7 @@
         "../core/dist/*"
       ]
     },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

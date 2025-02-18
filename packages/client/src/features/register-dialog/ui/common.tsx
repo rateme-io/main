@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useAtom } from '@reatom/npm-react';
 import { FunctionComponent, RefObject, useEffect } from 'react';
 
-import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/errors.ts';
+import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/errors';
 
 import { loginDisclosure } from '@/features/login-dialog';
 import { ButtonLink } from '@/shared/ui/button-link.tsx';

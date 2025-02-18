@@ -7,7 +7,6 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -22,15 +21,16 @@
       "@rateme/core/*": [
         "../core/dist/*"
       ],
+
     },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
+    "noUncheckedSideEffectImports": true
   },
   "include": [
     "vite.config.ts"
-  ],
+  ]
 }

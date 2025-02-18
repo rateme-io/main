@@ -40,7 +40,7 @@ msgstr "Минимум 12 символов"
 msgid "Authentication"
 msgstr "Авторизация"
 
-#: src/features/collection-builder/ui/builder.tsx:36
+#: src/features/collection-builder/ui/builder.tsx:38
 msgid "Build"
 msgstr "Создай"
 
@@ -52,7 +52,7 @@ msgstr "Конструктор"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/features/collection-builder/ui/builder.tsx:37
+#: src/features/collection-builder/ui/builder.tsx:39
 msgid "Check"
 msgstr "Проверь"
 
@@ -60,9 +60,21 @@ msgstr "Проверь"
 msgid "Collection fields"
 msgstr "Поля коллекции"
 
-#: src/features/collection-builder/ui/steps/build-step.tsx:122
+#: src/features/collection-builder/ui/steps/build-step.tsx:127
 msgid "Collection image"
 msgstr "Изображение коллекции"
+
+#: src/features/collection-item-builder/collection-item-builder.tsx:109
+msgid "Collection item image"
+msgstr ""
+
+#: src/features/collection-item-builder/collection-item-builder.tsx:90
+msgid "Collection item name"
+msgstr ""
+
+#: src/features/collection-builder/ui/steps/build-step.tsx:103
+msgid "Collection name"
+msgstr ""
 
 #: src/widgets/header/ui/menu/mobile.tsx:57
 #: src/widgets/header/ui/menu/desktop.tsx:15
@@ -216,7 +228,7 @@ msgstr "Создать коллекцию"
 msgid "New Rating System"
 msgstr "Создать систему оценивания"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:33
+#: src/features/collection-builder/ui/steps/check-step.tsx:34
 #: src/features/collection-builder/ui/steps/build-step.tsx:79
 msgid "Next"
 msgstr "Далее"
@@ -243,16 +255,16 @@ msgstr "Поле числового ввода"
 
 #: src/entities/collection/fields/basic/dropdown/ui.tsx:236
 msgid "Option label"
-msgstr ""
+msgstr "Название опции"
 
 #: src/features/register-dialog/ui/common.tsx:61
 #: src/features/login-dialog/ui/common.tsx:57
 msgid "Password"
 msgstr "Пароль"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:24
+#: src/features/collection-builder/ui/steps/check-step.tsx:25
 msgid "Prev"
-msgstr ""
+msgstr "Назад"
 
 #: src/features/collection-builder/ui/steps/build-step.tsx:64
 msgid "Preview"
@@ -263,7 +275,7 @@ msgstr "Предпросмотр"
 msgid "Profile"
 msgstr "Профиль"
 
-#: src/features/collection-builder/ui/builder.tsx:38
+#: src/features/collection-builder/ui/builder.tsx:40
 msgid "Publish"
 msgstr "Опубликуй"
 
@@ -308,7 +320,8 @@ msgstr "Создать аккаунт"
 msgid "Standard Fields"
 msgstr "Основные поля"
 
-#: src/features/collection-builder/ui/steps/build-step.tsx:142
+#: src/features/collection-item-builder/collection-item-builder.tsx:129
+#: src/features/collection-builder/ui/steps/build-step.tsx:147
 msgid "Tags"
 msgstr "Теги"
 

@@ -2,15 +2,16 @@ import { Box } from '@chakra-ui/react/box';
 import { Flex } from '@chakra-ui/react/flex';
 import { Trans } from '@lingui/react/macro';
 
-import { $step } from '@/features/collection-builder/model';
+import { useCollectionBuilderContext } from '@/features/collection-builder/context.ts';
 import { CollectionItem } from '@/features/collection-item';
 import { CollectionItemBuilder } from '@/features/collection-item-builder';
-import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Button } from '@/shared/ui/button.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
+const collectionItemModel = CollectionItemBuilder.createModel();
+
 export const CheckStep = reatomMemo(({ ctx }) => {
-  const { model } = FieldBuilder.ui.useContext();
+  const { model } = useCollectionBuilderContext();
 
   return (
     <Flex flexDirection={'column'} gap={2}>
@@ -18,7 +19,7 @@ export const CheckStep = reatomMemo(({ ctx }) => {
         <Button
           variant={'ghost'}
           onClick={() => {
-            $step.prev(ctx);
+            model.$step.prev(ctx);
           }}
         >
           <Trans>Prev</Trans>
@@ -27,7 +28,7 @@ export const CheckStep = reatomMemo(({ ctx }) => {
         <Button
           variant={'ghost'}
           onClick={() => {
-            $step.next(ctx);
+            model.$step.next(ctx);
           }}
         >
           <Trans>Next</Trans>
@@ -36,10 +37,13 @@ export const CheckStep = reatomMemo(({ ctx }) => {
 
       <Flex>
         <Box flex={1}>
-          <CollectionItemBuilder model={model} />
+          <CollectionItemBuilder.ui
+            fields={model.fields}
+            model={collectionItemModel}
+          />
         </Box>
         <Box flex={1}>
-          <CollectionItem model={model} />
+          <CollectionItem fields={model.fields} />
         </Box>
       </Flex>
     </Flex>

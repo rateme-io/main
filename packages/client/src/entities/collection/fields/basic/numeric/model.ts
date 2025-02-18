@@ -1,6 +1,9 @@
 import { action, atom, withAssign } from '@reatom/framework';
 
-import { createFieldModel, InferState } from '@/shared/field-builder/field';
+import {
+  createFieldModel,
+  InferBuilderState,
+} from '@/shared/field-builder/field';
 
 export const NumericFieldModel = createFieldModel({
   builderState: ({ $name }) => ({
@@ -84,4 +87,4 @@ export const NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE = Symbol(
   'NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE',
 );
 
-export type NumericFieldState = InferState<typeof NumericFieldModel>;
+export type NumericFieldState = InferBuilderState<typeof NumericFieldModel>;

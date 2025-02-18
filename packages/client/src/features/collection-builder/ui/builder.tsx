@@ -2,7 +2,6 @@ import { Flex } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
 import { Trans } from '@lingui/react/macro';
 
-import { CheckStep } from '@/features/collection-builder/ui/steps/check-step.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { PageWrapper } from '@/shared/ui/page-wrapper.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
@@ -13,16 +12,19 @@ import {
   StepsRoot,
 } from '@/shared/ui/steps.tsx';
 
-import { $step } from '../model';
+import { useCollectionBuilderContext } from '../context.ts';
 import { BuildStep } from './steps/build-step.tsx';
+import { CheckStep } from './steps/check-step.tsx';
 
 export const Builder = reatomMemo(({ ctx }) => {
+  const { model } = useCollectionBuilderContext();
+
   return (
     <Flex flex={1} overflowY={'auto'} top={0} left={0} right={0} bottom={0}>
       <PageLayout flex={1} height={'fit-content'}>
         <StepsRoot
-          step={ctx.spy($step)}
-          onStepChange={(event) => $step(ctx, event.step)}
+          step={ctx.spy(model.$step)}
+          onStepChange={(event) => model.$step(ctx, event.step)}
           linear
         >
           <PageWrapper
