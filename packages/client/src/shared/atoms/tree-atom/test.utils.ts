@@ -57,7 +57,10 @@ export const simplifyNode = <Payload>(ctx: Ctx, node: NodeAtom<Payload>) => {
 
 export type TestNode = { id: string; children?: TestNode[] };
 
-export const createTree = (tree: TestNode[], parentId?: string): SimpleNode[] => {
+export const createTree = (
+  tree: TestNode[],
+  parentId?: string,
+): SimpleNode[] => {
   return tree.map(({ id, children }, index) => {
     const childrenNodes = children ? createTree(children, id) : [];
 

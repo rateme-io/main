@@ -8,23 +8,23 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
 // Import Routes
 
-import { Route as rootRoute } from './../../pages/__root'
+import { Route as rootRoute } from './../../pages/__root';
 
 // Create Virtual Routes
 
-const RatingSystemsLazyImport = createFileRoute('/rating-systems')()
-const RateCollectionItemLazyImport = createFileRoute('/rate-collection-item')()
-const CreateRatingSystemLazyImport = createFileRoute('/create-rating-system')()
+const RatingSystemsLazyImport = createFileRoute('/rating-systems')();
+const RateCollectionItemLazyImport = createFileRoute('/rate-collection-item')();
+const CreateRatingSystemLazyImport = createFileRoute('/create-rating-system')();
 const CreateCollectionItemLazyImport = createFileRoute(
   '/create-collection-item',
-)()
-const CreateCollectionLazyImport = createFileRoute('/create-collection')()
-const CollectionsLazyImport = createFileRoute('/collections')()
-const IndexLazyImport = createFileRoute('/')()
+)();
+const CreateCollectionLazyImport = createFileRoute('/create-collection')();
+const CollectionsLazyImport = createFileRoute('/collections')();
+const IndexLazyImport = createFileRoute('/')();
 
 // Create/Update Routes
 
@@ -34,7 +34,7 @@ const RatingSystemsLazyRoute = RatingSystemsLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/rating-systems.lazy').then((d) => d.Route),
-)
+);
 
 const RateCollectionItemLazyRoute = RateCollectionItemLazyImport.update({
   id: '/rate-collection-item',
@@ -42,7 +42,7 @@ const RateCollectionItemLazyRoute = RateCollectionItemLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/rate-collection-item.lazy').then((d) => d.Route),
-)
+);
 
 const CreateRatingSystemLazyRoute = CreateRatingSystemLazyImport.update({
   id: '/create-rating-system',
@@ -50,7 +50,7 @@ const CreateRatingSystemLazyRoute = CreateRatingSystemLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/create-rating-system.lazy').then((d) => d.Route),
-)
+);
 
 const CreateCollectionItemLazyRoute = CreateCollectionItemLazyImport.update({
   id: '/create-collection-item',
@@ -58,7 +58,7 @@ const CreateCollectionItemLazyRoute = CreateCollectionItemLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/create-collection-item.lazy').then((d) => d.Route),
-)
+);
 
 const CreateCollectionLazyRoute = CreateCollectionLazyImport.update({
   id: '/create-collection',
@@ -66,7 +66,7 @@ const CreateCollectionLazyRoute = CreateCollectionLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/create-collection.lazy').then((d) => d.Route),
-)
+);
 
 const CollectionsLazyRoute = CollectionsLazyImport.update({
   id: '/collections',
@@ -74,105 +74,105 @@ const CollectionsLazyRoute = CollectionsLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./../../pages/collections.lazy').then((d) => d.Route),
-)
+);
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./../../pages/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./../../pages/index.lazy').then((d) => d.Route));
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/collections': {
-      id: '/collections'
-      path: '/collections'
-      fullPath: '/collections'
-      preLoaderRoute: typeof CollectionsLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/collections';
+      path: '/collections';
+      fullPath: '/collections';
+      preLoaderRoute: typeof CollectionsLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/create-collection': {
-      id: '/create-collection'
-      path: '/create-collection'
-      fullPath: '/create-collection'
-      preLoaderRoute: typeof CreateCollectionLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/create-collection';
+      path: '/create-collection';
+      fullPath: '/create-collection';
+      preLoaderRoute: typeof CreateCollectionLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/create-collection-item': {
-      id: '/create-collection-item'
-      path: '/create-collection-item'
-      fullPath: '/create-collection-item'
-      preLoaderRoute: typeof CreateCollectionItemLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/create-collection-item';
+      path: '/create-collection-item';
+      fullPath: '/create-collection-item';
+      preLoaderRoute: typeof CreateCollectionItemLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/create-rating-system': {
-      id: '/create-rating-system'
-      path: '/create-rating-system'
-      fullPath: '/create-rating-system'
-      preLoaderRoute: typeof CreateRatingSystemLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/create-rating-system';
+      path: '/create-rating-system';
+      fullPath: '/create-rating-system';
+      preLoaderRoute: typeof CreateRatingSystemLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/rate-collection-item': {
-      id: '/rate-collection-item'
-      path: '/rate-collection-item'
-      fullPath: '/rate-collection-item'
-      preLoaderRoute: typeof RateCollectionItemLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/rate-collection-item';
+      path: '/rate-collection-item';
+      fullPath: '/rate-collection-item';
+      preLoaderRoute: typeof RateCollectionItemLazyImport;
+      parentRoute: typeof rootRoute;
+    };
     '/rating-systems': {
-      id: '/rating-systems'
-      path: '/rating-systems'
-      fullPath: '/rating-systems'
-      preLoaderRoute: typeof RatingSystemsLazyImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/rating-systems';
+      path: '/rating-systems';
+      fullPath: '/rating-systems';
+      preLoaderRoute: typeof RatingSystemsLazyImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/collections': typeof CollectionsLazyRoute
-  '/create-collection': typeof CreateCollectionLazyRoute
-  '/create-collection-item': typeof CreateCollectionItemLazyRoute
-  '/create-rating-system': typeof CreateRatingSystemLazyRoute
-  '/rate-collection-item': typeof RateCollectionItemLazyRoute
-  '/rating-systems': typeof RatingSystemsLazyRoute
+  '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/create-collection': typeof CreateCollectionLazyRoute;
+  '/create-collection-item': typeof CreateCollectionItemLazyRoute;
+  '/create-rating-system': typeof CreateRatingSystemLazyRoute;
+  '/rate-collection-item': typeof RateCollectionItemLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/collections': typeof CollectionsLazyRoute
-  '/create-collection': typeof CreateCollectionLazyRoute
-  '/create-collection-item': typeof CreateCollectionItemLazyRoute
-  '/create-rating-system': typeof CreateRatingSystemLazyRoute
-  '/rate-collection-item': typeof RateCollectionItemLazyRoute
-  '/rating-systems': typeof RatingSystemsLazyRoute
+  '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/create-collection': typeof CreateCollectionLazyRoute;
+  '/create-collection-item': typeof CreateCollectionItemLazyRoute;
+  '/create-rating-system': typeof CreateRatingSystemLazyRoute;
+  '/rate-collection-item': typeof RateCollectionItemLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/collections': typeof CollectionsLazyRoute
-  '/create-collection': typeof CreateCollectionLazyRoute
-  '/create-collection-item': typeof CreateCollectionItemLazyRoute
-  '/create-rating-system': typeof CreateRatingSystemLazyRoute
-  '/rate-collection-item': typeof RateCollectionItemLazyRoute
-  '/rating-systems': typeof RatingSystemsLazyRoute
+  __root__: typeof rootRoute;
+  '/': typeof IndexLazyRoute;
+  '/collections': typeof CollectionsLazyRoute;
+  '/create-collection': typeof CreateCollectionLazyRoute;
+  '/create-collection-item': typeof CreateCollectionItemLazyRoute;
+  '/create-rating-system': typeof CreateRatingSystemLazyRoute;
+  '/rate-collection-item': typeof RateCollectionItemLazyRoute;
+  '/rating-systems': typeof RatingSystemsLazyRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/collections'
@@ -180,8 +180,8 @@ export interface FileRouteTypes {
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
-    | '/rating-systems'
-  fileRoutesByTo: FileRoutesByTo
+    | '/rating-systems';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/collections'
@@ -189,7 +189,7 @@ export interface FileRouteTypes {
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
-    | '/rating-systems'
+    | '/rating-systems';
   id:
     | '__root__'
     | '/'
@@ -198,18 +198,18 @@ export interface FileRouteTypes {
     | '/create-collection-item'
     | '/create-rating-system'
     | '/rate-collection-item'
-    | '/rating-systems'
-  fileRoutesById: FileRoutesById
+    | '/rating-systems';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  CollectionsLazyRoute: typeof CollectionsLazyRoute
-  CreateCollectionLazyRoute: typeof CreateCollectionLazyRoute
-  CreateCollectionItemLazyRoute: typeof CreateCollectionItemLazyRoute
-  CreateRatingSystemLazyRoute: typeof CreateRatingSystemLazyRoute
-  RateCollectionItemLazyRoute: typeof RateCollectionItemLazyRoute
-  RatingSystemsLazyRoute: typeof RatingSystemsLazyRoute
+  IndexLazyRoute: typeof IndexLazyRoute;
+  CollectionsLazyRoute: typeof CollectionsLazyRoute;
+  CreateCollectionLazyRoute: typeof CreateCollectionLazyRoute;
+  CreateCollectionItemLazyRoute: typeof CreateCollectionItemLazyRoute;
+  CreateRatingSystemLazyRoute: typeof CreateRatingSystemLazyRoute;
+  RateCollectionItemLazyRoute: typeof RateCollectionItemLazyRoute;
+  RatingSystemsLazyRoute: typeof RatingSystemsLazyRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -220,11 +220,11 @@ const rootRouteChildren: RootRouteChildren = {
   CreateRatingSystemLazyRoute: CreateRatingSystemLazyRoute,
   RateCollectionItemLazyRoute: RateCollectionItemLazyRoute,
   RatingSystemsLazyRoute: RatingSystemsLazyRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

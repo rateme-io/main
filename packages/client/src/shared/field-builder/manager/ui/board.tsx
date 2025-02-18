@@ -9,12 +9,12 @@ import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { BoardNode } from '../model';
 import { DraggableFieldRenderer } from './components/field-renderer.tsx';
-import { useFieldsManagerContext } from './context.ts';
+import { useFieldBuilderContext } from './context.ts';
 
 export type FieldsManagerBoardProps = object;
 
 export const Board = reatomMemo<FieldsManagerBoardProps>(({ ctx }) => {
-  const { model } = useFieldsManagerContext();
+  const { model } = useFieldBuilderContext();
 
   const children = ctx.spy(model.tree.$children);
 

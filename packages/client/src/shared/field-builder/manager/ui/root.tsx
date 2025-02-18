@@ -4,13 +4,13 @@ import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { PropsWithChildren, useMemo } from 'react';
 
-import { FieldsManagerModel } from '@/shared/field-builder/manager/model';
+import { FieldBuilderModel } from '@/shared/field-builder/manager/model';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import {
-  FieldManagerContextInterface,
-  FieldsManagerContext,
-  useFieldsManagerContext,
+  FieldBuilderContext,
+  FieldBuilderContextInterface,
+  useFieldBuilderContext,
 } from './context.ts';
 import {
   BoardDragData,
@@ -24,19 +24,19 @@ import { conditionalCollisionDetection } from './utils/collision-detections.ts';
 import { snapRightToCursor } from './utils/modifiers.ts';
 
 export type FieldsManagerRootProps = PropsWithChildren<{
-  value: FieldsManagerModel;
+  value: FieldBuilderModel;
 }>;
 
 export const Root = reatomMemo<FieldsManagerRootProps>(
   ({ children, value }) => {
-    const context = useMemo<FieldManagerContextInterface>(() => {
+    const context = useMemo<FieldBuilderContextInterface>(() => {
       return {
         model: value,
       };
     }, [value]);
 
     return (
-      <FieldsManagerContext.Provider value={context}>
+      <FieldBuilderContext.Provider value={context}>
         <DndContext
           modifiers={[snapRightToCursor, restrictToWindowEdges]}
           collisionDetection={conditionalCollisionDetection}
@@ -46,14 +46,14 @@ export const Root = reatomMemo<FieldsManagerRootProps>(
           <Overlay />
           <DropLogic />
         </DndContext>
-      </FieldsManagerContext.Provider>
+      </FieldBuilderContext.Provider>
     );
   },
   'Root',
 );
 
 const DropLogic = reatomMemo(({ ctx }) => {
-  const { model } = useFieldsManagerContext();
+  const { model } = useFieldBuilderContext();
 
   useDrop(({ dropData, dragData }) => {
     if (dropData.type === 'add') {

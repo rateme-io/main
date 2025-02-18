@@ -5,6 +5,7 @@ import {
   useEditable,
 } from '@chakra-ui/react/editable';
 import { Flex } from '@chakra-ui/react/flex';
+import { HTMLChakraProps } from '@chakra-ui/react/styled-system';
 import {
   FunctionComponent,
   ReactNode,
@@ -22,6 +23,7 @@ export type EditableProps = {
   minWidth?: EditableRootProps['minWidth'];
   required?: boolean;
   onBlur?: InputProps['onBlur'];
+  containerProps?: HTMLChakraProps<'div'>;
 };
 
 export const Editable: FunctionComponent<EditableProps> = ({
@@ -32,6 +34,7 @@ export const Editable: FunctionComponent<EditableProps> = ({
   minWidth,
   required,
   onBlur,
+  containerProps,
 }) => {
   const editable = useEditable({
     value,
@@ -52,7 +55,12 @@ export const Editable: FunctionComponent<EditableProps> = ({
   }, [value]);
 
   return (
-    <ChakraEditable.RootProvider value={editable} maxWidth={maxWidth} gap={0}>
+    <ChakraEditable.RootProvider
+      value={editable}
+      maxWidth={maxWidth}
+      gap={0}
+      {...containerProps}
+    >
       <Flex
         position={'relative'}
         maxWidth={editable.editing ? maxWidth : `calc(${maxWidth} - 14px)`}
@@ -73,7 +81,7 @@ export const Editable: FunctionComponent<EditableProps> = ({
             content: '"s"',
             visibility: 'hidden',
           }}
-          title={previewRef.current?.innerText}
+          title={value}
         >
           {isEmpty ? placeholder : value}
         </ChakraEditable.Preview>

@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import reatom from '@reatom/eslint-plugin';
 import pluginLingui from 'eslint-plugin-lingui';
 import reactPlugin from 'eslint-plugin-react';
+import reactCompiler from 'eslint-plugin-react-compiler';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -18,10 +19,16 @@ export default tseslint.config(
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       react: reactPlugin,
+      'react-compiler': reactCompiler,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -33,6 +40,7 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'react/display-name': 'error',
       'react/prop-types': 'off',
+      'react-compiler/react-compiler': 'error',
     },
   },
   pluginLingui.configs['flat/recommended'],

@@ -1,7 +1,7 @@
 import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'motion/react';
-import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 
@@ -187,20 +187,8 @@ type FieldRendererContainerProps = PropsWithChildren<{
   node: BoardNode;
 }>;
 
-const ENTER_ANIMATION_DURATION = 100;
-
 const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
   ({ node, children, ctx }) => {
-    const [isAnimated, setIsAnimated] = useState(false);
-
-    useEffect(() => {
-      const id = setTimeout(() => {
-        setIsAnimated(true);
-      }, ENTER_ANIMATION_DURATION);
-
-      return () => clearTimeout(id);
-    }, []);
-
     return (
       <Flex
         asChild
@@ -211,7 +199,7 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
         borderRadius={'md'}
         backgroundColor={'bg'}
         outline={'black'}
-        overflow={isAnimated ? 'initial' : 'hidden'}
+        overflow={'hidden'}
         flex={1}
         onBlur={() => node.issueManager.revalidate(ctx)}
       >
@@ -226,7 +214,7 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
               type: 'spring',
               stiffness: 500,
               damping: 30,
-              duration: ENTER_ANIMATION_DURATION / 1000,
+              duration: 0.1,
             },
           }}
           exit={{

@@ -22,7 +22,7 @@ import { FieldIssue } from '@/shared/field-builder/field';
 import { PlacementSide } from '@/shared/ui/popover.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { useFieldsManagerContext } from '../context.ts';
+import { useFieldBuilderContext } from '../context.ts';
 import { useFieldContext } from './field.context.ts';
 
 export type IssueRendererProps = PropsWithChildren<{
@@ -46,7 +46,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     containerProps,
     children,
   }) => {
-    const { model } = useFieldsManagerContext();
+    const { model } = useFieldBuilderContext();
     const { node } = useFieldContext();
 
     const manager = node.issueManager;
@@ -63,7 +63,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 
     const isActive = !!issue;
 
-    const [isOpened, setIsOpened] = useState(isActive);
+    const [isOpened, setIsOpened] = useState(false);
 
     const fontColor = issue?.type && fontColors[issue.type];
     const bgColor = issue?.type && bgColors[issue.type];

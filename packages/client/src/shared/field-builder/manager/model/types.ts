@@ -8,9 +8,9 @@ export type CreateFieldsManagerCommand = {
   groups: FieldGroup[];
 };
 
-export type BoardNode = NodeAtom<NodePayload>;
+export type BoardNode<State = unknown> = NodeAtom<NodePayload<State>>;
 
-export type NodePayload = {
-  field: Field<unknown>;
+export type NodePayload<State = unknown> = {
+  field: Field<State>;
   $name: AtomMut<string>;
-} & FieldBuilderInstance<unknown>;
+} & FieldBuilderInstance<State>;

@@ -1,4 +1,4 @@
-import { action, atom } from '@reatom/framework';
+import { action, atom, Ctx } from '@reatom/framework';
 
 import { treeAtom } from '@/shared/atoms/tree-atom';
 import { Field } from '@/shared/field-builder/field';
@@ -45,8 +45,15 @@ export const createModel = (command: CreateFieldsManagerCommand) => {
         return validate(ctx);
       }, 'actions.submit'),
       addChild: action((ctx, field: Field<unknown>) => {
-        tree.addChild(ctx, createNode(field));
-      }, 'actions.addChild'),
+        const node = createNode(field);
+
+        tree.addChild(ctx, node);
+
+        return node;
+      }, 'actions.addChild') as <State>(
+        ctx: Ctx,
+        field: Field<State>,
+      ) => BoardNode<State>,
       insertAfter: action((ctx, node: BoardNode, field: Field<unknown>) => {
         node.actions.after(ctx, createNode(field));
       }, 'actions.insertAfter'),
@@ -67,4 +74,4 @@ export const createModel = (command: CreateFieldsManagerCommand) => {
   };
 };
 
-export type FieldsManagerModel = ReturnType<typeof createModel>;
+export type FieldBuilderModel = ReturnType<typeof createModel>;

@@ -1,13 +1,13 @@
 import { createContext, use } from 'react';
 
-import { FieldsManagerModel } from '@/shared/field-builder/manager/model';
+import { FieldBuilderModel } from '@/shared/field-builder/manager/model';
 
-export type FieldManagerContextInterface = {
-  model: FieldsManagerModel;
+export type FieldBuilderContextInterface = {
+  model: FieldBuilderModel;
 };
 
-export const FieldsManagerContext = createContext<FieldManagerContextInterface>(
+export const FieldBuilderContext = createContext<FieldBuilderContextInterface>(
   {} as never,
 );
 
-export const useFieldsManagerContext = () => use(FieldsManagerContext);
+export const useFieldBuilderContext = () => use(FieldBuilderContext);

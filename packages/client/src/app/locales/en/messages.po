@@ -18,15 +18,15 @@ msgstr ""
 msgid "Add Collection Item"
 msgstr "Add Collection Item"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:97
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:97
 msgid "Allow adding custom options"
 msgstr "Allow adding custom options"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:87
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:87
 msgid "Allow multiple selections"
 msgstr "Allow multiple selections"
 
-#: src/widgets/register-dialog/ui/common.tsx:134
+#: src/features/register-dialog/ui/common.tsx:133
 msgid "Already registered? Log in"
 msgstr "Already registered? Log in"
 
@@ -34,17 +34,17 @@ msgstr "Already registered? Log in"
 msgid "At least 12 characters long"
 msgstr "At least 12 characters long"
 
-#: src/widgets/register-dialog/ui/mobile.tsx:34
-#: src/widgets/login-dialog/ui/mobile.tsx:32
-#: src/widgets/login-dialog/ui/desktop.tsx:32
+#: src/features/register-dialog/ui/mobile.tsx:34
+#: src/features/login-dialog/ui/mobile.tsx:32
+#: src/features/login-dialog/ui/desktop.tsx:32
 msgid "Authentication"
 msgstr "Authentication"
 
-#: src/widgets/collection-builder/ui/builder.tsx:35
+#: src/features/collection-builder/ui/builder.tsx:36
 msgid "Build"
 msgstr "Build"
 
-#: src/widgets/collection-builder/ui/steps/build-step.tsx:60
+#: src/features/collection-builder/ui/steps/build-step.tsx:59
 msgid "Builder"
 msgstr "Builder"
 
@@ -52,7 +52,7 @@ msgstr "Builder"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: src/widgets/collection-builder/ui/builder.tsx:36
+#: src/features/collection-builder/ui/builder.tsx:37
 msgid "Check"
 msgstr "Check"
 
@@ -60,7 +60,7 @@ msgstr "Check"
 msgid "Collection fields"
 msgstr "Collection fields"
 
-#: src/widgets/collection-builder/ui/steps/build-step.tsx:116
+#: src/features/collection-builder/ui/steps/build-step.tsx:122
 msgid "Collection image"
 msgstr "Collection image"
 
@@ -73,7 +73,7 @@ msgstr "Collections"
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/shared/fields/time/date/ui.tsx:10
+#: src/entities/collection/fields/time/date/ui.tsx:10
 msgid "Date Picker"
 msgstr "Date Picker"
 
@@ -82,7 +82,7 @@ msgstr "Date Picker"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/widgets/login-dialog/ui/common.tsx:91
+#: src/features/login-dialog/ui/common.tsx:90
 msgid "Don’t have an account? Sign up"
 msgstr "Don’t have an account? Sign up"
 
@@ -90,78 +90,78 @@ msgstr "Don’t have an account? Sign up"
 msgid "Drop here if you want to cancel the operation"
 msgstr "Drop here if you want to cancel the operation"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:41
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:41
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
-#: src/shared/fields/time/duration/ui.tsx:10
+#: src/entities/collection/fields/time/duration/ui.tsx:10
 msgid "Duration Input"
 msgstr "Duration Input"
 
-#: src/widgets/register-dialog/ui/common.tsx:33
-#: src/widgets/login-dialog/ui/common.tsx:29
+#: src/features/register-dialog/ui/common.tsx:32
+#: src/features/login-dialog/ui/common.tsx:28
 msgid "Email"
 msgstr "Email"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:136
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:136
 msgid "Enter a name for this option"
 msgstr "Enter a name for this option"
 
-#: src/widgets/register-dialog/ui/common.tsx:42
-#: src/widgets/login-dialog/ui/common.tsx:38
+#: src/features/register-dialog/ui/common.tsx:41
+#: src/features/login-dialog/ui/common.tsx:37
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/widgets/register-dialog/ui/common.tsx:95
+#: src/features/register-dialog/ui/common.tsx:94
 msgid "Enter your full name"
 msgstr "Enter your full name"
 
-#: src/widgets/register-dialog/ui/common.tsx:71
-#: src/widgets/login-dialog/ui/common.tsx:67
+#: src/features/register-dialog/ui/common.tsx:70
+#: src/features/login-dialog/ui/common.tsx:66
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/widgets/register-dialog/ui/common.tsx:114
+#: src/features/register-dialog/ui/common.tsx:113
 msgid "Enter your username"
 msgstr "Enter your username"
 
-#: src/widgets/register-dialog/ui/common.tsx:89
+#: src/features/register-dialog/ui/common.tsx:88
 msgid "Full name"
 msgstr "Full name"
 
-#: src/shared/fields/image/index.tsx:11
+#: src/entities/collection/fields/image/index.tsx:11
 msgid "Image Fields"
 msgstr "Image Fields"
 
-#: src/shared/fields/image/images/ui.tsx:10
+#: src/entities/collection/fields/image/images/ui.tsx:10
 msgid "Image Upload"
 msgstr "Image Upload"
 
-#: src/shared/fields/link/link/ui.tsx:11
+#: src/entities/collection/fields/link/link/ui.tsx:11
 msgid "Input for external links"
 msgstr "Input for external links"
 
-#: src/shared/fields/basic/numeric/ui.tsx:23
+#: src/entities/collection/fields/basic/numeric/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
 
-#: src/shared/fields/basic/text/ui.tsx:13
+#: src/entities/collection/fields/basic/text/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Input for plain text"
 
-#: src/shared/fields/time/duration/ui.tsx:11
+#: src/entities/collection/fields/time/duration/ui.tsx:11
 msgid "Input for time duration"
 msgstr "Input for time duration"
 
-#: src/shared/fields/link/internal-link/ui.tsx:10
+#: src/entities/collection/fields/link/internal-link/ui.tsx:10
 msgid "Internal Link"
 msgstr "Internal Link"
 
-#: src/shared/fields/link/index.tsx:12
+#: src/entities/collection/fields/link/index.tsx:12
 msgid "Link Fields"
 msgstr "Link Fields"
 
-#: src/shared/fields/link/internal-link/ui.tsx:11
+#: src/entities/collection/fields/link/internal-link/ui.tsx:11
 msgid "Link to another collection item"
 msgstr "Link to another collection item"
 
@@ -170,19 +170,19 @@ msgstr "Link to another collection item"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/shared/fields/basic/numeric/ui.tsx:75
+#: src/entities/collection/fields/basic/numeric/ui.tsx:75
 msgid "Max"
 msgstr "Max"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:114
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:114
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/shared/fields/basic/numeric/ui.tsx:60
+#: src/entities/collection/fields/basic/numeric/ui.tsx:60
 msgid "Min"
 msgstr "Min"
 
-#: src/shared/fields/basic/numeric/ui.tsx:49
+#: src/entities/collection/fields/basic/numeric/ui.tsx:49
 msgid "Min value should be less than max value."
 msgstr "Min value should be less than max value."
 
@@ -216,7 +216,8 @@ msgstr "New Collection"
 msgid "New Rating System"
 msgstr "New Rating System"
 
-#: src/widgets/collection-builder/ui/steps/build-step.tsx:80
+#: src/features/collection-builder/ui/steps/check-step.tsx:33
+#: src/features/collection-builder/ui/steps/build-step.tsx:79
 msgid "Next"
 msgstr "Next"
 
@@ -236,16 +237,24 @@ msgstr "No white spaces"
 msgid "Not a too simple password"
 msgstr "Not a too simple password"
 
-#: src/shared/fields/basic/numeric/ui.tsx:22
+#: src/entities/collection/fields/basic/numeric/ui.tsx:22
 msgid "Number Input"
 msgstr "Number Input"
 
-#: src/widgets/register-dialog/ui/common.tsx:61
-#: src/widgets/login-dialog/ui/common.tsx:57
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:227
+msgid "Option label"
+msgstr "Option label"
+
+#: src/features/register-dialog/ui/common.tsx:60
+#: src/features/login-dialog/ui/common.tsx:56
 msgid "Password"
 msgstr "Password"
 
-#: src/widgets/collection-builder/ui/steps/build-step.tsx:65
+#: src/features/collection-builder/ui/steps/check-step.tsx:24
+msgid "Prev"
+msgstr "Prev"
+
+#: src/features/collection-builder/ui/steps/build-step.tsx:64
 msgid "Preview"
 msgstr "Preview"
 
@@ -254,7 +263,7 @@ msgstr "Preview"
 msgid "Profile"
 msgstr "Profile"
 
-#: src/widgets/collection-builder/ui/builder.tsx:37
+#: src/features/collection-builder/ui/builder.tsx:38
 msgid "Publish"
 msgstr "Publish"
 
@@ -268,11 +277,11 @@ msgstr "Rate collection item"
 msgid "Rating systems"
 msgstr "Rating systems"
 
-#: src/widgets/register-dialog/ui/desktop.tsx:34
+#: src/features/register-dialog/ui/desktop.tsx:34
 msgid "Registration"
 msgstr "Registration"
 
-#: src/shared/fields/time/date/ui.tsx:11
+#: src/entities/collection/fields/time/date/ui.tsx:11
 msgid "Select a date"
 msgstr "Select a date"
 
@@ -281,8 +290,8 @@ msgstr "Select a date"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/widgets/login-dialog/ui/mobile.tsx:57
-#: src/widgets/login-dialog/ui/desktop.tsx:35
+#: src/features/login-dialog/ui/mobile.tsx:57
+#: src/features/login-dialog/ui/desktop.tsx:35
 msgid "Sign in"
 msgstr "Sign in"
 
@@ -290,32 +299,32 @@ msgstr "Sign in"
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/widgets/register-dialog/ui/mobile.tsx:63
-#: src/widgets/register-dialog/ui/desktop.tsx:37
+#: src/features/register-dialog/ui/mobile.tsx:63
+#: src/features/register-dialog/ui/desktop.tsx:37
 msgid "Sign up"
 msgstr "Sign up"
 
-#: src/shared/fields/basic/index.tsx:13
+#: src/entities/collection/fields/basic/index.tsx:13
 msgid "Standard Fields"
 msgstr "Standard Fields"
 
-#: src/widgets/collection-builder/ui/steps/build-step.tsx:136
+#: src/features/collection-builder/ui/steps/build-step.tsx:142
 msgid "Tags"
 msgstr "Tags"
 
-#: src/shared/fields/basic/text/ui.tsx:12
+#: src/entities/collection/fields/basic/text/ui.tsx:12
 msgid "Text Input"
 msgstr "Text Input"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:42
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:42
 msgid "The field that displays the drop-down list"
 msgstr "The field that displays the drop-down list"
 
-#: src/shared/fields/basic/dropdown/ui.tsx:191
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:191
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "The option label cannot be empty. Please enter a value."
 
-#: src/shared/fields/time/index.tsx:12
+#: src/entities/collection/fields/time/index.tsx:12
 msgid "Time Fields"
 msgstr "Time Fields"
 
@@ -323,15 +332,15 @@ msgstr "Time Fields"
 msgid "Type <0>/</0> to search"
 msgstr "Type <0>/</0> to search"
 
-#: src/shared/fields/image/images/ui.tsx:11
+#: src/entities/collection/fields/image/images/ui.tsx:11
 msgid "Upload and manage images"
 msgstr "Upload and manage images"
 
-#: src/shared/fields/link/link/ui.tsx:10
+#: src/entities/collection/fields/link/link/ui.tsx:10
 msgid "URL Input"
 msgstr "URL Input"
 
-#: src/widgets/register-dialog/ui/common.tsx:107
+#: src/features/register-dialog/ui/common.tsx:106
 msgid "Username"
 msgstr "Username"
 
@@ -339,26 +348,26 @@ msgstr "Username"
 msgid "What do you want to create?"
 msgstr "What do you want to create?"
 
-#: src/widgets/register-dialog/ui/common.tsx:142
-#: src/widgets/login-dialog/ui/common.tsx:99
+#: src/features/register-dialog/ui/common.tsx:141
+#: src/features/login-dialog/ui/common.tsx:98
 msgid "Wrong credentials"
 msgstr "Wrong credentials"
 
-#: src/widgets/register-dialog/ui/common.tsx:35
-#: src/widgets/login-dialog/ui/common.tsx:31
+#: src/features/register-dialog/ui/common.tsx:34
+#: src/features/login-dialog/ui/common.tsx:30
 msgid "Wrong email"
 msgstr "Wrong email"
 
-#: src/widgets/register-dialog/ui/common.tsx:92
+#: src/features/register-dialog/ui/common.tsx:91
 msgid "Wrong full name"
 msgstr "Wrong full name"
 
-#: src/widgets/register-dialog/ui/common.tsx:64
-#: src/widgets/login-dialog/ui/common.tsx:60
+#: src/features/register-dialog/ui/common.tsx:63
+#: src/features/login-dialog/ui/common.tsx:59
 msgid "Wrong password"
 msgstr "Wrong password"
 
-#: src/widgets/register-dialog/ui/common.tsx:110
+#: src/features/register-dialog/ui/common.tsx:109
 msgid "Wrong username"
 msgstr "Wrong username"
 
@@ -366,14 +375,14 @@ msgstr "Wrong username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
 
-#: src/shared/fields/basic/numeric/ui.tsx:71
+#: src/entities/collection/fields/basic/numeric/ui.tsx:71
 msgid "You enabled max input but haven't typed a value."
 msgstr "You enabled max input but haven't typed a value."
 
-#: src/shared/fields/basic/numeric/ui.tsx:56
+#: src/entities/collection/fields/basic/numeric/ui.tsx:56
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
 
-#: src/shared/fields/basic/dropdown/ui.tsx:72
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:72
 msgid "You need to add at least one option."
 msgstr "You need to add at least one option."

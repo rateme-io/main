@@ -2,6 +2,7 @@ import { IconButton } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
 import { Flex } from '@chakra-ui/react/flex';
 import { FiLogIn } from 'react-icons/fi';
+import { loginDisclosure } from 'src/features/login-dialog';
 
 import { Avatar } from '@/features/avatar';
 import { LanguageSelect } from '@/features/language-select';
@@ -11,7 +12,6 @@ import { VerySmallLogo } from '@/shared/ui/logo/very-small-logo.tsx';
 import { PageLayout } from '@/shared/ui/page-layout.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { StatusGuard } from '@/shared/ui/status-guard.tsx';
-import { loginDisclosure } from '@/widgets/login-dialog';
 
 import { Menu } from './menu';
 

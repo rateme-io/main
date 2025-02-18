@@ -6,13 +6,13 @@ import { Field } from '@/shared/field-builder/field';
 import { FieldGroup } from '@/shared/field-builder/group';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { useFieldsManagerContext } from './context.ts';
+import { useFieldBuilderContext } from './context.ts';
 import { useDraggableField } from './hooks/dnd.ts';
 
 export type FieldManagerMenuProps = object;
 
 export const Menu = reatomMemo<FieldManagerMenuProps>(() => {
-  const { model } = useFieldsManagerContext();
+  const { model } = useFieldBuilderContext();
 
   return (
     <Flex
