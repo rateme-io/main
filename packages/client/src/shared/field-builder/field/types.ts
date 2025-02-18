@@ -10,7 +10,5 @@ export type CreateFieldCommand<State> = {
 export type Field<State> = {
   id: string;
   ui: FieldUI<State>;
-  createBuilder: (command: CreateStateCommand) => {
-    id: string;
-  } & FieldBuilderInstance<State>;
+  createBuilder: (command: CreateStateCommand) => FieldBuilderInstance<State>;
 };

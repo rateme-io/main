@@ -130,7 +130,10 @@ const FieldRenderer = reatomMemo<FieldRendererProps>(({ node }) => {
             flexDirection={'column'}
             gap={2}
           >
-            <Content state={node.state} issueManager={node.issueManager} />
+            <Content
+              builderState={node.builder.state}
+              issueManager={node.builder.issueManager}
+            />
           </Flex>
           <FieldRendererDragActivator />
         </Flex>
@@ -201,7 +204,7 @@ const FieldRendererContainer = reatomMemo<FieldRendererContainerProps>(
         outline={'black'}
         overflow={'hidden'}
         flex={1}
-        onBlur={() => node.issueManager.revalidate(ctx)}
+        onBlur={() => node.builder.issueManager.revalidate(ctx)}
       >
         <motion.div
           layoutId={node.id}

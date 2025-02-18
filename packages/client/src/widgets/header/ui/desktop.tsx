@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react/flex';
 import { Trans } from '@lingui/react/macro';
-import { loginDisclosure } from 'src/features/login-dialog';
 
 import { Avatar } from '@/features/avatar';
 import { LanguageSelect } from '@/features/language-select';
+import { loginDisclosure } from '@/features/login-dialog';
 import { Search } from '@/features/search';
 import { Button } from '@/shared/ui/button.tsx';
 import { Link } from '@/shared/ui/link.tsx';

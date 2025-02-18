@@ -14,12 +14,12 @@ export type CreateFieldUICommand<BuilderState> = {
 };
 
 export type FieldContentProps<State> = {
-  state: State;
+  builderState: State;
   issueManager: FieldIssueManager;
 };
 
 export type FieldPreviewProps<State> = {
-  state: State;
+  builderState: State;
 };
 
 export type FieldOverlayProps = object;

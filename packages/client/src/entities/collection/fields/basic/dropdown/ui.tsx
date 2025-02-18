@@ -41,11 +41,11 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
   description: <Trans>The field that displays the drop-down list</Trans>,
   icon: <BsFillMenuButtonWideFill />,
-  FieldPreview: reatomMemo(({ ctx, state }) => {
-    const isCreatable = ctx.spy(state.model.$isCreatable);
-    const isMulti = ctx.spy(state.model.$isMulti);
+  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+    const isCreatable = ctx.spy(builderState.model.$isCreatable);
+    const isMulti = ctx.spy(builderState.model.$isMulti);
 
-    const stateOptions = ctx.spy(state.model.$options);
+    const stateOptions = ctx.spy(builderState.model.$options);
 
     const options = useMemo(() => {
       return stateOptions.map((option) => ({
@@ -57,12 +57,12 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
     const SelectComponent = isCreatable ? CreatableSelect : Select;
 
     return (
-      <Field label={ctx.spy(state.$name)} orientation={'horizontal'}>
+      <Field label={ctx.spy(builderState.$name)} orientation={'horizontal'}>
         <SelectComponent isMulti={isMulti} options={options} />
       </Field>
     );
   }, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(({ ctx, state }) => {
+  FieldContent: reatomMemo(({ ctx, builderState }) => {
     return (
       <>
         <Flex gap={5} flex={1}>
@@ -71,17 +71,17 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
               issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
               message={<Trans>You need to add at least one option.</Trans>}
             >
-              <OptionsField state={state} />
-              <AddOption state={state} />
+              <OptionsField />
+              <AddOption />
             </FieldBuilder.ui.IssueRenderer>
           </Flex>
 
           <Flex flexDirection={'column'} gap={2}>
             <Checkbox
               cursor={'pointer'}
-              checked={ctx.spy(state.model.$isMulti)}
+              checked={ctx.spy(builderState.model.$isMulti)}
               onCheckedChange={(event) =>
-                state.model.$isMulti(ctx, !!event.checked)
+                builderState.model.$isMulti(ctx, !!event.checked)
               }
             >
               <Trans>Allow multiple selections</Trans>
@@ -89,9 +89,9 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
 
             <Checkbox
               cursor={'pointer'}
-              checked={ctx.spy(state.model.$isCreatable)}
+              checked={ctx.spy(builderState.model.$isCreatable)}
               onCheckedChange={(event) =>
-                state.model.$isCreatable(ctx, !!event.checked)
+                builderState.model.$isCreatable(ctx, !!event.checked)
               }
             >
               <Trans>Allow adding custom options</Trans>
@@ -103,11 +103,13 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   }, 'DropdownFieldUI.FieldContent'),
 });
 
-type AddOptionProps = {
-  state: DropdownFieldState;
-};
+const AddOption = reatomMemo(({ ctx }) => {
+  const {
+    node: {
+      builder: { state },
+    },
+  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
 
-const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
   return (
     <FieldBuilder.ui.IssueRenderer
       issueId={DROPDOWN_FIELD_LABEL_WARNING}
@@ -149,11 +151,13 @@ const AddOption = reatomMemo<AddOptionProps>(({ ctx, state }) => {
   );
 }, 'AddOption');
 
-type OptionsFieldProps = {
-  state: DropdownFieldState;
-};
+const OptionsField = reatomMemo(({ ctx }) => {
+  const {
+    node: {
+      builder: { state },
+    },
+  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
 
-const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
   const [values] = useAtom((ctx) =>
     ctx.spy(state.model.$options).map((option) => option.value),
   );
@@ -169,7 +173,7 @@ const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
     >
       <SortableContext strategy={verticalListSortingStrategy} items={values}>
         {ctx.spy(state.model.$options).map((option) => (
-          <Option key={option.value} option={option} state={state} />
+          <Option key={option.value} option={option} />
         ))}
       </SortableContext>
     </DndContext>
@@ -177,11 +181,16 @@ const OptionsField = reatomMemo<OptionsFieldProps>(({ ctx, state }) => {
 }, 'OptionsField');
 
 type OptionProps = {
-  state: DropdownFieldState;
   option: DropdownFieldOption;
 };
 
-const Option = reatomMemo<OptionProps>(({ ctx, option, state }) => {
+const Option = reatomMemo<OptionProps>(({ ctx, option }) => {
+  const {
+    node: {
+      builder: { state },
+    },
+  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
+
   return (
     <OptionDraggableWrapper option={option}>
       <FieldBuilder.ui.IssueRenderer

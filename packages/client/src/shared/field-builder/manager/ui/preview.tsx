@@ -37,7 +37,10 @@ export const Preview = reatomMemo<FieldsManagerPreviewProps>(({ ctx }) => {
   return (
     <Flex flexDirection={'column'} gap={2}>
       {children.map((node) => (
-        <node.field.ui.FieldPreview key={node.id} state={node.state} />
+        <node.field.ui.FieldPreview
+          key={node.id}
+          builderState={node.builder.state}
+        />
       ))}
     </Flex>
   );

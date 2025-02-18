@@ -15,7 +15,10 @@ export const CollectionItemBuilder = reatomMemo<CollectionItemBuilderProps>(
       <Box>
         <Box>
           {children.map((item) => (
-            <item.field.ui.FieldPreview key={item.id} state={item.state} />
+            <item.field.ui.FieldPreview
+              key={item.id}
+              builderState={item.builder.state}
+            />
           ))}
         </Box>
       </Box>

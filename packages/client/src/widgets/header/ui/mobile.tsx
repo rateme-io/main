@@ -2,10 +2,10 @@ import { IconButton } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react/box';
 import { Flex } from '@chakra-ui/react/flex';
 import { FiLogIn } from 'react-icons/fi';
-import { loginDisclosure } from 'src/features/login-dialog';
 
 import { Avatar } from '@/features/avatar';
 import { LanguageSelect } from '@/features/language-select';
+import { loginDisclosure } from '@/features/login-dialog';
 import { Search } from '@/features/search';
 import { Link } from '@/shared/ui/link.tsx';
 import { VerySmallLogo } from '@/shared/ui/logo/very-small-logo.tsx';

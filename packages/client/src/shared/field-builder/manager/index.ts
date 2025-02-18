@@ -1,5 +1,6 @@
 import { createModel } from './model';
 import { Board } from './ui/board';
+import { useFieldContext } from './ui/components/field.context.ts';
 import { IssueRenderer } from './ui/components/issue-renderer';
 import { useFieldBuilderContext } from './ui/context.ts';
 import { Menu } from './ui/menu';
@@ -10,6 +11,7 @@ export const FieldBuilder = {
   createModel: createModel,
   ui: {
     useContext: () => useFieldBuilderContext(),
+    useFieldContext: <State>() => useFieldContext<State>(),
     IssueRenderer: IssueRenderer,
     Root: Root,
     Menu: Menu,

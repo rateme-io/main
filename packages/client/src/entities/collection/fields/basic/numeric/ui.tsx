@@ -23,18 +23,18 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
   FieldPreview: reatomMemo(
-    ({ ctx, state }) => (
-      <Field orientation={'horizontal'} label={ctx.spy(state.$name)}>
+    ({ ctx, builderState }) => (
+      <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
         <Input
           type={'number'}
           min={
-            ctx.spy(state.min.$enabled)
-              ? (ctx.spy(state.min.$value) ?? undefined)
+            ctx.spy(builderState.min.$enabled)
+              ? (ctx.spy(builderState.min.$value) ?? undefined)
               : undefined
           }
           max={
-            ctx.spy(state.max.$enabled)
-              ? (ctx.spy(state.max.$value) ?? undefined)
+            ctx.spy(builderState.max.$enabled)
+              ? (ctx.spy(builderState.max.$value) ?? undefined)
               : undefined
           }
         />
@@ -42,7 +42,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
     ),
     'NumericFieldUI.FieldPreview',
   ),
-  FieldContent: reatomMemo(({ ctx, state }) => {
+  FieldContent: reatomMemo(({ ctx, builderState }) => {
     return (
       <FieldBuilder.ui.IssueRenderer
         issueId={NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE}
@@ -58,10 +58,10 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
               </Trans>
             }
             label={<Trans>Min</Trans>}
-            $enabled={state.min.$enabled}
-            $value={state.min.$value}
+            $enabled={builderState.min.$enabled}
+            $value={builderState.min.$value}
             inputProps={{
-              max: ctx.spy(state.max.$value) ?? undefined,
+              max: ctx.spy(builderState.max.$value) ?? undefined,
             }}
           />
 
@@ -73,10 +73,10 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
               </Trans>
             }
             label={<Trans>Max</Trans>}
-            $enabled={state.max.$enabled}
-            $value={state.max.$value}
+            $enabled={builderState.max.$enabled}
+            $value={builderState.max.$value}
             inputProps={{
-              min: ctx.spy(state.min.$value) ?? undefined,
+              min: ctx.spy(builderState.min.$value) ?? undefined,
             }}
           />
         </Flex>

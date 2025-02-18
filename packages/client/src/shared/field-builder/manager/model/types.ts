@@ -13,4 +13,5 @@ export type BoardNode<State = unknown> = NodeAtom<NodePayload<State>>;
 export type NodePayload<State = unknown> = {
   field: Field<State>;
   $name: AtomMut<string>;
-} & FieldBuilderInstance<State>;
+  builder: FieldBuilderInstance<State>;
+};

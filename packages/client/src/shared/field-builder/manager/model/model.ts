@@ -2,6 +2,7 @@ import { action, atom, Ctx } from '@reatom/framework';
 
 import { treeAtom } from '@/shared/atoms/tree-atom';
 import { Field } from '@/shared/field-builder/field';
+import { generateId } from '@/shared/utils/generate-id.ts';
 
 import { BoardNode, CreateFieldsManagerCommand, NodePayload } from './types.ts';
 
@@ -13,7 +14,8 @@ export const createModel = (command: CreateFieldsManagerCommand) => {
 
     return tree.createNode(
       {
-        ...field.createBuilder({
+        id: `${field.id}-${generateId()}`,
+        builder: field.createBuilder({
           $name,
         }),
         $name,
@@ -31,7 +33,7 @@ export const createModel = (command: CreateFieldsManagerCommand) => {
     }
 
     return nodes.reduce((isValid, node) => {
-      return node.issueManager.validate(ctx) && isValid;
+      return node.builder.issueManager.validate(ctx) && isValid;
     }, true);
   }, 'validate');
 

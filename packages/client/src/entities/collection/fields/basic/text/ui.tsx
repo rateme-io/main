@@ -13,8 +13,8 @@ export const TextFieldUI = createFieldUI<TextFieldState>({
   description: <Trans>Input for plain text</Trans>,
   icon: <LuTextCursorInput />,
   FieldPreview: reatomMemo(
-    ({ ctx, state }) => (
-      <Field orientation={'horizontal'} label={ctx.spy(state.$name)}>
+    ({ ctx, builderState }) => (
+      <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
         <Input />
       </Field>
     ),

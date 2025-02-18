@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { CollectionBuilder } from 'src/features/collection-builder';
 
+import { ctx } from '@/app/store.ts';
 import { createFieldsBuilder } from '@/entities/collection/fields';
 import { SecureRoute } from '@/shared/ui/secure-route.tsx';
 

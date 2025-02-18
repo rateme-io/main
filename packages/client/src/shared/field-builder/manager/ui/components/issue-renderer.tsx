@@ -49,7 +49,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
     const { model } = useFieldBuilderContext();
     const { node } = useFieldContext();
 
-    const manager = node.issueManager;
+    const manager = node.builder.issueManager;
 
     const containerRef = useRef<HTMLDivElement>(null);
 
