@@ -26,7 +26,7 @@ msgstr "Можно создавать новые опции"
 msgid "Allow multiple selections"
 msgstr "Можно выбрать несколько опций"
 
-#: src/features/register-dialog/ui/common.tsx:133
+#: src/features/register-dialog/ui/common.tsx:134
 msgid "Already registered? Log in"
 msgstr "Есть аккаунт? Войти"
 
@@ -82,7 +82,7 @@ msgstr "Выбор даты"
 msgid "Discover"
 msgstr "Главная"
 
-#: src/features/login-dialog/ui/common.tsx:90
+#: src/features/login-dialog/ui/common.tsx:91
 msgid "Don’t have an account? Sign up"
 msgstr "Нет аккаунта? Зарегистрироваться"
 
@@ -98,8 +98,8 @@ msgstr "Выпадающий список"
 msgid "Duration Input"
 msgstr "Поле длительности"
 
-#: src/features/register-dialog/ui/common.tsx:32
-#: src/features/login-dialog/ui/common.tsx:28
+#: src/features/register-dialog/ui/common.tsx:33
+#: src/features/login-dialog/ui/common.tsx:29
 msgid "Email"
 msgstr "Email"
 
@@ -107,25 +107,25 @@ msgstr "Email"
 msgid "Enter a name for this option"
 msgstr "Введите название опции"
 
-#: src/features/register-dialog/ui/common.tsx:41
-#: src/features/login-dialog/ui/common.tsx:37
+#: src/features/register-dialog/ui/common.tsx:42
+#: src/features/login-dialog/ui/common.tsx:38
 msgid "Enter your email"
 msgstr "Введите ваш email"
 
-#: src/features/register-dialog/ui/common.tsx:94
+#: src/features/register-dialog/ui/common.tsx:95
 msgid "Enter your full name"
 msgstr "Введите ваше полное имя"
 
-#: src/features/register-dialog/ui/common.tsx:70
-#: src/features/login-dialog/ui/common.tsx:66
+#: src/features/register-dialog/ui/common.tsx:71
+#: src/features/login-dialog/ui/common.tsx:67
 msgid "Enter your password"
 msgstr "Введите ваш пароль"
 
-#: src/features/register-dialog/ui/common.tsx:113
+#: src/features/register-dialog/ui/common.tsx:114
 msgid "Enter your username"
 msgstr "Введите ваш username"
 
-#: src/features/register-dialog/ui/common.tsx:88
+#: src/features/register-dialog/ui/common.tsx:89
 msgid "Full name"
 msgstr "Полное имя"
 
@@ -245,8 +245,8 @@ msgstr "Поле числового ввода"
 msgid "Option label"
 msgstr ""
 
-#: src/features/register-dialog/ui/common.tsx:60
-#: src/features/login-dialog/ui/common.tsx:56
+#: src/features/register-dialog/ui/common.tsx:61
+#: src/features/login-dialog/ui/common.tsx:57
 msgid "Password"
 msgstr "Пароль"
 
@@ -340,7 +340,7 @@ msgstr "Загрузите и управляйте изображениями"
 msgid "URL Input"
 msgstr "Поле для ввода URL"
 
-#: src/features/register-dialog/ui/common.tsx:106
+#: src/features/register-dialog/ui/common.tsx:107
 msgid "Username"
 msgstr "Username"
 
@@ -348,26 +348,26 @@ msgstr "Username"
 msgid "What do you want to create?"
 msgstr "Что вы хотите создать?"
 
-#: src/features/register-dialog/ui/common.tsx:141
-#: src/features/login-dialog/ui/common.tsx:98
+#: src/features/register-dialog/ui/common.tsx:142
+#: src/features/login-dialog/ui/common.tsx:99
 msgid "Wrong credentials"
 msgstr "Неправильные учётные данные"
 
-#: src/features/register-dialog/ui/common.tsx:34
-#: src/features/login-dialog/ui/common.tsx:30
+#: src/features/register-dialog/ui/common.tsx:35
+#: src/features/login-dialog/ui/common.tsx:31
 msgid "Wrong email"
 msgstr "Неправильный email"
 
-#: src/features/register-dialog/ui/common.tsx:91
+#: src/features/register-dialog/ui/common.tsx:92
 msgid "Wrong full name"
 msgstr "Неправильное полное имя"
 
-#: src/features/register-dialog/ui/common.tsx:63
-#: src/features/login-dialog/ui/common.tsx:59
+#: src/features/register-dialog/ui/common.tsx:64
+#: src/features/login-dialog/ui/common.tsx:60
 msgid "Wrong password"
 msgstr "Неправильный пароль"
 
-#: src/features/register-dialog/ui/common.tsx:109
+#: src/features/register-dialog/ui/common.tsx:110
 msgid "Wrong username"
 msgstr "Неправильный username"
 

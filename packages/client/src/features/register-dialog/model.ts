@@ -1,14 +1,14 @@
 import { action } from '@reatom/framework';
 
+import { EmailVo } from '@rateme/core/domain/value-objects/email.vo.ts';
+import { NameVo } from '@rateme/core/domain/value-objects/name.vo.ts';
+import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo.ts';
+import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo.ts';
+
 import { registerAction } from '@/entities/session';
 import { disclosureAtom } from '@/shared/atoms/disclosure.atom.ts';
 import { fieldAtom } from '@/shared/atoms/field.atom.ts';
 import { formAtom } from '@/shared/atoms/form.atom.ts';
-
-import { EmailVo } from '../../../../core/src/domain/value-objects/email.vo.ts';
-import { NameVo } from '../../../../core/src/domain/value-objects/name.vo.ts';
-import { PasswordVo } from '../../../../core/src/domain/value-objects/password.vo.ts';
-import { UsernameVo } from '../../../../core/src/domain/value-objects/username.vo.ts';
 
 export const registerDisclosure = disclosureAtom({
   defaultIsOpened: false,

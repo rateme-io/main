@@ -4,13 +4,14 @@ import { Trans } from '@lingui/react/macro';
 import { useAtom } from '@reatom/npm-react';
 import { FunctionComponent, RefObject, useEffect } from 'react';
 
+import { wrongCredentialsError } from '@rateme/core/domain/dtos/token-auth/errors';
+
 import { registerDisclosure } from '@/features/register-dialog';
 import { ButtonLink } from '@/shared/ui/button-link.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { PasswordInput } from '@/shared/ui/password-input.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-import { wrongCredentialsError } from '../../../../../core/src/domain/dtos/token-auth/errors';
 import {
   emailField,
   loginDisclosure,

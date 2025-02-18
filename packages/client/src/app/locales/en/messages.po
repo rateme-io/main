@@ -26,7 +26,7 @@ msgstr "Allow adding custom options"
 msgid "Allow multiple selections"
 msgstr "Allow multiple selections"
 
-#: src/features/register-dialog/ui/common.tsx:133
+#: src/features/register-dialog/ui/common.tsx:134
 msgid "Already registered? Log in"
 msgstr "Already registered? Log in"
 
@@ -82,7 +82,7 @@ msgstr "Date Picker"
 msgid "Discover"
 msgstr "Discover"
 
-#: src/features/login-dialog/ui/common.tsx:90
+#: src/features/login-dialog/ui/common.tsx:91
 msgid "Don’t have an account? Sign up"
 msgstr "Don’t have an account? Sign up"
 
@@ -98,8 +98,8 @@ msgstr "Dropdown Select"
 msgid "Duration Input"
 msgstr "Duration Input"
 
-#: src/features/register-dialog/ui/common.tsx:32
-#: src/features/login-dialog/ui/common.tsx:28
+#: src/features/register-dialog/ui/common.tsx:33
+#: src/features/login-dialog/ui/common.tsx:29
 msgid "Email"
 msgstr "Email"
 
@@ -107,25 +107,25 @@ msgstr "Email"
 msgid "Enter a name for this option"
 msgstr "Enter a name for this option"
 
-#: src/features/register-dialog/ui/common.tsx:41
-#: src/features/login-dialog/ui/common.tsx:37
+#: src/features/register-dialog/ui/common.tsx:42
+#: src/features/login-dialog/ui/common.tsx:38
 msgid "Enter your email"
 msgstr "Enter your email"
 
-#: src/features/register-dialog/ui/common.tsx:94
+#: src/features/register-dialog/ui/common.tsx:95
 msgid "Enter your full name"
 msgstr "Enter your full name"
 
-#: src/features/register-dialog/ui/common.tsx:70
-#: src/features/login-dialog/ui/common.tsx:66
+#: src/features/register-dialog/ui/common.tsx:71
+#: src/features/login-dialog/ui/common.tsx:67
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/features/register-dialog/ui/common.tsx:113
+#: src/features/register-dialog/ui/common.tsx:114
 msgid "Enter your username"
 msgstr "Enter your username"
 
-#: src/features/register-dialog/ui/common.tsx:88
+#: src/features/register-dialog/ui/common.tsx:89
 msgid "Full name"
 msgstr "Full name"
 
@@ -245,8 +245,8 @@ msgstr "Number Input"
 msgid "Option label"
 msgstr "Option label"
 
-#: src/features/register-dialog/ui/common.tsx:60
-#: src/features/login-dialog/ui/common.tsx:56
+#: src/features/register-dialog/ui/common.tsx:61
+#: src/features/login-dialog/ui/common.tsx:57
 msgid "Password"
 msgstr "Password"
 
@@ -340,7 +340,7 @@ msgstr "Upload and manage images"
 msgid "URL Input"
 msgstr "URL Input"
 
-#: src/features/register-dialog/ui/common.tsx:106
+#: src/features/register-dialog/ui/common.tsx:107
 msgid "Username"
 msgstr "Username"
 
@@ -348,26 +348,26 @@ msgstr "Username"
 msgid "What do you want to create?"
 msgstr "What do you want to create?"
 
-#: src/features/register-dialog/ui/common.tsx:141
-#: src/features/login-dialog/ui/common.tsx:98
+#: src/features/register-dialog/ui/common.tsx:142
+#: src/features/login-dialog/ui/common.tsx:99
 msgid "Wrong credentials"
 msgstr "Wrong credentials"
 
-#: src/features/register-dialog/ui/common.tsx:34
-#: src/features/login-dialog/ui/common.tsx:30
+#: src/features/register-dialog/ui/common.tsx:35
+#: src/features/login-dialog/ui/common.tsx:31
 msgid "Wrong email"
 msgstr "Wrong email"
 
-#: src/features/register-dialog/ui/common.tsx:91
+#: src/features/register-dialog/ui/common.tsx:92
 msgid "Wrong full name"
 msgstr "Wrong full name"
 
-#: src/features/register-dialog/ui/common.tsx:63
-#: src/features/login-dialog/ui/common.tsx:59
+#: src/features/register-dialog/ui/common.tsx:64
+#: src/features/login-dialog/ui/common.tsx:60
 msgid "Wrong password"
 msgstr "Wrong password"
 
-#: src/features/register-dialog/ui/common.tsx:109
+#: src/features/register-dialog/ui/common.tsx:110
 msgid "Wrong username"
 msgstr "Wrong username"
 
