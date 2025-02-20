@@ -303,11 +303,11 @@ msgstr "Название опции не может быть пустой. По�
 
 #: src/features/collection-builder/ui/steps/check-step.tsx:50
 msgid "This is an example of the collection item builder that you created in the previous step."
-msgstr ""
+msgstr "Это пример конструктора элемента коллекции, который вы создали на предыдущем шаге."
 
 #: src/features/collection-builder/ui/steps/check-step.tsx:64
 msgid "This is an example of your collection item."
-msgstr ""
+msgstr "Это пример вашего элемента коллекции."
 
 #: src/features/search/ui/big.tsx:17
 msgid "Type <0>/</0> to search"
