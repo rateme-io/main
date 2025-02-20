@@ -157,7 +157,7 @@ msgstr "Полное имя"
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
-#: src/entities/collection/fields/basic/text/ui.tsx:15
+#: src/entities/collection/fields/basic/text/builder/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Поле для текста"
 
@@ -325,7 +325,7 @@ msgstr "Основные поля"
 msgid "Tags"
 msgstr "Теги"
 
-#: src/entities/collection/fields/basic/text/ui.tsx:14
+#: src/entities/collection/fields/basic/text/builder/ui.tsx:12
 msgid "Text Input"
 msgstr "Поле ввода текста"
 

@@ -2,13 +2,11 @@ import { Input } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { LuTextCursorInput } from 'react-icons/lu';
 
-import { createBuilderUI } from '@/shared/field-builder/field/builder/ui';
-import { createPreviewUI } from '@/shared/field-builder/field/preview/ui';
-import { FieldBuilder } from '@/shared/field-builder/manager';
+import { createBuilderUI } from '@/shared/field-builder/field/builder';
 import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 
-import { TextFieldBuilderState, TextFieldPreviewState } from './model.ts';
+import { TextFieldBuilderState } from './model';
 
 export const TextFieldBuilderUI = createBuilderUI<TextFieldBuilderState>({
   title: <Trans>Text Input</Trans>,
@@ -25,15 +23,4 @@ export const TextFieldBuilderUI = createBuilderUI<TextFieldBuilderState>({
   BuilderContent: reatomMemo(() => {
     return <></>;
   }, 'TextFieldUI.BuilderContent'),
-});
-
-export const TextFieldPreviewUI = createPreviewUI<TextFieldPreviewState>({
-  Preview: reatomMemo(() => {
-    return (
-      <FieldBuilder.ui.ValueRenderer
-        title={'Text Field'}
-        value={<></>}
-      />
-    );
-  }, 'TextFieldUI.Preview'),
-});
+}); 
