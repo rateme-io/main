@@ -1,20 +1,23 @@
 import { PreviewModel } from './types';
 import { PreviewUI } from './ui';
 
-export type CreatePreviewCommand<PreviewState> = {
+export type CreatePreviewCommand<BuilderState, PreviewState> = {
   model: PreviewModel<PreviewState>;
-  ui: PreviewUI<PreviewState>;
+  ui: PreviewUI<BuilderState, PreviewState>;
 };
 
-export type Preview<PreviewState> = {
+export type Preview<BuilderState, PreviewState> = {
   model: PreviewModel<PreviewState>;
-  ui: PreviewUI<PreviewState>;
+  ui: PreviewUI<BuilderState, PreviewState>;
 };
 
-export const createPreview = <PreviewState>({
+export const createPreview = <BuilderState, PreviewState>({
   model,
   ui,
-}: CreatePreviewCommand<PreviewState>): Preview<PreviewState> => {
+}: CreatePreviewCommand<BuilderState, PreviewState>): Preview<
+  BuilderState,
+  PreviewState
+> => {
   return {
     model,
     ui,

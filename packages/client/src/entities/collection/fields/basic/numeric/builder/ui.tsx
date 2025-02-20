@@ -22,26 +22,7 @@ export const NumericFieldBuilderUI = createBuilderUI<NumericFieldBuilderState>({
   title: <Trans>Number Input</Trans>,
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
-  FieldEditor: reatomMemo(
-    ({ ctx, builderState }) => (
-      <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
-        <Input
-          type={'number'}
-          min={
-            ctx.spy(builderState.min.$enabled)
-              ? (ctx.spy(builderState.min.$value) ?? undefined)
-              : undefined
-          }
-          max={
-            ctx.spy(builderState.max.$enabled)
-              ? (ctx.spy(builderState.max.$value) ?? undefined)
-              : undefined
-          }
-        />
-      </Field>
-    ),
-    'NumericFieldUI.FieldEditor',
-  ),
+
   BuilderContent: reatomMemo(({ ctx, builderState }) => {
     return (
       <FieldBuilder.ui.IssueRenderer
@@ -123,4 +104,4 @@ const NumberInput = reatomMemo<{
       </FieldBuilder.ui.IssueRenderer>
     </Field>
   );
-}, 'NumberInput'); 
+}, 'NumberInput');

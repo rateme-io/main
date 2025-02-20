@@ -62,9 +62,10 @@ export const CollectionItemBuilder = reatomMemo<CollectionItemBuilderProps>(
             flexDirection={'column'}
           >
             {children.map((item) => (
-              <item.field.builder.ui.FieldEditor
+              <item.field.preview.ui.PreviewEditor
                 key={item.id}
                 builderState={item.builder.state}
+                previewState={item.preview.state}
               />
             ))}
           </GridItem>

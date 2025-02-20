@@ -18,11 +18,11 @@ msgstr ""
 msgid "Add Collection Item"
 msgstr "Add Collection Item"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:100
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:78
 msgid "Allow adding custom options"
 msgstr "Allow adding custom options"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:90
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:68
 msgid "Allow multiple selections"
 msgstr "Allow multiple selections"
 
@@ -64,11 +64,11 @@ msgstr "Collection fields"
 msgid "Collection image"
 msgstr "Collection image"
 
-#: src/features/collection-item-builder/collection-item-builder.tsx:109
+#: src/features/collection-item-builder/collection-item-builder.tsx:110
 msgid "Collection item image"
 msgstr "Collection item image"
 
-#: src/features/collection-item-builder/collection-item-builder.tsx:90
+#: src/features/collection-item-builder/collection-item-builder.tsx:91
 msgid "Collection item name"
 msgstr "Collection item name"
 
@@ -98,7 +98,7 @@ msgstr "Don’t have an account? Sign up"
 msgid "Drop here if you want to cancel the operation"
 msgstr "Drop here if you want to cancel the operation"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:43
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:42
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
@@ -107,7 +107,7 @@ msgstr "Dropdown Select"
 msgid "Email"
 msgstr "Email"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:144
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:122
 msgid "Enter a name for this option"
 msgstr "Enter a name for this option"
 
@@ -137,7 +137,7 @@ msgstr "Full name"
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
 
-#: src/entities/collection/fields/basic/text/builder/ui.tsx:13
+#: src/entities/collection/fields/basic/text/builder/ui.tsx:11
 msgid "Input for plain text"
 msgstr "Input for plain text"
 
@@ -146,19 +146,19 @@ msgstr "Input for plain text"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:75
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:56
 msgid "Max"
 msgstr "Max"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:122
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:100
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:60
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:41
 msgid "Min"
 msgstr "Min"
 
-#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:49
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:30
 msgid "Min value should be less than max value."
 msgstr "Min value should be less than max value."
 
@@ -217,7 +217,7 @@ msgstr "Not a too simple password"
 msgid "Number Input"
 msgstr "Number Input"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:248
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:226
 msgid "Option label"
 msgstr "Option label"
 
@@ -280,20 +280,20 @@ msgstr "Sign up"
 msgid "Standard Fields"
 msgstr "Standard Fields"
 
-#: src/features/collection-item-builder/collection-item-builder.tsx:129
+#: src/features/collection-item-builder/collection-item-builder.tsx:130
 #: src/features/collection-builder/ui/steps/build-step.tsx:147
 msgid "Tags"
 msgstr "Tags"
 
-#: src/entities/collection/fields/basic/text/builder/ui.tsx:12
+#: src/entities/collection/fields/basic/text/builder/ui.tsx:10
 msgid "Text Input"
 msgstr "Text Input"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:44
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:43
 msgid "The field that displays the drop-down list"
 msgstr "The field that displays the drop-down list"
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:212
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:190
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "The option label cannot be empty. Please enter a value."
 
@@ -336,14 +336,14 @@ msgstr "Wrong username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
 
-#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:71
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:52
 msgid "You enabled max input but haven't typed a value."
 msgstr "You enabled max input but haven't typed a value."
 
-#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:56
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:37
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
 
-#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:75
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:53
 msgid "You need to add at least one option."
 msgstr "You need to add at least one option."

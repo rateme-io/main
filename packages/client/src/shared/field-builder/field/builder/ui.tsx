@@ -7,10 +7,6 @@ export type BuilderContentProps<BuilderState> = {
   issueManager: IssueManager;
 };
 
-export type BuilderEditorProps<BuilderState> = {
-  builderState: BuilderState;
-};
-
 export type BuilderOverlayProps = object;
 
 export type BuilderUI<BuilderState> = {
@@ -19,7 +15,6 @@ export type BuilderUI<BuilderState> = {
   icon: ReactNode;
   BuilderContent: (props: BuilderContentProps<BuilderState>) => ReactNode;
   BuilderOverlay?: (props: BuilderOverlayProps) => ReactNode;
-  FieldEditor: (props: BuilderEditorProps<BuilderState>) => ReactNode;
 };
 
 export type CreateBuilderUICommand<BuilderState> = BuilderUI<BuilderState>;

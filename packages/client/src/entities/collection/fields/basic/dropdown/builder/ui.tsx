@@ -13,8 +13,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAtom } from '@reatom/npm-react';
-import { CreatableSelect, Select } from 'chakra-react-select';
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren } from 'react';
 import { BsFillMenuButtonWideFill } from 'react-icons/bs';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
@@ -43,28 +42,7 @@ export const DropdownFieldBuilderUI =
     title: <Trans>Dropdown Select</Trans>,
     description: <Trans>The field that displays the drop-down list</Trans>,
     icon: <BsFillMenuButtonWideFill />,
-    FieldEditor: reatomMemo(({ ctx, builderState }) => {
-      const isCreatable = ctx.spy(builderState.model.$isCreatable);
-      const isMulti = ctx.spy(builderState.model.$isMulti);
-      const stateOptions = ctx.spy(
-        builderState.model.$options,
-      ) as DropdownFieldOption[];
 
-      const options = useMemo(() => {
-        return stateOptions.map((option: DropdownFieldOption) => ({
-          value: option.value,
-          label: ctx.spy(option.labelField.$value),
-        }));
-      }, [ctx, stateOptions]);
-
-      const SelectComponent = isCreatable ? CreatableSelect : Select;
-
-      return (
-        <Field label={ctx.spy(builderState.$name)} orientation={'horizontal'}>
-          <SelectComponent isMulti={isMulti} options={options} />
-        </Field>
-      );
-    }, 'NumericFieldUI.FieldEditor'),
     BuilderContent: reatomMemo(({ ctx, builderState }) => {
       return (
         <>
