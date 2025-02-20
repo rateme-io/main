@@ -12,12 +12,18 @@ const builder = createFieldsBuilder();
 
 const text = builder.actions.addChild(ctx, TextField);
 text.builder.state.$name(ctx, 'Director');
+const script = builder.actions.addChild(ctx, TextField);
+script.builder.state.$name(ctx, 'Script');
 const dropdown = builder.actions.addChild(ctx, DropdownField);
 dropdown.builder.state.$name(ctx, 'Genre');
 dropdown.builder.state.model.labelField.$value(ctx, 'Horror');
 dropdown.builder.state.model.add(ctx);
 dropdown.builder.state.model.$isCreatable(ctx, true);
 dropdown.builder.state.model.$isMulti(ctx, true);
+const Actors = builder.actions.addChild(ctx, DropdownField);
+Actors.builder.state.$name(ctx, 'Actors');
+Actors.builder.state.model.$isCreatable(ctx, true);
+Actors.builder.state.model.$isMulti(ctx, true);
 const numeric = builder.actions.addChild(ctx, NumericField);
 numeric.builder.state.$name(ctx, 'Year');
 numeric.builder.state.min.$enabled(ctx, true);

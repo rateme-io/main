@@ -13,14 +13,23 @@ export const TextFieldPreviewUI = createPreviewUI<
   TextFieldPreviewState
 >({
   PreviewEditor: reatomMemo(
-    ({ ctx, builderState }) => (
+    ({ ctx, builderState, previewState }) => (
       <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
-        <Input />
+        <Input
+          value={ctx.spy(previewState.$value)}
+          onChange={(event) =>
+            previewState.$value(ctx, event.currentTarget.value)
+          }
+        />
       </Field>
     ),
     'TextFieldPreviewUI.PreviewEditor',
   ),
-  Preview: reatomMemo(() => {
-    return <FieldBuilder.ui.ValueRenderer title={'Text Field'} value={<></>} />;
+  Preview: reatomMemo(({ ctx, builderState, previewState }) => {
+    return (
+      <FieldBuilder.ui.ValueRenderer title={ctx.spy(builderState.$name)}>
+        {ctx.spy(previewState.$value)}
+      </FieldBuilder.ui.ValueRenderer>
+    );
   }, 'TextFieldUI.Preview'),
 });

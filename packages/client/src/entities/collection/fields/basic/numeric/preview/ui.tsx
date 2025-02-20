@@ -13,9 +13,13 @@ export const NumericFieldPreviewUI = createPreviewUI<
   NumericFieldPreviewState
 >({
   PreviewEditor: reatomMemo(
-    ({ ctx, builderState }) => (
+    ({ ctx, builderState, previewState }) => (
       <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
         <Input
+          value={ctx.spy(previewState.$value)}
+          onChange={(event) =>
+            previewState.$value(ctx, parseFloat(event.currentTarget.value))
+          }
           type={'number'}
           min={
             ctx.spy(builderState.min.$enabled)
@@ -32,9 +36,11 @@ export const NumericFieldPreviewUI = createPreviewUI<
     ),
     'NumericFieldPreviewUI.PreviewEditor',
   ),
-  Preview: reatomMemo(() => {
+  Preview: reatomMemo(({ ctx, previewState, builderState }) => {
     return (
-      <FieldBuilder.ui.ValueRenderer title={'Numeric Field'} value={<></>} />
+      <FieldBuilder.ui.ValueRenderer title={ctx.spy(builderState.$name)}>
+        {ctx.spy(previewState.$value)}
+      </FieldBuilder.ui.ValueRenderer>
     );
   }, 'NumericFieldUI.Preview'),
 });

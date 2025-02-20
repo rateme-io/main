@@ -19,7 +19,7 @@ export const DROPDOWN_FIELD_EMPTY_OPTION_LABEL = Symbol(
   'DROPDOWN_FIELD_EMPTY_OPTION_LABEL',
 );
 
-export type DropdownFieldOption = {
+export type DropdownBuilderOption = {
   value: string;
   labelField: FieldAtom<string>;
 };
@@ -32,7 +32,7 @@ const labelSchema = z
 export const createModel = () => {
   const $isMulti = atom<boolean>(false, '$isMulti');
   const $isCreatable = atom<boolean>(false, '$isCreatable');
-  const $options = atom<DropdownFieldOption[]>([], '$options');
+  const $options = atom<DropdownBuilderOption[]>([], '$options');
 
   const labelField = fieldAtom<string>({
     defaultValue: '',
@@ -64,7 +64,7 @@ export const createModel = () => {
         return;
       }
       labelField.reset(ctx);
-      const newOption: DropdownFieldOption = {
+      const newOption: DropdownBuilderOption = {
         value: generateId(),
         labelField: fieldAtom({
           defaultValue: validValue,

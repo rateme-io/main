@@ -33,8 +33,8 @@ import {
   DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
   DROPDOWN_FIELD_EMPTY_OPTIONS,
   DROPDOWN_FIELD_LABEL_WARNING,
+  DropdownBuilderOption,
   DropdownFieldBuilderState,
-  DropdownFieldOption,
 } from './model';
 
 export const DropdownFieldBuilderUI =
@@ -168,7 +168,7 @@ const OptionsField = reatomMemo(({ ctx }) => {
 }, 'OptionsField');
 
 type OptionProps = {
-  option: DropdownFieldOption;
+  option: DropdownBuilderOption;
 };
 
 const Option = reatomMemo<OptionProps>(({ ctx, option }) => {
@@ -257,7 +257,7 @@ const Option = reatomMemo<OptionProps>(({ ctx, option }) => {
 }, 'Option');
 
 type OptionDraggableWrapperProps = PropsWithChildren<{
-  option: DropdownFieldOption;
+  option: DropdownBuilderOption;
 }>;
 
 const OptionDraggableWrapper = reatomMemo<OptionDraggableWrapperProps>(

@@ -1,4 +1,4 @@
-import { Grid, GridItem, Heading, Image } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Heading, Image } from '@chakra-ui/react';
 
 import { FieldBuilderModel } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
@@ -43,12 +43,17 @@ export const CollectionItem = reatomMemo<CollectionItemProps>(
         </GridItem>
 
         <GridItem gridArea={'fields'}>
-          {children.map((node) => (
-            <node.field.preview.ui.Preview
-              key={node.id}
-              previewState={node.preview.state}
-            />
-          ))}
+          <Box asChild>
+            <table>
+              {children.map((node) => (
+                <node.field.preview.ui.Preview
+                  key={node.id}
+                  builderState={node.builder.state}
+                  previewState={node.preview.state}
+                />
+              ))}
+            </table>
+          </Box>
         </GridItem>
       </Grid>
     );

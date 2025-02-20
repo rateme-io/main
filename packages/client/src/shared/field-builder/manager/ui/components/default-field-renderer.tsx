@@ -1,22 +1,27 @@
-import { Text } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react/box';
-import { Flex } from '@chakra-ui/react/flex';
-import { ReactNode } from 'react';
+import { Box, Text } from '@chakra-ui/react';
+import { PropsWithChildren, ReactNode } from 'react';
 
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
-type DefaultFieldRendererProps = {
+type DefaultFieldRendererProps = PropsWithChildren<{
   title: ReactNode;
-  value: ReactNode;
-};
+}>;
 
 export const DefaultFieldRenderer = reatomMemo<DefaultFieldRendererProps>(
-  ({ value, title }) => {
+  ({ children, title }) => {
     return (
-      <Flex>
-        <Text fontWeight={'bold'}>{title}</Text>
-        <Box>{value}</Box>
-      </Flex>
+      <Box asChild>
+        <tr>
+          <Box asChild alignContent={'start'} padding={1}>
+            <td>
+              <Text fontWeight={'semibold'}>{title}</Text>
+            </td>
+          </Box>
+          <Box asChild padding={1}>
+            <td>{children}</td>
+          </Box>
+        </tr>
+      </Box>
     );
   },
   'DefaultFieldRenderer',
