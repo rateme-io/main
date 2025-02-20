@@ -20,7 +20,6 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator } from 'react-icons/md';
 
-import { DropdownFieldPreviewState } from '@/entities/collection/fields/basic/dropdown/model.ts';
 import { createBuilderUI } from '@/shared/field-builder/field/builder';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
@@ -30,6 +29,7 @@ import { Field } from '@/shared/ui/field.tsx';
 import { InputGroup } from '@/shared/ui/input-group.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
+import { DropdownFieldPreviewState } from '../preview/model';
 import {
   DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
   DROPDOWN_FIELD_EMPTY_OPTIONS,

@@ -3,9 +3,7 @@ import { atom } from '@reatom/framework';
 import { numberAtom } from '@/shared/atoms/number-atom';
 import {
   createBuilderModel,
-  createPreviewModel,
   InferBuilderState,
-  InferPreviewState,
 } from '@/shared/field-builder/field';
 
 export const NUMERIC_FIELD_EMPTY_MIN_ISSUE = Symbol(
@@ -68,15 +66,6 @@ export const NumericFieldBuilderModel = createBuilderModel({
   },
 });
 
-export const NumericFieldPreviewModel = createPreviewModel({
-  state: () => ({
-    $value: atom(0, 'state.$value'),
-  }),
-});
-
 export type NumericFieldBuilderState = InferBuilderState<
   typeof NumericFieldBuilderModel
->;
-export type NumericFieldPreviewState = InferPreviewState<
-  typeof NumericFieldPreviewModel
->;
+>; 

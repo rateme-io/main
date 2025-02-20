@@ -2,8 +2,10 @@ import { createField } from '@/shared/field-builder/field';
 import { createBuilder } from '@/shared/field-builder/field/builder';
 import { createPreview } from '@/shared/field-builder/field/preview';
 
-import { NumericFieldBuilderModel, NumericFieldPreviewModel } from './model';
-import { NumericFieldBuilderUI, NumericFieldPreviewUI } from './ui';
+import { NumericFieldBuilderModel } from './builder/model';
+import { NumericFieldBuilderUI } from './builder/ui';
+import { NumericFieldPreviewModel } from './preview/model';
+import { NumericFieldPreviewUI } from './preview/ui';
 
 const NumericFieldBuilder = createBuilder({
   model: NumericFieldBuilderModel,

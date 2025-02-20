@@ -153,7 +153,7 @@ msgstr "Полное имя"
 #~ msgid "Input for external links"
 #~ msgstr "Поле для внешних ссылок"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:25
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
@@ -182,7 +182,7 @@ msgstr "Поле для текста"
 msgid "Logout"
 msgstr "Выйти"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:77
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:75
 msgid "Max"
 msgstr "Max"
 
@@ -190,11 +190,11 @@ msgstr "Max"
 msgid "Maybe you forgot to add the last option."
 msgstr "Возможно, вы забыли добавить последнюю опцию."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:62
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:60
 msgid "Min"
 msgstr "Min"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:51
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:49
 msgid "Min value should be less than max value."
 msgstr "Минимальное значение должно быть меньше максимального."
 
@@ -249,7 +249,7 @@ msgstr "Без пробелов"
 msgid "Not a too simple password"
 msgstr "Не слишком простой пароль"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:24
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:22
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
@@ -388,11 +388,11 @@ msgstr "Неправильный username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "Вы можете добавить поля на доску, перетащив их из правой панели во вкладке конструктора."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:73
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:71
 msgid "You enabled max input but haven't typed a value."
 msgstr "Вы включили максимальное значение, но не ввели его."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:58
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:56
 msgid "You enabled min input but haven't typed a value."
 msgstr "Вы включили минимальное значение, но не ввели его."
 

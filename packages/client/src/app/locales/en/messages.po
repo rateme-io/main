@@ -153,7 +153,7 @@ msgstr "Full name"
 #~ msgid "Input for external links"
 #~ msgstr "Input for external links"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:25
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
 
@@ -182,7 +182,7 @@ msgstr "Input for plain text"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:77
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:75
 msgid "Max"
 msgstr "Max"
 
@@ -190,11 +190,11 @@ msgstr "Max"
 msgid "Maybe you forgot to add the last option."
 msgstr "Maybe you forgot to add the last option."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:62
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:60
 msgid "Min"
 msgstr "Min"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:51
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:49
 msgid "Min value should be less than max value."
 msgstr "Min value should be less than max value."
 
@@ -249,7 +249,7 @@ msgstr "No white spaces"
 msgid "Not a too simple password"
 msgstr "Not a too simple password"
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:24
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:22
 msgid "Number Input"
 msgstr "Number Input"
 
@@ -388,11 +388,11 @@ msgstr "Wrong username"
 msgid "You can add fields to the board by dragging them from the right panel in the builder tab."
 msgstr "You can add fields to the board by dragging them from the right panel in the builder tab."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:73
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:71
 msgid "You enabled max input but haven't typed a value."
 msgstr "You enabled max input but haven't typed a value."
 
-#: src/entities/collection/fields/basic/numeric/ui.tsx:58
+#: src/entities/collection/fields/basic/numeric/builder/ui.tsx:56
 msgid "You enabled min input but haven't typed a value."
 msgstr "You enabled min input but haven't typed a value."
 

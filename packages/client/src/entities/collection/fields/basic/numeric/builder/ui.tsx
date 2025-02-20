@@ -5,8 +5,7 @@ import { ReactNode } from 'react';
 import { TiSortNumerically } from 'react-icons/ti';
 
 import { NumberAtom } from '@/shared/atoms/number-atom.ts';
-import { createBuilderUI } from '@/shared/field-builder/field/builder/ui';
-import { createPreviewUI } from '@/shared/field-builder/field/preview/ui';
+import { createBuilderUI } from '@/shared/field-builder/field/builder';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Field } from '@/shared/ui/field.tsx';
@@ -17,8 +16,7 @@ import {
   NUMERIC_FIELD_EMPTY_MIN_ISSUE,
   NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE,
   NumericFieldBuilderState,
-  NumericFieldPreviewState,
-} from './model.ts';
+} from './model';
 
 export const NumericFieldBuilderUI = createBuilderUI<NumericFieldBuilderState>({
   title: <Trans>Number Input</Trans>,
@@ -125,12 +123,4 @@ const NumberInput = reatomMemo<{
       </FieldBuilder.ui.IssueRenderer>
     </Field>
   );
-}, 'NumberInput');
-
-export const NumericFieldPreviewUI = createPreviewUI<NumericFieldPreviewState>({
-  Preview: reatomMemo(() => {
-    return (
-      <FieldBuilder.ui.ValueRenderer title={'Numeric Field'} value={<></>} />
-    );
-  }, 'NumericFieldUI.Preview'),
-});
+}, 'NumberInput'); 
