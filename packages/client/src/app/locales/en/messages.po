@@ -85,7 +85,7 @@ msgstr "Collections"
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/entities/collection/fields/time/date/ui.tsx:10
+#: src/entities/collection/fields/time/date/ui.tsx:11
 msgid "Date Picker"
 msgstr "Date Picker"
 
@@ -106,7 +106,7 @@ msgstr "Drop here if you want to cancel the operation"
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
 
-#: src/entities/collection/fields/time/duration/ui.tsx:10
+#: src/entities/collection/fields/time/duration/ui.tsx:11
 msgid "Duration Input"
 msgstr "Duration Input"
 
@@ -145,11 +145,11 @@ msgstr "Full name"
 msgid "Image Fields"
 msgstr "Image Fields"
 
-#: src/entities/collection/fields/image/images/ui.tsx:10
+#: src/entities/collection/fields/image/images/ui.tsx:11
 msgid "Image Upload"
 msgstr "Image Upload"
 
-#: src/entities/collection/fields/link/link/ui.tsx:11
+#: src/entities/collection/fields/link/link/ui.tsx:12
 msgid "Input for external links"
 msgstr "Input for external links"
 
@@ -161,11 +161,11 @@ msgstr "Input for numeric values"
 msgid "Input for plain text"
 msgstr "Input for plain text"
 
-#: src/entities/collection/fields/time/duration/ui.tsx:11
+#: src/entities/collection/fields/time/duration/ui.tsx:12
 msgid "Input for time duration"
 msgstr "Input for time duration"
 
-#: src/entities/collection/fields/link/internal-link/ui.tsx:10
+#: src/entities/collection/fields/link/internal-link/ui.tsx:11
 msgid "Internal Link"
 msgstr "Internal Link"
 
@@ -173,7 +173,7 @@ msgstr "Internal Link"
 msgid "Link Fields"
 msgstr "Link Fields"
 
-#: src/entities/collection/fields/link/internal-link/ui.tsx:11
+#: src/entities/collection/fields/link/internal-link/ui.tsx:12
 msgid "Link to another collection item"
 msgstr "Link to another collection item"
 
@@ -293,7 +293,7 @@ msgstr "Rating systems"
 msgid "Registration"
 msgstr "Registration"
 
-#: src/entities/collection/fields/time/date/ui.tsx:11
+#: src/entities/collection/fields/time/date/ui.tsx:12
 msgid "Select a date"
 msgstr "Select a date"
 
@@ -345,11 +345,11 @@ msgstr "Time Fields"
 msgid "Type <0>/</0> to search"
 msgstr "Type <0>/</0> to search"
 
-#: src/entities/collection/fields/image/images/ui.tsx:11
+#: src/entities/collection/fields/image/images/ui.tsx:12
 msgid "Upload and manage images"
 msgstr "Upload and manage images"
 
-#: src/entities/collection/fields/link/link/ui.tsx:10
+#: src/entities/collection/fields/link/link/ui.tsx:11
 msgid "URL Input"
 msgstr "URL Input"
 

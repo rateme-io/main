@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { MdLink } from 'react-icons/md';
 
 import { createFieldUI } from '@/shared/field-builder/field';
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { InternalLinkFieldState } from './model.ts';
@@ -15,4 +16,12 @@ export const InternalLinkFieldUI = createFieldUI<InternalLinkFieldState>({
   BuilderContent: reatomMemo(() => {
     return <></>;
   }, 'InternalLinkFieldUI.BuilderContent'),
+  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+    return (
+      <FieldBuilder.ui.ValueRenderer
+        title={ctx.spy(builderState.$name)}
+        value={<></>}
+      />
+    );
+  }, 'InternalLinkFieldUI.FieldPreview'),
 });

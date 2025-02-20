@@ -85,7 +85,7 @@ msgstr "Коллекции"
 msgid "Coming soon"
 msgstr "Скоро"
 
-#: src/entities/collection/fields/time/date/ui.tsx:10
+#: src/entities/collection/fields/time/date/ui.tsx:11
 msgid "Date Picker"
 msgstr "Выбор даты"
 
@@ -106,7 +106,7 @@ msgstr "Перетащите сюда, если хотите отменить о
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
-#: src/entities/collection/fields/time/duration/ui.tsx:10
+#: src/entities/collection/fields/time/duration/ui.tsx:11
 msgid "Duration Input"
 msgstr "Поле длительности"
 
@@ -145,11 +145,11 @@ msgstr "Полное имя"
 msgid "Image Fields"
 msgstr "Поля изображений"
 
-#: src/entities/collection/fields/image/images/ui.tsx:10
+#: src/entities/collection/fields/image/images/ui.tsx:11
 msgid "Image Upload"
 msgstr "Загрузка изображений"
 
-#: src/entities/collection/fields/link/link/ui.tsx:11
+#: src/entities/collection/fields/link/link/ui.tsx:12
 msgid "Input for external links"
 msgstr "Поле для внешних ссылок"
 
@@ -161,11 +161,11 @@ msgstr "Поле для числовых значений"
 msgid "Input for plain text"
 msgstr "Поле для текста"
 
-#: src/entities/collection/fields/time/duration/ui.tsx:11
+#: src/entities/collection/fields/time/duration/ui.tsx:12
 msgid "Input for time duration"
 msgstr "Поле для указания времени"
 
-#: src/entities/collection/fields/link/internal-link/ui.tsx:10
+#: src/entities/collection/fields/link/internal-link/ui.tsx:11
 msgid "Internal Link"
 msgstr "Внутренняя ссылка"
 
@@ -173,7 +173,7 @@ msgstr "Внутренняя ссылка"
 msgid "Link Fields"
 msgstr "Поля ссылок"
 
-#: src/entities/collection/fields/link/internal-link/ui.tsx:11
+#: src/entities/collection/fields/link/internal-link/ui.tsx:12
 msgid "Link to another collection item"
 msgstr "Ссылка на другой элемент коллекции"
 
@@ -293,7 +293,7 @@ msgstr "Системы оценивания"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: src/entities/collection/fields/time/date/ui.tsx:11
+#: src/entities/collection/fields/time/date/ui.tsx:12
 msgid "Select a date"
 msgstr "Выберите дату"
 
@@ -345,11 +345,11 @@ msgstr "Поля времени"
 msgid "Type <0>/</0> to search"
 msgstr "Введите <0>/</0> для поиска"
 
-#: src/entities/collection/fields/image/images/ui.tsx:11
+#: src/entities/collection/fields/image/images/ui.tsx:12
 msgid "Upload and manage images"
 msgstr "Загрузите и управляйте изображениями"
 
-#: src/entities/collection/fields/link/link/ui.tsx:10
+#: src/entities/collection/fields/link/link/ui.tsx:11
 msgid "URL Input"
 msgstr "Поле для ввода URL"
 
