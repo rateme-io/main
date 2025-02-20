@@ -2,14 +2,15 @@ import { Input } from '@chakra-ui/react';
 import { Trans } from '@lingui/react/macro';
 import { LuTextCursorInput } from 'react-icons/lu';
 
-import { createFieldUI } from '@/shared/field-builder/field';
+import { createBuilderUI } from '@/shared/field-builder/field/builder/ui';
+import { createPreviewUI } from '@/shared/field-builder/field/preview/ui';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 
-import { TextFieldState } from './model.ts';
+import { TextFieldBuilderState, TextFieldPreviewState } from './model.ts';
 
-export const TextFieldUI = createFieldUI<TextFieldState>({
+export const TextFieldBuilderUI = createBuilderUI<TextFieldBuilderState>({
   title: <Trans>Text Input</Trans>,
   description: <Trans>Input for plain text</Trans>,
   icon: <LuTextCursorInput />,
@@ -19,17 +20,20 @@ export const TextFieldUI = createFieldUI<TextFieldState>({
         <Input />
       </Field>
     ),
-    'NumericFieldUI.FieldEditor',
+    'TextFieldUI.FieldEditor',
   ),
   BuilderContent: reatomMemo(() => {
     return <></>;
   }, 'TextFieldUI.BuilderContent'),
-  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+});
+
+export const TextFieldPreviewUI = createPreviewUI<TextFieldPreviewState>({
+  Preview: reatomMemo(() => {
     return (
       <FieldBuilder.ui.ValueRenderer
-        title={ctx.spy(builderState.$name)}
+        title={'Text Field'}
         value={<></>}
       />
     );
-  }, 'TextFieldUI.FieldPreview'),
+  }, 'TextFieldUI.Preview'),
 });

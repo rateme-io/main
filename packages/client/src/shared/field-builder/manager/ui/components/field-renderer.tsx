@@ -100,7 +100,7 @@ type FieldRendererProps = {
 };
 
 const FieldRenderer = reatomMemo<FieldRendererProps>(({ node }) => {
-  const Content = node.field.ui.BuilderContent;
+  const Content = node.field.builder.ui.BuilderContent;
 
   const context = useMemo(() => ({ node }), [node]);
 
@@ -112,7 +112,7 @@ const FieldRenderer = reatomMemo<FieldRendererProps>(({ node }) => {
         <Flex justifyContent={'space-between'} padding={2}>
           <Flex gap={2} alignItems={'center'}>
             <Icon asChild>
-              <i>{node.field.ui.icon}</i>
+              <i>{node.field.builder.ui.icon}</i>
             </Icon>
 
             <FieldRendererName node={node} />
@@ -156,7 +156,7 @@ const FieldRendererName = reatomMemo<FieldRendererNameProps>(
         <Editable
           onValueChange={ctx.bind(node.$name)}
           value={ctx.spy(node.$name)}
-          placeholder={node.field.ui.title}
+          placeholder={node.field.builder.ui.title}
           required
         />
       </IssueRenderer>

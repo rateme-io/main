@@ -1,17 +1,25 @@
 import { AtomMut } from '@reatom/framework';
 
 import { NodeAtom } from '@/shared/atoms/tree-atom';
-import { Field, FieldBuilderInstance } from '@/shared/field-builder/field';
+import {
+  BuilderInstance,
+  Field,
+  PreviewInstance,
+} from '@/shared/field-builder/field';
 import { FieldGroup } from '@/shared/field-builder/group';
 
 export type CreateFieldsManagerCommand = {
   groups: FieldGroup[];
 };
 
-export type BoardNode<State = unknown> = NodeAtom<NodePayload<State>>;
+export type BoardNode<
+  BuilderState = unknown,
+  PreviewState = unknown,
+> = NodeAtom<NodePayload<BuilderState, PreviewState>>;
 
-export type NodePayload<State = unknown> = {
-  field: Field<State>;
+export type NodePayload<BuilderState = unknown, PreviewState = unknown> = {
+  field: Field<BuilderState, PreviewState>;
   $name: AtomMut<string>;
-  builder: FieldBuilderInstance<State>;
+  builder: BuilderInstance<BuilderState>;
+  preview: PreviewInstance<PreviewState>;
 };

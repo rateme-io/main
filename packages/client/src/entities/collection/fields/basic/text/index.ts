@@ -1,10 +1,22 @@
 import { createField } from '@/shared/field-builder/field';
+import { createBuilder } from '@/shared/field-builder/field/builder';
+import { createPreview } from '@/shared/field-builder/field/preview';
 
-import { TextFieldModel } from './model';
-import { TextFieldUI } from './ui';
+import { TextFieldBuilderModel, TextFieldPreviewModel } from './model';
+import { TextFieldBuilderUI, TextFieldPreviewUI } from './ui';
+
+const TextFieldBuilder = createBuilder({
+  model: TextFieldBuilderModel,
+  ui: TextFieldBuilderUI,
+});
+
+const TextFieldPreview = createPreview({
+  model: TextFieldPreviewModel,
+  ui: TextFieldPreviewUI,
+});
 
 export const TextField = createField({
   name: 'TextField',
-  model: TextFieldModel,
-  ui: TextFieldUI,
+  builder: TextFieldBuilder,
+  preview: TextFieldPreview,
 });

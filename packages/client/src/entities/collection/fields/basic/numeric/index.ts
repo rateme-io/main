@@ -1,10 +1,22 @@
 import { createField } from '@/shared/field-builder/field';
+import { createBuilder } from '@/shared/field-builder/field/builder';
+import { createPreview } from '@/shared/field-builder/field/preview';
 
-import { NumericFieldModel } from './model';
-import { NumericFieldUI } from './ui';
+import { NumericFieldBuilderModel, NumericFieldPreviewModel } from './model';
+import { NumericFieldBuilderUI, NumericFieldPreviewUI } from './ui';
+
+const NumericFieldBuilder = createBuilder({
+  model: NumericFieldBuilderModel,
+  ui: NumericFieldBuilderUI,
+});
+
+const NumericFieldPreview = createPreview({
+  model: NumericFieldPreviewModel,
+  ui: NumericFieldPreviewUI,
+});
 
 export const NumericField = createField({
   name: 'NumericField',
-  model: NumericFieldModel,
-  ui: NumericFieldUI,
+  builder: NumericFieldBuilder,
+  preview: NumericFieldPreview,
 });

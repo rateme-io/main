@@ -62,7 +62,7 @@ const MenuGroupItem = reatomMemo<MenuGroupItemProps>(({ group }) => {
 }, 'MenuGroupItem');
 
 type MenuDraggableContainerProps = PropsWithChildren<{
-  field: Field<unknown>;
+  field: Field<unknown, unknown>;
 }>;
 
 const MenuDraggableContainer = reatomMemo<MenuDraggableContainerProps>(
@@ -73,7 +73,7 @@ const MenuDraggableContainer = reatomMemo<MenuDraggableContainerProps>(
         field,
       },
       {
-        disabled: field.ui.comingSoon,
+        disabled: field.comingSoon,
       },
     );
 
@@ -87,13 +87,13 @@ const MenuDraggableContainer = reatomMemo<MenuDraggableContainerProps>(
 );
 
 type FieldItemProps = {
-  field: Field<unknown>;
+  field: Field<unknown, unknown>;
 };
 
 const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
   return (
     <Flex
-      pointerEvents={field.ui.comingSoon ? 'none' : 'auto'}
+      pointerEvents={field.comingSoon ? 'none' : 'auto'}
       paddingBlock={2}
       paddingInline={2}
       borderStyle={'dashed'}
@@ -112,12 +112,12 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
       <Flex justifyContent={'space-between'} width={'100%'}>
         <Flex alignItems={'center'} gap={1}>
           <Icon>
-            <i>{field.ui.icon}</i>
+            <i>{field.builder.ui.icon}</i>
           </Icon>
-          <Text>{field.ui.title}</Text>
+          <Text>{field.builder.ui.title}</Text>
         </Flex>
 
-        {field.ui.comingSoon && (
+        {field.comingSoon && (
           <Flex
             borderRadius={'md'}
             backgroundColor={'bg.info'}
@@ -132,11 +132,11 @@ const MenuFieldItem = reatomMemo<FieldItemProps>(({ field }) => {
 
       <Flex alignItems={'center'} gap={1}>
         <Icon opacity={0}>
-          <i>{field.ui.icon}</i>
+          <i>{field.builder.ui.icon}</i>
         </Icon>
 
         <Text fontSize={'sm'} color={'fg.muted'}>
-          {field.ui.description}
+          {field.builder.ui.description}
         </Text>
       </Flex>
     </Flex>

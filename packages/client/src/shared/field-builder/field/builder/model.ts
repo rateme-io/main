@@ -2,20 +2,17 @@ import { action } from '@reatom/framework';
 
 import { createIssueManager, ValidationApi } from '@/shared/issue-manager';
 
-import { CreateFieldModelCommand, FieldModel } from './types.ts';
+import { BuilderModel, CreateBuilderModelCommand } from './types';
 
 export const FIELD_NAME_ISSUE = Symbol('FIELD_NAME_ISSUE');
 
-export const createFieldModel = <State>({
-  builderState,
-  validateField: _validateField,
-}: CreateFieldModelCommand<State>): FieldModel<State> => {
-  const validateField =
-    _validateField && action(_validateField, 'validateField');
-
+export const createBuilderModel = <BuilderState>({
+  state: createState,
+  validateField,
+}: CreateBuilderModelCommand<BuilderState>): BuilderModel<BuilderState> => {
   return {
-    createBuilder: (command) => {
-      const currentState = builderState(command);
+    create: (command) => {
+      const state = createState(command);
 
       const validateName = action((ctx, name: string) => {
         if (name.trim() === '') {
@@ -33,7 +30,7 @@ export const createFieldModel = <State>({
             validateName(ctx, ctx.get(command.$name));
           } else {
             validateField(ctx, {
-              state: currentState,
+              state,
               validateName,
               addIssue: api.addIssue,
             });
@@ -42,7 +39,7 @@ export const createFieldModel = <State>({
       });
 
       return {
-        state: currentState,
+        state,
         issueManager,
       };
     },

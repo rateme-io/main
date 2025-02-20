@@ -1,14 +1,15 @@
-import { CreateStateCommand, FieldBuilderInstance, FieldModel } from './model';
-import { FieldUI } from './ui';
+import { Builder } from './builder';
+import { Preview } from './preview';
 
-export type CreateFieldCommand<State> = {
+export type CreateFieldCommand<BuilderState, PreviewState> = {
   name: string;
-  model: FieldModel<State>;
-  ui: FieldUI<State>;
+  builder: Builder<BuilderState>;
+  preview: Preview<PreviewState>;
 };
 
-export type Field<State> = {
+export type Field<BuilderState, PreviewState> = {
   id: string;
-  ui: FieldUI<State>;
-  createBuilder: (command: CreateStateCommand) => FieldBuilderInstance<State>;
+  comingSoon?: boolean;
+  builder: Builder<BuilderState>;
+  preview: Preview<PreviewState>;
 };

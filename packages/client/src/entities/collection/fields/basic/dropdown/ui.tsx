@@ -20,7 +20,8 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator } from 'react-icons/md';
 
-import { createFieldUI } from '@/shared/field-builder/field';
+import { createBuilderUI } from '@/shared/field-builder/field/builder';
+import { createPreviewUI } from '@/shared/field-builder/field/preview';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
@@ -33,90 +34,87 @@ import {
   DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
   DROPDOWN_FIELD_EMPTY_OPTIONS,
   DROPDOWN_FIELD_LABEL_WARNING,
+  DropdownFieldBuilderState,
   DropdownFieldOption,
-  DropdownFieldState,
+  DropdownFieldPreviewState,
 } from './model.ts';
 
-export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
-  title: <Trans>Dropdown Select</Trans>,
-  description: <Trans>The field that displays the drop-down list</Trans>,
-  icon: <BsFillMenuButtonWideFill />,
-  FieldEditor: reatomMemo(({ ctx, builderState }) => {
-    const isCreatable = ctx.spy(builderState.model.$isCreatable);
-    const isMulti = ctx.spy(builderState.model.$isMulti);
+export const DropdownFieldBuilderUI =
+  createBuilderUI<DropdownFieldBuilderState>({
+    title: <Trans>Dropdown Select</Trans>,
+    description: <Trans>The field that displays the drop-down list</Trans>,
+    icon: <BsFillMenuButtonWideFill />,
+    FieldEditor: reatomMemo(({ ctx, builderState }) => {
+      const isCreatable = ctx.spy(builderState.model.$isCreatable);
+      const isMulti = ctx.spy(builderState.model.$isMulti);
 
-    const stateOptions = ctx.spy(builderState.model.$options);
+      const stateOptions = ctx.spy(builderState.model.$options);
 
-    const options = useMemo(() => {
-      return stateOptions.map((option) => ({
-        value: option.value,
-        label: ctx.spy(option.labelField.$value),
-      }));
-    }, [ctx, stateOptions]);
+      const options = useMemo(() => {
+        return stateOptions.map((option) => ({
+          value: option.value,
+          label: ctx.spy(option.labelField.$value),
+        }));
+      }, [ctx, stateOptions]);
 
-    const SelectComponent = isCreatable ? CreatableSelect : Select;
+      const SelectComponent = isCreatable ? CreatableSelect : Select;
 
-    return (
-      <Field label={ctx.spy(builderState.$name)} orientation={'horizontal'}>
-        <SelectComponent isMulti={isMulti} options={options} />
-      </Field>
-    );
-  }, 'NumericFieldUI.FieldEditor'),
-  BuilderContent: reatomMemo(({ ctx, builderState }) => {
-    return (
-      <>
-        <Flex gap={5} flex={1}>
-          <Flex flexDirection={'column'} flex={1} asChild>
-            <FieldBuilder.ui.IssueRenderer
-              issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
-              message={<Trans>You need to add at least one option.</Trans>}
-            >
-              <OptionsField />
-              <AddOption />
-            </FieldBuilder.ui.IssueRenderer>
+      return (
+        <Field label={ctx.spy(builderState.$name)} orientation={'horizontal'}>
+          <SelectComponent isMulti={isMulti} options={options} />
+        </Field>
+      );
+    }, 'NumericFieldUI.FieldEditor'),
+    BuilderContent: reatomMemo(({ ctx, builderState }) => {
+      return (
+        <>
+          <Flex gap={5} flex={1}>
+            <Flex flexDirection={'column'} flex={1} asChild>
+              <FieldBuilder.ui.IssueRenderer
+                issueId={DROPDOWN_FIELD_EMPTY_OPTIONS}
+                message={<Trans>You need to add at least one option.</Trans>}
+              >
+                <OptionsField />
+                <AddOption />
+              </FieldBuilder.ui.IssueRenderer>
+            </Flex>
+
+            <Flex flexDirection={'column'} gap={2}>
+              <Checkbox
+                cursor={'pointer'}
+                checked={ctx.spy(builderState.model.$isMulti)}
+                onCheckedChange={(event) =>
+                  builderState.model.$isMulti(ctx, !!event.checked)
+                }
+              >
+                <Trans>Allow multiple selections</Trans>
+              </Checkbox>
+
+              <Checkbox
+                cursor={'pointer'}
+                checked={ctx.spy(builderState.model.$isCreatable)}
+                onCheckedChange={(event) =>
+                  builderState.model.$isCreatable(ctx, !!event.checked)
+                }
+              >
+                <Trans>Allow adding custom options</Trans>
+              </Checkbox>
+            </Flex>
           </Flex>
-
-          <Flex flexDirection={'column'} gap={2}>
-            <Checkbox
-              cursor={'pointer'}
-              checked={ctx.spy(builderState.model.$isMulti)}
-              onCheckedChange={(event) =>
-                builderState.model.$isMulti(ctx, !!event.checked)
-              }
-            >
-              <Trans>Allow multiple selections</Trans>
-            </Checkbox>
-
-            <Checkbox
-              cursor={'pointer'}
-              checked={ctx.spy(builderState.model.$isCreatable)}
-              onCheckedChange={(event) =>
-                builderState.model.$isCreatable(ctx, !!event.checked)
-              }
-            >
-              <Trans>Allow adding custom options</Trans>
-            </Checkbox>
-          </Flex>
-        </Flex>
-      </>
-    );
-  }, 'DropdownFieldUI.BuilderContent'),
-  FieldPreview: reatomMemo(({ ctx, builderState }) => {
-    return (
-      <FieldBuilder.ui.ValueRenderer
-        title={ctx.spy(builderState.$name)}
-        value={<></>}
-      />
-    );
-  }, 'DropdownFieldUI.FieldPreview'),
-});
+        </>
+      );
+    }, 'DropdownFieldUI.BuilderContent'),
+  });
 
 const AddOption = reatomMemo(({ ctx }) => {
   const {
     node: {
       builder: { state },
     },
-  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
+  } = FieldBuilder.ui.useFieldContext<
+    DropdownFieldBuilderState,
+    DropdownFieldPreviewState
+  >();
 
   return (
     <FieldBuilder.ui.IssueRenderer
@@ -164,7 +162,10 @@ const OptionsField = reatomMemo(({ ctx }) => {
     node: {
       builder: { state },
     },
-  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
+  } = FieldBuilder.ui.useFieldContext<
+    DropdownFieldBuilderState,
+    DropdownFieldPreviewState
+  >();
 
   const [values] = useAtom((ctx) =>
     ctx.spy(state.model.$options).map((option) => option.value),
@@ -197,7 +198,10 @@ const Option = reatomMemo<OptionProps>(({ ctx, option }) => {
     node: {
       builder: { state },
     },
-  } = FieldBuilder.ui.useFieldContext<DropdownFieldState>();
+  } = FieldBuilder.ui.useFieldContext<
+    DropdownFieldBuilderState,
+    DropdownFieldPreviewState
+  >();
 
   return (
     <OptionDraggableWrapper option={option}>
@@ -323,3 +327,12 @@ const OptionDraggableActivator = reatomMemo(() => {
     </IconButton>
   );
 }, 'OptionDraggableActivator');
+
+export const DropdownFieldPreviewUI =
+  createPreviewUI<DropdownFieldPreviewState>({
+    Preview: reatomMemo(() => {
+      return (
+        <FieldBuilder.ui.ValueRenderer title={'Dropdown Field'} value={<></>} />
+      );
+    }, 'DropdownFieldUI.Preview'),
+  });

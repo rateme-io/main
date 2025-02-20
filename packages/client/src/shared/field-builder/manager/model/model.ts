@@ -9,15 +9,16 @@ import { BoardNode, CreateFieldsManagerCommand, NodePayload } from './types.ts';
 export const createModel = (command: CreateFieldsManagerCommand) => {
   const tree = treeAtom<NodePayload>('fieldsManager.tree');
 
-  const createNode = (field: Field<unknown>) => {
+  const createNode = (field: Field<unknown, unknown>) => {
     const $name = atom('', '$name');
 
     return tree.createNode(
       {
         id: `${field.id}-${generateId()}`,
-        builder: field.createBuilder({
+        builder: field.builder.model.create({
           $name,
         }),
+        preview: field.preview.model.create(),
         $name,
         field,
       },
@@ -46,27 +47,33 @@ export const createModel = (command: CreateFieldsManagerCommand) => {
       submit: action((ctx) => {
         return validate(ctx);
       }, 'actions.submit'),
-      addChild: action((ctx, field: Field<unknown>) => {
+      addChild: action((ctx, field: Field<unknown, unknown>) => {
         const node = createNode(field);
 
         tree.addChild(ctx, node);
 
         return node;
-      }, 'actions.addChild') as <State>(
+      }, 'actions.addChild') as <BuilderState, PreviewState>(
         ctx: Ctx,
-        field: Field<State>,
-      ) => BoardNode<State>,
-      insertAfter: action((ctx, node: BoardNode, field: Field<unknown>) => {
-        node.actions.after(ctx, createNode(field));
-      }, 'actions.insertAfter'),
+        field: Field<BuilderState, PreviewState>,
+      ) => BoardNode<BuilderState, PreviewState>,
+      insertAfter: action(
+        (ctx, node: BoardNode, field: Field<unknown, unknown>) => {
+          node.actions.after(ctx, createNode(field));
+        },
+        'actions.insertAfter',
+      ),
       moveAfter: action((ctx, node: BoardNode, target: BoardNode) => {
         target.actions.detach(ctx);
 
         node.actions.after(ctx, target);
       }, 'actions.moveAfter'),
-      insertBefore: action((ctx, node: BoardNode, field: Field<unknown>) => {
-        node.actions.before(ctx, createNode(field));
-      }, 'actions.insertBefore'),
+      insertBefore: action(
+        (ctx, node: BoardNode, field: Field<unknown, unknown>) => {
+          node.actions.before(ctx, createNode(field));
+        },
+        'actions.insertBefore',
+      ),
       moveBefore: action((ctx, node: BoardNode, target: BoardNode) => {
         target.actions.detach(ctx);
 

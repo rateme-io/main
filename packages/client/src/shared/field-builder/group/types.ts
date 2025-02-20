@@ -14,5 +14,5 @@ export type FieldGroup = {
   id: string;
   title: ReactNode;
   icon: ReactNode;
-  fields: Field<unknown>[];
+  fields: Field<unknown, unknown>[];
 };

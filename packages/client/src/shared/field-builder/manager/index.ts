@@ -12,7 +12,8 @@ export const FieldBuilder = {
   createModel: createModel,
   ui: {
     useContext: () => useFieldBuilderContext(),
-    useFieldContext: <State>() => useFieldContext<State>(),
+    useFieldContext: <BuilderState, PreviewState>() =>
+      useFieldContext<BuilderState, PreviewState>(),
     IssueRenderer: IssueRenderer,
     ValueRenderer: DefaultFieldRenderer,
     Root: Root,

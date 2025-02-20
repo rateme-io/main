@@ -1,12 +1,25 @@
-import { action, atom, withAssign } from '@reatom/framework';
+import { atom } from '@reatom/framework';
 
+import { numberAtom } from '@/shared/atoms/number-atom';
 import {
-  createFieldModel,
+  createBuilderModel,
+  createPreviewModel,
   InferBuilderState,
+  InferPreviewState,
 } from '@/shared/field-builder/field';
 
-export const NumericFieldModel = createFieldModel({
-  builderState: ({ $name }) => ({
+export const NUMERIC_FIELD_EMPTY_MIN_ISSUE = Symbol(
+  'NUMERIC_FIELD_EMPTY_MIN_ISSUE',
+);
+export const NUMERIC_FIELD_EMPTY_MAX_ISSUE = Symbol(
+  'NUMERIC_FIELD_EMPTY_MAX_ISSUE',
+);
+export const NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE = Symbol(
+  'NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE',
+);
+
+export const NumericFieldBuilderModel = createBuilderModel({
+  state: ({ $name }) => ({
     $name,
     min: {
       $value: numberAtom(null, 'min.$value'),
@@ -55,36 +68,15 @@ export const NumericFieldModel = createFieldModel({
   },
 });
 
-const numberAtom = (initialValue: number | null, name: string) => {
-  const $value = atom(initialValue, `${name}.$value`);
+export const NumericFieldPreviewModel = createPreviewModel({
+  state: () => ({
+    $value: atom(0, 'state.$value'),
+  }),
+});
 
-  return action((ctx, nextValue: unknown) => {
-    if (typeof nextValue === 'number' || nextValue === null) {
-      return $value(ctx, nextValue);
-    }
-
-    const nextNumber = parseFloat(`${nextValue}`);
-
-    if (!isNaN(nextNumber)) {
-      return $value(ctx, nextNumber);
-    }
-
-    return $value(ctx, null);
-  }, `${name}.numberAtom`).pipe(
-    withAssign(() => atom((ctx) => ctx.spy($value), `${name}.numberAtom`)),
-  );
-};
-
-export type NumberAtom = ReturnType<typeof numberAtom>;
-
-export const NUMERIC_FIELD_EMPTY_MAX_ISSUE = Symbol(
-  'NUMERIC_FIELD_EMPTY_MAX_ISSUE',
-);
-export const NUMERIC_FIELD_EMPTY_MIN_ISSUE = Symbol(
-  'NUMERIC_FIELD_EMPTY_MIN_ISSUE',
-);
-export const NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE = Symbol(
-  'NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE',
-);
-
-export type NumericFieldState = InferBuilderState<typeof NumericFieldModel>;
+export type NumericFieldBuilderState = InferBuilderState<
+  typeof NumericFieldBuilderModel
+>;
+export type NumericFieldPreviewState = InferPreviewState<
+  typeof NumericFieldPreviewModel
+>;

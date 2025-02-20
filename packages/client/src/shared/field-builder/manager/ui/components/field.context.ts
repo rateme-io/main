@@ -2,13 +2,16 @@ import { createContext, use } from 'react';
 
 import { BoardNode } from '../../model';
 
-export type FieldContextInterface<State = unknown> = {
-  node: BoardNode<State>;
+export type FieldContextInterface<
+  BuilderState = unknown,
+  PreviewState = unknown,
+> = {
+  node: BoardNode<BuilderState, PreviewState>;
 };
 
 export const FieldContext = createContext<FieldContextInterface | null>(null);
 
-export const useFieldContext = <State>() => {
+export const useFieldContext = <BuilderState, PreviewState>() => {
   const context = use(FieldContext);
 
   if (!context) {
@@ -17,5 +20,5 @@ export const useFieldContext = <State>() => {
     );
   }
 
-  return context as FieldContextInterface<State>;
+  return context as FieldContextInterface<BuilderState, PreviewState>;
 };

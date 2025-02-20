@@ -1,15 +1,14 @@
 import { generateId } from '@/shared/utils/generate-id.ts';
-
 import { CreateFieldCommand, Field } from './types';
 
-export const createField = <State>({
+export const createField = <BuilderState, PreviewState>({
   name,
-  model,
-  ui,
-}: CreateFieldCommand<State>): Field<State> => {
+  builder,
+  preview,
+}: CreateFieldCommand<BuilderState, PreviewState>): Field<BuilderState, PreviewState> => {
   return {
     id: `${name}-${generateId()}`,
-    ui,
-    createBuilder: (command) => model.createBuilder(command),
+    builder,
+    preview,
   };
 };

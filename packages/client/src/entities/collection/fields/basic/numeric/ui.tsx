@@ -4,21 +4,23 @@ import { AtomMut } from '@reatom/framework';
 import { ReactNode } from 'react';
 import { TiSortNumerically } from 'react-icons/ti';
 
-import { createFieldUI } from '@/shared/field-builder/field';
+import { NumberAtom } from '@/shared/atoms/number-atom.ts';
+import { createBuilderUI } from '@/shared/field-builder/field/builder/ui';
+import { createPreviewUI } from '@/shared/field-builder/field/preview/ui';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 
 import {
-  NumberAtom,
   NUMERIC_FIELD_EMPTY_MAX_ISSUE,
   NUMERIC_FIELD_EMPTY_MIN_ISSUE,
   NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE,
-  NumericFieldState,
+  NumericFieldBuilderState,
+  NumericFieldPreviewState,
 } from './model.ts';
 
-export const NumericFieldUI = createFieldUI<NumericFieldState>({
+export const NumericFieldBuilderUI = createBuilderUI<NumericFieldBuilderState>({
   title: <Trans>Number Input</Trans>,
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
@@ -83,14 +85,6 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
       </FieldBuilder.ui.IssueRenderer>
     );
   }, 'NumericFieldUI.BuilderContent'),
-  FieldPreview: reatomMemo(({ ctx, builderState }) => {
-    return (
-      <FieldBuilder.ui.ValueRenderer
-        title={ctx.spy(builderState.$name)}
-        value={<></>}
-      />
-    );
-  }, 'NumericFieldUI.FieldPreview'),
 });
 
 const NumberInput = reatomMemo<{
@@ -132,3 +126,11 @@ const NumberInput = reatomMemo<{
     </Field>
   );
 }, 'NumberInput');
+
+export const NumericFieldPreviewUI = createPreviewUI<NumericFieldPreviewState>({
+  Preview: reatomMemo(() => {
+    return (
+      <FieldBuilder.ui.ValueRenderer title={'Numeric Field'} value={<></>} />
+    );
+  }, 'NumericFieldUI.Preview'),
+});

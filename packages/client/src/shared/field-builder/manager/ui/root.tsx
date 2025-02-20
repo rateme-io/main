@@ -124,7 +124,7 @@ type MenuOverlayProps = {
 };
 
 const MenuOverlay = reatomMemo<MenuOverlayProps>(({ data, overData }) => {
-  const CustomOverlay = data.field.ui.MenuItemOverlay;
+  const CustomOverlay = data.field.builder.ui.BuilderOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;
@@ -152,7 +152,7 @@ const DefaultMenuOverlay = reatomMemo<DefaultMenuOverlayProps>(({ data }) => {
       paddingBlock={1}
       gap={2}
     >
-      {data.field.ui.icon} <Text>{data.field.ui.title}</Text>
+      {data.field.builder.ui.icon} <Text>{data.field.builder.ui.title}</Text>
     </Flex>
   );
 }, 'DefaultMenuOverlay');
@@ -163,7 +163,7 @@ type BoardOverlayProps = {
 };
 
 const BoardOverlay = reatomMemo<BoardOverlayProps>(({ data, overData }) => {
-  const CustomOverlay = data.node.field.ui.BuilderOverlay;
+  const CustomOverlay = data.node.field.builder.ui.BuilderOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;
@@ -194,9 +194,9 @@ const DefaultBoardOverlay = reatomMemo<DefaultBoardOverlayProps>(
         transition={'opacity 0.2s'}
         opacity={overData?.type === 'cancel' ? 0.5 : 1}
       >
-        {data.node.field.ui.icon}
+        {data.node.field.builder.ui.icon}
         <Text>
-          {ctx.get(data.node.$name).trim() || data.node.field.ui.title}
+          {ctx.get(data.node.$name).trim() || data.node.field.builder.ui.title}
         </Text>
       </Flex>
     );

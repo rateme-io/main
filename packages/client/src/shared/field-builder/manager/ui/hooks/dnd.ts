@@ -14,7 +14,7 @@ import { BoardNode } from '../../model';
 
 export type DragData = MenuDragData | BoardDragData;
 
-export type MenuDragData = { type: 'menu'; field: Field<unknown> };
+export type MenuDragData = { type: 'menu'; field: Field<unknown, unknown> };
 export type BoardDragData = { type: 'board'; node: BoardNode };
 
 export type DropData =

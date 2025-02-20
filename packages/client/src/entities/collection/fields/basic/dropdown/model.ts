@@ -4,50 +4,12 @@ import { z } from 'zod';
 
 import { FieldAtom, fieldAtom } from '@/shared/atoms/field.atom.ts';
 import {
-  createFieldModel,
+  createBuilderModel,
+  createPreviewModel,
   InferBuilderState,
+  InferPreviewState,
 } from '@/shared/field-builder/field';
 import { generateId } from '@/shared/utils/generate-id';
-
-export const DropdownFieldModel = createFieldModel({
-  builderState: ({ $name }) => ({
-    $name,
-    model: createModel(),
-  }),
-  validateField: (ctx, { state, addIssue, validateName }) => {
-    const { model, $name } = state;
-
-    validateName(ctx, ctx.get($name));
-
-    const labelValue = ctx.get(model.labelField.$value);
-    const options = ctx.get(model.$options);
-    const isCreatable = ctx.get(model.$isCreatable);
-
-    if (labelValue.trim() !== '') {
-      addIssue(ctx, {
-        type: 'warning',
-        id: DROPDOWN_FIELD_LABEL_WARNING,
-      });
-    }
-
-    if (options.length === 0 && !isCreatable) {
-      addIssue(ctx, {
-        type: 'critical',
-        id: DROPDOWN_FIELD_EMPTY_OPTIONS,
-      });
-    }
-
-    options.forEach((option) => {
-      if (ctx.get(option.labelField.$value).trim() === '') {
-        addIssue(ctx, {
-          type: 'critical',
-          key: option.value,
-          id: DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
-        });
-      }
-    });
-  },
-});
 
 export const DROPDOWN_FIELD_LABEL_WARNING = Symbol(
   'DROPDOWN_FIELD_LABEL_WARNING',
@@ -58,8 +20,6 @@ export const DROPDOWN_FIELD_EMPTY_OPTIONS = Symbol(
 export const DROPDOWN_FIELD_EMPTY_OPTION_LABEL = Symbol(
   'DROPDOWN_FIELD_EMPTY_OPTION_LABEL',
 );
-
-export type DropdownFieldState = InferBuilderState<typeof DropdownFieldModel>;
 
 export type DropdownFieldOption = {
   value: string;
@@ -133,3 +93,54 @@ const createModel = () => {
     }, 'createModel.remove'),
   };
 };
+
+export const DropdownFieldBuilderModel = createBuilderModel({
+  state: ({ $name }) => ({
+    $name,
+    model: createModel(),
+  }),
+  validateField: (ctx, { state, addIssue, validateName }) => {
+    const { model, $name } = state;
+
+    validateName(ctx, ctx.get($name));
+
+    const labelValue = ctx.get(model.labelField.$value);
+    const options = ctx.get(model.$options);
+    const isCreatable = ctx.get(model.$isCreatable);
+
+    if (labelValue.trim() !== '') {
+      addIssue(ctx, {
+        type: 'warning',
+        id: DROPDOWN_FIELD_LABEL_WARNING,
+      });
+    }
+
+    if (options.length === 0 && !isCreatable) {
+      addIssue(ctx, {
+        type: 'critical',
+        id: DROPDOWN_FIELD_EMPTY_OPTIONS,
+      });
+    }
+
+    options.forEach((option) => {
+      if (ctx.get(option.labelField.$value).trim() === '') {
+        addIssue(ctx, {
+          type: 'critical',
+          key: option.value,
+          id: DROPDOWN_FIELD_EMPTY_OPTION_LABEL,
+        });
+      }
+    });
+  },
+});
+
+export const DropdownFieldPreviewModel = createPreviewModel({
+  state: () => ({}),
+});
+
+export type DropdownFieldBuilderState = InferBuilderState<
+  typeof DropdownFieldBuilderModel
+>;
+export type DropdownFieldPreviewState = InferPreviewState<
+  typeof DropdownFieldPreviewModel
+>;
