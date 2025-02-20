@@ -18,11 +18,11 @@ msgstr ""
 msgid "Add Collection Item"
 msgstr "Создать элемент коллекции"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:100
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:100
 msgid "Allow adding custom options"
 msgstr "Можно создавать новые опции"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:90
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:90
 msgid "Allow multiple selections"
 msgstr "Можно выбрать несколько опций"
 
@@ -102,7 +102,7 @@ msgstr "Нет аккаунта? Зарегистрироваться"
 msgid "Drop here if you want to cancel the operation"
 msgstr "Перетащите сюда, если хотите отменить операцию"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:44
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:43
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
 
@@ -115,7 +115,7 @@ msgstr "Выпадающий список"
 msgid "Email"
 msgstr "Email"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:144
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:144
 msgid "Enter a name for this option"
 msgstr "Введите название опции"
 
@@ -186,7 +186,7 @@ msgstr "Выйти"
 msgid "Max"
 msgstr "Max"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:122
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:122
 msgid "Maybe you forgot to add the last option."
 msgstr "Возможно, вы забыли добавить последнюю опцию."
 
@@ -253,7 +253,7 @@ msgstr "Не слишком простой пароль"
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:248
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:248
 msgid "Option label"
 msgstr "Название опции"
 
@@ -329,11 +329,11 @@ msgstr "Теги"
 msgid "Text Input"
 msgstr "Поле ввода текста"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:45
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:44
 msgid "The field that displays the drop-down list"
 msgstr "Поле, которое отображает выпадающий список"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:212
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:212
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "Название опции не может быть пустой. Пожалуйста, введите значение."
 
@@ -396,6 +396,6 @@ msgstr "Вы включили максимальное значение, но н
 msgid "You enabled min input but haven't typed a value."
 msgstr "Вы включили минимальное значение, но не ввели его."
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:75
+#: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:75
 msgid "You need to add at least one option."
 msgstr "Необходимо добавить хотя бы одну опцию."

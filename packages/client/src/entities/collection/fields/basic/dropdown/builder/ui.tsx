@@ -20,8 +20,8 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
 import { MdDragIndicator } from 'react-icons/md';
 
+import { DropdownFieldPreviewState } from '@/entities/collection/fields/basic/dropdown/model.ts';
 import { createBuilderUI } from '@/shared/field-builder/field/builder';
-import { createPreviewUI } from '@/shared/field-builder/field/preview';
 import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Checkbox } from '@/shared/ui/checkbox.tsx';
 import { Draggable, useDraggableContext } from '@/shared/ui/dnd.tsx';
@@ -36,8 +36,7 @@ import {
   DROPDOWN_FIELD_LABEL_WARNING,
   DropdownFieldBuilderState,
   DropdownFieldOption,
-  DropdownFieldPreviewState,
-} from './model.ts';
+} from './model';
 
 export const DropdownFieldBuilderUI =
   createBuilderUI<DropdownFieldBuilderState>({
@@ -47,11 +46,12 @@ export const DropdownFieldBuilderUI =
     FieldEditor: reatomMemo(({ ctx, builderState }) => {
       const isCreatable = ctx.spy(builderState.model.$isCreatable);
       const isMulti = ctx.spy(builderState.model.$isMulti);
-
-      const stateOptions = ctx.spy(builderState.model.$options);
+      const stateOptions = ctx.spy(
+        builderState.model.$options,
+      ) as DropdownFieldOption[];
 
       const options = useMemo(() => {
-        return stateOptions.map((option) => ({
+        return stateOptions.map((option: DropdownFieldOption) => ({
           value: option.value,
           label: ctx.spy(option.labelField.$value),
         }));
@@ -327,12 +327,3 @@ const OptionDraggableActivator = reatomMemo(() => {
     </IconButton>
   );
 }, 'OptionDraggableActivator');
-
-export const DropdownFieldPreviewUI =
-  createPreviewUI<DropdownFieldPreviewState>({
-    Preview: reatomMemo(() => {
-      return (
-        <FieldBuilder.ui.ValueRenderer title={'Dropdown Field'} value={<></>} />
-      );
-    }, 'DropdownFieldUI.Preview'),
-  });
