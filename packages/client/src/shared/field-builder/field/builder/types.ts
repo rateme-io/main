@@ -4,7 +4,7 @@ import { IssueManager, ValidationApi } from '@/shared/issue-manager';
 
 export type CreateBuilderModelCommand<BuilderState> = {
   state: (command: BuilderCommand) => BuilderState;
-  validateField?: (ctx: Ctx, api: BuilderValidationApi<BuilderState>) => void;
+  validate?: (ctx: Ctx, api: BuilderValidationApi<BuilderState>) => void;
 };
 
 export type BuilderCommand = {

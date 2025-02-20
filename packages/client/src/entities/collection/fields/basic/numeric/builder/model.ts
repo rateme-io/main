@@ -28,7 +28,7 @@ export const NumericFieldBuilderModel = createBuilderModel({
       $enabled: atom(false, 'max.$enabled'),
     },
   }),
-  validateField: (ctx, { state, validateName, addIssue }) => {
+  validate: (ctx, { state, validateName, addIssue }) => {
     validateName(ctx, ctx.get(state.$name));
 
     const minValue = ctx.get(state.min.$value);

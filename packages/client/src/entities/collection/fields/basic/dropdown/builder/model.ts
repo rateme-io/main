@@ -91,7 +91,7 @@ export const DropdownFieldBuilderModel = createBuilderModel({
     $name,
     model: createModel(),
   }),
-  validateField: (ctx, { state, addIssue, validateName }) => {
+  validate: (ctx, { state, addIssue, validateName }) => {
     const { model, $name } = state;
     validateName(ctx, ctx.get($name));
     const labelValue = ctx.get(model.labelField.$value);

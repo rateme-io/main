@@ -8,7 +8,7 @@ export const FIELD_NAME_ISSUE = Symbol('FIELD_NAME_ISSUE');
 
 export const createBuilderModel = <BuilderState>({
   state: createState,
-  validateField,
+  validate,
 }: CreateBuilderModelCommand<BuilderState>): BuilderModel<BuilderState> => {
   return {
     create: (command) => {
@@ -26,10 +26,10 @@ export const createBuilderModel = <BuilderState>({
 
       const issueManager = createIssueManager({
         validate: action((ctx, api: ValidationApi) => {
-          if (!validateField) {
+          if (!validate) {
             validateName(ctx, ctx.get(command.$name));
           } else {
-            validateField(ctx, {
+            validate(ctx, {
               state,
               validateName,
               addIssue: api.addIssue,
