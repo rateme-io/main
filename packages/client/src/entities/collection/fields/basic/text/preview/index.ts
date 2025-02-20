@@ -6,4 +6,4 @@ import { TextFieldPreviewUI } from './ui';
 export const TextFieldPreview = createPreview({
   model: TextFieldPreviewModel,
   ui: TextFieldPreviewUI,
-}); 
+});

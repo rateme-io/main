@@ -68,4 +68,4 @@ export const NumericFieldBuilderModel = createBuilderModel({
 
 export type NumericFieldBuilderState = InferBuilderState<
   typeof NumericFieldBuilderModel
->; 
+>;

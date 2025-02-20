@@ -6,4 +6,4 @@ import { NumericFieldBuilderUI } from './ui';
 export const NumericFieldBuilder = createBuilder({
   model: NumericFieldBuilderModel,
   ui: NumericFieldBuilderUI,
-}); 
+});

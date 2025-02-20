@@ -6,4 +6,4 @@ import { NumericFieldPreviewUI } from './ui';
 export const NumericFieldPreview = createPreview({
   model: NumericFieldPreviewModel,
   ui: NumericFieldPreviewUI,
-}); 
+});

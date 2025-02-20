@@ -1,6 +1,9 @@
 import { atom } from '@reatom/framework';
 
-import { createPreviewModel, InferPreviewState } from '@/shared/field-builder/field';
+import {
+  createPreviewModel,
+  InferPreviewState,
+} from '@/shared/field-builder/field';
 
 export const NumericFieldPreviewModel = createPreviewModel({
   state: () => ({
@@ -10,4 +13,4 @@ export const NumericFieldPreviewModel = createPreviewModel({
 
 export type NumericFieldPreviewState = InferPreviewState<
   typeof NumericFieldPreviewModel
->; 
+>;

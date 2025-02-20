@@ -6,4 +6,4 @@ import { DropdownFieldPreviewUI } from './ui';
 export const DropdownFieldPreview = createPreview({
   model: DropdownFieldPreviewModel,
   ui: DropdownFieldPreviewUI,
-}); 
+});

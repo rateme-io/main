@@ -6,4 +6,4 @@ import { TextFieldBuilderUI } from './ui';
 export const TextFieldBuilder = createBuilder({
   model: TextFieldBuilderModel,
   ui: TextFieldBuilderUI,
-}); 
+});

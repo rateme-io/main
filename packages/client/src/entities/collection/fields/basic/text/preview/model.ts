@@ -1,4 +1,7 @@
-import { createPreviewModel, InferPreviewState } from '@/shared/field-builder/field';
+import {
+  createPreviewModel,
+  InferPreviewState,
+} from '@/shared/field-builder/field';
 
 export const TextFieldPreviewModel = createPreviewModel({
   state: () => ({}),
@@ -6,4 +9,4 @@ export const TextFieldPreviewModel = createPreviewModel({
 
 export type TextFieldPreviewState = InferPreviewState<
   typeof TextFieldPreviewModel
->; 
+>;

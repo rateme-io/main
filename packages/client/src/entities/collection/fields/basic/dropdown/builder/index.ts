@@ -6,4 +6,4 @@ import { DropdownFieldBuilderUI } from './ui';
 export const DropdownFieldBuilder = createBuilder({
   model: DropdownFieldBuilderModel,
   ui: DropdownFieldBuilderUI,
-}); 
+});
