@@ -1,8 +1,12 @@
 import {
   Box,
   BoxProps,
+  Flex,
   FlexProps,
+  Icon,
+  IconButton,
   Popover as ChakraPopover,
+  Text,
 } from '@chakra-ui/react';
 import { Portal } from '@chakra-ui/react/portal';
 import { useEvent } from '@khmilevoi/use-event';
@@ -17,6 +21,10 @@ import {
   useRef,
   useState,
 } from 'react';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { MdDragIndicator } from 'react-icons/md';
+import { Trans } from '@lingui/react/macro';
+import { motion } from 'motion/react';
 
 import { FieldIssue } from '@/shared/field-builder/field';
 import { PlacementSide } from '@/shared/ui/popover.tsx';
@@ -24,6 +32,7 @@ import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 
 import { useFieldBuilderContext } from '../context.ts';
 import { useFieldContext } from './field.context.ts';
+import { Issue } from '@/shared/issue-manager';
 
 export type IssueRendererProps = PropsWithChildren<{
   ref?: RefObject<HTMLDivElement>;
@@ -155,7 +164,7 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
 );
 
 type IssueColors = {
-  [key in FieldIssue['type']]: FlexProps['color'];
+  [key in Issue['type']]: FlexProps['color'];
 };
 
 const fontColors: IssueColors = {

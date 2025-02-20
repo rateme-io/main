@@ -1,30 +1,35 @@
-import { Action, Atom, AtomMut, Ctx } from '@reatom/framework';
+import { Action, Atom, AtomMut } from '@reatom/framework';
+
+import { IssueManager, ValidationApi } from '@/shared/issue-manager';
 
 export type CreateFieldModelCommand<State> = {
-  builderState: (command: CreateStateCommand) => State;
-  validateField?: (ctx: Ctx, api: FieldValidationApi<State>) => void;
+  builderState: (command: FieldBuilderCommand) => State;
+  validateField?: Action<[api: FieldValidationApi<State>], void>;
+};
+
+export type FieldBuilderCommand = {
+  $name: Atom<string>;
+};
+
+export type FieldBuilderInstance<State> = {
+  state: State;
+  issueManager: IssueManager;
+};
+
+export type FieldModel<State> = {
+  createBuilder: (command: FieldBuilderCommand) => FieldBuilderInstance<State>;
 };
 
 export type FieldValidationApi<State> = {
   state: State;
-  addIssue: Action<[issue: FieldIssue], void>;
   validateName: Action<[name: string], void>;
-};
+} & ValidationApi;
 
 export type FieldIssue = {
   type: 'warning' | 'critical';
   id: symbol;
   key?: string;
   message?: string;
-};
-
-export type FieldModel<State> = {
-  createBuilder: (command: CreateStateCommand) => FieldBuilderInstance<State>;
-};
-
-export type FieldBuilderInstance<State> = {
-  state: State;
-  issueManager: FieldIssueManager;
 };
 
 export type FieldIssueManager = {

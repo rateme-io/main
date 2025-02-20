@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { IssueManager } from '@/shared/issue-manager';
 
 import { FieldIssueManager } from '@/shared/field-builder/field';
 
@@ -16,7 +17,7 @@ export type CreateFieldUICommand<BuilderState> = {
 
 export type BuilderContentProps<State> = {
   builderState: State;
-  issueManager: FieldIssueManager;
+  issueManager: IssueManager;
 };
 
 export type FieldEditorProps<State> = {
