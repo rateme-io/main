@@ -66,15 +66,15 @@ msgstr "Изображение коллекции"
 
 #: src/features/collection-item-builder/collection-item-builder.tsx:109
 msgid "Collection item image"
-msgstr ""
+msgstr "Изображение элемента коллекции"
 
 #: src/features/collection-item-builder/collection-item-builder.tsx:90
 msgid "Collection item name"
-msgstr ""
+msgstr "Название элемента коллекции"
 
 #: src/features/collection-builder/ui/steps/build-step.tsx:103
 msgid "Collection name"
-msgstr ""
+msgstr "Название коллекции"
 
 #: src/widgets/header/ui/menu/mobile.tsx:57
 #: src/widgets/header/ui/menu/desktop.tsx:15
@@ -91,8 +91,12 @@ msgid "Discover"
 msgstr "Главная"
 
 #: src/features/login-dialog/ui/common.tsx:91
+#~ msgid "Don't have an account? Sign up"
+#~ msgstr "Нет аккаунта? Зарегистрироваться"
+
+#: src/features/login-dialog/ui/common.tsx:91
 msgid "Don’t have an account? Sign up"
-msgstr "Нет аккаунта? Зарегистрироваться"
+msgstr ""
 
 #: src/shared/field-builder/manager/ui/components/field-renderer.tsx:91
 msgid "Drop here if you want to cancel the operation"
