@@ -85,10 +85,6 @@ msgstr "Collections"
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/entities/collection/fields/time/date/ui.tsx:11
-#~ msgid "Date Picker"
-#~ msgstr "Date Picker"
-
 #: src/widgets/header/ui/menu/mobile.tsx:54
 #: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
@@ -105,10 +101,6 @@ msgstr "Drop here if you want to cancel the operation"
 #: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:43
 msgid "Dropdown Select"
 msgstr "Dropdown Select"
-
-#: src/entities/collection/fields/time/duration/ui.tsx:11
-#~ msgid "Duration Input"
-#~ msgstr "Duration Input"
 
 #: src/features/register-dialog/ui/common.tsx:33
 #: src/features/login-dialog/ui/common.tsx:29
@@ -141,18 +133,6 @@ msgstr "Enter your username"
 msgid "Full name"
 msgstr "Full name"
 
-#: src/entities/collection/fields/image/index.tsx:11
-#~ msgid "Image Fields"
-#~ msgstr "Image Fields"
-
-#: src/entities/collection/fields/image/images/ui.tsx:11
-#~ msgid "Image Upload"
-#~ msgstr "Image Upload"
-
-#: src/entities/collection/fields/link/link/ui.tsx:12
-#~ msgid "Input for external links"
-#~ msgstr "Input for external links"
-
 #: src/entities/collection/fields/basic/numeric/builder/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Input for numeric values"
@@ -160,22 +140,6 @@ msgstr "Input for numeric values"
 #: src/entities/collection/fields/basic/text/builder/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Input for plain text"
-
-#: src/entities/collection/fields/time/duration/ui.tsx:12
-#~ msgid "Input for time duration"
-#~ msgstr "Input for time duration"
-
-#: src/entities/collection/fields/link/internal-link/ui.tsx:11
-#~ msgid "Internal Link"
-#~ msgstr "Internal Link"
-
-#: src/entities/collection/fields/link/index.tsx:12
-#~ msgid "Link Fields"
-#~ msgstr "Link Fields"
-
-#: src/entities/collection/fields/link/internal-link/ui.tsx:12
-#~ msgid "Link to another collection item"
-#~ msgstr "Link to another collection item"
 
 #: src/features/avatar/ui/mobile.tsx:47
 #: src/features/avatar/ui/desktop.tsx:53
@@ -293,10 +257,6 @@ msgstr "Rating systems"
 msgid "Registration"
 msgstr "Registration"
 
-#: src/entities/collection/fields/time/date/ui.tsx:12
-#~ msgid "Select a date"
-#~ msgstr "Select a date"
-
 #: src/features/avatar/ui/mobile.tsx:36
 #: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
@@ -337,21 +297,9 @@ msgstr "The field that displays the drop-down list"
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "The option label cannot be empty. Please enter a value."
 
-#: src/entities/collection/fields/time/index.tsx:12
-#~ msgid "Time Fields"
-#~ msgstr "Time Fields"
-
 #: src/features/search/ui/big.tsx:17
 msgid "Type <0>/</0> to search"
 msgstr "Type <0>/</0> to search"
-
-#: src/entities/collection/fields/image/images/ui.tsx:12
-#~ msgid "Upload and manage images"
-#~ msgstr "Upload and manage images"
-
-#: src/entities/collection/fields/link/link/ui.tsx:11
-#~ msgid "URL Input"
-#~ msgstr "URL Input"
 
 #: src/features/register-dialog/ui/common.tsx:107
 msgid "Username"

@@ -85,10 +85,6 @@ msgstr "Коллекции"
 msgid "Coming soon"
 msgstr "Скоро"
 
-#: src/entities/collection/fields/time/date/ui.tsx:11
-#~ msgid "Date Picker"
-#~ msgstr "Выбор даты"
-
 #: src/widgets/header/ui/menu/mobile.tsx:54
 #: src/widgets/header/ui/menu/desktop.tsx:12
 msgid "Discover"
@@ -105,10 +101,6 @@ msgstr "Перетащите сюда, если хотите отменить о
 #: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:43
 msgid "Dropdown Select"
 msgstr "Выпадающий список"
-
-#: src/entities/collection/fields/time/duration/ui.tsx:11
-#~ msgid "Duration Input"
-#~ msgstr "Поле длительности"
 
 #: src/features/register-dialog/ui/common.tsx:33
 #: src/features/login-dialog/ui/common.tsx:29
@@ -141,18 +133,6 @@ msgstr "Введите ваш username"
 msgid "Full name"
 msgstr "Полное имя"
 
-#: src/entities/collection/fields/image/index.tsx:11
-#~ msgid "Image Fields"
-#~ msgstr "Поля изображений"
-
-#: src/entities/collection/fields/image/images/ui.tsx:11
-#~ msgid "Image Upload"
-#~ msgstr "Загрузка изображений"
-
-#: src/entities/collection/fields/link/link/ui.tsx:12
-#~ msgid "Input for external links"
-#~ msgstr "Поле для внешних ссылок"
-
 #: src/entities/collection/fields/basic/numeric/builder/ui.tsx:23
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
@@ -160,22 +140,6 @@ msgstr "Поле для числовых значений"
 #: src/entities/collection/fields/basic/text/builder/ui.tsx:13
 msgid "Input for plain text"
 msgstr "Поле для текста"
-
-#: src/entities/collection/fields/time/duration/ui.tsx:12
-#~ msgid "Input for time duration"
-#~ msgstr "Поле для указания времени"
-
-#: src/entities/collection/fields/link/internal-link/ui.tsx:11
-#~ msgid "Internal Link"
-#~ msgstr "Внутренняя ссылка"
-
-#: src/entities/collection/fields/link/index.tsx:12
-#~ msgid "Link Fields"
-#~ msgstr "Поля ссылок"
-
-#: src/entities/collection/fields/link/internal-link/ui.tsx:12
-#~ msgid "Link to another collection item"
-#~ msgstr "Ссылка на другой элемент коллекции"
 
 #: src/features/avatar/ui/mobile.tsx:47
 #: src/features/avatar/ui/desktop.tsx:53
@@ -293,10 +257,6 @@ msgstr "Системы оценивания"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: src/entities/collection/fields/time/date/ui.tsx:12
-#~ msgid "Select a date"
-#~ msgstr "Выберите дату"
-
 #: src/features/avatar/ui/mobile.tsx:36
 #: src/features/avatar/ui/desktop.tsx:42
 msgid "Settings"
@@ -337,21 +297,9 @@ msgstr "Поле, которое отображает выпадающий сп�
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "Название опции не может быть пустой. Пожалуйста, введите значение."
 
-#: src/entities/collection/fields/time/index.tsx:12
-#~ msgid "Time Fields"
-#~ msgstr "Поля времени"
-
 #: src/features/search/ui/big.tsx:17
 msgid "Type <0>/</0> to search"
 msgstr "Введите <0>/</0> для поиска"
-
-#: src/entities/collection/fields/image/images/ui.tsx:12
-#~ msgid "Upload and manage images"
-#~ msgstr "Загрузите и управляйте изображениями"
-
-#: src/entities/collection/fields/link/link/ui.tsx:11
-#~ msgid "URL Input"
-#~ msgstr "Поле для ввода URL"
 
 #: src/features/register-dialog/ui/common.tsx:107
 msgid "Username"
