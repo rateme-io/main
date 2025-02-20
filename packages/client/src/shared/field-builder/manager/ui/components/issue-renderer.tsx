@@ -108,7 +108,9 @@ export const IssueRenderer = reatomMemo<IssueRendererProps>(
             ref={containerRef}
             className={className}
             onMouseMove={handleOpen}
+            onFocus={handleOpen}
             onMouseLeave={handleClose}
+            onBlur={handleClose}
             position={'relative'}
           >
             <Box

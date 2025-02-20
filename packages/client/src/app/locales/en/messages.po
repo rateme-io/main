@@ -192,7 +192,7 @@ msgstr "New Collection"
 msgid "New Rating System"
 msgstr "New Rating System"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:34
+#: src/features/collection-builder/ui/steps/check-step.tsx:36
 #: src/features/collection-builder/ui/steps/build-step.tsx:79
 msgid "Next"
 msgstr "Next"
@@ -226,7 +226,7 @@ msgstr "Option label"
 msgid "Password"
 msgstr "Password"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:25
+#: src/features/collection-builder/ui/steps/check-step.tsx:27
 msgid "Prev"
 msgstr "Prev"
 
@@ -296,6 +296,14 @@ msgstr "The field that displays the drop-down list"
 #: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:190
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "The option label cannot be empty. Please enter a value."
+
+#: src/features/collection-builder/ui/steps/check-step.tsx:50
+msgid "This is an example of the collection item builder that you created in the previous step."
+msgstr "This is an example of the collection item builder that you created in the previous step."
+
+#: src/features/collection-builder/ui/steps/check-step.tsx:64
+msgid "This is an example of your collection item."
+msgstr "This is an example of your collection item."
 
 #: src/features/search/ui/big.tsx:17
 msgid "Type <0>/</0> to search"

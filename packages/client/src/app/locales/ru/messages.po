@@ -196,7 +196,7 @@ msgstr "Создать коллекцию"
 msgid "New Rating System"
 msgstr "Создать систему оценивания"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:34
+#: src/features/collection-builder/ui/steps/check-step.tsx:36
 #: src/features/collection-builder/ui/steps/build-step.tsx:79
 msgid "Next"
 msgstr "Далее"
@@ -230,7 +230,7 @@ msgstr "Название опции"
 msgid "Password"
 msgstr "Пароль"
 
-#: src/features/collection-builder/ui/steps/check-step.tsx:25
+#: src/features/collection-builder/ui/steps/check-step.tsx:27
 msgid "Prev"
 msgstr "Назад"
 
@@ -300,6 +300,14 @@ msgstr "Поле, которое отображает выпадающий сп�
 #: src/entities/collection/fields/basic/dropdown/builder/ui.tsx:190
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "Название опции не может быть пустой. Пожалуйста, введите значение."
+
+#: src/features/collection-builder/ui/steps/check-step.tsx:50
+msgid "This is an example of the collection item builder that you created in the previous step."
+msgstr ""
+
+#: src/features/collection-builder/ui/steps/check-step.tsx:64
+msgid "This is an example of your collection item."
+msgstr ""
 
 #: src/features/search/ui/big.tsx:17
 msgid "Type <0>/</0> to search"
