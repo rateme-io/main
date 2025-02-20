@@ -7,32 +7,38 @@ export type CreateFieldUICommand<BuilderState> = {
   description: ReactNode;
   icon: ReactNode;
   comingSoon?: boolean;
-  FieldContent: (props: FieldContentProps<BuilderState>) => ReactNode;
-  FieldOverlay?: (props: FieldOverlayProps) => ReactNode;
+  BuilderContent: (props: BuilderContentProps<BuilderState>) => ReactNode;
+  BuilderOverlay?: (props: BuilderOverlayProps) => ReactNode;
   MenuItemOverlay?: (props: MenuItemOverlayProps) => ReactNode;
+  FieldEditor: (props: FieldEditorProps<BuilderState>) => ReactNode;
   FieldPreview: (props: FieldPreviewProps<BuilderState>) => ReactNode;
 };
 
-export type FieldContentProps<State> = {
+export type BuilderContentProps<State> = {
   builderState: State;
   issueManager: FieldIssueManager;
+};
+
+export type FieldEditorProps<State> = {
+  builderState: State;
 };
 
 export type FieldPreviewProps<State> = {
   builderState: State;
 };
 
-export type FieldOverlayProps = object;
+export type BuilderOverlayProps = object;
 
 export type MenuItemOverlayProps = object;
 
-export type FieldUI<State> = {
+export type FieldUI<BuilderState> = {
   title: ReactNode;
   description: ReactNode;
   icon: ReactNode;
   comingSoon?: boolean;
-  FieldContent: (props: FieldContentProps<State>) => ReactNode;
-  FieldOverlay?: (props: FieldOverlayProps) => ReactNode;
+  BuilderContent: (props: BuilderContentProps<BuilderState>) => ReactNode;
+  BuilderOverlay?: (props: BuilderOverlayProps) => ReactNode;
   MenuItemOverlay?: (props: MenuItemOverlayProps) => ReactNode;
-  FieldPreview: (props: FieldPreviewProps<State>) => ReactNode;
+  FieldEditor: (props: FieldEditorProps<BuilderState>) => ReactNode;
+  FieldPreview: (props: FieldPreviewProps<BuilderState>) => ReactNode;
 };

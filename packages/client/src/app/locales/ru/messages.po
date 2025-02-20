@@ -115,7 +115,7 @@ msgstr "Поле длительности"
 msgid "Email"
 msgstr "Email"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:138
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:146
 msgid "Enter a name for this option"
 msgstr "Введите название опции"
 
@@ -157,7 +157,7 @@ msgstr "Поле для внешних ссылок"
 msgid "Input for numeric values"
 msgstr "Поле для числовых значений"
 
-#: src/entities/collection/fields/basic/text/ui.tsx:13
+#: src/entities/collection/fields/basic/text/ui.tsx:14
 msgid "Input for plain text"
 msgstr "Поле для текста"
 
@@ -186,7 +186,7 @@ msgstr "Выйти"
 msgid "Max"
 msgstr "Max"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:116
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:124
 msgid "Maybe you forgot to add the last option."
 msgstr "Возможно, вы забыли добавить последнюю опцию."
 
@@ -253,7 +253,7 @@ msgstr "Не слишком простой пароль"
 msgid "Number Input"
 msgstr "Поле числового ввода"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:236
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:244
 msgid "Option label"
 msgstr "Название опции"
 
@@ -325,7 +325,7 @@ msgstr "Основные поля"
 msgid "Tags"
 msgstr "Теги"
 
-#: src/entities/collection/fields/basic/text/ui.tsx:12
+#: src/entities/collection/fields/basic/text/ui.tsx:13
 msgid "Text Input"
 msgstr "Поле ввода текста"
 
@@ -333,7 +333,7 @@ msgstr "Поле ввода текста"
 msgid "The field that displays the drop-down list"
 msgstr "Поле, которое отображает выпадающий список"
 
-#: src/entities/collection/fields/basic/dropdown/ui.tsx:200
+#: src/entities/collection/fields/basic/dropdown/ui.tsx:208
 msgid "The option label cannot be empty. Please enter a value."
 msgstr "Название опции не может быть пустой. Пожалуйста, введите значение."
 

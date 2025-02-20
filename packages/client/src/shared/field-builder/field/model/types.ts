@@ -38,5 +38,5 @@ export type CreateStateCommand = {
   $name: AtomMut<string>;
 };
 
-export type InferState<Model> =
+export type InferBuilderState<Model> =
   Model extends FieldModel<infer State> ? State : never;

@@ -35,7 +35,7 @@ export const CheckStep = reatomMemo(({ ctx }) => {
         </Button>
       </Flex>
 
-      <Flex>
+      <Flex gap={4}>
         <Box flex={1}>
           <CollectionItemBuilder.ui
             fields={model.fields}
@@ -43,7 +43,11 @@ export const CheckStep = reatomMemo(({ ctx }) => {
           />
         </Box>
         <Box flex={1}>
-          <CollectionItem fields={model.fields} />
+          <CollectionItem
+            fields={model.fields}
+            title={ctx.spy(collectionItemModel.nameField.$value)}
+            image={ctx.spy(collectionItemModel.imageField.$value)}
+          />
         </Box>
       </Flex>
     </Flex>

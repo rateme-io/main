@@ -3,6 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { LuTextCursorInput } from 'react-icons/lu';
 
 import { createFieldUI } from '@/shared/field-builder/field';
+import { FieldBuilder } from '@/shared/field-builder/manager';
 import { Field } from '@/shared/ui/field.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo';
 
@@ -12,15 +13,23 @@ export const TextFieldUI = createFieldUI<TextFieldState>({
   title: <Trans>Text Input</Trans>,
   description: <Trans>Input for plain text</Trans>,
   icon: <LuTextCursorInput />,
-  FieldPreview: reatomMemo(
+  FieldEditor: reatomMemo(
     ({ ctx, builderState }) => (
       <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
         <Input />
       </Field>
     ),
-    'NumericFieldUI.FieldPreview',
+    'NumericFieldUI.FieldEditor',
   ),
-  FieldContent: reatomMemo(() => {
+  BuilderContent: reatomMemo(() => {
     return <></>;
-  }, 'TextFieldUI.FieldContent'),
+  }, 'TextFieldUI.BuilderContent'),
+  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+    return (
+      <FieldBuilder.ui.ValueRenderer
+        title={ctx.spy(builderState.$name)}
+        value={<></>}
+      />
+    );
+  }, 'TextFieldUI.FieldPreview'),
 });

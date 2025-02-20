@@ -41,7 +41,7 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
   title: <Trans>Dropdown Select</Trans>,
   description: <Trans>The field that displays the drop-down list</Trans>,
   icon: <BsFillMenuButtonWideFill />,
-  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+  FieldEditor: reatomMemo(({ ctx, builderState }) => {
     const isCreatable = ctx.spy(builderState.model.$isCreatable);
     const isMulti = ctx.spy(builderState.model.$isMulti);
 
@@ -61,8 +61,8 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
         <SelectComponent isMulti={isMulti} options={options} />
       </Field>
     );
-  }, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(({ ctx, builderState }) => {
+  }, 'NumericFieldUI.FieldEditor'),
+  BuilderContent: reatomMemo(({ ctx, builderState }) => {
     return (
       <>
         <Flex gap={5} flex={1}>
@@ -100,7 +100,15 @@ export const DropdownFieldUI = createFieldUI<DropdownFieldState>({
         </Flex>
       </>
     );
-  }, 'DropdownFieldUI.FieldContent'),
+  }, 'DropdownFieldUI.BuilderContent'),
+  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+    return (
+      <FieldBuilder.ui.ValueRenderer
+        title={ctx.spy(builderState.$name)}
+        value={<></>}
+      />
+    );
+  }, 'DropdownFieldUI.FieldPreview'),
 });
 
 const AddOption = reatomMemo(({ ctx }) => {

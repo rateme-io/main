@@ -22,7 +22,7 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
   title: <Trans>Number Input</Trans>,
   description: <Trans>Input for numeric values</Trans>,
   icon: <TiSortNumerically />,
-  FieldPreview: reatomMemo(
+  FieldEditor: reatomMemo(
     ({ ctx, builderState }) => (
       <Field orientation={'horizontal'} label={ctx.spy(builderState.$name)}>
         <Input
@@ -40,9 +40,9 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
         />
       </Field>
     ),
-    'NumericFieldUI.FieldPreview',
+    'NumericFieldUI.FieldEditor',
   ),
-  FieldContent: reatomMemo(({ ctx, builderState }) => {
+  BuilderContent: reatomMemo(({ ctx, builderState }) => {
     return (
       <FieldBuilder.ui.IssueRenderer
         issueId={NUMERIC_FIELD_MIN_GREATER_THAN_MAX_ISSUE}
@@ -82,7 +82,15 @@ export const NumericFieldUI = createFieldUI<NumericFieldState>({
         </Flex>
       </FieldBuilder.ui.IssueRenderer>
     );
-  }, 'NumericFieldUI.FieldContent'),
+  }, 'NumericFieldUI.BuilderContent'),
+  FieldPreview: reatomMemo(({ ctx, builderState }) => {
+    return (
+      <FieldBuilder.ui.ValueRenderer
+        title={ctx.spy(builderState.$name)}
+        value={<></>}
+      />
+    );
+  }, 'NumericFieldUI.FieldPreview'),
 });
 
 const NumberInput = reatomMemo<{

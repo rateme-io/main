@@ -11,8 +11,8 @@ export const ImagesFieldUI = createFieldUI<ImagesFieldState>({
   description: <Trans>Upload and manage images</Trans>,
   comingSoon: true,
   icon: <FaImages />,
-  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(() => {
+  FieldEditor: reatomMemo(() => null, 'NumericFieldUI.FieldEditor'),
+  BuilderContent: reatomMemo(() => {
     return <></>;
-  }, 'ImagesFieldUI.FieldContent'),
+  }, 'ImagesFieldUI.BuilderContent'),
 });

@@ -163,7 +163,7 @@ type BoardOverlayProps = {
 };
 
 const BoardOverlay = reatomMemo<BoardOverlayProps>(({ data, overData }) => {
-  const CustomOverlay = data.node.field.ui.FieldOverlay;
+  const CustomOverlay = data.node.field.ui.BuilderOverlay;
 
   if (CustomOverlay) {
     return <CustomOverlay />;

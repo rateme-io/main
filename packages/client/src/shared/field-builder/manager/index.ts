@@ -1,5 +1,6 @@
 import { createModel } from './model';
 import { Board } from './ui/board';
+import { DefaultFieldRenderer } from './ui/components/default-field-renderer.tsx';
 import { useFieldContext } from './ui/components/field.context.ts';
 import { IssueRenderer } from './ui/components/issue-renderer';
 import { useFieldBuilderContext } from './ui/context.ts';
@@ -13,6 +14,7 @@ export const FieldBuilder = {
     useContext: () => useFieldBuilderContext(),
     useFieldContext: <State>() => useFieldContext<State>(),
     IssueRenderer: IssueRenderer,
+    ValueRenderer: DefaultFieldRenderer,
     Root: Root,
     Menu: Menu,
     Preview: Preview,

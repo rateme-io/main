@@ -11,8 +11,8 @@ export const DateFieldUI = createFieldUI<DateFieldState>({
   description: <Trans>Select a date</Trans>,
   icon: <MdDateRange />,
   comingSoon: true,
-  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(() => {
+  FieldEditor: reatomMemo(() => null, 'NumericFieldUI.FieldEditor'),
+  BuilderContent: reatomMemo(() => {
     return <></>;
-  }, 'DateFieldUI.FieldContent'),
+  }, 'DateFieldUI.BuilderContent'),
 });

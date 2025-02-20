@@ -11,8 +11,8 @@ export const LinkFieldUI = createFieldUI<LinkFieldState>({
   description: <Trans>Input for external links</Trans>,
   icon: <LuExternalLink />,
   comingSoon: true,
-  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(() => {
+  FieldEditor: reatomMemo(() => null, 'NumericFieldUI.FieldEditor'),
+  BuilderContent: reatomMemo(() => {
     return <></>;
-  }, 'LinkFieldUI.FieldContent'),
+  }, 'LinkFieldUI.BuilderContent'),
 });

@@ -100,7 +100,7 @@ type FieldRendererProps = {
 };
 
 const FieldRenderer = reatomMemo<FieldRendererProps>(({ node }) => {
-  const Content = node.field.ui.FieldContent;
+  const Content = node.field.ui.BuilderContent;
 
   const context = useMemo(() => ({ node }), [node]);
 

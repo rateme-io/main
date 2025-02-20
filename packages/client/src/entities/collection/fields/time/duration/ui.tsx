@@ -11,8 +11,8 @@ export const DurationFieldUI = createFieldUI<DurationFieldState>({
   description: <Trans>Input for time duration</Trans>,
   icon: <IoIosTimer />,
   comingSoon: true,
-  FieldPreview: reatomMemo(() => null, 'NumericFieldUI.FieldPreview'),
-  FieldContent: reatomMemo(() => {
+  FieldEditor: reatomMemo(() => null, 'NumericFieldUI.FieldEditor'),
+  BuilderContent: reatomMemo(() => {
     return <></>;
-  }, 'DurationFieldUI.FieldContent'),
+  }, 'DurationFieldUI.BuilderContent'),
 });
