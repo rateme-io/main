@@ -7,7 +7,7 @@ export type CreateFieldGroupCommand = {
   title: ReactNode;
   icon: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fields: Field<any>[];
+  fields: Field<any, any>[];
 };
 
 export type FieldGroup = {
