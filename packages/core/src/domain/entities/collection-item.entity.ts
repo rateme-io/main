@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { JsonVo } from '@/domain/value-objects/json.vo';
@@ -20,7 +20,7 @@ export class CollectionItemEntity extends BaseEntity {
 
   jsonFields: JsonVo;
 
-  static create(command: CreatEntityCommand<CollectionItemEntity>) {
+  static create(command: CreateEntityCommand<CollectionItemEntity>) {
     const entity = new CollectionItemEntity();
 
     entity.jsonFields = command.jsonFields;

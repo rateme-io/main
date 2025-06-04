@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { EmailVo } from '@/domain/value-objects/email.vo';
@@ -28,7 +28,7 @@ export class UserEntity extends BaseEntity {
   @ZodValidator(z.nativeEnum(UserVerifiedStatus))
   verifiedStatus: UserVerifiedStatus;
 
-  static create(command: CreatEntityCommand<UserEntity>) {
+  static create(command: CreateEntityCommand<UserEntity>) {
     const user = new UserEntity();
 
     user.email = command.email;

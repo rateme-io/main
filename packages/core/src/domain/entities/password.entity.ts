@@ -1,7 +1,7 @@
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { PasswordVo } from '@/domain/value-objects/password.vo';
@@ -11,7 +11,7 @@ export class PasswordEntity extends BaseEntity {
 
   user: UserEntity;
 
-  static create(command: CreatEntityCommand<PasswordEntity>) {
+  static create(command: CreateEntityCommand<PasswordEntity>) {
     const entity = new PasswordEntity();
 
     entity.hash = command.hash;

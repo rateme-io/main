@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 
@@ -17,7 +17,7 @@ export class RatingSystemHierarchyEntity extends BaseEntity {
   @ZodValidator(z.string())
   childId: string;
 
-  static create(command: CreatEntityCommand<RatingSystemHierarchyEntity>) {
+  static create(command: CreateEntityCommand<RatingSystemHierarchyEntity>) {
     const entity = new RatingSystemHierarchyEntity();
 
     entity.userId = command.userId;

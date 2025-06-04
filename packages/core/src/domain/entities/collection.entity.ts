@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { JsonVo } from '@/domain/value-objects/json.vo';
@@ -20,7 +20,7 @@ export class CollectionEntity extends BaseEntity {
   @ZodValidator(z.number())
   version: number;
 
-  static create(command: CreatEntityCommand<CollectionEntity>) {
+  static create(command: CreateEntityCommand<CollectionEntity>) {
     const entity = new CollectionEntity();
 
     entity.jsonSchema = command.jsonSchema;
