@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 
-import { TokenAuthAbstractService } from '@/aggregates/password-auth/domain';
+import { PasswordAuthAbstractService } from '@/aggregates/password-auth/domain';
 import { SessionAbstractService } from '@/aggregates/session/domain';
 import { CookieService } from '@/core/modules/cookie';
 
@@ -15,8 +15,8 @@ export class AuthService {
   constructor(
     @Inject(SessionAbstractService)
     private readonly sessionService: SessionAbstractService,
-    @Inject(forwardRef(() => TokenAuthAbstractService))
-    private readonly tokenAuthService: TokenAuthAbstractService,
+    @Inject(forwardRef(() => PasswordAuthAbstractService))
+    private readonly passwordAuthService: PasswordAuthAbstractService,
     @Inject(CookieService)
     private readonly cookieService: CookieService,
   ) {}
@@ -38,7 +38,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    await this.tokenAuthService.checkSession({
+    await this.passwordAuthService.checkSession({
       sessionId: session.id,
       accessToken,
     });

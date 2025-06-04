@@ -1,6 +1,6 @@
 import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
 
-export abstract class TokenAuthAbstractService {
+export abstract class PasswordAuthAbstractService {
   abstract login(command: TokenLoginCommand): Promise<TokenSessionResponse>;
 
   abstract refresh(command: RefreshCommand): Promise<TokenSessionResponse>;
