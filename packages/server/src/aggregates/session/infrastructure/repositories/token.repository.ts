@@ -2,7 +2,7 @@ import { EntityManager, Repository } from 'typeorm';
 
 import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
 
-import { TokenAbstractRepository } from '@/aggregates/token-auth/domain';
+import { TokenAbstractRepository } from '@/aggregates/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
 
 import { TokenRepositoryEntity } from '../entities';

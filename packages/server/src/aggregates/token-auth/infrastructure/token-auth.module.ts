@@ -6,11 +6,12 @@ import { EntityModule } from '@/core/modules/module-config';
 
 import { TokenAuthService } from './token-auth.service';
 import { TokenAuthUnitOfWork } from './token-auth.unit-of-work';
+import { SessionUnitOfWork } from '@/aggregates/session/infrastructure';
 
 @Module(
   EntityModule.config({
     controllers: [TokenAuthController],
-    providers: [TokenAuthUnitOfWork],
+    providers: [TokenAuthUnitOfWork, SessionUnitOfWork],
     services: [
       { abstract: TokenAuthAbstractService, realisation: TokenAuthService },
     ],
