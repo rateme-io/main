@@ -15,6 +15,7 @@ export class ErrorsInterceptor implements NestInterceptor {
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest();
     const { method, url, body, headers } = request;
+    const isDevelopment = process.env.ENV === 'development';
     const now = Date.now();
 
     return next.handle().pipe(
@@ -26,8 +27,10 @@ export class ErrorsInterceptor implements NestInterceptor {
         }
 
         console.error(`Unhandled Error: ${method} ${url} - ${duration}ms`);
-        console.error('Headers:', JSON.stringify(headers));
-        console.error('Body:', JSON.stringify(body));
+        if (isDevelopment) {
+          console.error('Headers:', JSON.stringify(headers, null, 2));
+          console.error('Body:', JSON.stringify(body, null, 2));
+        }
         console.error('Error:', error);
 
         return throwError(() => new InternalServerErrorException());
