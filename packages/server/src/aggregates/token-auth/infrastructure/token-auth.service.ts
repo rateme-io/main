@@ -36,16 +36,19 @@ import {
   TokenLoginCommand,
   TokenSessionResponse,
 } from '../domain';
+import { TokenAuthUnitOfWork } from './token-auth.unit-of-work';
 import {
-  TokenAuthUnitOfWork,
-  TokenAuthUnitOfWorkContext,
-} from './token-auth.unit-of-work';
+  SessionUnitOfWork,
+  SessionUnitOfWorkContext,
+} from '@/aggregates/session/infrastructure';
 
 @Injectable()
 export class TokenAuthService extends TokenAuthAbstractService {
   constructor(
     @Inject(TokenAuthUnitOfWork)
     private readonly tokenAuthUnitOfWork: TokenAuthUnitOfWork,
+    @Inject(SessionUnitOfWork)
+    private readonly sessionUnitOfWork: SessionUnitOfWork,
     @Inject(CryptoService)
     private readonly cryptoService: CryptoService,
     @Inject(DateService)
@@ -79,13 +82,15 @@ export class TokenAuthService extends TokenAuthAbstractService {
         throw new BadRequestException(wrongCredentialsError);
       }
 
-      return await this.createSession(
-        {
-          user,
-          ipAddress: command.ipAddress,
-          userAgent: command.userAgent,
-        },
-        context,
+      return this.sessionUnitOfWork.start((sessionContext) =>
+        this.createSession(
+          {
+            user,
+            ipAddress: command.ipAddress,
+            userAgent: command.userAgent,
+          },
+          sessionContext,
+        ),
       );
     });
   }
@@ -121,19 +126,21 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
       await context.passwordRepository.create(passwordEntity);
 
-      return await this.createSession(
-        {
-          user: newUser,
-          userAgent: command.userAgent,
-          ipAddress: command.ipAddress,
-        },
-        context,
+      return this.sessionUnitOfWork.start((sessionContext) =>
+        this.createSession(
+          {
+            user: newUser,
+            userAgent: command.userAgent,
+            ipAddress: command.ipAddress,
+          },
+          sessionContext,
+        ),
       );
     });
   }
 
   async logout(command: LogoutCommand): Promise<void> {
-    return this.tokenAuthUnitOfWork.start(
+    return this.sessionUnitOfWork.start(
       async ({ sessionRepository, tokenRepository }) => {
         const session = await sessionRepository.findById(command.sessionId);
 
@@ -155,10 +162,8 @@ export class TokenAuthService extends TokenAuthAbstractService {
   }
 
   async refresh(command: RefreshCommand): Promise<TokenSessionResponse> {
-    return this.tokenAuthUnitOfWork.start(async (context) => {
-      const token = await context.tokenRepository.findBySessionId(
-        command.sessionId,
-      );
+    return this.sessionUnitOfWork.start(async (context) => {
+      const token = await context.tokenRepository.findBySessionId(command.sessionId);
 
       if (!token) {
         throw new BadRequestException(tokenNotFoundError);
@@ -180,7 +185,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
       await context.tokenRepository.remove(token.id);
 
-      return await this.createToken(
+      return this.createToken(
         {
           session: token.session,
           ipAddress: token.session.ipAddress,
@@ -192,7 +197,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
   }
 
   async checkSession(command: CheckSessionCommand): Promise<void> {
-    return this.tokenAuthUnitOfWork.start(async ({ tokenRepository }) => {
+    return this.sessionUnitOfWork.start(async ({ tokenRepository }) => {
       const token = await tokenRepository.findBySessionId(command.sessionId);
 
       if (!token) {
@@ -216,7 +221,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
   async createSession(
     command: CreateSessionCommand,
-    context: TokenAuthUnitOfWorkContext,
+    context: SessionUnitOfWorkContext,
   ): Promise<TokenSessionResponse> {
     const sessionEntity = SessionEntity.create({
       sessionId: this.cryptoService.generateHash(),
@@ -242,7 +247,7 @@ export class TokenAuthService extends TokenAuthAbstractService {
 
   async createToken(
     command: CreateTokenCommand,
-    { tokenRepository }: TokenAuthUnitOfWorkContext,
+    { tokenRepository }: SessionUnitOfWorkContext,
   ): Promise<TokenSessionResponse> {
     const accessToken = this.cryptoService.generateHash();
     const refreshToken = this.cryptoService.generateHash();
