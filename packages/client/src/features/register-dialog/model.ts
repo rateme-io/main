@@ -49,7 +49,7 @@ export const registerForm = formAtom({
   onSubmit: action(async (ctx, { email, password, name, username }) => {
     const result = await ctx.schedule(() =>
       registerAction(ctx, {
-        type: 'token',
+        type: 'password',
         dto: {
           email: email.trim(),
           password,
