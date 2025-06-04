@@ -9,11 +9,11 @@ import {
   TokenRegisterDtoSchema,
 } from '@/domain/dtos/token-auth/token-register.dto';
 
-export class TokenAuthEndpoint extends Endpoint {
+export class PasswordAuthEndpoint extends Endpoint {
   async login(dto: TokenLoginDto, options: EndpointMethodOptions) {
     TokenLoginDtoSchema.parse(dto);
 
-    return this.httpService.post<SessionResponseDto>('/auth/token/login', {
+    return this.httpService.post<SessionResponseDto>('/auth/password/login', {
       data: dto,
       signal: options.signal,
     });
@@ -22,20 +22,23 @@ export class TokenAuthEndpoint extends Endpoint {
   async register(dto: TokenRegisterDto, options: EndpointMethodOptions) {
     TokenRegisterDtoSchema.parse(dto);
 
-    return this.httpService.post<SessionResponseDto>('/auth/token/register', {
-      data: dto,
-      signal: options.signal,
-    });
+    return this.httpService.post<SessionResponseDto>(
+      '/auth/password/register',
+      {
+        data: dto,
+        signal: options.signal,
+      },
+    );
   }
 
   async refresh(options: EndpointMethodOptions) {
-    return this.httpService.post<SessionResponseDto>('/auth/token/refresh', {
+    return this.httpService.post<SessionResponseDto>('/auth/password/refresh', {
       signal: options.signal,
     });
   }
 
   async logout(options: EndpointMethodOptions) {
-    return this.httpService.post<void>('/auth/token/logout', {
+    return this.httpService.post<void>('/auth/password/logout', {
       signal: options.signal,
     });
   }
