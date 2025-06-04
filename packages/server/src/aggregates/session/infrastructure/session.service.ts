@@ -15,7 +15,6 @@ export class SessionService extends SessionAbstractService {
   }
 
   async getSession(sessionId: string) {
-
     return this.sessionUnitOfWork.start(async ({ sessionRepository }) => {
       const session = await sessionRepository.findById(sessionId);
 

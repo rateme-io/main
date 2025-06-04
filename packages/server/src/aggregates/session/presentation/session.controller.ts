@@ -6,9 +6,9 @@ import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 
 import { AuthGuard } from '@/core/modules/auth';
+import { CookieService } from '@/core/modules/cookie';
 
 import { SessionAbstractService } from '../domain';
-import { CookieService } from '@/core/modules/cookie';
 
 @Controller('/session')
 export class SessionController {

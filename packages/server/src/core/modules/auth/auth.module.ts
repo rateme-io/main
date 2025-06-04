@@ -7,7 +7,10 @@ import { AuthService } from './auth.service';
 
 @Global()
 @Module({
-  imports: [forwardRef(() => PasswordAuthModule), forwardRef(() => SessionModule)],
+  imports: [
+    forwardRef(() => PasswordAuthModule),
+    forwardRef(() => SessionModule),
+  ],
   providers: [AuthService],
   exports: [AuthService],
 })

@@ -23,6 +23,10 @@ import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 
+import {
+  SessionUnitOfWork,
+  SessionUnitOfWorkContext,
+} from '@/aggregates/session/infrastructure';
 import { ConfigService } from '@/core/modules/config';
 import { CryptoService } from '@/core/modules/crypto';
 import { DateService } from '@/core/modules/date';
@@ -37,10 +41,6 @@ import {
   TokenSessionResponse,
 } from '../domain';
 import { PasswordAuthUnitOfWork } from './password-auth.unit-of-work';
-import {
-  SessionUnitOfWork,
-  SessionUnitOfWorkContext,
-} from '@/aggregates/session/infrastructure';
 
 @Injectable()
 export class PasswordAuthService extends TokenAuthAbstractService {
@@ -163,7 +163,9 @@ export class PasswordAuthService extends TokenAuthAbstractService {
 
   async refresh(command: RefreshCommand): Promise<TokenSessionResponse> {
     return this.sessionUnitOfWork.start(async (context) => {
-      const token = await context.tokenRepository.findBySessionId(command.sessionId);
+      const token = await context.tokenRepository.findBySessionId(
+        command.sessionId,
+      );
 
       if (!token) {
         throw new BadRequestException(tokenNotFoundError);

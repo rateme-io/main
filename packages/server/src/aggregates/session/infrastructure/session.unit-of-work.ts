@@ -4,10 +4,11 @@ import { DataSource, EntityManager } from 'typeorm';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
 import { SessionAbstractRepository } from '@/entities/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
-import { TokenAbstractRepository } from '../domain';
-import { TokenRepository } from './repositories';
 import { UserAbstractRepository } from '@/entities/user/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
+
+import { TokenAbstractRepository } from '../domain';
+import { TokenRepository } from './repositories';
 
 export interface SessionUnitOfWorkContext {
   sessionRepository: SessionAbstractRepository;
@@ -27,7 +28,10 @@ export class SessionUnitOfWork extends TypeormUnitOfWork<SessionUnitOfWorkContex
       entityManager,
       userRepository,
     );
-    const tokenRepository = new TokenRepository(entityManager, sessionRepository);
+    const tokenRepository = new TokenRepository(
+      entityManager,
+      sessionRepository,
+    );
 
     return {
       sessionRepository,

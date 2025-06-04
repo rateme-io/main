@@ -7,8 +7,8 @@ import {
 import { Request } from 'express';
 
 import { TokenAuthAbstractService } from '@/aggregates/password-auth/domain';
-import { CookieService } from '@/core/modules/cookie';
 import { SessionAbstractService } from '@/aggregates/session/domain';
+import { CookieService } from '@/core/modules/cookie';
 
 @Injectable()
 export class AuthService {
