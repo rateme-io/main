@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { CollectionModule } from '@/aggregates/collection/infrastructure';
 import { PasswordAuthModule } from '@/aggregates/password-auth/infrastructure';
@@ -16,10 +14,6 @@ import { JsonSchemaModule } from '@/core/modules/json-schema';
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 5,
-    }),
     // auth
     AuthModule,
     PasswordAuthModule,
@@ -34,12 +28,6 @@ import { JsonSchemaModule } from '@/core/modules/json-schema';
     CollectionModule,
     RatingSystemModule,
     SessionModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
   ],
 })
 export class AppModule {}
