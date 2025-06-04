@@ -28,11 +28,16 @@ export class CookieService {
     response.cookie(ACCESS_TOKEN_COOKIE_NAME, token, {
       httpOnly: true,
       secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
     });
   }
 
   clearAccessToken(response: Response) {
-    response.clearCookie(ACCESS_TOKEN_COOKIE_NAME);
+    response.clearCookie(ACCESS_TOKEN_COOKIE_NAME, {
+      httpOnly: true,
+      secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
+    });
   }
 
   getRefreshToken(request: Request) {
@@ -49,11 +54,16 @@ export class CookieService {
     response.cookie(REFRESH_TOKEN_COOKIE_NAME, token, {
       httpOnly: true,
       secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
     });
   }
 
   clearRefreshToken(response: Response) {
-    response.clearCookie(REFRESH_TOKEN_COOKIE_NAME);
+    response.clearCookie(REFRESH_TOKEN_COOKIE_NAME, {
+      httpOnly: true,
+      secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
+    });
   }
 
   getSessionId(request: Request) {
@@ -70,10 +80,15 @@ export class CookieService {
     response.cookie(SESSION_COOKIE_NAME, sessionId, {
       httpOnly: true,
       secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
     });
   }
 
   clearSessionId(response: Response) {
-    response.clearCookie(SESSION_COOKIE_NAME);
+    response.clearCookie(SESSION_COOKIE_NAME, {
+      httpOnly: true,
+      secure: !this.configService.isDevelopment,
+      sameSite: 'lax',
+    });
   }
 }
