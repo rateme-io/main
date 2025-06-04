@@ -39,12 +39,12 @@ export class BaseEntity {
     }
   }
 
-  static create(_entity: CreatEntityCommand<BaseEntity>): BaseEntity {
+  static create(_entity: CreateEntityCommand<BaseEntity>): BaseEntity {
     throw new Error('Method not implemented.');
   }
 }
 
-export type CreatEntityCommand<Entity extends BaseEntity> = Omit<
+export type CreateEntityCommand<Entity extends BaseEntity> = Omit<
   Entity,
   'id' | 'createdAt' | 'updatedAt' | 'validate'
 > &
@@ -52,7 +52,7 @@ export type CreatEntityCommand<Entity extends BaseEntity> = Omit<
 
 export const addBaseFields = <Entity extends BaseEntity>(
   entity: Entity,
-  command: CreatEntityCommand<Entity>,
+  command: CreateEntityCommand<Entity>,
 ) => {
   if (command.id) {
     entity.id = command.id;

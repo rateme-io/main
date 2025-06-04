@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 
@@ -23,7 +23,7 @@ export class RatingSystemForkEntity extends BaseEntity {
   @ZodValidator(z.string())
   forkedId: string;
 
-  static create(command: CreatEntityCommand<RatingSystemForkEntity>) {
+  static create(command: CreateEntityCommand<RatingSystemForkEntity>) {
     const entity = new RatingSystemForkEntity();
 
     entity.userId = command.userId;

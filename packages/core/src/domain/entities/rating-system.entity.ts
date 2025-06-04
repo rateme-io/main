@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 import { JsonVo } from '@/domain/value-objects/json.vo';
@@ -22,7 +22,7 @@ export class RatingSystemEntity extends BaseEntity {
 
   jsonFormula: JsonVo;
 
-  static create(command: CreatEntityCommand<RatingSystemEntity>) {
+  static create(command: CreateEntityCommand<RatingSystemEntity>) {
     const entity = new RatingSystemEntity();
 
     entity.name = command.name;

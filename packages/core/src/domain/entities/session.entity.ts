@@ -3,7 +3,7 @@ import { z } from 'zod';
 import {
   addBaseFields,
   BaseEntity,
-  CreatEntityCommand,
+  CreateEntityCommand,
 } from '@/domain/common/base.entity';
 import { ZodValidator } from '@/domain/common/zod-validator';
 
@@ -29,7 +29,7 @@ export class SessionEntity extends BaseEntity {
   @ZodValidator(z.string().optional())
   userAgent: string | null;
 
-  static create(command: CreatEntityCommand<SessionEntity>) {
+  static create(command: CreateEntityCommand<SessionEntity>) {
     const session = new SessionEntity();
 
     session.sessionId = command.sessionId;
@@ -59,7 +59,7 @@ export class TokenEntity extends BaseEntity {
 
   session: SessionEntity;
 
-  static create(command: CreatEntityCommand<TokenEntity>) {
+  static create(command: CreateEntityCommand<TokenEntity>) {
     const token = new TokenEntity();
 
     token.accessToken = command.accessToken;
