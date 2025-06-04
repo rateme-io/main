@@ -6,17 +6,15 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 
-import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
-
 import { TokenAuthAbstractService } from '@/aggregates/password-auth/domain';
 import { CookieService } from '@/core/modules/cookie';
-import { SessionAbstractRepository } from '@/entities/session/domain';
+import { SessionAbstractService } from '@/aggregates/session/domain';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(SessionAbstractRepository)
-    private readonly sessionRepository: SessionAbstractRepository,
+    @Inject(SessionAbstractService)
+    private readonly sessionService: SessionAbstractService,
     @Inject(forwardRef(() => TokenAuthAbstractService))
     private readonly tokenAuthService: TokenAuthAbstractService,
     @Inject(CookieService)
@@ -24,19 +22,7 @@ export class AuthService {
   ) {}
 
   async getSession(request: Request) {
-    const sessionId = this.cookieService.getSessionId(request);
-
-    if (!sessionId) {
-      throw new UnauthorizedException();
-    }
-
-    const session = await this.sessionRepository.findById(sessionId);
-
-    if (!session || session.status === SessionStatus.inactive) {
-      throw new UnauthorizedException();
-    }
-
-    return session;
+    return this.sessionService.getSession(request);
   }
 
   async checkSession(command: CheckSessionCommand): Promise<boolean> {
