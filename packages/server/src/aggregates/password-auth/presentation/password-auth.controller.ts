@@ -12,6 +12,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Request, Response } from 'express';
 
 import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto';
@@ -42,6 +43,7 @@ export class PasswordAuthController {
   ) {}
 
   @UsePipes(new ZodValidationPipe(TokenLoginDtoSchema))
+  @Throttle(5, 60)
   @Post('/login')
   async login(
     @Res({ passthrough: true }) response: Response,
@@ -68,6 +70,7 @@ export class PasswordAuthController {
   }
 
   @UsePipes(new ZodValidationPipe(TokenRegisterDtoSchema))
+  @Throttle(5, 60)
   @Post('/register')
   async register(
     @Res({ passthrough: true }) response: Response,
@@ -96,6 +99,7 @@ export class PasswordAuthController {
     };
   }
 
+  @Throttle(5, 60)
   @Post('/refresh')
   async refresh(
     @Req() request: Request,
@@ -125,6 +129,7 @@ export class PasswordAuthController {
   }
 
   @UseGuards(AuthGuard)
+  @Throttle(5, 60)
   @Post('/logout')
   async logout(
     @Req() request: Request,
