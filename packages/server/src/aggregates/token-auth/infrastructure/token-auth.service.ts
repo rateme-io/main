@@ -39,7 +39,7 @@ import {
 import {
   TokenAuthUnitOfWork,
   TokenAuthUnitOfWorkContext,
-} from './token-auth.unit-of-wok';
+} from './token-auth.unit-of-work';
 
 @Injectable()
 export class TokenAuthService extends TokenAuthAbstractService {
