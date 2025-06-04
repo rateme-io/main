@@ -22,7 +22,11 @@ export class AuthService {
   ) {}
 
   async getSession(request: Request) {
-    return this.sessionService.getSession(request);
+    const sessionId = this.cookieService.getSessionId(request);
+    if (!sessionId) {
+      throw new UnauthorizedException();
+    }
+    return this.sessionService.getSession(sessionId);
   }
 
   async checkSession(command: CheckSessionCommand): Promise<boolean> {
