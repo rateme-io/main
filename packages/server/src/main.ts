@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
 import { AppModule } from '@/app';
 import { ErrorsInterceptor } from '@/core/interceptors/errors.interceptor';
@@ -13,6 +14,7 @@ async function bootstrap() {
         : ['error', 'warn'],
   });
   app.use(cookieParser());
+  app.use(helmet());
   if (process.env.ENV === 'development') {
     app.useGlobalInterceptors(new LoggingInterceptor());
   }
