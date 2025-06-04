@@ -5,7 +5,8 @@ import { SessionDtoService } from '@rateme/core/domain/dtos/entities/session.dto
 import { UserDtoService } from '@rateme/core/domain/dtos/entities/user.dto';
 import { SessionResponseDto } from '@rateme/core/domain/dtos/session/session-response.dto';
 
-import { AuthGuard, AuthService } from '@/core/modules/auth';
+import { AuthGuard } from '@/core/modules/auth';
+import { CookieService } from '@/core/modules/cookie';
 
 import { SessionAbstractService } from '../domain';
 
@@ -14,14 +15,15 @@ export class SessionController {
   constructor(
     @Inject(SessionAbstractService)
     private readonly sessionService: SessionAbstractService,
-    @Inject(AuthService)
-    private readonly authService: AuthService,
+    @Inject(CookieService)
+    private readonly cookieService: CookieService,
   ) {}
 
   @UseGuards(AuthGuard)
   @Get('/me')
   async getMe(@Req() request: Request): Promise<SessionResponseDto> {
-    const session = await this.authService.getSession(request);
+    const sessionId = this.cookieService.getSessionId(request);
+    const session = await this.sessionService.getSession(sessionId!);
 
     return {
       user: UserDtoService.mapToDto(session.user),
