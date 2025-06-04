@@ -34,19 +34,19 @@ import { DateService } from '@/core/modules/date';
 import {
   CheckSessionCommand,
   LogoutCommand,
+  PasswordAuthAbstractService,
   RefreshCommand,
   RegisterCommand,
-  TokenAuthAbstractService,
   TokenLoginCommand,
   TokenSessionResponse,
 } from '../domain';
 import { PasswordAuthUnitOfWork } from './password-auth.unit-of-work';
 
 @Injectable()
-export class PasswordAuthService extends TokenAuthAbstractService {
+export class PasswordAuthService extends PasswordAuthAbstractService {
   constructor(
     @Inject(PasswordAuthUnitOfWork)
-    private readonly tokenAuthUnitOfWork: PasswordAuthUnitOfWork,
+    private readonly passwordAuthUnitOfWork: PasswordAuthUnitOfWork,
     @Inject(SessionUnitOfWork)
     private readonly sessionUnitOfWork: SessionUnitOfWork,
     @Inject(CryptoService)
@@ -60,7 +60,7 @@ export class PasswordAuthService extends TokenAuthAbstractService {
   }
 
   async login(command: TokenLoginCommand): Promise<TokenSessionResponse> {
-    return this.tokenAuthUnitOfWork.start(async (context) => {
+    return this.passwordAuthUnitOfWork.start(async (context) => {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (!user) {
@@ -96,7 +96,7 @@ export class PasswordAuthService extends TokenAuthAbstractService {
   }
 
   async register(command: RegisterCommand): Promise<TokenSessionResponse> {
-    return this.tokenAuthUnitOfWork.start(async (context) => {
+    return this.passwordAuthUnitOfWork.start(async (context) => {
       const user = await context.userRepository.findByEmail(command.email);
 
       if (user) {

@@ -30,13 +30,13 @@ import { AuthGuard } from '@/core/modules/auth';
 import { CookieService } from '@/core/modules/cookie';
 import { ZodValidationPipe } from '@/core/pipes';
 
-import { TokenAuthAbstractService } from '../domain';
+import { PasswordAuthAbstractService } from '../domain';
 
 @Controller('/auth/password')
 export class PasswordAuthController {
   constructor(
-    @Inject(TokenAuthAbstractService)
-    private readonly tokenAuthService: TokenAuthAbstractService,
+    @Inject(PasswordAuthAbstractService)
+    private readonly passwordAuthService: PasswordAuthAbstractService,
     @Inject(CookieService)
     private readonly cookieService: CookieService,
   ) {}
@@ -50,7 +50,7 @@ export class PasswordAuthController {
     @Headers('user-agent') userAgent: string,
   ): Promise<SessionResponseDto> {
     const { token, refreshToken, accessToken } =
-      await this.tokenAuthService.login({
+      await this.passwordAuthService.login({
         email: body.email,
         password: body.password,
         ipAddress,
@@ -77,7 +77,7 @@ export class PasswordAuthController {
     @Headers('user-agent') userAgent: string,
   ): Promise<SessionResponseDto> {
     const { token, refreshToken, accessToken } =
-      await this.tokenAuthService.register({
+      await this.passwordAuthService.register({
         email: body.email,
         password: body.password,
         name: body.name,
@@ -109,7 +109,7 @@ export class PasswordAuthController {
     }
 
     const { token, refreshToken, accessToken } =
-      await this.tokenAuthService.refresh({
+      await this.passwordAuthService.refresh({
         refreshToken: usersRefreshToken,
         sessionId,
       });
@@ -136,7 +136,7 @@ export class PasswordAuthController {
       throw new UnauthorizedException();
     }
 
-    await this.tokenAuthService.logout({
+    await this.passwordAuthService.logout({
       sessionId,
     });
 
