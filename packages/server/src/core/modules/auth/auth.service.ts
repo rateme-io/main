@@ -8,7 +8,7 @@ import { Request } from 'express';
 
 import { SessionStatus } from '@rateme/core/domain/entities/session.entity';
 
-import { TokenAuthAbstractService } from '@/aggregates/token-auth/domain';
+import { TokenAuthAbstractService } from '@/aggregates/password-auth/domain';
 import { CookieService } from '@/core/modules/cookie';
 import { SessionAbstractRepository } from '@/entities/session/domain';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 
-import { PasswordAbstractRepository } from '@/aggregates/token-auth/domain';
+import { PasswordAbstractRepository } from '@/aggregates/password-auth/domain';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
 import { SessionAbstractRepository } from '@/entities/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
@@ -10,19 +10,19 @@ import { UserRepository } from '@/entities/user/infrastructure';
 
 import { PasswordRepository } from './repositories';
 
-export interface TokenAuthUnitOfWorkContext {
+export interface PasswordAuthUnitOfWorkContext {
   userRepository: UserAbstractRepository;
   passwordRepository: PasswordAbstractRepository;
   sessionRepository: SessionAbstractRepository;
 }
 
 @Injectable()
-export class TokenAuthUnitOfWork extends TypeormUnitOfWork<TokenAuthUnitOfWorkContext> {
+export class PasswordAuthUnitOfWork extends TypeormUnitOfWork<PasswordAuthUnitOfWorkContext> {
   constructor(dataSource: DataSource) {
     super(dataSource);
   }
 
-  createContext(entityManager: EntityManager): TokenAuthUnitOfWorkContext {
+  createContext(entityManager: EntityManager): PasswordAuthUnitOfWorkContext {
     const userRepository = new UserRepository(entityManager);
     const sessionRepository = new SessionRepository(
       entityManager,

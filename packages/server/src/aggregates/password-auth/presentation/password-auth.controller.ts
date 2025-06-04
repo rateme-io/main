@@ -32,8 +32,8 @@ import { ZodValidationPipe } from '@/core/pipes';
 
 import { TokenAuthAbstractService } from '../domain';
 
-@Controller('/auth/token')
-export class TokenAuthController {
+@Controller('/auth/password')
+export class PasswordAuthController {
   constructor(
     @Inject(TokenAuthAbstractService)
     private readonly tokenAuthService: TokenAuthAbstractService,

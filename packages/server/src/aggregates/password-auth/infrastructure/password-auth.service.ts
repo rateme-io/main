@@ -36,17 +36,17 @@ import {
   TokenLoginCommand,
   TokenSessionResponse,
 } from '../domain';
-import { TokenAuthUnitOfWork } from './token-auth.unit-of-work';
+import { PasswordAuthUnitOfWork } from './password-auth.unit-of-work';
 import {
   SessionUnitOfWork,
   SessionUnitOfWorkContext,
 } from '@/aggregates/session/infrastructure';
 
 @Injectable()
-export class TokenAuthService extends TokenAuthAbstractService {
+export class PasswordAuthService extends TokenAuthAbstractService {
   constructor(
-    @Inject(TokenAuthUnitOfWork)
-    private readonly tokenAuthUnitOfWork: TokenAuthUnitOfWork,
+    @Inject(PasswordAuthUnitOfWork)
+    private readonly tokenAuthUnitOfWork: PasswordAuthUnitOfWork,
     @Inject(SessionUnitOfWork)
     private readonly sessionUnitOfWork: SessionUnitOfWork,
     @Inject(CryptoService)

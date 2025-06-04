@@ -1,0 +1,20 @@
+import { Module } from '@nestjs/common';
+
+import { TokenAuthAbstractService } from '@/aggregates/password-auth/domain';
+import { PasswordAuthController } from '@/aggregates/password-auth/presentation';
+import { EntityModule } from '@/core/modules/module-config';
+
+import { PasswordAuthService } from './password-auth.service';
+import { PasswordAuthUnitOfWork } from './password-auth.unit-of-work';
+import { SessionUnitOfWork } from '@/aggregates/session/infrastructure';
+
+@Module(
+  EntityModule.config({
+    controllers: [PasswordAuthController],
+    providers: [PasswordAuthUnitOfWork, SessionUnitOfWork],
+    services: [
+      { abstract: TokenAuthAbstractService, realisation: PasswordAuthService },
+    ],
+  }),
+)
+export class PasswordAuthModule {}

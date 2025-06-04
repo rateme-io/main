@@ -3,7 +3,7 @@ import { EntityManager, Repository } from 'typeorm';
 import { PasswordEntity } from '@rateme/core/domain/entities/password.entity';
 import { PasswordVo } from '@rateme/core/domain/value-objects/password.vo';
 
-import { PasswordAbstractRepository } from '@/aggregates/token-auth/domain';
+import { PasswordAbstractRepository } from '@/aggregates/password-auth/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
 
 import { PasswordRepositoryEntity } from '../entities';
