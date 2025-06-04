@@ -13,7 +13,7 @@ import { LogoUrlVo } from '@rateme/core/domain/value-objects/logo-url.vo';
 import { NameVo } from '@rateme/core/domain/value-objects/name.vo';
 import { UsernameVo } from '@rateme/core/domain/value-objects/username.vo';
 
-import { sessionApi, tokenAuthApi } from './api.ts';
+import { passwordAuthApi, sessionApi } from './api.ts';
 
 export const $safeSession = atom<SessionEntity | null>(null, '$safeSession');
 
@@ -29,9 +29,9 @@ export const $session = atom((ctx) => {
 
 export const loginAction = reatomAsync(async (ctx, command: LoginCommand) => {
   switch (command.type) {
-    case 'token': {
+    case 'password': {
       const result = await ctx.schedule(() =>
-        tokenAuthApi.login(ctx, command.dto),
+        passwordAuthApi.login(ctx, command.dto),
       );
 
       if (result.data) {
@@ -44,16 +44,16 @@ export const loginAction = reatomAsync(async (ctx, command: LoginCommand) => {
 }, 'loginAction');
 
 export type LoginCommand = {
-  type: 'token';
+  type: 'password';
   dto: TokenLoginDto;
 };
 
 export const registerAction = reatomAsync(
   async (ctx, command: RegisterCommand) => {
     switch (command.type) {
-      case 'token': {
+      case 'password': {
         const result = await ctx.schedule(() =>
-          tokenAuthApi.register(ctx, command.dto),
+          passwordAuthApi.register(ctx, command.dto),
         );
 
         if (result.data) {
@@ -68,7 +68,7 @@ export const registerAction = reatomAsync(
 );
 
 export type RegisterCommand = {
-  type: 'token';
+  type: 'password';
   dto: TokenRegisterDto;
 };
 
@@ -84,7 +84,7 @@ export const loadMeAction = reatomAsync(async (ctx) => {
   }
 
   const tokenRefreshResult = await ctx.schedule((ctx) =>
-    tokenAuthApi.refresh(ctx),
+    passwordAuthApi.refresh(ctx),
   );
 
   if (tokenRefreshResult.data) {
@@ -101,7 +101,7 @@ export const loadMeAction = reatomAsync(async (ctx) => {
 export const logoutAction = action(async (ctx) => {
   document.cookie = '';
 
-  await ctx.schedule((ctx) => tokenAuthApi.logout(ctx));
+  await ctx.schedule((ctx) => passwordAuthApi.logout(ctx));
 
   await ctx.schedule((ctx) => {
     $safeSession(ctx, null);

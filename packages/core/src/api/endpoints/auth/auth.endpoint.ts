@@ -1,13 +1,13 @@
 import { Endpoint, EndpointConfig } from '@/api/common/endpoint';
 
-import { TokenAuthEndpoint } from './token-auth.endpoint';
+import { PasswordAuthEndpoint } from './password-auth.endpoint';
 
 export class AuthEndpoint extends Endpoint {
-  readonly token: TokenAuthEndpoint;
+  readonly password: PasswordAuthEndpoint;
 
   constructor(config: EndpointConfig) {
     super(config);
 
-    this.token = new TokenAuthEndpoint(config);
+    this.password = new PasswordAuthEndpoint(config);
   }
 }
