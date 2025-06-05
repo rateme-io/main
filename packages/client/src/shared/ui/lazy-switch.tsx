@@ -22,18 +22,23 @@ export const createLazySwitch = <
   const lazyComponents: Record<
     keyof T,
     PreloadableComponent<ComponentType<object>>
-  > = Object.entries(mapping).reduce((result, [key, value]) => {
-    result[key as keyof T] = lazyWithPreload(value);
+  > = Object.entries(mapping).reduce(
+    (result, [key, value]) => {
+      result[key as keyof T] = lazyWithPreload(value);
 
-    return result;
-  }, {});
+      return result;
+    },
+    {} as Record<keyof T, PreloadableComponent<ComponentType<object>>>,
+  );
 
   if (defaultKey) {
     lazyComponents[defaultKey].preload();
   }
 
   return function LazySwitch({ id }: { id: keyof T }) {
-    const Component = lazyComponents[id];
+    const Component = lazyComponents[id] as PreloadableComponent<
+      ComponentType<object>
+    >;
 
     return <Component />;
   };

@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 
+import { CryptoService } from '@/core/modules/crypto';
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
 import { SessionAbstractRepository } from '@/entities/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
 import { UserAbstractRepository } from '@/entities/user/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
-import { CryptoService } from '@/core/modules/crypto';
 
 import { TokenAbstractRepository } from '../domain';
 import { TokenRepository } from './repositories';
