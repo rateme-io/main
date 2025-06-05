@@ -13,7 +13,10 @@ import { PasswordAuthUnitOfWork } from './password-auth.unit-of-work';
     controllers: [PasswordAuthController],
     providers: [PasswordAuthUnitOfWork, SessionUnitOfWork],
     services: [
-      { abstract: PasswordAuthAbstractService, realisation: PasswordAuthService },
+      {
+        abstract: PasswordAuthAbstractService,
+        realisation: PasswordAuthService,
+      },
     ],
   }),
 )

@@ -1,19 +1,18 @@
-import { lazy } from 'react';
-
 import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
+import { createLazySwitch } from '@/shared/ui/lazy-switch.tsx';
 import { reatomMemo } from '@/shared/ui/reatom-memo.ts';
 import { ResponsiveContainer } from '@/shared/ui/responsive-container.tsx';
 
-const SmallSearch = lazy(() =>
-  import('./ui/small.tsx').then((module) => ({
-    default: module.SmallSearch,
-  })),
-);
-const BigSearch = lazy(() =>
-  import('./ui/big.tsx').then((module) => ({
-    default: module.BigSearch,
-  })),
-);
+const ResponsiveSearch = createLazySwitch({
+  small: () =>
+    import('./ui/small.tsx').then((module) => ({
+      default: module.SmallSearch,
+    })),
+  big: () =>
+    import('./ui/big.tsx').then((module) => ({
+      default: module.BigSearch,
+    })),
+});
 
 export const Search = reatomMemo(() => {
   const breakpoint = useBreakpoint();
@@ -25,13 +24,13 @@ export const Search = reatomMemo(() => {
           maxWidth="300px"
           containerProps={{ maxWidth: 'lg' }}
         >
-          <BigSearch />
+          <ResponsiveSearch id={'big'} />
         </ResponsiveContainer>
         <ResponsiveContainer
           minWidth="300px"
           containerProps={{ maxWidth: 'lg' }}
         >
-          <SmallSearch />
+          <ResponsiveSearch id={'small'} />
         </ResponsiveContainer>
       </>
     );
@@ -40,10 +39,10 @@ export const Search = reatomMemo(() => {
   return (
     <>
       <ResponsiveContainer maxWidth="800px" containerProps={{ maxWidth: 'lg' }}>
-        <BigSearch />
+        <ResponsiveSearch id={'big'} />
       </ResponsiveContainer>
       <ResponsiveContainer minWidth="800px" containerProps={{ maxWidth: 'lg' }}>
-        <SmallSearch />
+        <ResponsiveSearch id={'small'} />
       </ResponsiveContainer>
     </>
   );
