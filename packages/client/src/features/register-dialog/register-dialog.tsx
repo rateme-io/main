@@ -1,25 +1,12 @@
-import { FunctionComponent, lazy } from 'react';
+import { createLazyBreakpointsSwitch } from '@/shared/ui/lazy-breakpoints-switch.tsx';
 
-import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
-
-const MobileRegisterDialog = lazy(() =>
-  import('./ui/mobile.tsx').then((module) => ({
-    default: module.MobileRegisterDialog,
-  })),
-);
-const DesktopRegisterDialog = lazy(() =>
-  import('./ui/desktop.tsx').then((module) => ({
-    default: module.DesktopRegisterDialog,
-  })),
-);
-
-export const RegisterDialog: FunctionComponent = (props) => {
-  const breakpoint = useBreakpoint();
-
-  switch (breakpoint) {
-    case 'mobile':
-      return <MobileRegisterDialog {...props} />;
-    case 'desktop':
-      return <DesktopRegisterDialog {...props} />;
-  }
-};
+export const RegisterDialog = createLazyBreakpointsSwitch({
+  desktop: () =>
+    import('./ui/desktop.tsx').then((module) => ({
+      default: module.DesktopRegisterDialog,
+    })),
+  mobile: () =>
+    import('./ui/mobile.tsx').then((module) => ({
+      default: module.MobileRegisterDialog,
+    })),
+});

@@ -14,3 +14,13 @@ export const useBreakpoint = (): Breakpoints => {
 };
 
 export type Breakpoints = 'mobile' | 'desktop';
+
+export const matchBreakpoint = (): Breakpoints => {
+  const isGreaterThen900 = window.matchMedia('(min-width: 900px)');
+
+  if (isGreaterThen900.matches) {
+    return 'desktop';
+  }
+
+  return 'mobile';
+}

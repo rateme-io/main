@@ -1,25 +1,12 @@
-import { FunctionComponent, lazy } from 'react';
+import { createLazyBreakpointsSwitch } from '@/shared/ui/lazy-breakpoints-switch.tsx';
 
-import { useBreakpoint } from '@/shared/hooks/use-breakpoint.ts';
-
-const MobileAvatar = lazy(() =>
-  import('./ui/mobile.tsx').then((module) => ({
-    default: module.MobileAvatar,
-  })),
-);
-const DesktopAvatar = lazy(() =>
-  import('./ui/desktop.tsx').then((module) => ({
-    default: module.DesktopAvatar,
-  })),
-);
-
-export const Avatar: FunctionComponent = () => {
-  const breakpoint = useBreakpoint();
-
-  switch (breakpoint) {
-    case 'desktop':
-      return <DesktopAvatar />;
-    case 'mobile':
-      return <MobileAvatar />;
-  }
-};
+export const Avatar = createLazyBreakpointsSwitch({
+  desktop: () =>
+    import('./ui/desktop.tsx').then((module) => ({
+      default: module.DesktopAvatar,
+    })),
+  mobile: () =>
+    import('./ui/mobile.tsx').then((module) => ({
+      default: module.MobileAvatar,
+    })),
+});

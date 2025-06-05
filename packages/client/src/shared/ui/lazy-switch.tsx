@@ -1,32 +1,40 @@
+import { ComponentType, FunctionComponent } from 'react';
+
 import {
-  useEffect,
-  FunctionComponent,
-  ComponentType,
-  LazyExoticComponent,
-} from 'react';
+  lazyWithPreload,
+  PreloadableComponent,
+} from '@/shared/ui/lazy-with-preload.ts';
 
 /**
  * Utility to create a lazy component switcher.
  *
- * `mapping` - object where keys are identifiers and values are lazy-loaded
- * components created via `React.lazy`.
- * `defaultKey` - identifier of the component that should be preloaded.
+ * @param mapping - Object where keys are identifiers and values are dynamic import functions
+ * that return a Promise resolving to a component.
+ * @param defaultKey - Identifier of the component that should be preloaded immediately.
+ * @returns A React component that accepts an `id` prop to switch between lazy-loaded components.
  */
 export const createLazySwitch = <
-  P = Record<string, never>,
-  T extends Record<string, LazyExoticComponent<ComponentType<P>>> = Record<
-    string,
-    LazyExoticComponent<ComponentType<P>>
-  >,
->(mapping: T): FunctionComponent<{ id: keyof T; defaultKey: keyof T } & P> => {
+  T extends Record<string, () => Promise<{ default: ComponentType<object> }>>,
+>(
+  mapping: T,
+  defaultKey?: keyof T,
+): FunctionComponent<{ id: keyof T }> => {
+  const lazyComponents: Record<
+    keyof T,
+    PreloadableComponent<ComponentType<object>>
+  > = Object.entries(mapping).reduce((result, [key, value]) => {
+    result[key as keyof T] = lazyWithPreload(value);
 
-  return function LazySwitch({ id, defaultKey, ...rest }: { id: keyof T; defaultKey: keyof T } & P) {
-    useEffect(() => {
-      (mapping[defaultKey] as any)?.preload?.();
-    }, [defaultKey]);
+    return result;
+  }, {});
 
-    const Component = mapping[id];
+  if (defaultKey) {
+    lazyComponents[defaultKey].preload();
+  }
 
-    return <Component {...(rest as any)} />;
+  return function LazySwitch({ id }: { id: keyof T }) {
+    const Component = lazyComponents[id];
+
+    return <Component />;
   };
 };
