@@ -4,6 +4,7 @@ import { TokenEntity } from '@rateme/core/domain/entities/session.entity';
 
 import { TokenAbstractRepository } from '@/aggregates/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
+import { CryptoService } from '@/core/modules/crypto';
 
 import { TokenRepositoryEntity } from '../entities';
 
@@ -13,6 +14,7 @@ export class TokenRepository extends TokenAbstractRepository {
   constructor(
     private readonly entityManager: EntityManager,
     private readonly sessionRepository: SessionRepository,
+    private readonly cryptoService: CryptoService,
   ) {
     super();
 
@@ -20,8 +22,9 @@ export class TokenRepository extends TokenAbstractRepository {
   }
 
   async findByAccessToken(token: string): Promise<TokenEntity | null> {
+    const hashed = await this.cryptoService.hash(token, true);
     const tokenEntity = await this.tokenEntity.findOne({
-      where: { accessToken: token },
+      where: { accessToken: hashed },
       relations: ['session', 'session.user'],
     });
 
@@ -70,8 +73,9 @@ export class TokenRepository extends TokenAbstractRepository {
   }
 
   async findByRefreshToken(token: string): Promise<TokenEntity | null> {
+    const hashed = await this.cryptoService.hash(token, true);
     const tokenEntity = await this.tokenEntity.findOne({
-      where: { refreshToken: token },
+      where: { refreshToken: hashed },
       relations: ['session', 'session.user'],
     });
 

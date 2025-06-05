@@ -171,13 +171,8 @@ export class PasswordAuthService extends PasswordAuthAbstractService {
         throw new BadRequestException(tokenNotFoundError);
       }
 
-      if (
-        command.refreshToken !==
-        this.cryptoService.decrypt(
-          token.refreshToken,
-          this.configService.auth.encryptionKey,
-        )
-      ) {
+      const hashed = await this.cryptoService.hash(command.refreshToken, true);
+      if (hashed !== token.refreshToken) {
         throw new BadRequestException(invalidTokenError);
       }
 
@@ -206,12 +201,8 @@ export class PasswordAuthService extends PasswordAuthAbstractService {
         throw new BadRequestException(tokenNotFoundError);
       }
 
-      const decrypted = this.cryptoService.decrypt(
-        token.accessToken,
-        this.configService.auth.encryptionKey,
-      );
-
-      if (command.accessToken !== decrypted) {
+      const hashed = await this.cryptoService.hash(command.accessToken, true);
+      if (hashed !== token.accessToken) {
         throw new BadRequestException(invalidTokenError);
       }
 
@@ -255,14 +246,8 @@ export class PasswordAuthService extends PasswordAuthAbstractService {
     const refreshToken = this.cryptoService.generateHash();
 
     const tokenEntity = TokenEntity.create({
-      accessToken: this.cryptoService.encrypt(
-        accessToken,
-        this.configService.auth.encryptionKey,
-      ),
-      refreshToken: this.cryptoService.encrypt(
-        refreshToken,
-        this.configService.auth.encryptionKey,
-      ),
+      accessToken: await this.cryptoService.hash(accessToken, true),
+      refreshToken: await this.cryptoService.hash(refreshToken, true),
       session: command.session,
       accessTokenExpiresAt: this.dateService.addMinutes(
         new Date(),
