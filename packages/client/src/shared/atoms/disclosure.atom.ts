@@ -14,7 +14,7 @@ export const disclosureAtom = ({
     open: action((ctx) => $isOpened(ctx, true), `${name}.open`),
     close: action((ctx) => $isOpened(ctx, false), `${name}.close`),
     toggle: action(
-      (ctx) => $isOpened(ctx, ctx.get($isOpened)),
+      (ctx, isOpened?: boolean) => $isOpened(ctx, isOpened ?? !ctx.get($isOpened)),
       `${name}.toggle`,
     ),
   };

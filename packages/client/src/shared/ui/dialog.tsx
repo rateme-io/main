@@ -55,8 +55,9 @@ export const Dialog = reatomMemo<DialogProps>(
         onOpenChange={({ open }) => {
           if (!open) {
             onClose?.();
-            disclosure.close(ctx);
           }
+
+          disclosure.toggle(ctx, open);
         }}
         initialFocusEl={initialFocusEl}
         size={size}
@@ -113,7 +114,7 @@ const Footer: FunctionComponent<{
     <>
       {cancelLabel && (
         <DialogActionTrigger asChild>
-          <Button variant="outline">cancelLabel</Button>
+          <Button variant="outline">{cancelLabel}</Button>
         </DialogActionTrigger>
       )}
       {submitLabel && (
