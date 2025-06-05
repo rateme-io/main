@@ -45,13 +45,15 @@ export const CollectionItem = reatomMemo<CollectionItemProps>(
         <GridItem gridArea={'fields'}>
           <Box asChild>
             <table>
-              {children.map((node) => (
-                <node.field.preview.ui.Preview
-                  key={node.id}
-                  builderState={node.builder.state}
-                  previewState={node.preview.state}
-                />
-              ))}
+              <tbody>
+                {children.map((node) => (
+                  <node.field.preview.ui.Preview
+                    key={node.id}
+                    builderState={node.builder.state}
+                    previewState={node.preview.state}
+                  />
+                ))}
+              </tbody>
             </table>
           </Box>
         </GridItem>
