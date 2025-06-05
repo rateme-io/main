@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 
 import { TypeormUnitOfWork } from '@/core/unit-of-work';
@@ -6,6 +6,7 @@ import { SessionAbstractRepository } from '@/entities/session/domain';
 import { SessionRepository } from '@/entities/session/infrastructure';
 import { UserAbstractRepository } from '@/entities/user/domain';
 import { UserRepository } from '@/entities/user/infrastructure';
+import { CryptoService } from '@/core/modules/crypto';
 
 import { TokenAbstractRepository } from '../domain';
 import { TokenRepository } from './repositories';
@@ -18,7 +19,10 @@ export interface SessionUnitOfWorkContext {
 
 @Injectable()
 export class SessionUnitOfWork extends TypeormUnitOfWork<SessionUnitOfWorkContext> {
-  constructor(dataSource: DataSource) {
+  constructor(
+    dataSource: DataSource,
+    @Inject(CryptoService) private readonly cryptoService: CryptoService,
+  ) {
     super(dataSource);
   }
 
@@ -31,6 +35,7 @@ export class SessionUnitOfWork extends TypeormUnitOfWork<SessionUnitOfWorkContex
     const tokenRepository = new TokenRepository(
       entityManager,
       sessionRepository,
+      this.cryptoService,
     );
 
     return {

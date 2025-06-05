@@ -4,6 +4,7 @@ import {
   createCipheriv,
   createDecipheriv,
   createHash,
+  createHmac,
   randomBytes,
 } from 'crypto';
 
@@ -15,7 +16,15 @@ const IV_LENGTH = 16;
 export class CryptoService {
   constructor(private readonly configService: ConfigService) {}
 
-  hash(source: string) {
+  hash(source: string, deterministic = false) {
+    if (deterministic) {
+      return Promise.resolve(
+        createHmac('sha256', this.configService.auth.encryptionKey)
+          .update(source)
+          .digest('hex'),
+      );
+    }
+
     return argon2.hash(source);
   }
 
